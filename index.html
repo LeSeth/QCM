@@ -49,11 +49,12 @@
             margin: 0 auto;
         }
 
-        /* Nouveau bouton de téléchargement dans le hero */
+        /* Bouton de téléchargement dans le hero */
         .btn-download {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            justify-content: center;
+            gap: 10px;
             background: #f4c542;
             color: #1e2f3a;
             padding: 0.7rem 1.8rem;
@@ -69,10 +70,6 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 18px rgba(0,0,0,0.2);
             background: #ffcf6e;
-        }
-        .btn-download img {
-            width: 28px;
-            height: 28px;
         }
 
         /* quiz card */
@@ -313,10 +310,8 @@
             font-weight: 500;
             margin-top: 0.6rem;
         }
-        .footer-download img {
-            width: 22px;
-            height: 22px;
-            filter: brightness(0) invert(1);
+        .footer-download:hover {
+            background: #2a7a4a;
         }
 
         @media (max-width: 680px) {
@@ -338,8 +333,7 @@
         <h1>📋 Faso Concours Challenge</h1>
         <p>Testez vos connaissances générales, culture, sciences et histoire</p>
         <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="btn-download">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Download on Google Play" style="width:26px; background:white; border-radius:8px;">
-            Télécharger l'application Faso Concours
+            📱 Télécharger l'application Faso Concours
         </a>
     </div>
 
@@ -566,7 +560,6 @@
         else msg = '💪 Entraînez-vous davantage avec l\'application Faso Concours !';
         feedbackMsg.innerText = msg;
         
-        // Préparer le corrigé (mais caché)
         corrigeDetailsDiv.innerHTML = buildCorrigeHTML();
         
         resultPanel.classList.add('show');
@@ -577,7 +570,6 @@
         finalSubmitBtn.disabled = true;
     }
     
-    // Afficher/masquer corrigé
     showCorrigeBtn.addEventListener('click', () => {
         if (corrigeDetailsDiv.style.display === 'none' || corrigeDetailsDiv.style.display === '') {
             corrigeDetailsDiv.style.display = 'block';
