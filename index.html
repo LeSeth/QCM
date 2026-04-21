@@ -5,417 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Faso Concours - Préparez vos examens</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: linear-gradient(145deg, #eef2f7 0%, #d9e2ec 100%);
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 0;
-            color: #1a2c3e;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 1rem;
-        }
-
-        /* BANNIÈRE HAUT DE PAGE TRÈS VISIBLE */
-        .top-banner {
-            background: #ff6b35;
-            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            color: white;
-            text-align: center;
-            padding: 12px 16px;
-            font-weight: bold;
-            font-size: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .top-banner a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .top-banner .badge {
-            background: #ffffff30;
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-        }
-
-        /* header / hero */
-        .hero {
-            background: #0b2b3b;
-            background-image: radial-gradient(circle at 10% 20%, #124c5e, #06212e);
-            border-radius: 2rem;
-            padding: 2rem 1.5rem;
-            margin: 1rem 0 1.5rem 0;
-            text-align: center;
-            color: white;
-            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.25);
-            position: relative;
-            overflow: hidden;
-        }
-        .hero::before {
-            content: "📱";
-            font-size: 100px;
-            position: absolute;
-            right: -20px;
-            bottom: -30px;
-            opacity: 0.1;
-        }
-
-        .hero h1 {
-            font-size: 1.8rem;
-            letter-spacing: -0.5px;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .hero p {
-            font-size: 1rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* GROS BOUTON DE TÉLÉCHARGEMENT DANS LE HERO */
-        .btn-download-large {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            background: #f4c542;
-            color: #1e2f3a;
-            padding: 14px 28px;
-            border-radius: 60px;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-top: 1.5rem;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
-            border: none;
-            width: 100%;
-            max-width: 320px;
-        }
-        .btn-download-large:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            background: #ffcf6e;
-        }
-
-        /* BOUTON FLOTTANT (reste visible pendant le QCM) */
-        .floating-download {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #2b7a3e;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 50px;
-            font-weight: bold;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            z-index: 99;
-            transition: transform 0.2s;
-            font-size: 0.9rem;
-        }
-        .floating-download:hover {
-            transform: scale(1.05);
-            background: #1f5e3a;
-        }
-        @media (max-width: 600px) {
-            .floating-download {
-                padding: 10px 16px;
-                font-size: 0.8rem;
-                right: 10px;
-                bottom: 10px;
-            }
-        }
-
-        /* quiz card */
-        .quiz-card {
-            background: white;
-            border-radius: 2rem;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
-            overflow: hidden;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .progress-area {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid #e9edf2;
-            padding-bottom: 0.8rem;
-        }
-
-        .question-counter {
-            font-weight: 600;
-            background: #eef2fa;
-            padding: 0.3rem 1rem;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            color: #1f6392;
-        }
-
-        .score-preview {
-            font-size: 0.85rem;
-            background: #f0f4f9;
-            padding: 0.3rem 1rem;
-            border-radius: 30px;
-            font-weight: 500;
-        }
-
-        .question-text {
-            font-size: 1.3rem;
-            font-weight: 600;
-            line-height: 1.3;
-            margin-bottom: 1.5rem;
-            color: #0f2f40;
-        }
-
-        .answers-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .answer-option {
-            background: #f8fafd;
-            border: 2px solid #e2e8f0;
-            border-radius: 1.2rem;
-            padding: 0.8rem 1.2rem;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .answer-option:hover {
-            background: #eef3fc;
-            border-color: #8bb3d4;
-            transform: translateX(5px);
-        }
-
-        .answer-option.selected {
-            background: #e1f0fe;
-            border-color: #2c7cb6;
-        }
-
-        .answer-prefix {
-            font-weight: 800;
-            background: #cbdde9;
-            width: 30px;
-            height: 30px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 60px;
-            margin-right: 1rem;
-            color: #1e3b4a;
-        }
-
-        .selected .answer-prefix {
-            background: #2c7cb6;
-            color: white;
-        }
-
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            gap: 1rem;
-        }
-
-        button {
-            background: #eef2f7;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            font-family: inherit;
-            color: #1f4e6e;
-        }
-
-        button.primary {
-            background: #1c6e8f;
-            color: white;
-        }
-
-        button.primary:hover {
-            background: #0f5877;
-        }
-
-        .submit-area {
-            margin-top: 1.5rem;
-            text-align: center;
-            border-top: 1px solid #e2edf2;
-            padding-top: 1.5rem;
-        }
-
-        .btn-submit-final {
-            background: #2b7a3e;
-            color: white;
-            font-size: 1.1rem;
-            padding: 0.8rem 1.5rem;
-            border-radius: 60px;
-            font-weight: bold;
-        }
-
-        /* ENCART PROMO APRÈS LE QCM */
-        .promo-card {
-            background: linear-gradient(135deg, #fef3c7, #fde68a);
-            border-radius: 1.5rem;
-            padding: 1rem;
-            margin: 1rem 0;
-            text-align: center;
-            border: 2px solid #f59e0b;
-        }
-        .promo-card p {
-            margin-bottom: 0.8rem;
-            font-weight: bold;
-            color: #92400e;
-        }
-        .promo-card .small-btn {
-            background: #f59e0b;
-            padding: 8px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .result-panel {
-            margin-top: 1.5rem;
-            background: #eef6e9;
-            border-radius: 1.5rem;
-            padding: 1.2rem;
-            text-align: center;
-            display: none;
-            border-left: 8px solid #2b7a3e;
-        }
-
-        .result-panel.show {
-            display: block;
-        }
-
-        .corrige-detail {
-            margin-top: 1rem;
-            background: #fef7e0;
-            border-radius: 1rem;
-            padding: 1rem;
-            text-align: left;
-            max-height: 350px;
-            overflow-y: auto;
-        }
-        .corrige-item {
-            border-bottom: 1px solid #f0e0b0;
-            padding: 0.6rem 0;
-            font-size: 0.8rem;
-        }
-        .final-score {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #1f5e3a;
-        }
-
-        .reset-btn {
-            margin-top: 1rem;
-            background: #334e68;
-            color: white;
-        }
-        .toggle-corrige-btn {
-            background: #e0b354;
-            color: #2c2b26;
-            margin-top: 0.8rem;
-        }
-
-        footer {
-            margin-top: 1.5rem;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #4b6a7f;
-            background: #ffffffcc;
-            padding: 0.8rem;
-            border-radius: 1.5rem;
-        }
-        .footer-download {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #1f5e3a;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 500;
-            margin-top: 8px;
-        }
-
-        @media (max-width: 680px) {
-            .hero h1 { font-size: 1.4rem; }
-            .btn-download-large { font-size: 1rem; padding: 12px 20px; }
-            .question-text { font-size: 1.1rem; }
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:linear-gradient(145deg,#eef2f7 0%,#d9e2ec 100%);font-family:'Segoe UI',Roboto,'Helvetica Neue',sans-serif;padding:0;color:#1a2c3e}
+        .container{max-width:1100px;margin:0 auto;padding:1rem}
+        .top-banner{background:linear-gradient(135deg,#ff6b35 0%,#f7931e 100%);color:white;text-align:center;padding:12px 16px;font-weight:bold;font-size:1rem;position:sticky;top:0;z-index:100;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+        .top-banner a{color:white;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px}
+        .top-banner img{width:28px;height:28px;border-radius:8px}
+        .hero{background:#0b2b3b;background-image:radial-gradient(circle at 10% 20%,#124c5e,#06212e);border-radius:2rem;padding:2rem 1.5rem;margin:1rem 0 1.5rem 0;text-align:center;color:white;box-shadow:0 20px 30px -12px rgba(0,0,0,.25)}
+        .hero-logo{width:90px;height:90px;border-radius:20px;margin-bottom:1rem;box-shadow:0 4px 15px rgba(0,0,0,.4)}
+        .hero h1{font-size:1.8rem;letter-spacing:-.5px;font-weight:700;margin-bottom:.5rem}
+        .hero p{font-size:1rem;opacity:.9;max-width:600px;margin:0 auto}
+        .btn-download-large{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#f4c542;color:#1e2f3a;padding:14px 28px;border-radius:60px;font-weight:bold;font-size:1.2rem;margin-top:1.5rem;text-decoration:none;transition:all .3s ease;box-shadow:0 6px 14px rgba(0,0,0,.25);width:100%;max-width:340px}
+        .btn-download-large:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,.3);background:#ffcf6e}
+        .btn-download-large img{width:28px;height:28px;border-radius:6px}
+        .floating-download{position:fixed;bottom:20px;right:20px;background:#2b7a3e;color:white;padding:12px 20px;border-radius:50px;font-weight:bold;text-decoration:none;display:flex;align-items:center;gap:10px;box-shadow:0 4px 15px rgba(0,0,0,.3);z-index:99;transition:transform .2s}
+        .floating-download:hover{transform:scale(1.05);background:#1f5e3a}
+        .floating-download img{width:26px;height:26px;border-radius:6px}
+        .quiz-card{background:white;border-radius:2rem;box-shadow:0 20px 35px -12px rgba(0,0,0,.2);overflow:hidden;padding:1.5rem;margin-bottom:1rem}
+        .progress-area{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;margin-bottom:1.5rem;border-bottom:2px solid #e9edf2;padding-bottom:.8rem}
+        .question-counter{font-weight:600;background:#eef2fa;padding:.3rem 1rem;border-radius:30px;font-size:.85rem;color:#1f6392}
+        .score-preview{font-size:.85rem;background:#f0f4f9;padding:.3rem 1rem;border-radius:30px;font-weight:500}
+        .question-text{font-size:1.3rem;font-weight:600;line-height:1.3;margin-bottom:1.5rem;color:#0f2f40}
+        .answers-list{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.5rem}
+        .answer-option{background:#f8fafd;border:2px solid #e2e8f0;border-radius:1.2rem;padding:.8rem 1.2rem;display:flex;align-items:center;cursor:pointer;transition:all .2s ease;font-size:.95rem;font-weight:500}
+        .answer-option:hover{background:#eef3fc;border-color:#8bb3d4;transform:translateX(5px)}
+        .answer-option.selected{background:#e1f0fe;border-color:#2c7cb6}
+        .answer-prefix{font-weight:800;background:#cbdde9;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:60px;margin-right:1rem;color:#1e3b4a;flex-shrink:0}
+        .selected .answer-prefix{background:#2c7cb6;color:white}
+        .nav-buttons{display:flex;justify-content:space-between;gap:1rem}
+        button{background:#eef2f7;border:none;padding:.7rem 1.5rem;border-radius:60px;font-weight:600;font-size:.9rem;cursor:pointer;font-family:inherit;color:#1f4e6e}
+        button.primary{background:#1c6e8f;color:white}
+        button.primary:hover{background:#0f5877}
+        .submit-area{margin-top:1.5rem;text-align:center;border-top:1px solid #e2edf2;padding-top:1.5rem}
+        .btn-submit-final{background:#2b7a3e;color:white;font-size:1.1rem;padding:.8rem 1.5rem;border-radius:60px;font-weight:bold}
+        .promo-card{background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:1.5rem;padding:1rem;margin:1rem 0;text-align:center;border:2px solid #f59e0b;display:flex;align-items:center;justify-content:center;gap:15px;flex-wrap:wrap}
+        .promo-card img{width:50px;height:50px;border-radius:12px}
+        .promo-card .promo-text{font-weight:bold;color:#92400e}
+        .promo-card .small-btn{background:#f59e0b;padding:8px 20px;border-radius:50px;text-decoration:none;color:white;font-weight:bold;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:inherit;font-size:1rem}
+        .result-panel{margin-top:1.5rem;background:#eef6e9;border-radius:1.5rem;padding:1.2rem;text-align:center;display:none;border-left:8px solid #2b7a3e}
+        .result-panel.show{display:block}
+        .corrige-detail{margin-top:1rem;background:#fef7e0;border-radius:1rem;padding:1rem;text-align:left;max-height:350px;overflow-y:auto}
+        .corrige-item{border-bottom:1px solid #f0e0b0;padding:.6rem 0;font-size:.8rem}
+        .final-score{font-size:2rem;font-weight:800;color:#1f5e3a}
+        .reset-btn{margin-top:1rem;background:#334e68;color:white}
+        .toggle-corrige-btn{background:#e0b354;color:#2c2b26;margin-top:.8rem}
+        footer{margin-top:1.5rem;text-align:center;font-size:.75rem;color:#4b6a7f;background:rgba(255,255,255,.8);padding:.8rem;border-radius:1.5rem}
+        .footer-download{display:inline-flex;align-items:center;gap:8px;background:#1f5e3a;color:white;padding:8px 16px;border-radius:50px;text-decoration:none;font-weight:500;margin-top:8px}
+        .footer-download img{width:22px;height:22px;border-radius:5px}
+        @media(max-width:680px){.hero h1{font-size:1.4rem}.btn-download-large{font-size:1rem;padding:12px 20px}.question-text{font-size:1.1rem}.promo-card{flex-direction:column;text-align:center}}
     </style>
 </head>
 <body>
 
-<!-- BANNIÈRE COLLANTE EN HAUT -->
 <div class="top-banner">
     <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank">
-        📱 <strong>Faso Concours</strong> - 2000+ questions pour réussir vos examens
-        <span class="badge">Télécharger →</span>
+        <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+        <strong>Faso Concours</strong> — 2000+ questions pour réussir vos examens &nbsp;|&nbsp; Installer →
     </a>
 </div>
 
 <div class="container">
     <div class="hero">
-        <h1>📋 Prêt pour le défi ?</h1>
-        <p>Testez vos connaissances avec ce QCM exclusif</p>
+        <img src="icon.png" alt="Faso Concours" class="hero-logo" onerror="this.style.display='none'">
+        <h1>📋 QCM Officiel — 50 Questions</h1>
+        <p>Testez vos connaissances et préparez vos concours avec Faso Concours</p>
         <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="btn-download-large">
+            <img src="icon.png" alt="" onerror="this.style.display='none'">
             📱 Télécharger Faso Concours
         </a>
-        <p style="font-size:0.8rem; margin-top:1rem;">⭐ Plus de 10 000 utilisateurs | Questions actualisées</p>
+        <p style="font-size:.8rem;margin-top:1rem;opacity:.8">⭐ Plus de 10 000 utilisateurs | Questions actualisées</p>
     </div>
 
-    <!-- Encart promo supplémentaire avant QCM -->
     <div class="promo-card">
-        <p>🎯 Vous aimez ce QCM ? Découvrez des milliers d'autres questions !</p>
+        <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+        <div class="promo-text">🎯 Vous aimez ce QCM ? Découvrez des milliers d'autres questions dans l'application !</div>
         <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn">
-            📲 Télécharger l'application complète
+            <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer maintenant
         </a>
     </div>
 
     <div class="quiz-card" id="quizApp">
         <div class="progress-area">
-            <span class="question-counter" id="qCounter">Question 1 / 40</span>
-            <span class="score-preview" id="liveScore">✅ 0 répondues</span>
+            <span class="question-counter" id="qCounter">Question 1 / 50</span>
+            <span class="score-preview" id="liveScore">✅ 0 / 50 répondues</span>
         </div>
         <div class="question-text" id="questionText">Chargement...</div>
         <div class="answers-list" id="answersContainer"></div>
@@ -428,186 +100,194 @@
         </div>
         <div id="resultPanel" class="result-panel">
             <h3>✨ Votre résultat ✨</h3>
-            <div class="final-score" id="finalScoreSpan">0 / 40</div>
+            <div class="final-score" id="finalScoreSpan">0 / 50</div>
             <p id="feedbackMsg"></p>
             <button id="showCorrigeBtn" class="toggle-corrige-btn">📖 Afficher le corrigé</button>
-            <div id="corrigeDetails" style="display: none;" class="corrige-detail"></div>
+            <div id="corrigeDetails" style="display:none;" class="corrige-detail"></div>
             <button id="restartQuizBtn" class="reset-btn">🔄 Recommencer</button>
-            <div class="promo-card" style="margin-top:1rem; background:#e8f0fe;">
-                <p>📣 Pour encore plus de QCM et de révisions :</p>
-                <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn" style="background:#1f5e3a;">📱 Télécharger Faso Concours</a>
+            <div class="promo-card" style="margin-top:1rem;background:#e8f0fe;">
+                <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+                <div class="promo-text">📣 Pour encore plus de QCM et de révisions :</div>
+                <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn" style="background:#1f5e3a;">
+                    <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer Faso Concours
+                </a>
             </div>
         </div>
     </div>
 
     <footer>
-        🧠 Réussissez vos concours avec Faso Concours
+        🧠 Réussissez vos concours avec <strong>Faso Concours</strong>
         <br>
         <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="footer-download">
+            <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
             📱 Télécharger l'application
         </a>
     </footer>
 </div>
 
-<!-- BOUTON FLOTTANT VISIBLE PENDANT TOUT LE QCM -->
 <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="floating-download">
-    📱 <strong>Télécharger</strong>
+    <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+    <strong>Installer maintenant</strong>
 </a>
 
 <script>
-    // Données du QCM (identiques à avant)
-    const fullQuestionsData = [
-        { id: 103, question: "Pour une fille ayant un cycle de 30 jours, les menstrues surviennent le 25 novembre. Quelle est la date de son ovulation?", answers: ["16 décembre", "18 décembre", "14 décembre", "10 décembre"], correct: 3 },
-        { id: 104, question: "Les régimes d'exception au Burkina depuis l'ère post coloniale débute par qui :", answers: ["Maurice YAMEOGO", "Jean baptiste OUEDRAOGO", "Thomas SANKARA", "SANGOULE lamizana"], correct: 3 },
-        { id: 105, question: "Date de la création de centre Hospitalière Universitaire yalgado OUEDRAOGO ?", answers: ["1958", "1965", "1970", "1975"], correct: 2 },
-        { id: 106, question: "Choisir la formule de l'acide 2-méthylbutanoique ?", answers: ["CH3-CH2-CH(CH3)-COOH", "CH3-CH(CH3)-CH2-COOH", "CH3-CH(CH3)-COO", "CH3-CH2-CH2-CH(CH3)-COOH"], correct: 0 },
-        { id: 107, question: "Carrefour voie respiration et digestives est :", answers: ["Cavum", "Aériennes", "Narine", "Aéro-digestif"], correct: 3 },
-        { id: 108, question: "Quels tissus contient la diaphyse de l'os", answers: ["OS long", "Endoste", "L'os spongieux", "Epiphyse"], correct: 1 },
-        { id: 109, question: "Combien de charges positives contiennent un ion Fe3+", answers: ["0", "3", "-3", "2"], correct: 1 },
-        { id: 110, question: "Comment est l'image donnée par une loupe ?", answers: ["Une image inversée", "Une image non inversée", "Une image agrandie", "Une image nette"], correct: 1 },
-        { id: 111, question: "Quels sont les éléments d'une lettre officielle ?", answers: ["La signature", "Un objet", "Jolie", "Caractère italique"], correct: 0 },
-        { id: 112, question: "CnH2nO2 est la formule générale de quelle composé organique ?", answers: ["Alcool", "Acide carboxylique", "Acide aminé", "Alcane"], correct: 1 },
-        { id: 113, question: "Comment appelle-t-on un vers de 12 syllabes ?", answers: ["Décasyllabe", "Alexandrins", "Dodécasyllabe", "Heptasyllabe"], correct: 1 },
-        { id: 114, question: "Date de la création de PNDS", answers: ["23 décembre 1990", "21 décembre 1989", "07 janvier 1988", "07 janvier 1987"], correct: 0 },
-        { id: 115, question: "Date d'intronisation du BF à l'ONU", answers: ["1960", "1978", "1984", "1992"], correct: 0 },
-        { id: 116, question: "Où se trouve le siège de PANAF ?", answers: ["Koudougou", "Ouaga", "Alger", "Tunisie"], correct: 2 },
-        { id: 117, question: "Pays invité d'honneur du FESPACO 2021 ?", answers: ["Sénégal", "Mali", "Togo", "Benin"], correct: 0 },
-        { id: 118, question: "Qui a remporté l'étalon d'or de yennenga 2021 ?", answers: ["Moumouni SANOU", "FLOBY", "Amed kadar", "Zongo robert"], correct: 0 },
-        { id: 120, question: "Quel est le vrai nom de Iron Biby ?", answers: ["Cheick Ahmed AL-Hassan Sanou", "Sanou Iron", "Mohamed Sanou", "Ahmed Ganou"], correct: 0 },
-        { id: 121, question: "Date de la mise en place des 71 membres de l'Assemblée ?", answers: ["21 mars 2022", "22 mars 2022", "23 mars 2022", "24 mars 2022"], correct: 1 },
-        { id: 122, question: "\"L'éducation est l'arme la plus puissante que l'on puisse utiliser pour changer le monde\" est de :", answers: ["Sankara thomas", "Nelson Mandela", "Bill Gate", "René Descartes"], correct: 1 },
-        { id: 124, question: "Prix Nobel de la paix 2021.", answers: ["Alfert Nicola", "Croix-Rouge", "ONU", "Maria Ressa et Dmitry Muratov"], correct: 3 },
-        { id: 126, question: "Donnez le vainqueur du Grand Prix de la ville d'Abidjan 2022 ?", answers: ["Paul Dumont", "Paul Daumont", "Paul Dimont"], correct: 1 },
-        { id: 127, question: "L'histologie étudie les tissus", answers: ["Vrai", "Faux"], correct: 0 },
-        { id: 128, question: "Synonyme de Procuration", answers: ["Pouvoir", "Ordre", "Essai", "Néant"], correct: 0 },
-        { id: 129, question: "Où est situé l'hôtel 5 étoiles de Mahamadou BONKOUGOU PDG du groupe EBOMAF ?", answers: ["Ouaga 2000", "Patte d'oie", "1200 logements"], correct: 0 },
-        { id: 130, question: "Trouvez l'intrus :", answers: ["Table", "Supportable", "Etable", "Fable"], correct: 1 },
-        { id: 131, question: "Synonyme de quiproquo est : Bévue", answers: ["Vrai", "Faux"], correct: 0 },
-        { id: 132, question: "ADN signifie ?", answers: ["Acide Désoxyribonucléique", "Acide Dénitro-nucléique", "Acide Désoxygéné"], correct: 0 },
-        { id: 133, question: "Que signifie l'expression \"de facto\" ?", answers: ["De droit", "De fait", "Par erreur", "En principe"], correct: 1 },
-        { id: 134, question: "Qu'est-ce qu'un philanthrope ?", answers: ["Une personne qui aime les hommes (généreux)", "Un collectionneur de timbres", "Un médecin spécialiste"], correct: 0 },
-        { id: 135, question: "Quel mot n'a pas de point commun avec les autres :", answers: ["Soleil", "Colline", "Erosion", "Plaine"], correct: 0 },
-        { id: 136, question: "L'Union européenne compte combien de pays ?", answers: ["17", "26", "27", "37"], correct: 2 },
-        { id: 137, question: "Combien de présidents civils compte le Burkina Faso ?", answers: ["01", "02", "03", "04"], correct: 1 },
-        { id: 138, question: "Dans la charte de la transition, qui assure l'intérim en cas de vacance ?", answers: ["Le premier ministre", "Le vice-président", "Le président de l'assemblée nationale"], correct: 2 },
-        { id: 139, question: "Qui était président de la HAUTE-VOLTA parmi la liste suivante ?", answers: ["Lamizana SANGOULE", "Simon COMPAORE", "Blaise COMPAORE"], correct: 0 },
-        { id: 140, question: "La province du Kadiogo compte combien de départements ?", answers: ["05", "06", "07", "09"], correct: 2 },
-        { id: 141, question: "Trouver l'intrus parmi les vaccins :", answers: ["Cervarix", "Cinovax", "Janssen Pfizer"], correct: 2 },
-        { id: 142, question: "Il existe combien de types d'attention ?", answers: ["5", "6", "10", "12"], correct: 0 },
-        { id: 146, question: "\"J'en viens\" signifie", answers: ["Je viens à", "Je viens de", "Je viens vers", "Je viens là-bas"], correct: 1 },
-        { id: 148, question: "Comment appelle-t-on celui qui écrit sur la vie des saints ?", answers: ["Un saintgraphe", "Un hagiographe", "Théolographe", "Un antiquaire"], correct: 1 },
-        { id: 149, question: "Le griot Diamouourou est un personnage de l'œuvre ?", answers: ["Le monde s'effondre", "L'aventure ambiguë", "Les soleils des indépendances", "Tribalique"], correct: 2 },
-        { id: 150, question: "Pathétique, lyrique, comique appartiennent au :", answers: ["Ton de texte", "Registre", "Tournure de langue"], correct: 1 },
-        { id: 151, question: "Il dépense sans compter pour les autres, il est vraiment :", answers: ["Prodige", "Prodigue", "Prolifique", "Prolixe"], correct: 1 },
-        { id: 152, question: "Qui est l'auteur de cette citation : « Ma bouche sera la bouche des malheurs qui n'ont point de bouche, ma voix, la liberté de celles qui s'affaissent au cachot du désespoir » ?", answers: ["Victor Hugo", "Aimé Césaire", "Platon"], correct: 1 },
-        { id: 153, question: "Une association qui lutte contre la désertification investit 200 000 F la première année. Après 15 ans de service, combien vont-ils dépenser si après la 1ère année ils ajoutent 50 000 F chaque année au budget initial ?", answers: ["6 500 000", "6 250 000", "6 200 000", "900 000"], correct: 0 }
-    ];
+const fullQuestionsData = [
+    {id:103,question:"Pour une fille ayant un cycle de 30 jours, les menstrues surviennent le 25 novembre. Quelle est la date de son ovulation?",answers:["16 décembre","18 décembre","14 décembre","10 décembre"],correct:3},
+    {id:104,question:"Les régimes d'exception au Burkina depuis l'ère post coloniale débutent par qui :",answers:["Maurice YAMEOGO","Jean Baptiste OUEDRAOGO","Thomas SANKARA","SANGOULE Lamizana"],correct:3},
+    {id:105,question:"Date de la création du Centre Hospitalier Universitaire Yalgado OUEDRAOGO ?",answers:["1958","1965","1970","1975"],correct:2},
+    {id:106,question:"Choisir la formule de l'acide 2-méthylbutanoïque :",answers:["CH3-CH2-CH(CH3)-COOH","CH3-CH(CH3)-CH2-COOH","CH3-CH(CH3)-COO","CH3-CH2-CH2-CH(CH3)-COOH"],correct:0},
+    {id:107,question:"Le carrefour des voies respiratoires et digestives est :",answers:["Le cavum","Les voies aériennes","La narine","Le pharynx aéro-digestif"],correct:3},
+    {id:108,question:"Quel tissu contient la diaphyse de l'os ?",answers:["Os long","Endoste","Os spongieux","Épiphyse"],correct:1},
+    {id:109,question:"Combien de charges positives contient un ion Fe3+ ?",answers:["0","3","-3","2"],correct:1},
+    {id:110,question:"Comment est l'image donnée par une loupe ?",answers:["Une image inversée","Une image non inversée","Une image agrandie","Une image nette"],correct:1},
+    {id:111,question:"Quels sont les éléments d'une lettre officielle ?",answers:["La signature","Un objet","Jolie présentation","Caractère italique"],correct:0},
+    {id:112,question:"CnH2nO2 est la formule générale de quel composé organique ?",answers:["Alcool","Acide carboxylique","Acide aminé","Alcane"],correct:1},
+    {id:113,question:"Comment appelle-t-on un vers de 12 syllabes ?",answers:["Décasyllabe","Alexandrin","Dodécasyllabe","Heptasyllabe"],correct:1},
+    {id:114,question:"Date de la création du PNDS :",answers:["23 décembre 1990","21 décembre 1989","07 janvier 1988","07 janvier 1987"],correct:0},
+    {id:115,question:"Date d'intronisation du Burkina Faso à l'ONU :",answers:["1960","1978","1984","1992"],correct:0},
+    {id:116,question:"Où se trouve le siège du PANAF ?",answers:["Koudougou","Ouagadougou","Alger","Tunis"],correct:2},
+    {id:117,question:"Pays invité d'honneur du FESPACO 2021 ?",answers:["Sénégal","Mali","Togo","Bénin"],correct:0},
+    {id:118,question:"Qui a remporté l'Étalon d'or de Yennenga 2021 ?",answers:["Moumouni SANOU","FLOBY","Ahmed Kadar","Zongo Robert"],correct:0},
+    {id:120,question:"Quel est le vrai nom de Iron Biby ?",answers:["Cheick Ahmed AL-Hassan Sanou","Sanou Iron","Mohamed Sanou","Ahmed Ganou"],correct:0},
+    {id:121,question:"Date de la mise en place des 71 membres de l'Assemblée législative de transition :",answers:["21 mars 2022","22 mars 2022","23 mars 2022","24 mars 2022"],correct:1},
+    {id:122,question:"\"L'éducation est l'arme la plus puissante que l'on puisse utiliser pour changer le monde\" est de :",answers:["Thomas Sankara","Nelson Mandela","Bill Gates","René Descartes"],correct:1},
+    {id:124,question:"Prix Nobel de la paix 2021 :",answers:["Alfred Nicola","Croix-Rouge","ONU","Maria Ressa et Dmitry Muratov"],correct:3},
+    {id:126,question:"Vainqueur du Grand Prix de la ville d'Abidjan 2022 :",answers:["Paul Dumont","Paul Daumont","Paul Dimont"],correct:1},
+    {id:127,question:"L'histologie étudie les tissus. Vrai ou faux ?",answers:["Vrai","Faux"],correct:0},
+    {id:128,question:"Synonyme de Procuration :",answers:["Pouvoir","Ordre","Essai","Néant"],correct:0},
+    {id:129,question:"Où est situé l'hôtel 5 étoiles de Mahamadou BONKOUGOU, PDG du groupe EBOMAF ?",answers:["Ouaga 2000","Patte d'oie","1200 logements"],correct:0},
+    {id:130,question:"Trouvez l'intrus :",answers:["Table","Supportable","Étable","Fable"],correct:1},
+    {id:131,question:"Synonyme de quiproquo : Bévue. Vrai ou faux ?",answers:["Vrai","Faux"],correct:0},
+    {id:132,question:"ADN signifie :",answers:["Acide Désoxyribonucléique","Acide Dénitro-nucléique","Acide Désoxygéné"],correct:0},
+    {id:133,question:"Que signifie l'expression \"de facto\" ?",answers:["De droit","De fait","Par erreur","En principe"],correct:1},
+    {id:134,question:"Qu'est-ce qu'un philanthrope ?",answers:["Une personne généreuse envers les autres","Un collectionneur de timbres","Un médecin spécialiste"],correct:0},
+    {id:135,question:"Quel mot n'a pas de point commun avec les autres :",answers:["Soleil","Colline","Érosion","Plaine"],correct:0},
+    {id:136,question:"L'Union européenne compte combien de pays membres ?",answers:["17","26","27","37"],correct:2},
+    {id:137,question:"Combien de présidents civils compte le Burkina Faso ?",answers:["01","02","03","04"],correct:1},
+    {id:138,question:"Dans la charte de la transition, qui assure l'intérim en cas de vacance ?",answers:["Le Premier ministre","Le vice-président","Le président de l'assemblée législative"],correct:2},
+    {id:139,question:"Qui était président de la HAUTE-VOLTA parmi la liste suivante ?",answers:["Lamizana SANGOULE","Simon COMPAORE","Blaise COMPAORE"],correct:0},
+    {id:140,question:"La province du Kadiogo compte combien de départements ?",answers:["05","06","07","09"],correct:2},
+    {id:141,question:"Trouvez l'intrus parmi les vaccins :",answers:["Cervarix","Cinovax","Janssen","Pfizer"],correct:1},
+    {id:142,question:"Il existe combien de types d'attention ?",answers:["5","6","10","12"],correct:0},
+    {id:146,question:"\"J'en viens\" signifie :",answers:["Je viens à","Je viens de","Je viens vers","Je viens là-bas"],correct:1},
+    {id:148,question:"Comment appelle-t-on celui qui écrit sur la vie des saints ?",answers:["Un saintgraphe","Un hagiographe","Théolographe","Un antiquaire"],correct:1},
+    {id:149,question:"Le griot Diamourou est un personnage de l'œuvre :",answers:["Le monde s'effondre","L'aventure ambiguë","Les soleils des indépendances","Tribalique"],correct:2},
+    {id:150,question:"Pathétique, lyrique, comique appartiennent au :",answers:["Ton du texte","Registre","Tournure de langue"],correct:1},
+    {id:151,question:"Il dépense sans compter pour les autres, il est vraiment :",answers:["Prodige","Prodigue","Prolifique","Prolixe"],correct:1},
+    {id:152,question:"Qui est l'auteur de la citation : « Ma bouche sera la bouche des malheurs qui n'ont point de bouche... » ?",answers:["Victor Hugo","Aimé Césaire","Platon"],correct:1},
+    {id:153,question:"Une association investit 200 000 F la 1re année et ajoute 50 000 F chaque année. Combien dépense-t-elle en 15 ans ?",answers:["6 500 000 F","6 250 000 F","6 200 000 F","900 000 F"],correct:0},
+    {id:154,question:"Quelle est la capitale du Burkina Faso ?",answers:["Bobo-Dioulasso","Ouagadougou","Koudougou","Banfora"],correct:1},
+    {id:155,question:"En quelle année le Burkina Faso a-t-il changé de nom (anciennement Haute-Volta) ?",answers:["1960","1972","1984","1991"],correct:2},
+    {id:156,question:"Quel est le fleuve le plus long du Burkina Faso ?",answers:["Mouhoun (Volta Noire)","Nakambé (Volta Blanche)","Sirba","Comoé"],correct:0},
+    {id:157,question:"Combien de régions compte le Burkina Faso ?",answers:["10","13","15","17"],correct:3},
+    {id:158,question:"Qui a fondé la ville de Ouagadougou selon la tradition mossi ?",answers:["Naba Oubri","Naba Kourita","Naba Wubri","Naba Zombre"],correct:2},
+    {id:159,question:"Quel est le surnom du Burkina Faso donné par Thomas Sankara ?",answers:["Le pays des hommes intègres","La terre des braves","Le pays de l'unité","La patrie libre"],correct:0}
+];
 
-    const QUIZ = [...fullQuestionsData];
-    const TOTAL_QS = QUIZ.length;
-    let userAnswers = new Array(TOTAL_QS).fill(null);
-    let currentIndex = 0;
-    let quizSubmitted = false;
+const QUIZ=[...fullQuestionsData];
+const TOTAL_QS=QUIZ.length;
+let userAnswers=new Array(TOTAL_QS).fill(null);
+let currentIndex=0;
+let quizSubmitted=false;
 
-    const questionTextEl = document.getElementById("questionText");
-    const answersContainer = document.getElementById("answersContainer");
-    const qCounterEl = document.getElementById("qCounter");
-    const liveScoreEl = document.getElementById("liveScore");
-    const prevBtn = document.getElementById("prevBtn");
-    const nextBtn = document.getElementById("nextBtn");
-    const finalSubmitBtn = document.getElementById("finalSubmitBtn");
-    const resultPanel = document.getElementById("resultPanel");
-    const finalScoreSpan = document.getElementById("finalScoreSpan");
-    const feedbackMsg = document.getElementById("feedbackMsg");
-    const restartQuizBtn = document.getElementById("restartQuizBtn");
-    const showCorrigeBtn = document.getElementById("showCorrigeBtn");
-    const corrigeDetailsDiv = document.getElementById("corrigeDetails");
+const questionTextEl=document.getElementById("questionText");
+const answersContainer=document.getElementById("answersContainer");
+const qCounterEl=document.getElementById("qCounter");
+const liveScoreEl=document.getElementById("liveScore");
+const prevBtn=document.getElementById("prevBtn");
+const nextBtn=document.getElementById("nextBtn");
+const finalSubmitBtn=document.getElementById("finalSubmitBtn");
+const resultPanel=document.getElementById("resultPanel");
+const finalScoreSpan=document.getElementById("finalScoreSpan");
+const feedbackMsg=document.getElementById("feedbackMsg");
+const restartQuizBtn=document.getElementById("restartQuizBtn");
+const showCorrigeBtn=document.getElementById("showCorrigeBtn");
+const corrigeDetailsDiv=document.getElementById("corrigeDetails");
 
-    function countAnswered() { return userAnswers.filter(a => a !== null).length; }
-    function updateProgress() {
-        liveScoreEl.innerText = `✅ ${countAnswered()} / ${TOTAL_QS} répondues`;
-        qCounterEl.innerText = `Question ${currentIndex+1} / ${TOTAL_QS}`;
-    }
-    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
-    function renderCurrentQuestion() {
-        if(quizSubmitted) return;
-        const q = QUIZ[currentIndex];
-        questionTextEl.innerText = q.question;
-        const selectedIdx = userAnswers[currentIndex];
-        const letters = ['A','B','C','D'];
-        let html = '';
-        q.answers.forEach((ans, idx) => {
-            html += `<div class="answer-option ${selectedIdx===idx ? 'selected' : ''}" data-ans-index="${idx}">
-                        <span class="answer-prefix">${letters[idx]}</span>
-                        <span>${escapeHtml(ans)}</span>
-                    </div>`;
-        });
-        answersContainer.innerHTML = html;
-        document.querySelectorAll('.answer-option').forEach(opt => {
-            opt.addEventListener('click', () => {
-                if(quizSubmitted) return;
-                userAnswers[currentIndex] = parseInt(opt.dataset.ansIndex);
-                renderCurrentQuestion();
-                updateProgress();
-            });
-        });
-        updateProgress();
-    }
-    function goPrev() { if(!quizSubmitted && currentIndex>0) { currentIndex--; renderCurrentQuestion(); } }
-    function goNext() { if(!quizSubmitted && currentIndex<TOTAL_QS-1) { currentIndex++; renderCurrentQuestion(); } }
-    function computeScore() { let correct=0; for(let i=0;i<TOTAL_QS;i++) if(userAnswers[i]!==null && QUIZ[i].correct===userAnswers[i]) correct++; return correct; }
-    function buildCorrigeHTML() {
-        let html = '<h4>📖 Corrigé complet</h4>';
-        for(let i=0;i<TOTAL_QS;i++) {
-            const q = QUIZ[i];
-            const correctAnswerText = q.answers[q.correct];
-            const userAnswerText = (userAnswers[i]!==null) ? q.answers[userAnswers[i]] : "Non répondue";
-            const isCorrect = (userAnswers[i]!==null && q.correct===userAnswers[i]);
-            html += `<div class="corrige-item"><div class="corrige-question">${i+1}. ${escapeHtml(q.question)}</div>
-                    <div>📌 Bonne réponse : <strong>${escapeHtml(correctAnswerText)}</strong></div>
-                    <div>${isCorrect ? '✅' : '❌'} Votre réponse : ${escapeHtml(userAnswerText)}</div></div>`;
-        }
-        return html;
-    }
-    function showFinalResult() {
-        if(quizSubmitted) return;
-        if(countAnswered() < TOTAL_QS) { alert(`Répondez à toutes les questions (${countAnswered()}/${TOTAL_QS})`); return; }
-        const score = computeScore();
-        const percent = Math.round(score/TOTAL_QS*100);
-        finalScoreSpan.innerText = `${score} / ${TOTAL_QS}`;
-        let msg = percent>=80 ? '🏅 Excellent ! Téléchargez Faso Concours pour plus de défis.' : (percent>=60 ? '👍 Très bien ! Retrouvez plus de QCM dans l\'application.' : (percent>=40 ? '📚 Bonne base. L\'application vous aidera à progresser.' : '💪 Entraînez-vous avec Faso Concours !'));
-        feedbackMsg.innerText = msg;
-        corrigeDetailsDiv.innerHTML = buildCorrigeHTML();
-        resultPanel.classList.add('show');
-        quizSubmitted = true;
-        answersContainer.style.pointerEvents = 'none';
-        prevBtn.disabled = nextBtn.disabled = finalSubmitBtn.disabled = true;
-    }
-    showCorrigeBtn.addEventListener('click', () => {
-        if(corrigeDetailsDiv.style.display === 'none' || corrigeDetailsDiv.style.display === '') {
-            corrigeDetailsDiv.style.display = 'block';
-            showCorrigeBtn.textContent = '🙈 Masquer le corrigé';
-        } else {
-            corrigeDetailsDiv.style.display = 'none';
-            showCorrigeBtn.textContent = '📖 Afficher le corrigé';
-        }
+function countAnswered(){return userAnswers.filter(a=>a!==null).length}
+function updateProgress(){
+    liveScoreEl.innerText=`✅ ${countAnswered()} / ${TOTAL_QS} répondues`;
+    qCounterEl.innerText=`Question ${currentIndex+1} / ${TOTAL_QS}`;
+}
+function escapeHtml(str){if(!str)return'';return str.replace(/[&<>]/g,m=>m==='&'?'&amp;':m==='<'?'&lt;':'&gt;')}
+function renderCurrentQuestion(){
+    if(quizSubmitted)return;
+    const q=QUIZ[currentIndex];
+    questionTextEl.innerText=q.question;
+    const selectedIdx=userAnswers[currentIndex];
+    const letters=['A','B','C','D'];
+    let html='';
+    q.answers.forEach((ans,idx)=>{
+        html+=`<div class="answer-option ${selectedIdx===idx?'selected':''}" data-ans-index="${idx}">
+                    <span class="answer-prefix">${letters[idx]}</span>
+                    <span>${escapeHtml(ans)}</span>
+                </div>`;
     });
-    function restartQuiz() {
-        userAnswers = new Array(TOTAL_QS).fill(null);
-        currentIndex = 0;
-        quizSubmitted = false;
-        resultPanel.classList.remove('show');
-        corrigeDetailsDiv.style.display = 'none';
-        showCorrigeBtn.textContent = '📖 Afficher le corrigé';
-        answersContainer.style.pointerEvents = 'auto';
-        prevBtn.disabled = nextBtn.disabled = finalSubmitBtn.disabled = false;
-        renderCurrentQuestion();
+    answersContainer.innerHTML=html;
+    document.querySelectorAll('.answer-option').forEach(opt=>{
+        opt.addEventListener('click',()=>{
+            if(quizSubmitted)return;
+            userAnswers[currentIndex]=parseInt(opt.dataset.ansIndex);
+            renderCurrentQuestion();
+            updateProgress();
+        });
+    });
+    updateProgress();
+}
+function goPrev(){if(!quizSubmitted&&currentIndex>0){currentIndex--;renderCurrentQuestion();}}
+function goNext(){if(!quizSubmitted&&currentIndex<TOTAL_QS-1){currentIndex++;renderCurrentQuestion();}}
+function computeScore(){let c=0;for(let i=0;i<TOTAL_QS;i++)if(userAnswers[i]!==null&&QUIZ[i].correct===userAnswers[i])c++;return c;}
+function buildCorrigeHTML(){
+    let html='<h4 style="margin-bottom:.5rem">📖 Corrigé complet</h4>';
+    for(let i=0;i<TOTAL_QS;i++){
+        const q=QUIZ[i];
+        const correctAnswerText=q.answers[q.correct];
+        const userAnswerText=(userAnswers[i]!==null)?q.answers[userAnswers[i]]:"Non répondue";
+        const isCorrect=(userAnswers[i]!==null&&q.correct===userAnswers[i]);
+        html+=`<div class="corrige-item"><div><strong>${i+1}. ${escapeHtml(q.question)}</strong></div>
+                <div>📌 Bonne réponse : <strong>${escapeHtml(correctAnswerText)}</strong></div>
+                <div>${isCorrect?'✅':'❌'} Votre réponse : ${escapeHtml(userAnswerText)}</div></div>`;
     }
-    prevBtn.addEventListener('click', goPrev);
-    nextBtn.addEventListener('click', goNext);
-    finalSubmitBtn.addEventListener('click', showFinalResult);
-    restartQuizBtn.addEventListener('click', restartQuiz);
+    return html;
+}
+function showFinalResult(){
+    if(quizSubmitted)return;
+    if(countAnswered()<TOTAL_QS){alert(`Répondez à toutes les questions (${countAnswered()}/${TOTAL_QS})`);return;}
+    const score=computeScore();
+    const percent=Math.round(score/TOTAL_QS*100);
+    finalScoreSpan.innerText=`${score} / ${TOTAL_QS} (${percent}%)`;
+    let msg=percent>=80?'🏅 Excellent ! Téléchargez Faso Concours pour plus de défis.':(percent>=60?'👍 Très bien ! Retrouvez plus de QCM dans l\'application.':(percent>=40?'📚 Bonne base. L\'application vous aidera à progresser.':'💪 Entraînez-vous avec Faso Concours !'));
+    feedbackMsg.innerText=msg;
+    corrigeDetailsDiv.innerHTML=buildCorrigeHTML();
+    resultPanel.classList.add('show');
+    quizSubmitted=true;
+    answersContainer.style.pointerEvents='none';
+    prevBtn.disabled=nextBtn.disabled=finalSubmitBtn.disabled=true;
+}
+showCorrigeBtn.addEventListener('click',()=>{
+    if(corrigeDetailsDiv.style.display==='none'||corrigeDetailsDiv.style.display===''){
+        corrigeDetailsDiv.style.display='block';
+        showCorrigeBtn.textContent='🙈 Masquer le corrigé';
+    }else{
+        corrigeDetailsDiv.style.display='none';
+        showCorrigeBtn.textContent='📖 Afficher le corrigé';
+    }
+});
+function restartQuiz(){
+    userAnswers=new Array(TOTAL_QS).fill(null);
+    currentIndex=0;quizSubmitted=false;
+    resultPanel.classList.remove('show');
+    corrigeDetailsDiv.style.display='none';
+    showCorrigeBtn.textContent='📖 Afficher le corrigé';
+    answersContainer.style.pointerEvents='auto';
+    prevBtn.disabled=nextBtn.disabled=finalSubmitBtn.disabled=false;
     renderCurrentQuestion();
+}
+prevBtn.addEventListener('click',goPrev);
+nextBtn.addEventListener('click',goNext);
+finalSubmitBtn.addEventListener('click',showFinalResult);
+restartQuizBtn.addEventListener('click',restartQuiz);
+renderCurrentQuestion();
 </script>
 </body>
 </html>
