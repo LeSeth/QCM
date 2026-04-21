@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Faso Concours - QCM Challenge</title>
+    <title>Faso Concours - Préparez vos examens</title>
     <style>
         * {
             margin: 0;
@@ -14,13 +14,43 @@
         body {
             background: linear-gradient(145deg, #eef2f7 0%, #d9e2ec 100%);
             font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-            padding: 2rem 1rem;
+            padding: 0;
             color: #1a2c3e;
         }
 
         .container {
             max-width: 1100px;
             margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* BANNIÈRE HAUT DE PAGE TRÈS VISIBLE */
+        .top-banner {
+            background: #ff6b35;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            text-align: center;
+            padding: 12px 16px;
+            font-weight: bold;
+            font-size: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .top-banner a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .top-banner .badge {
+            background: #ffffff30;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
         }
 
         /* header / hero */
@@ -29,47 +59,92 @@
             background-image: radial-gradient(circle at 10% 20%, #124c5e, #06212e);
             border-radius: 2rem;
             padding: 2rem 1.5rem;
-            margin-bottom: 2rem;
+            margin: 1rem 0 1.5rem 0;
             text-align: center;
             color: white;
             box-shadow: 0 20px 30px -12px rgba(0,0,0,0.25);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "📱";
+            font-size: 100px;
+            position: absolute;
+            right: -20px;
+            bottom: -30px;
+            opacity: 0.1;
         }
 
         .hero h1 {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             letter-spacing: -0.5px;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.9;
             max-width: 600px;
             margin: 0 auto;
         }
 
-        /* Bouton de téléchargement dans le hero */
-        .btn-download {
+        /* GROS BOUTON DE TÉLÉCHARGEMENT DANS LE HERO */
+        .btn-download-large {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             background: #f4c542;
             color: #1e2f3a;
-            padding: 0.7rem 1.8rem;
+            padding: 14px 28px;
             border-radius: 60px;
             font-weight: bold;
-            font-size: 1rem;
-            margin-top: 1.2rem;
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
             text-decoration: none;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+            border: none;
+            width: 100%;
+            max-width: 320px;
         }
-        .btn-download:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+        .btn-download-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
             background: #ffcf6e;
+        }
+
+        /* BOUTON FLOTTANT (reste visible pendant le QCM) */
+        .floating-download {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #2b7a3e;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 99;
+            transition: transform 0.2s;
+            font-size: 0.9rem;
+        }
+        .floating-download:hover {
+            transform: scale(1.05);
+            background: #1f5e3a;
+        }
+        @media (max-width: 600px) {
+            .floating-download {
+                padding: 10px 16px;
+                font-size: 0.8rem;
+                right: 10px;
+                bottom: 10px;
+            }
         }
 
         /* quiz card */
@@ -78,8 +153,8 @@
             border-radius: 2rem;
             box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
             overflow: hidden;
-            padding: 1.8rem 2rem 2rem 2rem;
-            transition: all 0.2s;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .progress-area {
@@ -87,7 +162,7 @@
             justify-content: space-between;
             align-items: baseline;
             flex-wrap: wrap;
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.5rem;
             border-bottom: 2px solid #e9edf2;
             padding-bottom: 0.8rem;
         }
@@ -97,12 +172,12 @@
             background: #eef2fa;
             padding: 0.3rem 1rem;
             border-radius: 30px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #1f6392;
         }
 
         .score-preview {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             background: #f0f4f9;
             padding: 0.3rem 1rem;
             border-radius: 30px;
@@ -110,32 +185,30 @@
         }
 
         .question-text {
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             font-weight: 600;
             line-height: 1.3;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             color: #0f2f40;
-            background: #fafcff;
-            padding: 0.5rem 0;
         }
 
         .answers-list {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
         }
 
         .answer-option {
             background: #f8fafd;
             border: 2px solid #e2e8f0;
-            border-radius: 1.5rem;
-            padding: 0.9rem 1.4rem;
+            border-radius: 1.2rem;
+            padding: 0.8rem 1.2rem;
             display: flex;
             align-items: center;
             cursor: pointer;
             transition: all 0.2s ease;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 500;
         }
 
@@ -148,14 +221,13 @@
         .answer-option.selected {
             background: #e1f0fe;
             border-color: #2c7cb6;
-            box-shadow: 0 4px 10px rgba(44,124,182,0.15);
         }
 
         .answer-prefix {
             font-weight: 800;
             background: #cbdde9;
-            width: 32px;
-            height: 32px;
+            width: 30px;
+            height: 30px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -173,18 +245,16 @@
             display: flex;
             justify-content: space-between;
             gap: 1rem;
-            margin-top: 1rem;
         }
 
         button {
             background: #eef2f7;
             border: none;
-            padding: 0.8rem 1.8rem;
+            padding: 0.7rem 1.5rem;
             border-radius: 60px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.2s;
             font-family: inherit;
             color: #1f4e6e;
         }
@@ -192,41 +262,59 @@
         button.primary {
             background: #1c6e8f;
             color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
         }
 
         button.primary:hover {
             background: #0f5877;
-            transform: scale(0.97);
-        }
-
-        button:active {
-            transform: scale(0.96);
         }
 
         .submit-area {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             text-align: center;
             border-top: 1px solid #e2edf2;
-            padding-top: 1.8rem;
+            padding-top: 1.5rem;
         }
 
         .btn-submit-final {
             background: #2b7a3e;
             color: white;
-            font-size: 1.2rem;
-            padding: 0.9rem 2rem;
+            font-size: 1.1rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 60px;
             font-weight: bold;
-            width: 100%;
-            max-width: 280px;
+        }
+
+        /* ENCART PROMO APRÈS LE QCM */
+        .promo-card {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 1.5rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            border: 2px solid #f59e0b;
+        }
+        .promo-card p {
+            margin-bottom: 0.8rem;
+            font-weight: bold;
+            color: #92400e;
+        }
+        .promo-card .small-btn {
+            background: #f59e0b;
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .result-panel {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             background: #eef6e9;
-            border-radius: 1.8rem;
-            padding: 1.5rem;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
             text-align: center;
             display: none;
             border-left: 8px solid #2b7a3e;
@@ -234,44 +322,24 @@
 
         .result-panel.show {
             display: block;
-            animation: fadeUp 0.4s ease;
         }
-        
-        /* Section corrigé détaillé */
+
         .corrige-detail {
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             background: #fef7e0;
-            border-radius: 1.5rem;
+            border-radius: 1rem;
             padding: 1rem;
             text-align: left;
-            max-height: 400px;
+            max-height: 350px;
             overflow-y: auto;
-            border: 1px solid #f1d48a;
-        }
-        .corrige-detail h4 {
-            color: #a16600;
-            margin-bottom: 0.8rem;
         }
         .corrige-item {
             border-bottom: 1px solid #f0e0b0;
-            padding: 0.7rem 0;
-            font-size: 0.85rem;
+            padding: 0.6rem 0;
+            font-size: 0.8rem;
         }
-        .corrige-question {
-            font-weight: 600;
-        }
-        .corrige-answer {
-            color: #1f6e43;
-            margin-left: 0.5rem;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(15px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-
         .final-score {
-            font-size: 2.2rem;
+            font-size: 2rem;
             font-weight: 800;
             color: #1f5e3a;
         }
@@ -281,22 +349,20 @@
             background: #334e68;
             color: white;
         }
-        
         .toggle-corrige-btn {
             background: #e0b354;
             color: #2c2b26;
-            margin-top: 1rem;
+            margin-top: 0.8rem;
         }
 
         footer {
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: #4b6a7f;
             background: #ffffffcc;
-            padding: 1rem;
-            border-radius: 2rem;
-            backdrop-filter: blur(4px);
+            padding: 0.8rem;
+            border-radius: 1.5rem;
         }
         .footer-download {
             display: inline-flex;
@@ -304,36 +370,45 @@
             gap: 8px;
             background: #1f5e3a;
             color: white;
-            padding: 0.5rem 1.2rem;
+            padding: 8px 16px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 500;
-            margin-top: 0.6rem;
-        }
-        .footer-download:hover {
-            background: #2a7a4a;
+            margin-top: 8px;
         }
 
         @media (max-width: 680px) {
-            .quiz-card {
-                padding: 1.2rem;
-            }
-            .question-text {
-                font-size: 1.3rem;
-            }
-            .hero h1 {
-                font-size: 1.6rem;
-            }
+            .hero h1 { font-size: 1.4rem; }
+            .btn-download-large { font-size: 1rem; padding: 12px 20px; }
+            .question-text { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
+
+<!-- BANNIÈRE COLLANTE EN HAUT -->
+<div class="top-banner">
+    <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank">
+        📱 <strong>Faso Concours</strong> - 2000+ questions pour réussir vos examens
+        <span class="badge">Télécharger →</span>
+    </a>
+</div>
+
 <div class="container">
     <div class="hero">
-        <h1>📋 Faso Concours Challenge</h1>
-        <p>Testez vos connaissances générales, culture, sciences et histoire</p>
-        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="btn-download">
-            📱 Télécharger l'application Faso Concours
+        <h1>📋 Prêt pour le défi ?</h1>
+        <p>Testez vos connaissances avec ce QCM exclusif</p>
+        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="btn-download-large">
+            📱 Télécharger Faso Concours
+        </a>
+        <p style="font-size:0.8rem; margin-top:1rem;">⭐ Plus de 10 000 utilisateurs | Questions actualisées</p>
+    </div>
+
+    <!-- Encart promo supplémentaire avant QCM -->
+    <div class="promo-card">
+        <p>🎯 Vous aimez ce QCM ? Découvrez des milliers d'autres questions !</p>
+        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn">
+            📲 Télécharger l'application complète
         </a>
     </div>
 
@@ -342,41 +417,45 @@
             <span class="question-counter" id="qCounter">Question 1 / 40</span>
             <span class="score-preview" id="liveScore">✅ 0 répondues</span>
         </div>
-        <div class="question-text" id="questionText">
-            Chargement des questions...
-        </div>
-        <div class="answers-list" id="answersContainer">
-            <!-- dynamic answers -->
-        </div>
+        <div class="question-text" id="questionText">Chargement...</div>
+        <div class="answers-list" id="answersContainer"></div>
         <div class="nav-buttons">
-            <button id="prevBtn" class="">◀ Précédent</button>
+            <button id="prevBtn">◀ Précédent</button>
             <button id="nextBtn" class="primary">Suivant ▶</button>
         </div>
         <div class="submit-area">
-            <button id="finalSubmitBtn" class="btn-submit-final">📊 Voir mon score + Corrigé</button>
+            <button id="finalSubmitBtn" class="btn-submit-final">📊 Voir score + Corrigé</button>
         </div>
         <div id="resultPanel" class="result-panel">
-            <h3>✨ Résultat du QCM ✨</h3>
+            <h3>✨ Votre résultat ✨</h3>
             <div class="final-score" id="finalScoreSpan">0 / 40</div>
             <p id="feedbackMsg"></p>
-            <button id="showCorrigeBtn" class="toggle-corrige-btn">📖 Afficher le corrigé détaillé</button>
+            <button id="showCorrigeBtn" class="toggle-corrige-btn">📖 Afficher le corrigé</button>
             <div id="corrigeDetails" style="display: none;" class="corrige-detail"></div>
-            <button id="restartQuizBtn" class="reset-btn">🔄 Recommencer le QCM</button>
+            <button id="restartQuizBtn" class="reset-btn">🔄 Recommencer</button>
+            <div class="promo-card" style="margin-top:1rem; background:#e8f0fe;">
+                <p>📣 Pour encore plus de QCM et de révisions :</p>
+                <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn" style="background:#1f5e3a;">📱 Télécharger Faso Concours</a>
+            </div>
         </div>
     </div>
+
     <footer>
-        🧠 Entraînez-vous davantage avec l'application officielle.
+        🧠 Réussissez vos concours avec Faso Concours
         <br>
         <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="footer-download">
-            📱 Télécharger Faso Concours
+            📱 Télécharger l'application
         </a>
     </footer>
 </div>
 
+<!-- BOUTON FLOTTANT VISIBLE PENDANT TOUT LE QCM -->
+<a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="floating-download">
+    📱 <strong>Télécharger</strong>
+</a>
+
 <script>
-    // --------------------------------------------------------------
-    // DONNÉES DU QCM (basées sur le tableau fourni)
-    // --------------------------------------------------------------
+    // Données du QCM (identiques à avant)
     const fullQuestionsData = [
         { id: 103, question: "Pour une fille ayant un cycle de 30 jours, les menstrues surviennent le 25 novembre. Quelle est la date de son ovulation?", answers: ["16 décembre", "18 décembre", "14 décembre", "10 décembre"], correct: 3 },
         { id: 104, question: "Les régimes d'exception au Burkina depuis l'ère post coloniale débute par qui :", answers: ["Maurice YAMEOGO", "Jean baptiste OUEDRAOGO", "Thomas SANKARA", "SANGOULE lamizana"], correct: 3 },
@@ -426,7 +505,6 @@
 
     const QUIZ = [...fullQuestionsData];
     const TOTAL_QS = QUIZ.length;
-
     let userAnswers = new Array(TOTAL_QS).fill(null);
     let currentIndex = 0;
     let quizSubmitted = false;
@@ -445,166 +523,91 @@
     const showCorrigeBtn = document.getElementById("showCorrigeBtn");
     const corrigeDetailsDiv = document.getElementById("corrigeDetails");
 
-    function countAnswered() {
-        return userAnswers.filter(a => a !== null).length;
-    }
-
-    function updateProgressAndScore() {
-        const answeredCount = countAnswered();
-        liveScoreEl.innerText = `✅ ${answeredCount} / ${TOTAL_QS} répondues`;
+    function countAnswered() { return userAnswers.filter(a => a !== null).length; }
+    function updateProgress() {
+        liveScoreEl.innerText = `✅ ${countAnswered()} / ${TOTAL_QS} répondues`;
         qCounterEl.innerText = `Question ${currentIndex+1} / ${TOTAL_QS}`;
     }
-
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
     function renderCurrentQuestion() {
-        if (quizSubmitted) return;
+        if(quizSubmitted) return;
         const q = QUIZ[currentIndex];
-        if (!q) return;
         questionTextEl.innerText = q.question;
         const selectedIdx = userAnswers[currentIndex];
+        const letters = ['A','B','C','D'];
         let html = '';
-        const letters = ['A', 'B', 'C', 'D'];
         q.answers.forEach((ans, idx) => {
-            const isSelected = (selectedIdx === idx);
-            const selectedClass = isSelected ? 'selected' : '';
-            html += `
-                <div class="answer-option ${selectedClass}" data-ans-index="${idx}">
-                    <span class="answer-prefix">${letters[idx]}</span>
-                    <span>${escapeHtml(ans)}</span>
-                </div>
-            `;
+            html += `<div class="answer-option ${selectedIdx===idx ? 'selected' : ''}" data-ans-index="${idx}">
+                        <span class="answer-prefix">${letters[idx]}</span>
+                        <span>${escapeHtml(ans)}</span>
+                    </div>`;
         });
         answersContainer.innerHTML = html;
         document.querySelectorAll('.answer-option').forEach(opt => {
-            opt.addEventListener('click', (e) => {
-                if (quizSubmitted) return;
-                const ansIndex = parseInt(opt.dataset.ansIndex);
-                userAnswers[currentIndex] = ansIndex;
+            opt.addEventListener('click', () => {
+                if(quizSubmitted) return;
+                userAnswers[currentIndex] = parseInt(opt.dataset.ansIndex);
                 renderCurrentQuestion();
-                updateProgressAndScore();
+                updateProgress();
             });
         });
-        updateProgressAndScore();
+        updateProgress();
     }
-
-    function escapeHtml(str) {
-        if(!str) return '';
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    function goPrev() {
-        if (quizSubmitted) return;
-        if (currentIndex > 0) {
-            currentIndex--;
-            renderCurrentQuestion();
-        }
-    }
-
-    function goNext() {
-        if (quizSubmitted) return;
-        if (currentIndex < TOTAL_QS - 1) {
-            currentIndex++;
-            renderCurrentQuestion();
-        }
-    }
-
-    function computeScore() {
-        let correctCount = 0;
-        for (let i = 0; i < TOTAL_QS; i++) {
-            if (userAnswers[i] !== null && QUIZ[i].correct === userAnswers[i]) {
-                correctCount++;
-            }
-        }
-        return correctCount;
-    }
-
+    function goPrev() { if(!quizSubmitted && currentIndex>0) { currentIndex--; renderCurrentQuestion(); } }
+    function goNext() { if(!quizSubmitted && currentIndex<TOTAL_QS-1) { currentIndex++; renderCurrentQuestion(); } }
+    function computeScore() { let correct=0; for(let i=0;i<TOTAL_QS;i++) if(userAnswers[i]!==null && QUIZ[i].correct===userAnswers[i]) correct++; return correct; }
     function buildCorrigeHTML() {
         let html = '<h4>📖 Corrigé complet</h4>';
-        for (let i = 0; i < TOTAL_QS; i++) {
+        for(let i=0;i<TOTAL_QS;i++) {
             const q = QUIZ[i];
-            const correctIdx = q.correct;
-            const correctAnswerText = q.answers[correctIdx];
-            const userChoice = userAnswers[i];
-            const userAnswerText = (userChoice !== null) ? q.answers[userChoice] : "Non répondue";
-            const isUserCorrect = (userChoice !== null && q.correct === userChoice);
-            const statusIcon = isUserCorrect ? '✅' : '❌';
-            html += `
-                <div class="corrige-item">
-                    <div class="corrige-question">${i+1}. ${escapeHtml(q.question)}</div>
-                    <div>📌 Bonne réponse : <strong class="corrige-answer">${escapeHtml(correctAnswerText)}</strong></div>
-                    <div>${statusIcon} Votre réponse : ${escapeHtml(userAnswerText)}</div>
-                </div>
-            `;
+            const correctAnswerText = q.answers[q.correct];
+            const userAnswerText = (userAnswers[i]!==null) ? q.answers[userAnswers[i]] : "Non répondue";
+            const isCorrect = (userAnswers[i]!==null && q.correct===userAnswers[i]);
+            html += `<div class="corrige-item"><div class="corrige-question">${i+1}. ${escapeHtml(q.question)}</div>
+                    <div>📌 Bonne réponse : <strong>${escapeHtml(correctAnswerText)}</strong></div>
+                    <div>${isCorrect ? '✅' : '❌'} Votre réponse : ${escapeHtml(userAnswerText)}</div></div>`;
         }
         return html;
     }
-
     function showFinalResult() {
-        if (quizSubmitted) return;
-        const answeredCount = countAnswered();
-        if (answeredCount < TOTAL_QS) {
-            alert(`Vous avez répondu à ${answeredCount} questions sur ${TOTAL_QS}. Veuillez répondre à toutes les questions pour voir votre score final.`);
-            return;
-        }
+        if(quizSubmitted) return;
+        if(countAnswered() < TOTAL_QS) { alert(`Répondez à toutes les questions (${countAnswered()}/${TOTAL_QS})`); return; }
         const score = computeScore();
-        const percent = Math.round((score / TOTAL_QS) * 100);
+        const percent = Math.round(score/TOTAL_QS*100);
         finalScoreSpan.innerText = `${score} / ${TOTAL_QS}`;
-        let msg = '';
-        if (percent >= 80) msg = '🏅 Excellent ! Téléchargez Faso Concours pour plus de défis.';
-        else if (percent >= 60) msg = '👍 Très bien, continuez à vous perfectionner avec l\'application.';
-        else if (percent >= 40) msg = '📚 Bonne base, mais une révision avec Faso Concours vous aidera.';
-        else msg = '💪 Entraînez-vous davantage avec l\'application Faso Concours !';
+        let msg = percent>=80 ? '🏅 Excellent ! Téléchargez Faso Concours pour plus de défis.' : (percent>=60 ? '👍 Très bien ! Retrouvez plus de QCM dans l\'application.' : (percent>=40 ? '📚 Bonne base. L\'application vous aidera à progresser.' : '💪 Entraînez-vous avec Faso Concours !'));
         feedbackMsg.innerText = msg;
-        
         corrigeDetailsDiv.innerHTML = buildCorrigeHTML();
-        
         resultPanel.classList.add('show');
         quizSubmitted = true;
         answersContainer.style.pointerEvents = 'none';
-        prevBtn.disabled = true;
-        nextBtn.disabled = true;
-        finalSubmitBtn.disabled = true;
+        prevBtn.disabled = nextBtn.disabled = finalSubmitBtn.disabled = true;
     }
-    
     showCorrigeBtn.addEventListener('click', () => {
-        if (corrigeDetailsDiv.style.display === 'none' || corrigeDetailsDiv.style.display === '') {
+        if(corrigeDetailsDiv.style.display === 'none' || corrigeDetailsDiv.style.display === '') {
             corrigeDetailsDiv.style.display = 'block';
             showCorrigeBtn.textContent = '🙈 Masquer le corrigé';
         } else {
             corrigeDetailsDiv.style.display = 'none';
-            showCorrigeBtn.textContent = '📖 Afficher le corrigé détaillé';
+            showCorrigeBtn.textContent = '📖 Afficher le corrigé';
         }
     });
-
     function restartQuiz() {
         userAnswers = new Array(TOTAL_QS).fill(null);
         currentIndex = 0;
         quizSubmitted = false;
         resultPanel.classList.remove('show');
         corrigeDetailsDiv.style.display = 'none';
-        showCorrigeBtn.textContent = '📖 Afficher le corrigé détaillé';
+        showCorrigeBtn.textContent = '📖 Afficher le corrigé';
         answersContainer.style.pointerEvents = 'auto';
-        prevBtn.disabled = false;
-        nextBtn.disabled = false;
-        finalSubmitBtn.disabled = false;
+        prevBtn.disabled = nextBtn.disabled = finalSubmitBtn.disabled = false;
         renderCurrentQuestion();
-        updateProgressAndScore();
     }
-
-    function init() {
-        renderCurrentQuestion();
-        updateProgressAndScore();
-        prevBtn.addEventListener('click', goPrev);
-        nextBtn.addEventListener('click', goNext);
-        finalSubmitBtn.addEventListener('click', showFinalResult);
-        restartQuizBtn.addEventListener('click', restartQuiz);
-    }
-
-    init();
+    prevBtn.addEventListener('click', goPrev);
+    nextBtn.addEventListener('click', goNext);
+    finalSubmitBtn.addEventListener('click', showFinalResult);
+    restartQuizBtn.addEventListener('click', restartQuiz);
+    renderCurrentQuestion();
 </script>
 </body>
 </html>
