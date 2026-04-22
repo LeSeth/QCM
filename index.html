@@ -2,537 +2,293 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QCM Terminale — SVT · Maths · Physique · Culture BF</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Faso Concours - Préparez vos examens</title>
     <style>
-        :root {
-            --green: #1a6b3a;
-            --green-light: #e6f4ec;
-            --green-mid: #2e9e59;
-            --gold: #e6a817;
-            --gold-light: #fdf3d6;
-            --red: #c0392b;
-            --red-light: #fdecea;
-            --bg: #f0f4f0;
-            --card: #ffffff;
-            --text: #17231e;
-            --muted: #5a7060;
-            --border: #d1e0d5;
-        }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            background: var(--bg);
-            font-family: 'DM Sans', sans-serif;
-            color: var(--text);
-            min-height: 100vh;
-        }
-
-        /* HEADER */
-        header {
-            background: var(--green);
-            padding: 1.2rem 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 20px rgba(0,0,0,.25);
-        }
-        .flag {
-            width: 36px; height: 36px;
-            border-radius: 8px;
-            background: linear-gradient(to right, #ef2b2d 33%, #ffffff 33% 66%, #009a44 66%);
-            flex-shrink: 0;
-            border: 2px solid rgba(255,255,255,.3);
-        }
-        header h1 {
-            font-family: 'Syne', sans-serif;
-            color: white;
-            font-size: 1rem;
-            font-weight: 700;
-            line-height: 1.2;
-        }
-        header h1 span { color: var(--gold); }
-        .timer-badge {
-            margin-left: auto;
-            background: rgba(255,255,255,.15);
-            color: white;
-            font-family: 'Syne', sans-serif;
-            font-weight: 700;
-            padding: .4rem .9rem;
-            border-radius: 30px;
-            font-size: .9rem;
-            border: 1px solid rgba(255,255,255,.2);
-            white-space: nowrap;
-        }
-        .timer-badge.urgent { background: rgba(192,57,43,.5); animation: pulse 1s infinite; }
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.6} }
-
-        /* CONTAINER */
-        .wrap { max-width: 760px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
-
-        /* CATEGORY TAGS */
-        .cat-tags {
-            display: flex; gap: .5rem; flex-wrap: wrap;
-            margin-bottom: 1.2rem;
-        }
-        .cat-tag {
-            font-size: .72rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
-            padding: .25rem .7rem; border-radius: 20px; cursor: pointer;
-            transition: all .2s;
-        }
-        .cat-tag.all   { background: var(--green); color: white; }
-        .cat-tag.svt   { background: #1a6b3a22; color: #1a6b3a; border: 1.5px solid #1a6b3a55; }
-        .cat-tag.maths { background: #1565c022; color: #1565c0; border: 1.5px solid #1565c055; }
-        .cat-tag.pc    { background: #6a1b9a22; color: #6a1b9a; border: 1.5px solid #6a1b9a55; }
-        .cat-tag.cg    { background: #e6710022; color: #b35000; border: 1.5px solid #e6710055; }
-        .cat-tag.active.svt   { background: #1a6b3a; color: white; }
-        .cat-tag.active.maths { background: #1565c0; color: white; }
-        .cat-tag.active.pc    { background: #6a1b9a; color: white; }
-        .cat-tag.active.cg    { background: #e67100; color: white; }
-
-        /* PROGRESS */
-        .progress-bar-wrap {
-            background: var(--border); border-radius: 10px; height: 6px;
-            margin-bottom: 1rem; overflow: hidden;
-        }
-        .progress-bar-fill {
-            height: 100%; background: var(--green-mid);
-            border-radius: 10px; transition: width .4s ease;
-        }
-        .progress-info {
-            display: flex; justify-content: space-between;
-            font-size: .8rem; color: var(--muted); margin-bottom: 1.2rem;
-        }
-        .progress-info strong { color: var(--text); }
-
-        /* QUESTION CARD */
-        .quiz-card {
-            background: var(--card);
-            border-radius: 1.5rem;
-            box-shadow: 0 8px 30px rgba(0,0,0,.09);
-            overflow: hidden;
-        }
-        .card-top {
-            padding: 1.2rem 1.5rem .8rem;
-            border-bottom: 1px solid var(--border);
-            display: flex; align-items: center; gap: .8rem;
-        }
-        .q-number {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800; font-size: 1.5rem;
-            color: var(--green); line-height: 1;
-        }
-        .q-sep { color: var(--border); font-size: 1.5rem; }
-        .q-total { color: var(--muted); font-size: .85rem; }
-        .q-cat {
-            margin-left: auto;
-            font-size: .7rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
-            padding: .2rem .7rem; border-radius: 20px;
-        }
-        .q-cat.svt   { background: #e6f4ec; color: #1a6b3a; }
-        .q-cat.maths { background: #e3f0fd; color: #1565c0; }
-        .q-cat.pc    { background: #f3e5f9; color: #6a1b9a; }
-        .q-cat.cg    { background: #fff3e0; color: #b35000; }
-
-        .card-body { padding: 1.5rem; }
-        .question-text {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.05rem; font-weight: 600;
-            line-height: 1.5; margin-bottom: 1.3rem;
-            color: var(--text);
-        }
-
-        /* ANSWERS */
-        .answers-list { display: flex; flex-direction: column; gap: .65rem; }
-        .answer-btn {
-            display: flex; align-items: center; gap: .9rem;
-            background: #f7faf8; border: 2px solid var(--border);
-            border-radius: 1rem; padding: .75rem 1rem;
-            cursor: pointer; transition: all .2s; text-align: left;
-            font-family: 'DM Sans', sans-serif; font-size: .95rem;
-            color: var(--text);
-        }
-        .answer-btn:hover { background: var(--green-light); border-color: var(--green-mid); transform: translateX(4px); }
-        .answer-btn.selected { background: var(--green-light); border-color: var(--green); }
-        .answer-btn.correct  { background: #d4edda; border-color: #28a745; }
-        .answer-btn.wrong    { background: var(--red-light); border-color: var(--red); }
-        .answer-btn.reveal-correct { background: #d4edda; border-color: #28a745; }
-
-        .letter {
-            width: 28px; height: 28px; flex-shrink: 0;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-family: 'Syne', sans-serif; font-weight: 700; font-size: .8rem;
-            background: var(--border); color: var(--text);
-        }
-        .answer-btn.selected .letter { background: var(--green); color: white; }
-        .answer-btn.correct  .letter { background: #28a745; color: white; }
-        .answer-btn.wrong    .letter { background: var(--red); color: white; }
-        .answer-btn.reveal-correct .letter { background: #28a745; color: white; }
-
-        /* FEEDBACK */
-        .feedback {
-            margin-top: 1rem; padding: .8rem 1rem;
-            border-radius: .8rem; font-size: .9rem; font-weight: 500;
-            display: none;
-        }
-        .feedback.correct { background: #d4edda; color: #155724; display: block; }
-        .feedback.wrong   { background: var(--red-light); color: #7b1a1a; display: block; }
-
-        /* NAV */
-        .card-nav {
-            padding: 1rem 1.5rem 1.5rem;
-            display: flex; justify-content: space-between; gap: 1rem;
-        }
-        .btn {
-            padding: .6rem 1.4rem; border-radius: 50px;
-            font-family: 'Syne', sans-serif; font-weight: 700;
-            font-size: .85rem; cursor: pointer; border: none;
-            transition: all .2s;
-        }
-        .btn-prev { background: var(--border); color: var(--text); }
-        .btn-prev:hover { background: #c0d5c5; }
-        .btn-next { background: var(--green); color: white; }
-        .btn-next:hover { background: #145530; }
-        .btn-submit { background: var(--gold); color: #1a1200; font-size: .95rem; padding: .7rem 2rem; }
-        .btn-submit:hover { background: #c98e10; }
-        .btn-restart { background: var(--green); color: white; margin-top: .8rem; }
-
-        /* RESULT */
-        .result-screen {
-            display: none; padding: 2rem 1.5rem;
-            text-align: center;
-        }
-        .result-screen.show { display: block; }
-        .score-circle {
-            width: 110px; height: 110px; border-radius: 50%;
-            background: var(--green); color: white;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            margin: 0 auto 1.2rem;
-            box-shadow: 0 8px 25px rgba(26,107,58,.3);
-        }
-        .score-circle .num {
-            font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.8rem; line-height: 1;
-        }
-        .score-circle .denom { font-size: .75rem; opacity: .8; }
-        .result-msg { font-size: 1.1rem; margin-bottom: 1.5rem; color: var(--text); }
-
-        /* CORRIGÉ */
-        .corrige { text-align: left; margin-top: 1rem; }
-        .corrige-item {
-            padding: .7rem 0; border-bottom: 1px solid var(--border);
-            font-size: .82rem;
-        }
-        .corrige-item .qtext { font-weight: 600; margin-bottom: .25rem; }
-        .corrige-item .ans-line { margin-top: .15rem; }
-        .ok { color: #1a6b3a; } .ko { color: var(--red); }
-
-        /* STATS PAR MATIERE */
-        .stats-row { display: flex; gap: .5rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1.2rem; }
-        .stat-pill {
-            padding: .35rem .9rem; border-radius: 20px;
-            font-size: .78rem; font-weight: 600;
-        }
-
-        footer { text-align: center; margin-top: 2rem; font-size: .75rem; color: var(--muted); }
-
-        @media(max-width:500px){
-            .question-text { font-size: .95rem; }
-            .btn { font-size: .8rem; padding: .55rem 1rem; }
-        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:linear-gradient(145deg,#eef2f7 0%,#d9e2ec 100%);font-family:'Segoe UI',Roboto,'Helvetica Neue',sans-serif;padding:0;color:#1a2c3e}
+        .container{max-width:1100px;margin:0 auto;padding:1rem}
+        .top-banner{background:linear-gradient(135deg,#ff6b35 0%,#f7931e 100%);color:white;text-align:center;padding:12px 16px;font-weight:bold;font-size:1rem;position:sticky;top:0;z-index:100;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+        .top-banner a{color:white;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px}
+        .top-banner img{width:28px;height:28px;border-radius:8px}
+        .hero{background:#0b2b3b;background-image:radial-gradient(circle at 10% 20%,#124c5e,#06212e);border-radius:2rem;padding:2rem 1.5rem;margin:1rem 0 1.5rem 0;text-align:center;color:white;box-shadow:0 20px 30px -12px rgba(0,0,0,.25)}
+        .hero-logo{width:90px;height:90px;border-radius:20px;margin-bottom:1rem;box-shadow:0 4px 15px rgba(0,0,0,.4)}
+        .hero h1{font-size:1.8rem;letter-spacing:-.5px;font-weight:700;margin-bottom:.5rem}
+        .hero p{font-size:1rem;opacity:.9;max-width:600px;margin:0 auto}
+        .btn-download-large{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#f4c542;color:#1e2f3a;padding:14px 28px;border-radius:60px;font-weight:bold;font-size:1.2rem;margin-top:1.5rem;text-decoration:none;transition:all .3s ease;box-shadow:0 6px 14px rgba(0,0,0,.25);width:100%;max-width:340px}
+        .btn-download-large:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,.3);background:#ffcf6e}
+        .btn-download-large img{width:28px;height:28px;border-radius:6px}
+        .floating-download{position:fixed;bottom:20px;right:20px;background:#2b7a3e;color:white;padding:12px 20px;border-radius:50px;font-weight:bold;text-decoration:none;display:flex;align-items:center;gap:10px;box-shadow:0 4px 15px rgba(0,0,0,.3);z-index:99;transition:transform .2s}
+        .floating-download:hover{transform:scale(1.05);background:#1f5e3a}
+        .floating-download img{width:26px;height:26px;border-radius:6px}
+        .quiz-card{background:white;border-radius:2rem;box-shadow:0 20px 35px -12px rgba(0,0,0,.2);overflow:hidden;padding:1.5rem;margin-bottom:1rem}
+        .progress-area{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;margin-bottom:1.5rem;border-bottom:2px solid #e9edf2;padding-bottom:.8rem}
+        .question-counter{font-weight:600;background:#eef2fa;padding:.3rem 1rem;border-radius:30px;font-size:.85rem;color:#1f6392}
+        .score-preview{font-size:.85rem;background:#f0f4f9;padding:.3rem 1rem;border-radius:30px;font-weight:500}
+        .question-text{font-size:1.3rem;font-weight:600;line-height:1.3;margin-bottom:1.5rem;color:#0f2f40}
+        .answers-list{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.5rem}
+        .answer-option{background:#f8fafd;border:2px solid #e2e8f0;border-radius:1.2rem;padding:.8rem 1.2rem;display:flex;align-items:center;cursor:pointer;transition:all .2s ease;font-size:.95rem;font-weight:500}
+        .answer-option:hover{background:#eef3fc;border-color:#8bb3d4;transform:translateX(5px)}
+        .answer-option.selected{background:#e1f0fe;border-color:#2c7cb6}
+        .answer-prefix{font-weight:800;background:#cbdde9;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:60px;margin-right:1rem;color:#1e3b4a;flex-shrink:0}
+        .selected .answer-prefix{background:#2c7cb6;color:white}
+        .nav-buttons{display:flex;justify-content:space-between;gap:1rem}
+        button{background:#eef2f7;border:none;padding:.7rem 1.5rem;border-radius:60px;font-weight:600;font-size:.9rem;cursor:pointer;font-family:inherit;color:#1f4e6e}
+        button.primary{background:#1c6e8f;color:white}
+        button.primary:hover{background:#0f5877}
+        .submit-area{margin-top:1.5rem;text-align:center;border-top:1px solid #e2edf2;padding-top:1.5rem}
+        .btn-submit-final{background:#2b7a3e;color:white;font-size:1.1rem;padding:.8rem 1.5rem;border-radius:60px;font-weight:bold}
+        .promo-card{background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:1.5rem;padding:1rem;margin:1rem 0;text-align:center;border:2px solid #f59e0b;display:flex;align-items:center;justify-content:center;gap:15px;flex-wrap:wrap}
+        .promo-card img{width:50px;height:50px;border-radius:12px}
+        .promo-card .promo-text{font-weight:bold;color:#92400e}
+        .promo-card .small-btn{background:#f59e0b;padding:8px 20px;border-radius:50px;text-decoration:none;color:white;font-weight:bold;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:inherit;font-size:1rem}
+        .result-panel{margin-top:1.5rem;background:#eef6e9;border-radius:1.5rem;padding:1.2rem;text-align:center;display:none;border-left:8px solid #2b7a3e}
+        .result-panel.show{display:block}
+        .corrige-detail{margin-top:1rem;background:#fef7e0;border-radius:1rem;padding:1rem;text-align:left;max-height:350px;overflow-y:auto}
+        .corrige-item{border-bottom:1px solid #f0e0b0;padding:.6rem 0;font-size:.8rem}
+        .final-score{font-size:2rem;font-weight:800;color:#1f5e3a}
+        .reset-btn{margin-top:1rem;background:#334e68;color:white}
+        .toggle-corrige-btn{background:#e0b354;color:#2c2b26;margin-top:.8rem}
+        footer{margin-top:1.5rem;text-align:center;font-size:.75rem;color:#4b6a7f;background:rgba(255,255,255,.8);padding:.8rem;border-radius:1.5rem}
+        .footer-download{display:inline-flex;align-items:center;gap:8px;background:#1f5e3a;color:white;padding:8px 16px;border-radius:50px;text-decoration:none;font-weight:500;margin-top:8px}
+        .footer-download img{width:22px;height:22px;border-radius:5px}
+        @media(max-width:680px){.hero h1{font-size:1.4rem}.btn-download-large{font-size:1rem;padding:12px 20px}.question-text{font-size:1.1rem}.promo-card{flex-direction:column;text-align:center}}
     </style>
 </head>
 <body>
 
-<header>
-    <div class="flag"></div>
-    <h1>QCM Terminale<br><span>SVT · Maths · Physique · Culture BF</span></h1>
-    <div class="timer-badge" id="timerEl">⏱ 60:00</div>
-</header>
-
-<div class="wrap">
-
-    <div class="progress-bar-wrap">
-        <div class="progress-bar-fill" id="progressFill" style="width:2%"></div>
-    </div>
-    <div class="progress-info">
-        <span><strong id="answeredCount">0</strong> répondues</span>
-        <span><strong id="remainingCount">50</strong> restantes</span>
-    </div>
-
-    <!-- QUIZ -->
-    <div class="quiz-card" id="quizCard">
-        <div class="card-top">
-            <span class="q-number" id="qNum">1</span>
-            <span class="q-sep">/</span>
-            <span class="q-total" id="qTot">50</span>
-            <span class="q-cat" id="qCatLabel" style="display:none">SVT</span>
-        </div>
-        <div class="card-body">
-            <div class="question-text" id="questionText"></div>
-            <div class="answers-list" id="answersContainer"></div>
-            <div class="feedback" id="feedbackBox"></div>
-        </div>
-        <div class="card-nav">
-            <button class="btn btn-prev" id="prevBtn">◀ Précédent</button>
-            <button class="btn btn-next" id="nextBtn">Suivant ▶</button>
-        </div>
-        <div style="padding:0 1.5rem 1.5rem; text-align:center;">
-            <button class="btn btn-submit" id="submitBtn">📊 Voir mon score</button>
-        </div>
-    </div>
-
-    <!-- RÉSULTAT -->
-    <div class="quiz-card result-screen" id="resultScreen">
-        <div class="score-circle">
-            <div class="num" id="scoreNum">0</div>
-            <div class="denom" id="scoreDenom">/ 50</div>
-        </div>
-        <div class="result-msg" id="resultMsg"></div>
-        <div class="stats-row" id="statsRow"></div>
-        <button class="btn btn-submit" id="toggleCorrigeBtn">📖 Afficher le corrigé</button>
-        <div class="corrige" id="corrigeDiv" style="display:none"></div>
-        <br>
-        <button class="btn btn-restart" id="restartBtn">🔄 Recommencer</button>
-    </div>
-
+<div class="top-banner">
+    <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank">
+        <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+        <strong>Faso Concours</strong> — 2000+ questions pour réussir vos examens &nbsp;|&nbsp; Installer →
+    </a>
 </div>
 
-<footer>© 2026 — 50 QCM Terminale BF | SVT · Maths · Physique-Chimie · Culture générale</footer>
+<div class="container">
+    <div class="hero">
+        <img src="icon.png" alt="Faso Concours" class="hero-logo" onerror="this.style.display='none'">
+        <h1>📋 QCM Officiel — 50 Questions</h1>
+        <p>Testez vos connaissances et préparez vos concours avec Faso Concours</p>
+        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="btn-download-large">
+            <img src="icon.png" alt="" onerror="this.style.display='none'">
+            📱 Télécharger Faso Concours
+        </a>
+        <p style="font-size:.8rem;margin-top:1rem;opacity:.8">⭐ Plus de 10 000 utilisateurs | Questions actualisées</p>
+    </div>
+
+    <div class="promo-card">
+        <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+        <div class="promo-text">🎯 Vous aimez ce QCM ? Découvrez des milliers d'autres questions dans l'application !</div>
+        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn">
+            <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer maintenant
+        </a>
+    </div>
+
+    <div class="quiz-card" id="quizApp">
+        <div class="progress-area">
+            <span class="question-counter" id="qCounter">Question 1 / 50</span>
+            <span class="score-preview" id="liveScore">✅ 0 / 50 répondues</span>
+        </div>
+        <div class="question-text" id="questionText">Chargement...</div>
+        <div class="answers-list" id="answersContainer"></div>
+        <div class="nav-buttons">
+            <button id="prevBtn">◀ Précédent</button>
+            <button id="nextBtn" class="primary">Suivant ▶</button>
+        </div>
+        <div class="submit-area">
+            <button id="finalSubmitBtn" class="btn-submit-final">📊 Voir score + Corrigé</button>
+        </div>
+        <div id="resultPanel" class="result-panel">
+            <h3>✨ Votre résultat ✨</h3>
+            <div class="final-score" id="finalScoreSpan">0 / 50</div>
+            <p id="feedbackMsg"></p>
+            <button id="showCorrigeBtn" class="toggle-corrige-btn">📖 Afficher le corrigé</button>
+            <div id="corrigeDetails" style="display:none;" class="corrige-detail"></div>
+            <button id="restartQuizBtn" class="reset-btn">🔄 Recommencer</button>
+            <div class="promo-card" style="margin-top:1rem;background:#e8f0fe;">
+                <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+                <div class="promo-text">📣 Pour encore plus de QCM et de révisions :</div>
+                <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn" style="background:#1f5e3a;">
+                    <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer Faso Concours
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        🧠 Réussissez vos concours avec <strong>Faso Concours</strong>
+        <br>
+        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="footer-download">
+            <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+            📱 Télécharger l'application
+        </a>
+    </footer>
+</div>
+
+<a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="floating-download">
+    <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+    <strong>Installer maintenant</strong>
+</a>
 
 <script>
-const QUESTIONS = [
-  // ── SVT ──────────────────────────────────────────────────────
-  {cat:"svt", q:"Quelle molécule transporte l'information génétique du noyau vers le ribosome ?", a:["ADN","ARN messager","ARN de transfert","Protéine"], c:1},
-  {cat:"svt", q:"La mitose produit :", a:["2 cellules haploïdes","2 cellules diploïdes identiques","4 cellules haploïdes","4 cellules diploïdes"], c:1},
-  {cat:"svt", q:"L'hormone responsable de l'ovulation est :", a:["FSH","Progestérone","LH","Œstrogène"], c:2},
-  {cat:"svt", q:"Quelle structure assure la double circulation chez les mammifères ?", a:["Un cœur à 2 cavités","Un cœur à 3 cavités","Un cœur à 4 cavités","Des branchies"], c:2},
-  {cat:"svt", q:"Le siège de la photosynthèse dans la cellule végétale est :", a:["La mitochondrie","Le noyau","Le chloroplaste","Le vacuole"], c:2},
-  {cat:"svt", q:"Un individu de groupe sanguin AB :", a:["Est donneur universel","Est receveur universel","A uniquement l'antigène A","N'a aucun anticorps ABO"], c:3},
-  {cat:"svt", q:"La méiose se déroule dans :", a:["Le foie","Les organes reproducteurs","Le pancréas","Les reins"], c:1},
-  {cat:"svt", q:"L'unité fonctionnelle du rein est :", a:["Le glomérule","L'alvéole","Le néphron","Le tubule"], c:2},
-  {cat:"svt", q:"Quel gaz est produit lors de la fermentation alcoolique ?", a:["O₂","CO₂","N₂","H₂"], c:1},
-  {cat:"svt", q:"L'ADN est composé de :", a:["Acides aminés","Nucléotides","Ribose et uracile","Glucose et fructose"], c:1},
-  {cat:"svt", q:"Le neurone moteur transmet l'influx nerveux :", a:["Du muscle vers le cerveau","Du cerveau vers le muscle","Entre deux neurones sensitifs","Du récepteur vers la moelle"], c:1},
-  {cat:"svt", q:"Quel est le rôle de l'insuline ?", a:["Augmenter la glycémie","Stimuler la sécrétion de glucagon","Faire baisser la glycémie","Stimuler la glycogénolyse"], c:2},
-  {cat:"svt", q:"La paroi cellulaire des végétaux est principalement composée de :", a:["Protéines","Amidon","Cellulose","Chitine"], c:2},
-  // ── MATHS ────────────────────────────────────────────────────
-  {cat:"maths", q:"La dérivée de f(x) = x³ − 5x + 2 est :", a:["3x² − 5","3x² + 2","x² − 5","3x − 5"], c:0},
-  {cat:"maths", q:"Si log₁₀(x) = 2, alors x est égal à :", a:["20","100","200","1000"], c:1},
-  {cat:"maths", q:"La limite de (sin x)/x quand x→0 est :", a:["0","∞","1","Indéterminée"], c:2},
-  {cat:"maths", q:"Le discriminant de x² − 4x + 5 vaut :", a:["−4","4","36","0"], c:0},
-  {cat:"maths", q:"L'intégrale de 2x dx vaut :", a:["x","2x²","x² + C","2 + C"], c:2},
-  {cat:"maths", q:"Dans un repère orthonormé, la pente d'une droite passant par A(0,1) et B(2,5) est :", a:["1","2","3","4"], c:1},
-  {cat:"maths", q:"Combien de termes a la suite arithmétique de 1 à 100 avec une raison de 3 ?", a:["33","34","35","36"], c:1},
-  {cat:"maths", q:"Si un triangle a des angles 30°, 60° et 90°, quel est le rapport de l'hypoténuse au côté le plus court ?", a:["√2","2","√3","3"], c:1},
-  {cat:"maths", q:"La probabilité de tirer une boule rouge dans un sac de 3 rouges et 7 bleues est :", a:["0,3","0,7","0,5","0,25"], c:0},
-  {cat:"maths", q:"Résoudre : 2x + 3 = 11 donne x = ?", a:["3","4","5","6"], c:1},
-  {cat:"maths", q:"Le vecteur directeur de la droite y = −2x + 5 est :", a:["(1 ; 2)","(1 ; −2)","(2 ; −1)","(−2 ; 5)"], c:1},
-  {cat:"maths", q:"La somme des n premiers entiers naturels est :", a:["n(n+1)","n²","n(n+1)/2","n(n-1)/2"], c:2},
-  // ── PHYSIQUE-CHIMIE ─────────────────────────────────────────
-  {cat:"pc", q:"La loi d'Ohm relie :", a:["Tension, résistance, puissance","Tension, intensité, résistance","Intensité, puissance, fréquence","Charge, masse, accélération"], c:1},
-  {cat:"pc", q:"La vitesse de la lumière dans le vide est approximativement :", a:["3×10⁶ m/s","3×10⁸ m/s","3×10¹⁰ m/s","3×10⁴ m/s"], c:1},
-  {cat:"pc", q:"Le pH d'une solution neutre à 25 °C est :", a:["0","7","14","1"], c:1},
-  {cat:"pc", q:"L'unité SI de force est :", a:["Joule","Watt","Newton","Pascal"], c:2},
-  {cat:"pc", q:"Lors d'une réaction exothermique, l'enthalpie ΔH est :", a:["Positive","Négative","Nulle","Variable"], c:1},
-  {cat:"pc", q:"La formule de l'acide sulfurique est :", a:["HCl","H₂SO₄","H₂CO₃","HNO₃"], c:1},
-  {cat:"pc", q:"Dans un circuit série, les résistances s'additionnent. Vrai ou faux ?", a:["Vrai","Faux"], c:0},
-  {cat:"pc", q:"La fréquence d'une onde lumineuse visible est de l'ordre de :", a:["10³ Hz","10⁶ Hz","10¹⁵ Hz","10²² Hz"], c:2},
-  {cat:"pc", q:"Le numéro atomique du carbone est :", a:["6","8","12","14"], c:0},
-  {cat:"pc", q:"La réaction de saponification transforme :", a:["Un acide en sel","Une ester en acide et alcool","Une graisse en savon et glycérol","Un alcool en alcène"], c:2},
-  {cat:"pc", q:"Quelle est la formule de la vitesse en mécanique newtonienne ?", a:["v = m × a","v = F / m","v = d / t","v = F × t"], c:2},
-  {cat:"pc", q:"Un conducteur ohmique a une résistance de 10 Ω sous 5 V. L'intensité est :", a:["0,2 A","0,5 A","2 A","50 A"], c:1},
-  // ── CULTURE GÉNÉRALE BF ─────────────────────────────────────
-  {cat:"cg", q:"Quel est le nom officiel du Burkina Faso en langue nationale moore ?", a:["Burkina Faso","Burkindi Fasoko","Buuri Weogo","Faso Taaba"], c:0},
-  {cat:"cg", q:"Quelle est la monnaie utilisée au Burkina Faso ?", a:["Le franc burkinabè","Le franc CFA (XOF)","Le dalasi","Le cédi"], c:1},
-  {cat:"cg", q:"Quelle organisation sous-régionale regroupe les pays d'Afrique de l'Ouest ?", a:["UA","CEMAC","CEDEAO","SADC"], c:2},
-  {cat:"cg", q:"Quel est le plus grand marché de Ouagadougou ?", a:["Marché de Gounghin","Marché central Rood Woko","Marché de Karpala","Marché de Pissy"], c:1},
-  {cat:"cg", q:"L'indépendance de la Haute-Volta a été proclamée le :", a:["11 décembre 1958","5 août 1960","4 août 1983","15 octobre 1987"], c:1},
-  {cat:"cg", q:"Qui a été le premier président du Faso après la rectification de 1987 ?", a:["Thomas Sankara","Jean-Baptiste Ouédraogo","Blaise Compaoré","Roch Marc Christian Kaboré"], c:2},
-  {cat:"cg", q:"Quel est le principal fleuve qui traverse le Burkina Faso par l'ouest ?", a:["Nakambé","Sirba","Mouhoun","Comoé"], c:2},
-  {cat:"cg", q:"L'Assemblée nationale burkinabè compte combien de députés (Constitution de 2015) ?", a:["90","111","127","150"], c:1},
-  {cat:"cg", q:"Quel pays partage la frontière nord du Burkina Faso ?", a:["Niger","Mali","Bénin","Côte d'Ivoire"], c:1},
-  {cat:"cg", q:"En quelle année a eu lieu le soulèvement populaire qui a mis fin au régime de Blaise Compaoré ?", a:["2012","2014","2016","2018"], c:1},
-  {cat:"cg", q:"La langue officielle du Burkina Faso est :", a:["Le moore","Le dioula","Le français","Le fulfuldé"], c:2},
+const fullQuestionsData = [
+    {id:1,question:"Quelle molécule transporte l'information génétique du noyau vers le ribosome ?",answers:["ADN","ARN messager","ARN de transfert","Protéine"],correct:1},
+    {id:2,question:"La mitose produit :",answers:["2 cellules haploïdes","2 cellules diploïdes identiques","4 cellules haploïdes","4 cellules diploïdes"],correct:1},
+    {id:3,question:"L'hormone responsable du déclenchement de l'ovulation est :",answers:["FSH","Progestérone","LH","Œstrogène"],correct:2},
+    {id:4,question:"Le siège de la photosynthèse dans la cellule végétale est :",answers:["La mitochondrie","Le noyau","Le chloroplaste","La vacuole"],correct:2},
+    {id:5,question:"Un individu de groupe sanguin AB :",answers:["Est donneur universel","Est receveur universel","A uniquement l'antigène A","N'a aucun anticorps ABO"],correct:3},
+    {id:6,question:"La méiose se déroule dans :",answers:["Le foie","Les organes reproducteurs","Le pancréas","Les reins"],correct:1},
+    {id:7,question:"L'unité fonctionnelle du rein est :",answers:["Le glomérule","L'alvéole","Le néphron","Le tubule"],correct:2},
+    {id:8,question:"Quel gaz est produit lors de la fermentation alcoolique ?",answers:["O₂","CO₂","N₂","H₂"],correct:1},
+    {id:9,question:"L'ADN est composé de :",answers:["Acides aminés","Nucléotides","Ribose et uracile","Glucose et fructose"],correct:1},
+    {id:10,question:"Quel est le rôle de l'insuline ?",answers:["Augmenter la glycémie","Stimuler la sécrétion de glucagon","Faire baisser la glycémie","Stimuler la glycogénolyse"],correct:2},
+    {id:11,question:"La paroi cellulaire des végétaux est principalement composée de :",answers:["Protéines","Amidon","Cellulose","Chitine"],correct:2},
+    {id:12,question:"Le neurone moteur transmet l'influx nerveux :",answers:["Du muscle vers le cerveau","Du cerveau vers le muscle","Entre deux neurones sensitifs","Du récepteur vers la moelle"],correct:1},
+    {id:13,question:"Quelle structure assure la double circulation chez les mammifères ?",answers:["Un cœur à 2 cavités","Un cœur à 3 cavités","Un cœur à 4 cavités","Des branchies"],correct:2},
+    {id:14,question:"La dérivée de f(x) = x³ − 5x + 2 est :",answers:["3x² − 5","3x² + 2","x² − 5","3x − 5"],correct:0},
+    {id:15,question:"Si log₁₀(x) = 2, alors x est égal à :",answers:["20","100","200","1000"],correct:1},
+    {id:16,question:"La limite de (sin x)/x quand x→0 est :",answers:["0","∞","1","Indéterminée"],correct:2},
+    {id:17,question:"Le discriminant de x² − 4x + 5 vaut :",answers:["−4","4","36","0"],correct:0},
+    {id:18,question:"L'intégrale de 2x dx vaut :",answers:["x","2x²","x² + C","2 + C"],correct:2},
+    {id:19,question:"Dans un repère orthonormé, la pente d'une droite passant par A(0,1) et B(2,5) est :",answers:["1","2","3","4"],correct:1},
+    {id:20,question:"La probabilité de tirer une boule rouge dans un sac de 3 rouges et 7 bleues est :",answers:["0,3","0,7","0,5","0,25"],correct:0},
+    {id:21,question:"Résoudre : 2x + 3 = 11 donne x = ?",answers:["3","4","5","6"],correct:1},
+    {id:22,question:"La somme des n premiers entiers naturels est :",answers:["n(n+1)","n²","n(n+1)/2","n(n-1)/2"],correct:2},
+    {id:23,question:"Si un triangle a des angles 30°, 60° et 90°, quel est le rapport de l'hypoténuse au côté le plus court ?",answers:["√2","2","√3","3"],correct:1},
+    {id:24,question:"Combien de termes a la suite arithmétique 1, 4, 7, ..., 100 ?",answers:["33","34","35","36"],correct:1},
+    {id:25,question:"Le vecteur directeur de la droite y = −2x + 5 est :",answers:["(1 ; 2)","(1 ; −2)","(2 ; −1)","(−2 ; 5)"],correct:1},
+    {id:26,question:"Une association investit 200 000 F la 1re année et ajoute 50 000 F chaque année. Combien dépense-t-elle en 15 ans ?",answers:["6 500 000 F","6 250 000 F","6 200 000 F","900 000 F"],correct:0},
+    {id:27,question:"La loi d'Ohm relie :",answers:["Tension, résistance, puissance","Tension, intensité, résistance","Intensité, puissance, fréquence","Charge, masse, accélération"],correct:1},
+    {id:28,question:"La vitesse de la lumière dans le vide est approximativement :",answers:["3×10⁶ m/s","3×10⁸ m/s","3×10¹⁰ m/s","3×10⁴ m/s"],correct:1},
+    {id:29,question:"Le pH d'une solution neutre à 25 °C est :",answers:["0","7","14","1"],correct:1},
+    {id:30,question:"L'unité SI de force est :",answers:["Joule","Watt","Newton","Pascal"],correct:2},
+    {id:31,question:"Lors d'une réaction exothermique, l'enthalpie ΔH est :",answers:["Positive","Négative","Nulle","Variable"],correct:1},
+    {id:32,question:"La formule de l'acide sulfurique est :",answers:["HCl","H₂SO₄","H₂CO₃","HNO₃"],correct:1},
+    {id:33,question:"Dans un circuit série, les résistances s'additionnent. Vrai ou faux ?",answers:["Vrai","Faux"],correct:0},
+    {id:34,question:"Le numéro atomique du carbone est :",answers:["6","8","12","14"],correct:0},
+    {id:35,question:"La réaction de saponification transforme :",answers:["Un acide en sel","Une ester en acide et alcool","Une graisse en savon et glycérol","Un alcool en alcène"],correct:2},
+    {id:36,question:"Quelle est la formule de la vitesse en mécanique newtonienne ?",answers:["v = m × a","v = F / m","v = d / t","v = F × t"],correct:2},
+    {id:37,question:"Un conducteur ohmique a une résistance de 10 Ω sous 5 V. L'intensité est :",answers:["0,2 A","0,5 A","2 A","50 A"],correct:1},
+    {id:38,question:"CnH2nO2 est la formule générale de quel composé organique ?",answers:["Alcool","Acide carboxylique","Acide aminé","Alcane"],correct:1},
+    {id:39,question:"Choisir la formule de l'acide 2-méthylbutanoïque :",answers:["CH3-CH2-CH(CH3)-COOH","CH3-CH(CH3)-CH2-COOH","CH3-CH(CH3)-COO","CH3-CH2-CH2-CH(CH3)-COOH"],correct:0},
+    {id:40,question:"Quelle est la monnaie utilisée au Burkina Faso ?",answers:["Le franc burkinabè","Le franc CFA (XOF)","Le dalasi","Le cédi"],correct:1},
+    {id:41,question:"Quelle organisation sous-régionale regroupe les pays d'Afrique de l'Ouest ?",answers:["UA","CEMAC","CEDEAO","SADC"],correct:2},
+    {id:42,question:"L'indépendance de la Haute-Volta a été proclamée le :",answers:["11 décembre 1958","5 août 1960","4 août 1983","15 octobre 1987"],correct:1},
+    {id:43,question:"En quelle année le Burkina Faso a-t-il changé de nom (anciennement Haute-Volta) ?",answers:["1960","1972","1984","1991"],correct:2},
+    {id:44,question:"Quel est le fleuve le plus long du Burkina Faso ?",answers:["Nakambé","Sirba","Mouhoun (Volta Noire)","Comoé"],correct:2},
+    {id:45,question:"Combien de régions compte le Burkina Faso ?",answers:["10","13","15","17"],correct:3},
+    {id:46,question:"Qui a fondé la ville de Ouagadougou selon la tradition mossi ?",answers:["Naba Oubri","Naba Kourita","Naba Wubri","Naba Zombre"],correct:2},
+    {id:47,question:"Quel pays partage la frontière nord du Burkina Faso ?",answers:["Niger","Mali","Bénin","Côte d'Ivoire"],correct:1},
+    {id:48,question:"La langue officielle du Burkina Faso est :",answers:["Le moore","Le dioula","Le français","Le fulfuldé"],correct:2},
+    {id:49,question:"En quelle année a eu lieu le soulèvement populaire qui a mis fin au régime de Blaise Compaoré ?",answers:["2012","2014","2016","2018"],correct:1},
+    {id:50,question:"Quel est le surnom du Burkina Faso donné par Thomas Sankara ?",answers:["Le pays des hommes intègres","La terre des braves","Le pays de l'unité","La patrie libre"],correct:0}
 ];
 
-function shuffle(arr) {
-    for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
-    return arr;
+function shuffleArray(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
+const QUIZ=shuffleArray([...fullQuestionsData]);
+const TOTAL_QS=QUIZ.length;
+let userAnswers=new Array(TOTAL_QS).fill(null);
+let currentIndex=0;
+let quizSubmitted=false;
+
+const questionTextEl=document.getElementById("questionText");
+const answersContainer=document.getElementById("answersContainer");
+const qCounterEl=document.getElementById("qCounter");
+const liveScoreEl=document.getElementById("liveScore");
+const prevBtn=document.getElementById("prevBtn");
+const nextBtn=document.getElementById("nextBtn");
+const finalSubmitBtn=document.getElementById("finalSubmitBtn");
+const resultPanel=document.getElementById("resultPanel");
+const finalScoreSpan=document.getElementById("finalScoreSpan");
+const feedbackMsg=document.getElementById("feedbackMsg");
+const restartQuizBtn=document.getElementById("restartQuizBtn");
+const showCorrigeBtn=document.getElementById("showCorrigeBtn");
+const corrigeDetailsDiv=document.getElementById("corrigeDetails");
+
+function countAnswered(){return userAnswers.filter(a=>a!==null).length}
+function updateProgress(){
+    liveScoreEl.innerText=`✅ ${countAnswered()} / ${TOTAL_QS} répondues`;
+    qCounterEl.innerText=`Question ${currentIndex+1} / ${TOTAL_QS}`;
 }
-let displayIndices = shuffle(QUESTIONS.map((_,i)=>i));
-let currentIdx = 0;
-let userAnswers = new Array(QUESTIONS.length).fill(null);
-let submitted = false;
-let timerInterval;
-let timeLeft = 3600;
-
-// TIMER
-function startTimer() {
-    timerInterval = setInterval(() => {
-        timeLeft--;
-        const m = String(Math.floor(timeLeft/60)).padStart(2,'0');
-        const s = String(timeLeft%60).padStart(2,'0');
-        const el = document.getElementById('timerEl');
-        el.textContent = `⏱ ${m}:${s}`;
-        if(timeLeft <= 60) el.classList.add('urgent');
-        if(timeLeft <= 0) { clearInterval(timerInterval); showResults(); }
-    }, 1000);
-}
-
-// RENDER
-function getVisibleList() { return displayIndices; }
-
-function render() {
-    const list = getVisibleList();
-    if(!list.length) { document.getElementById('questionText').textContent="Aucune question dans cette catégorie."; document.getElementById('answersContainer').innerHTML=''; return; }
-    const realIdx = list[currentIdx] ?? list[0];
-    const q = QUESTIONS[realIdx];
-    const letters = ['A','B','C','D'];
-
-    document.getElementById('qNum').textContent = currentIdx+1;
-    document.getElementById('qTot').textContent = list.length;
-    const catLabel = document.getElementById('qCatLabel');
-    catLabel.textContent = {svt:'🌿 SVT', maths:'📐 Maths', pc:'⚗️ Physique-Chimie', cg:'🌍 Culture'}[q.cat];
-    catLabel.className = 'q-cat ' + q.cat;
-    document.getElementById('questionText').textContent = q.q;
-
-    const container = document.getElementById('answersContainer');
-    container.innerHTML = '';
-    const feedback = document.getElementById('feedbackBox');
-    feedback.className = 'feedback';
-    feedback.textContent = '';
-
-    q.a.forEach((ans, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'answer-btn';
-        if(submitted) {
-            if(i === q.c) btn.classList.add('reveal-correct');
-            else if(userAnswers[realIdx] === i && i !== q.c) btn.classList.add('wrong');
-        } else {
-            if(userAnswers[realIdx] === i) btn.classList.add('selected');
-        }
-        btn.innerHTML = `<span class="letter">${letters[i]}</span><span>${ans}</span>`;
-        if(!submitted) btn.addEventListener('click', () => pickAnswer(realIdx, i));
-        container.appendChild(btn);
+function escapeHtml(str){if(!str)return'';return str.replace(/[&<>]/g,m=>m==='&'?'&amp;':m==='<'?'&lt;':'&gt;')}
+function renderCurrentQuestion(){
+    if(quizSubmitted)return;
+    const q=QUIZ[currentIndex];
+    questionTextEl.innerText=q.question;
+    const selectedIdx=userAnswers[currentIndex];
+    const letters=['A','B','C','D'];
+    let html='';
+    q.answers.forEach((ans,idx)=>{
+        html+=`<div class="answer-option ${selectedIdx===idx?'selected':''}" data-ans-index="${idx}">
+                    <span class="answer-prefix">${letters[idx]}</span>
+                    <span>${escapeHtml(ans)}</span>
+                </div>`;
     });
-
-    if(submitted && userAnswers[realIdx] !== null) {
-        feedback.className = 'feedback ' + (userAnswers[realIdx] === q.c ? 'correct' : 'wrong');
-        feedback.textContent = userAnswers[realIdx] === q.c ? '✅ Bonne réponse !' : `❌ Mauvaise réponse. Bonne réponse : ${q.a[q.c]}`;
-    }
-
+    answersContainer.innerHTML=html;
+    document.querySelectorAll('.answer-option').forEach(opt=>{
+        opt.addEventListener('click',()=>{
+            if(quizSubmitted)return;
+            userAnswers[currentIndex]=parseInt(opt.dataset.ansIndex);
+            renderCurrentQuestion();
+            updateProgress();
+        });
+    });
     updateProgress();
 }
-
-function pickAnswer(realIdx, i) {
-    userAnswers[realIdx] = i;
-    render();
-}
-
-function updateProgress() {
-    const list = getVisibleList();
-    const answered = list.filter(i => userAnswers[i] !== null).length;
-    const pct = list.length ? Math.max(2, Math.round(answered/list.length*100)) : 2;
-    document.getElementById('progressFill').style.width = pct+'%';
-    document.getElementById('answeredCount').textContent = answered;
-    document.getElementById('remainingCount').textContent = list.length - answered;
-}
-
-function showResults() {
-    clearInterval(timerInterval);
-    submitted = true;
-    document.getElementById('quizCard').style.display = 'none';
-    document.getElementById('resultScreen').classList.add('show');
-
-    const total = QUESTIONS.length;
-    let score = 0;
-    QUESTIONS.forEach((q,i) => { if(userAnswers[i] === q.c) score++; });
-
-    document.getElementById('scoreNum').textContent = score;
-    document.getElementById('scoreDenom').textContent = '/ '+total;
-
-    const pct = Math.round(score/total*100);
-    let msg = pct>=80 ? '🏅 Excellent ! Tu es prêt(e) pour le concours !'
-            : pct>=60 ? '👍 Très bien ! Continue à réviser.'
-            : pct>=40 ? '📚 Bonne base. Revois les notions essentielles.'
-            : '💪 Courage ! Chaque révision te rapproche du succès.';
-    document.getElementById('resultMsg').textContent = msg;
-
-    // Stats par matière
-    const cats = ['svt','maths','pc','cg'];
-    const catNames = {svt:'SVT',maths:'Maths',pc:'Physique-Chimie',cg:'Culture'};
-    const catColors = {svt:'#e6f4ec;color:#1a6b3a',maths:'#e3f0fd;color:#1565c0',pc:'#f3e5f9;color:#6a1b9a',cg:'#fff3e0;color:#b35000'};
-    const statsRow = document.getElementById('statsRow');
-    statsRow.innerHTML = '';
-    cats.forEach(cat => {
-        const qs = QUESTIONS.filter(q=>q.cat===cat);
-        const correct = qs.filter((q,_)=>userAnswers[QUESTIONS.indexOf(q)]===q.c).length;
-        const pill = document.createElement('span');
-        pill.className='stat-pill';
-        pill.style.cssText = `background:${catColors[cat].split(';')[0].replace('background:','')};${catColors[cat].split(';')[1]}`;
-        pill.textContent = `${catNames[cat]} : ${correct}/${qs.length}`;
-        statsRow.appendChild(pill);
-    });
-}
-
-// CORRIGÉ
-document.getElementById('toggleCorrigeBtn').addEventListener('click', () => {
-    const d = document.getElementById('corrigeDiv');
-    const btn = document.getElementById('toggleCorrigeBtn');
-    if(d.style.display==='none') {
-        d.style.display='block'; btn.textContent='🙈 Masquer le corrigé';
-        let html = '<h4 style="margin-bottom:.8rem;font-family:Syne,sans-serif">📖 Corrigé complet</h4>';
-        QUESTIONS.forEach((q,i) => {
-            const ua = userAnswers[i];
-            const ok = ua === q.c;
-            html += `<div class="corrige-item">
-                <div class="qtext">${i+1}. ${q.q}</div>
-                <div class="ans-line">📌 Bonne réponse : <strong>${q.a[q.c]}</strong></div>
-                <div class="ans-line ${ok?'ok':'ko'}">${ok?'✅':'❌'} Votre réponse : ${ua!==null?q.a[ua]:'Non répondue'}</div>
-            </div>`;
-        });
-        d.innerHTML = html;
-    } else { d.style.display='none'; btn.textContent='📖 Afficher le corrigé'; }
-});
-
-// RESTART
-document.getElementById('restartBtn').addEventListener('click', () => {
-    userAnswers = new Array(QUESTIONS.length).fill(null);
-    displayIndices = shuffle(QUESTIONS.map((_,i)=>i));
-    currentIdx = 0; submitted = false; timeLeft = 3600;
-    clearInterval(timerInterval);
-    document.getElementById('timerEl').textContent='⏱ 60:00';
-    document.getElementById('timerEl').classList.remove('urgent');
-    document.getElementById('resultScreen').classList.remove('show');
-    document.getElementById('corrigeDiv').style.display='none';
-    document.getElementById('toggleCorrigeBtn').textContent='📖 Afficher le corrigé';
-    document.getElementById('quizCard').style.display='block';
-    startTimer(); render();
-});
-
-// NAVIGATION
-document.getElementById('prevBtn').addEventListener('click', () => {
-    if(currentIdx>0){currentIdx--;render();}
-});
-document.getElementById('nextBtn').addEventListener('click', () => {
-    const list=getVisibleList();
-    if(currentIdx<list.length-1){currentIdx++;render();}
-});
-document.getElementById('submitBtn').addEventListener('click', () => {
-    const list=getVisibleList();
-    const answered=list.filter(i=>userAnswers[i]!==null).length;
-    if(answered<list.length){
-        if(!confirm(`Tu n'as répondu qu'à ${answered}/${list.length} questions. Soumettre quand même ?`)) return;
+function goPrev(){if(!quizSubmitted&&currentIndex>0){currentIndex--;renderCurrentQuestion();}}
+function goNext(){if(!quizSubmitted&&currentIndex<TOTAL_QS-1){currentIndex++;renderCurrentQuestion();}}
+function computeScore(){let c=0;for(let i=0;i<TOTAL_QS;i++)if(userAnswers[i]!==null&&QUIZ[i].correct===userAnswers[i])c++;return c;}
+function buildCorrigeHTML(){
+    let html='<h4 style="margin-bottom:.5rem">📖 Corrigé complet</h4>';
+    for(let i=0;i<TOTAL_QS;i++){
+        const q=QUIZ[i];
+        const correctAnswerText=q.answers[q.correct];
+        const userAnswerText=(userAnswers[i]!==null)?q.answers[userAnswers[i]]:"Non répondue";
+        const isCorrect=(userAnswers[i]!==null&&q.correct===userAnswers[i]);
+        html+=`<div class="corrige-item"><div><strong>${i+1}. ${escapeHtml(q.question)}</strong></div>
+                <div>📌 Bonne réponse : <strong>${escapeHtml(correctAnswerText)}</strong></div>
+                <div>${isCorrect?'✅':'❌'} Votre réponse : ${escapeHtml(userAnswerText)}</div></div>`;
     }
-    showResults();
+    return html;
+}
+function showFinalResult(){
+    if(quizSubmitted)return;
+    if(countAnswered()<TOTAL_QS){alert(`Répondez à toutes les questions (${countAnswered()}/${TOTAL_QS})`);return;}
+    const score=computeScore();
+    const percent=Math.round(score/TOTAL_QS*100);
+    finalScoreSpan.innerText=`${score} / ${TOTAL_QS} (${percent}%)`;
+    let msg=percent>=80?'🏅 Excellent ! Téléchargez Faso Concours pour plus de défis.':(percent>=60?'👍 Très bien ! Retrouvez plus de QCM dans l\'application.':(percent>=40?'📚 Bonne base. L\'application vous aidera à progresser.':'💪 Entraînez-vous avec Faso Concours !'));
+    feedbackMsg.innerText=msg;
+    corrigeDetailsDiv.innerHTML=buildCorrigeHTML();
+    resultPanel.classList.add('show');
+    quizSubmitted=true;
+    answersContainer.style.pointerEvents='none';
+    prevBtn.disabled=nextBtn.disabled=finalSubmitBtn.disabled=true;
+}
+showCorrigeBtn.addEventListener('click',()=>{
+    if(corrigeDetailsDiv.style.display==='none'||corrigeDetailsDiv.style.display===''){
+        corrigeDetailsDiv.style.display='block';
+        showCorrigeBtn.textContent='🙈 Masquer le corrigé';
+    }else{
+        corrigeDetailsDiv.style.display='none';
+        showCorrigeBtn.textContent='📖 Afficher le corrigé';
+    }
 });
-
-startTimer();
-render();
+function restartQuiz(){
+    userAnswers=new Array(TOTAL_QS).fill(null);
+    currentIndex=0;quizSubmitted=false;
+    resultPanel.classList.remove('show');
+    corrigeDetailsDiv.style.display='none';
+    showCorrigeBtn.textContent='📖 Afficher le corrigé';
+    answersContainer.style.pointerEvents='auto';
+    prevBtn.disabled=nextBtn.disabled=finalSubmitBtn.disabled=false;
+    renderCurrentQuestion();
+}
+prevBtn.addEventListener('click',goPrev);
+nextBtn.addEventListener('click',goNext);
+finalSubmitBtn.addEventListener('click',showFinalResult);
+restartQuizBtn.addEventListener('click',restartQuiz);
+renderCurrentQuestion();
 </script>
 </body>
 </html>
