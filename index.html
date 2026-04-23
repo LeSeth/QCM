@@ -133,6 +133,304 @@
 <script>
 // ============================================================
 // 50 QUESTIONS NIVEAU BAC (Séries D, A et Culture générale Burkina)
+// Les réponses sont mélangées aléatoirement pour chaque question.
+// ============================================================
+
+// Données brutes : chaque objet contient la question, les 4 réponses (la première est la bonne, les trois autres sont des distracteurs)
+// Le script mélangera les réponses au moment de l'initialisation.
+const rawQuestions = [
+    {q:"La fonction f définie par f(x) = ln(x²+1) a pour dérivée f'(x) :", correct:"2x/(x²+1)", distractors:["1/(x²+1)","2x.ln(x²+1)","x/(x²+1)"]},
+    {q:"La limite de (sin x)/x quand x tend vers 0 est égale à :", correct:"1", distractors:["0","∞","-1"]},
+    {q:"L'intégrale ∫₀^π sin(x) dx vaut :", correct:"2", distractors:["0","1","π"]},
+    {q:"Le nombre dérivé de la fonction f(x)=x³ en x=2 est :", correct:"12", distractors:["6","8","4"]},
+    {q:"L'équation 2x + 5 = 13 a pour solution :", correct:"4", distractors:["5","6","8"]},
+    {q:"La forme factorisée de x² - 5x + 6 est :", correct:"(x-2)(x-3)", distractors:["(x+2)(x+3)","(x-1)(x-6)","(x+1)(x+6)"]},
+    {q:"Le discriminant Δ de l'équation 2x² - 3x + 1 = 0 vaut :", correct:"1", distractors:["-1","3","9"]},
+    {q:"Le module du nombre complexe z = 3 - 4i est :", correct:"5", distractors:["7","1","√7"]},
+    {q:"La probabilité d'obtenir un 6 en lançant un dé équilibré à 6 faces est :", correct:"1/6", distractors:["1/3","1/2","1/4"]},
+    {q:"La médiane de la série 3, 7, 8, 12, 15 est :", correct:"8", distractors:["7","12","9"]},
+    {q:"L'équation de la droite passant par A(1,2) et de coefficient directeur 3 est :", correct:"y=3x-1", distractors:["y=2x+3","y=3x+2","y=x+3"]},
+    {q:"La primitive de f(x)=2x sur ℝ est :", correct:"x² + C", distractors:["2x² + C","x²/2 + C","2x + C"]},
+    {q:"La valeur de l'accélération de la pesanteur terrestre g est environ :", correct:"9,8 m/s²", distractors:["10 m/s²","8,9 m/s²","9,0 m/s²"]},
+    {q:"La loi d'Ohm s'écrit :", correct:"U = R.I", distractors:["U = I/R","R = U.I","I = U.R"]},
+    {q:"L'unité de la puissance électrique dans le système international est :", correct:"Le watt (W)", distractors:["Le joule (J)","L'ampère (A)","Le volt (V)"]},
+    {q:"La vitesse de la lumière dans le vide est approximativement :", correct:"3×10⁸ m/s", distractors:["3×10⁵ m/s","3×10⁶ m/s","3×10⁹ m/s"]},
+    {q:"Le noyau d'un atome est composé de :", correct:"Protons et neutrons", distractors:["Protons et électrons","Neutrons et électrons","Seulement des protons"]},
+    {q:"L'énergie cinétique d'un mobile de masse m et de vitesse v est donnée par :", correct:"½ mv²", distractors:["mv","mv²","½ m²v"]},
+    {q:"La deuxième loi de Newton (principe fondamental de la dynamique) s'écrit :", correct:"F = m.a", distractors:["F = m.v","F = m.g","F = m/d"]},
+    {q:"Un rayon lumineux passe de l'air (n=1) dans l'eau (n=1,33). Il est :", correct:"Réfracté vers la normale", distractors:["Réfracté loin de la normale","Totalement réfléchi","Non dévié"]},
+    {q:"La période d'un pendule simple dépend de :", correct:"Sa longueur", distractors:["Sa masse","Son amplitude","La couleur"]},
+    {q:"Un transformateur électrique permet de :", correct:"Modifier la tension", distractors:["Stocker l'énergie","Produire du courant","Redresser le courant"]},
+    {q:"Le pH d'une solution neutre à 25°C est :", correct:"7", distractors:["0","14","1"]},
+    {q:"La formule chimique de l'eau est :", correct:"H₂O", distractors:["CO₂","O₂","NaCl"]},
+    {q:"Dans la classification périodique, les éléments sont classés par ordre croissant de :", correct:"Numéro atomique", distractors:["Masse atomique","Densité","Volume"]},
+    {q:"La combustion complète du méthane CH₄ dans le dioxygène donne :", correct:"CO₂ + H₂O", distractors:["CO + H₂O","C + H₂O","CH₄O"]},
+    {q:"L'acide chlorhydrique a pour formule :", correct:"HCl", distractors:["H₂SO₄","HNO₃","CH₃COOH"]},
+    {q:"La liaison chimique entre deux atomes de chlore (Cl₂) est :", correct:"Covalente pure", distractors:["Ionique","Covalente polaire","Métallique"]},
+    {q:"Le nombre d'oxydation du soufre dans H₂SO₄ est :", correct:"+6", distractors:["+4","+2","-2"]},
+    {q:"Une solution de pH = 3 est :", correct:"Acide", distractors:["Basique","Neutre","Tampon"]},
+    {q:"L'organe responsable de la respiration chez l'humain est :", correct:"Les poumons", distractors:["Le cœur","Le foie","Les reins"]},
+    {q:"La photosynthèse a lieu dans :", correct:"Les chloroplastes", distractors:["Les mitochondries","Le noyau","Le cytoplasme"]},
+    {q:"Le support de l'information génétique est :", correct:"L'ADN", distractors:["L'ARN","Les protéines","Les glucides"]},
+    {q:"La méiose permet d'obtenir :", correct:"4 cellules haploïdes", distractors:["2 cellules diploïdes","4 cellules diploïdes","2 cellules haploïdes"]},
+    {q:"La maladie causée par le VIH est :", correct:"Le SIDA", distractors:["Le paludisme","La tuberculose","Le choléra"]},
+    {q:"Le groupe sanguin universel donneur est :", correct:"O négatif", distractors:["A positif","B positif","AB positif"]},
+    {q:"La théorie de l'évolution par sélection naturelle a été proposée par :", correct:"Charles Darwin", distractors:["Louis Pasteur","Gregor Mendel","Albert Einstein"]},
+    {q:"Le cœur humain possède combien de cavités ?", correct:"4", distractors:["2","3","5"]},
+    {q:"La capitale du Burkina Faso est :", correct:"Ouagadougou", distractors:["Bobo-Dioulasso","Koudougou","Banfora"]},
+    {q:"Le Burkina Faso est limité au nord par :", correct:"Le Mali", distractors:["Le Niger","La Côte d'Ivoire","Le Ghana"]},
+    {q:"Le héros de l'indépendance du Burkina Faso et père de la révolution burkinabè est :", correct:"Thomas Sankara", distractors:["Blaise Compaoré","Maurice Yaméogo","Sangoulé Lamizana"]},
+    {q:"La devise du Burkina Faso est :", correct:"Unité - Progrès - Justice", distractors:["Travail - Liberté - Patrie","Fraternité - Égalité - Justice","Paix - Travail - Nation"]},
+    {q:"La fête nationale du Burkina Faso est célébrée le :", correct:"11 décembre", distractors:["4 août","15 octobre","5 août"]},
+    {q:"Le fleuve qui traverse Bobo-Dioulasso est le :", correct:"Houet", distractors:["Nakambé","Mouhoun","Comoé"]},
+    {q:"La langue officielle du Burkina Faso est :", correct:"Le français", distractors:["Le mooré","Le dioula","Le peul"]},
+    {q:"L'ONU a été créée en :", correct:"1945", distractors:["1918","1939","1950"]},
+    {q:"Les droits de l'homme sont proclamés par :", correct:"La Déclaration universelle des droits de l'homme", distractors:["La Constitution française","Le Coran","La Bible"]},
+    {q:"La plus haute instance judiciaire au Burkina Faso est :", correct:"La Cour de cassation", distractors:["Le Conseil constitutionnel","Le tribunal de grande instance","La Haute cour"]},
+    {q:"Le président actuel du Burkina Faso (2025) est :", correct:"Ibrahim Traoré", distractors:["Roch Kaboré","Blaise Compaoré","Paul-Henri Sandaogo Damiba"]},
+    {q:"Le stade international du Burkina Faso situé à Ouagadougou est :", correct:"Stade du 4-Août", distractors:["Stade municipal","Stade de la SONABEL","Stade omnisports"]}
+];
+
+// Fonction pour mélanger un tableau (algorithme de Fisher-Yates)
+function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+// Construire les questions avec réponses mélangées
+function buildShuffledQuestions() {
+    return rawQuestions.map(item => {
+        // Construire un tableau des 4 réponses : la bonne + les 3 distracteurs
+        let answers = [item.correct, ...item.distractors];
+        // Mélanger ce tableau
+        let shuffledAnswers = shuffleArray([...answers]);
+        // Trouver l'index de la bonne réponse dans le tableau mélangé
+        let correctIndex = shuffledAnswers.indexOf(item.correct);
+        return {
+            id: Math.random(),
+            question: item.q,
+            answers: shuffledAnswers,
+            correct: correctIndex
+        };
+    });
+}
+
+let fullQuestionsData = buildShuffledQuestions();
+const QUIZ = shuffleArray([...fullQuestionsData]); // mélanger l'ordre des questions aussi
+const TOTAL_QS = QUIZ.length;
+let userAnswers = new Array(TOTAL_QS).fill(null);
+let currentIndex = 0;
+let quizSubmitted = false;
+
+const questionTextEl = document.getElementById("questionText");
+const answersContainer = document.getElementById("answersContainer");
+const qCounterEl = document.getElementById("qCounter");
+const liveScoreEl = document.getElementById("liveScore");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const finalSubmitBtn = document.getElementById("finalSubmitBtn");
+const resultPanel = document.getElementById("resultPanel");
+const finalScoreSpan = document.getElementById("finalScoreSpan");
+const feedbackMsg = document.getElementById("feedbackMsg");
+const restartQuizBtn = document.getElementById("restartQuizBtn");
+const showCorrigeBtn = document.getElementById("showCorrigeBtn");
+const corrigeDetailsDiv = document.getElementById("corrigeDetails");
+
+function countAnswered() { return userAnswers.filter(a => a !== null).length; }
+function updateProgress() {
+    liveScoreEl.innerText = `✅ ${countAnswered()} / ${TOTAL_QS} répondues`;
+    qCounterEl.innerText = `Question ${currentIndex+1} / ${TOTAL_QS}`;
+}
+function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;': m==='<'?'&lt;':'&gt;'); }
+function renderCurrentQuestion() {
+    if(quizSubmitted) return;
+    const q = QUIZ[currentIndex];
+    questionTextEl.innerText = q.question;
+    const selectedIdx = userAnswers[currentIndex];
+    const letters = ['A','B','C','D'];
+    let html = '';
+    q.answers.forEach((ans, idx) => {
+        html += `<div class="answer-option ${selectedIdx===idx?'selected':''}" data-ans-index="${idx}">
+                    <span class="answer-prefix">${letters[idx]}</span>
+                    <span>${escapeHtml(ans)}</span>
+                </div>`;
+    });
+    answersContainer.innerHTML = html;
+    document.querySelectorAll('.answer-option').forEach(opt => {
+        opt.addEventListener('click', () => {
+            if(quizSubmitted) return;
+            userAnswers[currentIndex] = parseInt(opt.dataset.ansIndex);
+            renderCurrentQuestion();
+            updateProgress();
+        });
+    });
+    updateProgress();
+}
+function goPrev() { if(!quizSubmitted && currentIndex>0) { currentIndex--; renderCurrentQuestion(); } }
+function goNext() { if(!quizSubmitted && currentIndex<TOTAL_QS-1) { currentIndex++; renderCurrentQuestion(); } }
+function computeScore() { let c=0; for(let i=0;i<TOTAL_QS;i++) if(userAnswers[i]!==null && QUIZ[i].correct===userAnswers[i]) c++; return c; }
+function buildCorrigeHTML() {
+    let html = '<h4 style="margin-bottom:.5rem">📖 Corrigé complet</h4>';
+    for(let i=0;i<TOTAL_QS;i++) {
+        const q = QUIZ[i];
+        const correctAnswerText = q.answers[q.correct];
+        const userAnswerText = (userAnswers[i]!==null) ? q.answers[userAnswers[i]] : "Non répondue";
+        const isCorrect = (userAnswers[i]!==null && q.correct===userAnswers[i]);
+        html += `<div class="corrige-item"><div><strong>${i+1}. ${escapeHtml(q.question)}</strong></div>
+                <div>📌 Bonne réponse : <strong>${escapeHtml(correctAnswerText)}</strong></div>
+                <div>${isCorrect?'✅':'❌'} Votre réponse : ${escapeHtml(userAnswerText)}</div></div>`;
+    }
+    return html;
+}
+function showFinalResult() {
+    if(quizSubmitted) return;
+    if(countAnswered() < TOTAL_QS) { alert(`Répondez à toutes les questions (${countAnswered()}/${TOTAL_QS})`); return; }
+    const score = computeScore();
+    const percent = Math.round(score/TOTAL_QS*100);
+    finalScoreSpan.innerText = `${score} / ${TOTAL_QS} (${percent}%)`;
+    let msg = percent>=80 ? '🏅 Excellent ! Téléchargez Faso Concours pour plus de défis.' : (percent>=60 ? '👍 Très bien ! Retrouvez plus de QCM dans l\'application.' : (percent>=40 ? '📚 Bonne base. L\'application vous aidera à progresser.' : '💪 Entraînez-vous avec Faso Concours !'));
+    feedbackMsg.innerText = msg;
+    corrigeDetailsDiv.innerHTML = buildCorrigeHTML();
+    resultPanel.classList.add('show');
+    quizSubmitted = true;
+    answersContainer.style.pointerEvents = 'none';
+    prevBtn.disabled = nextBtn.disabled = finalSubmitBtn.disabled = true;
+}
+showCorrigeBtn.addEventListener('click', () => {
+    if(corrigeDetailsDiv.style.display === 'none' || corrigeDetailsDiv.style.display === '') {
+        corrigeDetailsDiv.style.display = 'block';
+        showCorrigeBtn.textContent = '🙈 Masquer le corrigé';
+    } else {
+        corrigeDetailsDiv.style.display = 'none';
+        showCorrigeBtn.textContent = '📖 Afficher le corrigé';
+    }
+});
+function restartQuiz() {
+    // Re-générer un nouveau jeu de questions avec réponses mélangées
+    fullQuestionsData = buildShuffledQuestions();
+    const newQuiz = shuffleArray([...fullQuestionsData]);
+    // Remplacer QUIZ global (on ne peut pas réaffecter const, on vide et on repousse)
+    QUIZ.length = 0;
+    newQuiz.forEach(q => QUIZ.push(q));
+    userAnswers = new Array(TOTAL_QS).fill(null);
+    currentIndex = 0;
+    quizSubmitted = false;
+    resultPanel.classList.remove('show');
+    corrigeDetailsDiv.style.display = 'none';
+    showCorrigeBtn.textContent = '📖 Afficher le corrigé';
+    answersContainer.style.pointerEvents = 'auto';
+    prevBtn.disabled = nextBtn.disabled = finalSubmitBtn.disabled = false;
+    renderCurrentQuestion();
+}
+prevBtn.addEventListener('click', goPrev);
+nextBtn.addEventListener('click', goNext);
+finalSubmitBtn.addEventListener('click', showFinalResult);
+restartQuizBtn.addEventListener('click', restartQuiz);
+renderCurrentQuestion();
+</script>
+</body>
+</html>        button.primary{background:#1c6e8f;color:white}
+        button.primary:hover{background:#0f5877}
+        .submit-area{margin-top:1.5rem;text-align:center;border-top:1px solid #e2edf2;padding-top:1.5rem}
+        .btn-submit-final{background:#2b7a3e;color:white;font-size:1.1rem;padding:.8rem 1.5rem;border-radius:60px;font-weight:bold}
+        .promo-card{background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:1.5rem;padding:1rem;margin:1rem 0;text-align:center;border:2px solid #f59e0b;display:flex;align-items:center;justify-content:center;gap:15px;flex-wrap:wrap}
+        .promo-card img{width:50px;height:50px;border-radius:12px}
+        .promo-card .promo-text{font-weight:bold;color:#92400e}
+        .promo-card .small-btn{background:#f59e0b;padding:8px 20px;border-radius:50px;text-decoration:none;color:white;font-weight:bold;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:inherit;font-size:1rem}
+        .result-panel{margin-top:1.5rem;background:#eef6e9;border-radius:1.5rem;padding:1.2rem;text-align:center;display:none;border-left:8px solid #2b7a3e}
+        .result-panel.show{display:block}
+        .corrige-detail{margin-top:1rem;background:#fef7e0;border-radius:1rem;padding:1rem;text-align:left;max-height:350px;overflow-y:auto}
+        .corrige-item{border-bottom:1px solid #f0e0b0;padding:.6rem 0;font-size:.8rem}
+        .final-score{font-size:2rem;font-weight:800;color:#1f5e3a}
+        .reset-btn{margin-top:1rem;background:#334e68;color:white}
+        .toggle-corrige-btn{background:#e0b354;color:#2c2b26;margin-top:.8rem}
+        footer{margin-top:1.5rem;text-align:center;font-size:.75rem;color:#4b6a7f;background:rgba(255,255,255,.8);padding:.8rem;border-radius:1.5rem}
+        .footer-download{display:inline-flex;align-items:center;gap:8px;background:#1f5e3a;color:white;padding:8px 16px;border-radius:50px;text-decoration:none;font-weight:500;margin-top:8px}
+        .footer-download img{width:22px;height:22px;border-radius:5px}
+        @media(max-width:680px){.hero h1{font-size:1.4rem}.btn-download-large{font-size:1rem;padding:12px 20px}.question-text{font-size:1.1rem}.promo-card{flex-direction:column;text-align:center}}
+    </style>
+</head>
+<body>
+
+<div class="top-banner">
+    <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank">
+        <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+        <strong>Faso Concours</strong> — 2000+ questions pour réussir vos examens &nbsp;|&nbsp; Installer →
+    </a>
+</div>
+
+<div class="container">
+    <div class="hero">
+        <img src="icon.png" alt="Faso Concours" class="hero-logo" onerror="this.style.display='none'">
+        <h1>📋 QCM Officiel — 50 Questions</h1>
+        <p>Testez vos connaissances et préparez vos concours avec Faso Concours</p>
+        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="btn-download-large">
+            <img src="icon.png" alt="" onerror="this.style.display='none'">
+            📱 Télécharger Faso Concours
+        </a>
+        <p style="font-size:.8rem;margin-top:1rem;opacity:.8">⭐ Plus de 10 000 utilisateurs | Questions actualisées</p>
+    </div>
+
+    <div class="promo-card">
+        <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+        <div class="promo-text">🎯 Vous aimez ce QCM ? Découvrez des milliers d'autres questions dans l'application !</div>
+        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn">
+            <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer maintenant
+        </a>
+    </div>
+
+    <div class="quiz-card" id="quizApp">
+        <div class="progress-area">
+            <span class="question-counter" id="qCounter">Question 1 / 50</span>
+            <span class="score-preview" id="liveScore">✅ 0 / 50 répondues</span>
+        </div>
+        <div class="question-text" id="questionText">Chargement...</div>
+        <div class="answers-list" id="answersContainer"></div>
+        <div class="nav-buttons">
+            <button id="prevBtn">◀ Précédent</button>
+            <button id="nextBtn" class="primary">Suivant ▶</button>
+        </div>
+        <div class="submit-area">
+            <button id="finalSubmitBtn" class="btn-submit-final">📊 Voir score + Corrigé</button>
+        </div>
+        <div id="resultPanel" class="result-panel">
+            <h3>✨ Votre résultat ✨</h3>
+            <div class="final-score" id="finalScoreSpan">0 / 50</div>
+            <p id="feedbackMsg"></p>
+            <button id="showCorrigeBtn" class="toggle-corrige-btn">📖 Afficher le corrigé</button>
+            <div id="corrigeDetails" style="display:none;" class="corrige-detail"></div>
+            <button id="restartQuizBtn" class="reset-btn">🔄 Recommencer</button>
+            <div class="promo-card" style="margin-top:1rem;background:#e8f0fe;">
+                <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+                <div class="promo-text">📣 Pour encore plus de QCM et de révisions :</div>
+                <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn" style="background:#1f5e3a;">
+                    <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer Faso Concours
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        🧠 Réussissez vos concours avec <strong>Faso Concours</strong>
+        <br>
+        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="footer-download">
+            <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+            📱 Télécharger l'application
+        </a>
+    </footer>
+</div>
+
+<a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="floating-download">
+    <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+    <strong>Installer maintenant</strong>
+</a>
+
+<script>
+// ============================================================
+// 50 QUESTIONS NIVEAU BAC (Séries D, A et Culture générale Burkina)
 // Maths, Physique, Chimie, SVT, Histoire/Géo, Burkina Faso
 // ============================================================
 const fullQuestionsData = [
