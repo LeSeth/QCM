@@ -131,59 +131,69 @@
 </a>
 
 <script>
-// 50 QUESTIONS TRÈS DIFFICILES (niveau concours d'élite, master, grandes écoles)
-// Seul le contenu des questions a été changé, le design reste strictement identique.
+// ============================================================
+// 50 QUESTIONS NIVEAU BAC (Séries D, A et Culture générale Burkina)
+// Maths, Physique, Chimie, SVT, Histoire/Géo, Burkina Faso
+// ============================================================
 const fullQuestionsData = [
-    {id:1, question:"Soit une matrice A ∈ Mₙ(ℂ) telle que A³ = A. Laquelle de ces affirmations est toujours vraie ?", answers:["A est diagonalisable","det(A)=0","A est nilpotente","tr(A)=0"], correct:0},
-    {id:2, question:"L'équation différentielle de Bessel x²y'' + xy' + (x² - ν²)y = 0. Pour ν = 1/2, la solution générale s'exprime à l'aide de :", answers:["Fonctions de Legendre","Sinus et cosinus sur √x","Exponentielles complexes","Polynômes d'Hermite"], correct:1},
-    {id:3, question:"Lors de la phosphorylation oxydative, le complexe I (NADH déshydrogénase) pompe combien de protons par NADH oxydé ?", answers:["2 H⁺","3 H⁺","4 H⁺","1 H⁺"], correct:2},
-    {id:4, question:"En mécanique quantique, la relation de commutation [x̂, p̂] = iℏ implique les inégalités de Heisenberg. Que vaut le commutateur [x̂², p̂] ?", answers:["2iℏ x̂","2iℏ p̂","iℏ x̂","0"], correct:0},
-    {id:5, question:"Le rayonnement synchrotron émis par une particule chargée relativiste est principalement polarisé :", answers:["Circulairement","Parallèlement au plan orbital","Perpendiculairement au plan orbital","De manière aléatoire"], correct:1},
-    {id:6, question:"Dans l'analyse des séries temporelles, un processus ARCH(1) s'écrit ε_t = σ_t z_t avec σ_t² = α₀ + α₁ ε_{t-1}². Pour assurer la stationnarité, la condition nécessaire est :", answers:["α₁ < 1","α₁ < 0","α₀ + α₁ = 1","α₁ > 1"], correct:0},
-    {id:7, question:"La fonction Gamma d'Euler Γ(z) = ∫₀^∞ t^{z-1}e^{-t}dt. Le résidu de Γ(z) au pôle z = -2 vaut :", answers:["1/2","1/4","-1/2","1/6"], correct:3},
-    {id:8, question:"Le facteur de transcription p53 est activé principalement par phosphorylation sur quel résidu après dommage à l'ADN ?", answers:["Sérine 15","Thréonine 45","Tyrosine 204","Sérine 46"], correct:0},
-    {id:9, question:"En relativité générale, le tenseur de Ricci pour une métrique de Schwarzschild dans le vide est :", answers:["R_{μν} = 0","R_{μν} = g_{μν} Λ","R_{μν} = (8πG/c⁴) T_{μν}","R_{μν} ≠ 0 à l'extérieur"], correct:0},
-    {id:10, question:"Soit f(z) = z²/(e^{2πiz} - 1). La somme de la série ∑_{n=1}^{∞} 1/n⁴ peut être obtenue par calcul des résidus. Sa valeur est :", answers:["π⁴/90","π²/6","π⁴/96","ζ(4) = π⁴/90"], correct:3},
-    {id:11, question:"L'opérateur laplacien en coordonnées sphériques appliqué à une fonction radiale f(r) donne :", answers:["f'' + (2/r)f'","f'' + (1/r)f'","f'' + f'","(1/r²)∂_r(r²∂_r f)"], correct:3},
-    {id:12, question:"En immunologie, la région Fc d'une IgG1 permet la liaison au récepteur FcγRIIIa. Cette interaction est cruciale pour :", answers:["L'opsonisation","La cytotoxicité dépendante des anticorps (ADCC)","L'activation du complément par voie classique","La neutralisation virale"], correct:1},
-    {id:13, question:"L'équation aux dérivées partielles de Korteweg–De Vries (KdV) u_t + u u_x + u_{xxx} = 0 admet des solitons. La vitesse du soliton est proportionnelle à :", answers:["L'amplitude","L'inverse de l'amplitude","La largeur au carré","Constante universelle"], correct:0},
-    {id:14, question:"En cryptographie RSA, avec p=11, q=7, e=13, le message m=5 chiffré vaut :", answers:["c=8","c=26","c=31","c=21"], correct:1},
-    {id:15, question:"Le lemme de Schur en théorie des représentations affirme qu'un morphisme entre représentations irréductibles est soit nul, soit :", answers:["Un isomorphisme","Une projection","Une symétrie","Diagonalisable"], correct:0},
-    {id:16, question:"Dans le cycle de Krebs, la succinate déshydrogénase catalyse la conversion de succinate en fumarate. Cette enzyme est également le complexe :", answers:["I de la chaîne respiratoire","II de la chaîne respiratoire","III","IV"], correct:1},
-    {id:17, question:"La distribution de Dirac δ(x) peut être approchée par la limite de (1/π) ε/(x²+ε²) quand ε→0+. Sa transformée de Fourier est :", answers:["1","δ(ω)","e^{-ω²/2}","sinc(ω)"], correct:0},
-    {id:18, question:"En dynamique des fluides, le nombre de Reynolds critique pour la transition laminaire-turbulent dans une conduite cylindrique est environ :", answers:["2300","1000","5000","10⁵"], correct:0},
-    {id:19, question:"Laquelle de ces séries converge conditionnellement ?", answers:["∑ (-1)^n / n","∑ (-1)^n / √n","∑ (-1)^n / n^{1/2}","∑ (-1)^n / n^2"], correct:0},
-    {id:20, question:"Le théorème de Rice en théorie de la calculabilité énonce qu'une propriété non triviale des fonctions récursives est :", answers:["Indécidable","Décidable","Récursivement énumérable","Co-récursivement énumérable"], correct:0},
-    {id:21, question:"En électrochimie, l'équation de Butler-Volmer décrit la cinétique des réactions faradiques. Le courant d'échange est proportionnel à :", answers:["La concentration de l'oxydant","La concentration du réducteur","À la fois oxydant et réducteur","La racine carrée de la vitesse de balayage"], correct:2},
-    {id:22, question:"Laquelle de ces affirmations concernant les espaces de Sobolev H¹(ℝⁿ) est fausse ?", answers:["C'est un espace de Hilbert","Les fonctions sont continues pour n=1","Les fonctions sont bornées pour n=2","L'injection dans L² est compacte sur le tore"], correct:2},
-    {id:23, question:"Le gène BRCA1 muté prédispose au cancer du sein et de l'ovaire. BRCA1 intervient principalement dans :", answers:["La réparation par recombinaison homologue","La réparation par excision de nucléotides","La réparation des mésappariements","La réparation directe des alkylations"], correct:0},
-    {id:24, question:"L'équation sin(x) = x admet combien de solutions réelles ?", answers:["1","2","3","Une infinité"], correct:0},
-    {id:25, question:"En inférence bayésienne, le conjugué naturel d'une loi de Bernoulli est une loi :", answers:["Beta","Gamma","Normale","Poisson"], correct:0},
-    {id:26, question:"L'effet Casimir en électrodynamique quantique résulte des fluctuations :", answers:["Du champ électromagnétique dans le vide","Des électrons virtuels","Des ions du réseau","Des phonons"], correct:0},
-    {id:27, question:"Dans la glycolyse, l'étape de phosphorylation du fructose-6-phosphate en fructose-1,6-bisphosphate est catalysée par :", answers:["Phosphofructokinase-1","Hexokinase","Phosphoglucose isomérase","Aldolase"], correct:0},
-    {id:28, question:"Le noyau de Poisson pour le demi-plan supérieur permet de résoudre le problème de Dirichlet. Son expression est :", answers:["y/(π((x-ξ)²+y²))","1/(π(1+r²-2r cosθ))","(1/π) Im(1/(z-ξ))","(1/π) sin(θ)"], correct:0},
-    {id:29, question:"La relation de dispersion des ondes de gravité en eau peu profonde (profondeur h) est ω = √(gk·tanh(kh)). La vitesse de groupe pour kh << 1 est approximativement :", answers:["√(gh)","(1/2)√(g/k)","√(gk)","(3/2)√(gk)"], correct:0},
-    {id:30, question:"Le nombre de classes d'isomorphisme de groupes d'ordre 21 est :", answers:["1","2","3","4"], correct:1},
-    {id:31, question:"L'intégrale ∫_{0}^{∞} e^{-x²} cos(ax) dx est égale à :", answers:["(√π/2) e^{-a²/4}","(√π) e^{-a²}","(√π/2) e^{-a²}","(1/2)√π e^{-a²/2}"], correct:0},
-    {id:32, question:"En biologie synthétique, le système CRISPR-Cas9 utilise un ARN guide pour couper l'ADN. La protéine Cas9 coupe :", answers:["Les deux brins à 3 pb du motif PAM","Un seul brin","L'ARNm cible","L'ADN simple brin"], correct:0},
-    {id:33, question:"Dans le modèle standard de la physique des particules, le couplage de Yukawa du quark top est le plus élevé. Sa valeur ~1 est proche de :", answers:["1","α_strong","α_EM","G_F"], correct:0},
-    {id:34, question:"L'équation de transport neutronique en milieu infini homogène est une équation intégrodifférentielle. L'approximation de diffusion suppose un courant proportionnel à :", answers:["-D ∇φ","Σ_t φ","νΣ_f φ","D∇²φ"], correct:0},
-    {id:35, question:"Le produit scalaire de Sobolev (f,g)_{H¹} = ∫ fg + ∇f·∇g. La meilleure constante dans l'inégalité de Poincaré sur [0,L] avec Dirichlet est :", answers:["L²/π²","π²/L²","L/π","π/L"], correct:1},
-    {id:36, question:"Le traitement du paludisme par l'artémisinine agit via la génération de radicaux libres suite à la clivage du pont endoperoxyde par :", answers:["Le fer (hème)","L'ADN","La topoisomérase","L'ATP synthase"], correct:0},
-    {id:37, question:"L'ensemble de Mandelbrot est défini comme les c ∈ ℂ pour lesquels la suite z_{n+1}=z_n²+c ne tend pas vers l'infini. Son intersection avec l'axe réel est :", answers:["[-2, 1/4]","[-2, 1]","[-1, 2]","[-3/2, 1/2]"], correct:0},
-    {id:38, question:"En astronomie, la relation période-luminosité des céphéides permet de mesurer les distances. Elle fut découverte par :", answers:["Henrietta Leavitt","Edwin Hubble","Hertzsprung-Russell","Cepheid"], correct:0},
-    {id:39, question:"Le théorème de point fixe de Brouwer en dimension 2 affirme que toute fonction continue du disque unité fermé dans lui-même admet :", answers:["Un point fixe","Une orbite périodique","Un ensemble invariant","Un cycle limite"], correct:0},
-    {id:40, question:"L'effet photoélectrique interne dans les semi-conducteurs est à la base des :", answers:["Photodiodes","LED","Laser à semi-conducteur","Transistors bipolaires"], correct:0},
-    {id:41, question:"L'équation de Black-Scholes pour une option européenne ∂V/∂t + ½σ²S²∂²V/∂S² + rS∂V/∂S - rV = 0 se ramène à l'équation de la chaleur par changement de variable. Le prix d'un call s'exprime via :", answers:["Fonction de répartition normale Φ","Fonction exponentielle","Polynôme d'Hermite","Intégrale de Bessel"], correct:0},
-    {id:42, question:"En biochimie, la liaison de l'oxygène à l'hémoglobine est coopérative. Le modèle de Monod-Wyman-Changeux (MWC) repose sur l'équilibre entre deux états :", answers:["Tense et relâché","R et T","Oxy et désoxy","Actif / inactif"], correct:1},
-    {id:43, question:"Laquelle de ces séries entières a un rayon de convergence nul ?", answers:["∑ n! z^n","∑ z^n / n","∑ z^n / n²","∑ z^n / 2^n"], correct:0},
-    {id:44, question:"Le phénomène de résonance magnétique nucléaire (RMN) concerne les spins nucléaires. La fréquence de Larmor est proportionnelle à :", answers:["Champ magnétique B₀","Facteur gyromagnétique γ","γ B₀","γ / B₀"], correct:2},
-    {id:45, question:"Le filtre de Kalman est un estimateur récursif optimal pour les systèmes dynamiques linéaires gaussiens. L'innovation est la différence entre :", answers:["Mesure et prédiction","État estimé et état réel","Bruit de mesure et bruit d'état","Covariance a priori et a posteriori"], correct:0},
-    {id:46, question:"L'acide ribonucléique (ARN) messager est synthétisé par l'ARN polymérase. Chez les eucaryotes, l'ARN polymérase II transcrit les :", answers:["ARNm et certains snARN","ARNr","ARNt","ARNmt"], correct:0},
-    {id:47, question:"Le nombre de classes d'idéal du corps Q(√−5) est :", answers:["2","1","3","4"], correct:0},
-    {id:48, question:"La loi de Faraday-Lenz indique que la force électromotrice induite s'oppose à la variation du flux. Mathématiquement, cela s'écrit :", answers:["ε = -dΦ/dt","ε = dΦ/dt","ε = -L di/dt","∮ E·dl = -dΦ/dt"], correct:3},
-    {id:49, question:"En théorie des jeux, l'équilibre de Nash pour un jeu à somme nulle 2×2 avec matrice [[a,b],[c,d]] en stratégies mixtes existe toujours. La valeur du jeu vaut :", answers:["(ad - bc)/(a+d - b - c)","(a+b+c+d)/4","(a-d)/(b-c)","(ac - bd)/(a+c - b - d)"], correct:0},
-    {id:50, question:"La protéine CFTR (cystic fibrosis transmembrane regulator) est un canal chlorure régulé par l'AMPc. Sa mutation cause la mucoviscidose. De quel type de transporteur s'agit-il ?", answers:["Canal ABC","Uniporteur Na⁺","Antiporteur H⁺/Cl⁻","Pompe à Ca²⁺"], correct:0}
+    {id:1, question:"La fonction f définie par f(x) = ln(x²+1) a pour dérivée f'(x) :", answers:["2x/(x²+1)","1/(x²+1)","2x.ln(x²+1)","x/(x²+1)"], correct:0},
+    {id:2, question:"La limite de (sin x)/x quand x tend vers 0 est égale à :", answers:["0","1","∞","-1"], correct:1},
+    {id:3, question:"L'intégrale ∫₀^π sin(x) dx vaut :", answers:["0","1","2","π"], correct:2},
+    {id:4, question:"Le nombre dérivé de la fonction f(x)=x³ en x=2 est :", answers:["6","8","12","4"], correct:2},
+    {id:5, question:"L'équation 2x + 5 = 13 a pour solution :", answers:["4","5","6","8"], correct:0},
+    {id:6, question:"La forme factorisée de x² - 5x + 6 est :", answers:["(x-2)(x-3)","(x+2)(x+3)","(x-1)(x-6)","(x+1)(x+6)"], correct:0},
+    {id:7, question:"Le discriminant Δ de l'équation 2x² - 3x + 1 = 0 vaut :", answers:["1","-1","3","9"], correct:0},
+    {id:8, question:"Le module du nombre complexe z = 3 - 4i est :", answers:["5","7","1","√7"], correct:0},
+    {id:9, question:"La probabilité d'obtenir un 6 en lançant un dé équilibré à 6 faces est :", answers:["1/6","1/3","1/2","1/4"], correct:0},
+    {id:10, question:"La médiane de la série 3, 7, 8, 12, 15 est :", answers:["8","7","12","9"], correct:0},
+    {id:11, question:"L'équation de la droite passant par A(1,2) et de coefficient directeur 3 est :", answers:["y=3x-1","y=2x+3","y=3x+2","y=x+3"], correct:0},
+    {id:12, question:"La primitive de f(x)=2x sur ℝ est :", answers:["x² + C","2x² + C","x²/2 + C","2x + C"], correct:0},
+    
+    // PHYSIQUE
+    {id:13, question:"La valeur de l'accélération de la pesanteur terrestre g est environ :", answers:["9,8 m/s²","10 m/s²","8,9 m/s²","9,0 m/s²"], correct:0},
+    {id:14, question:"La loi d'Ohm s'écrit :", answers:["U = R.I","U = I/R","R = U.I","I = U.R"], correct:0},
+    {id:15, question:"L'unité de la puissance électrique dans le système international est :", answers:["Le watt (W)","Le joule (J)","L'ampère (A)","Le volt (V)"], correct:0},
+    {id:16, question:"La vitesse de la lumière dans le vide est approximativement :", answers:["3×10⁸ m/s","3×10⁵ m/s","3×10⁶ m/s","3×10⁹ m/s"], correct:0},
+    {id:17, question:"Le noyau d'un atome est composé de :", answers:["Protons et neutrons","Protons et électrons","Neutrons et électrons","Seulement des protons"], correct:0},
+    {id:18, question:"L'énergie cinétique d'un mobile de masse m et de vitesse v est donnée par :", answers:["½ mv²","mv","mv²","½ m²v"], correct:0},
+    {id:19, question:"La deuxième loi de Newton (principe fondamental de la dynamique) s'écrit :", answers:["F = m.a","F = m.v","F = m.g","F = m/d"], correct:0},
+    {id:20, question:"Un rayon lumineux passe de l'air (n=1) dans l'eau (n=1,33). Il est :", answers:["Réfracté vers la normale","Réfracté loin de la normale","Totalement réfléchi","Non dévié"], correct:0},
+    {id:21, question:"La période d'un pendule simple dépend de :", answers:["Sa longueur","Sa masse","Son amplitude","La couleur"], correct:0},
+    {id:22, question:"Un transformateur électrique permet de :", answers:["Modifier la tension","Stocker l'énergie","Produire du courant","Redresser le courant"], correct:0},
+    
+    // CHIMIE
+    {id:23, question:"Le pH d'une solution neutre à 25°C est :", answers:["7","0","14","1"], correct:0},
+    {id:24, question:"La formule chimique de l'eau est :", answers:["H₂O","CO₂","O₂","NaCl"], correct:0},
+    {id:25, question:"Dans la classification périodique, les éléments sont classés par ordre croissant de :", answers:["Numéro atomique","Masse atomique","Densité","Volume"], correct:0},
+    {id:26, question:"La combustion complète du méthane CH₄ dans le dioxygène donne :", answers:["CO₂ + H₂O","CO + H₂O","C + H₂O","CH₄O"], correct:0},
+    {id:27, question:"L'acide chlorhydrique a pour formule :", answers:["HCl","H₂SO₄","HNO₃","CH₃COOH"], correct:0},
+    {id:28, question:"La liaison chimique entre deux atomes de chlore (Cl₂) est :", answers:["Covalente pure","Ionique","Covalente polaire","Métallique"], correct:0},
+    {id:29, question:"Le nombre d'oxydation du soufre dans H₂SO₄ est :", answers:["+6","+4","+2","-2"], correct:0},
+    {id:30, question:"Une solution de pH = 3 est :", answers:["Acide","Basique","Neutre","Tampon"], correct:0},
+    
+    // SVT (Sciences de la Vie et de la Terre)
+    {id:31, question:"L'organe responsable de la respiration chez l'humain est :", answers:["Les poumons","Le cœur","Le foie","Les reins"], correct:0},
+    {id:32, question:"La photosynthèse a lieu dans :", answers:["Les chloroplastes","Les mitochondries","Le noyau","Le cytoplasme"], correct:0},
+    {id:33, question:"Le support de l'information génétique est :", answers:["L'ADN","L'ARN","Les protéines","Les glucides"], correct:0},
+    {id:34, question:"La méiose permet d'obtenir :", answers:["4 cellules haploïdes","2 cellules diploïdes","4 cellules diploïdes","2 cellules haploïdes"], correct:0},
+    {id:35, question:"La maladie causée par le VIH est :", answers:["Le SIDA","Le paludisme","La tuberculose","Le choléra"], correct:0},
+    {id:36, question:"Le groupe sanguin universel donneur est :", answers:["O négatif","A positif","B positif","AB positif"], correct:0},
+    {id:37, question:"La théorie de l'évolution par sélection naturelle a été proposée par :", answers:["Charles Darwin","Louis Pasteur","Gregor Mendel","Albert Einstein"], correct:0},
+    {id:38, question:"Le cœur humain possède combien de cavités ?", answers:["4","2","3","5"], correct:0},
+    
+    // CULTURE GÉNÉRALE & BURKINA FASO
+    {id:39, question:"La capitale du Burkina Faso est :", answers:["Ouagadougou","Bobo-Dioulasso","Koudougou","Banfora"], correct:0},
+    {id:40, question:"Le Burkina Faso est limité au nord par :", answers:["Le Mali","Le Niger","La Côte d'Ivoire","Le Ghana"], correct:0},
+    {id:41, question:"Le héros de l'indépendance du Burkina Faso et père de la révolution burkinabè est :", answers:["Thomas Sankara","Blaise Compaoré","Maurice Yaméogo","Sangoulé Lamizana"], correct:0},
+    {id:42, question:"La devise du Burkina Faso est :", answers:["Unité - Progrès - Justice","Travail - Liberté - Patrie","Fraternité - Égalité - Justice","Paix - Travail - Nation"], correct:0},
+    {id:43, question:"La fête nationale du Burkina Faso est célébrée le :", answers:["11 décembre","4 août","15 octobre","5 août"], correct:0},
+    {id:44, question:"Le fleuve qui traverse Bobo-Dioulasso est le :", answers:["Houet","Nakambé","Mouhoun","Comoé"], correct:0},
+    {id:45, question:"La langue officielle du Burkina Faso est :", answers:["Le français","Le mooré","Le dioula","Le peul"], correct:0},
+    {id:46, question:"L'ONU a été créée en :", answers:["1945","1918","1939","1950"], correct:0},
+    {id:47, question:"Les droits de l'homme sont proclamés par :", answers:["La Déclaration universelle des droits de l'homme","La Constitution française","Le Coran","La Bible"], correct:0},
+    {id:48, question:"La plus haute instance judiciaire au Burkina Faso est :", answers:["La Cour de cassation","Le Conseil constitutionnel","Le tribunal de grande instance","La Haute cour"], correct:0},
+    {id:49, question:"Le président actuel du Burkina Faso (2025) est :", answers:["Ibrahim Traoré","Roch Kaboré","Blaise Compaoré","Paul-Henri Sandaogo Damiba"], correct:0},
+    {id:50, question:"Le stade international du Burkina Faso situé à Ouagadougou est :", answers:["Stade du 4-Août","Stade municipal","Stade de la SONABEL","Stade omnisports"], correct:0}
 ];
 
 function shuffleArray(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
