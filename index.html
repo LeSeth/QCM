@@ -132,66 +132,72 @@
 
 <script>
 // ============================================================
-// 50 QUESTIONS NIVEAU BAC (Séries D, A et Culture générale Burkina)
-// Les réponses sont mélangées aléatoirement pour chaque question.
+// 50 NOUVELLES QUESTIONS — BAC Burkina Faso
+// Maths, Physique, Chimie, SVT, Histoire/Géo/Culture générale
 // ============================================================
 
-// Données brutes : chaque objet contient la question, les 4 réponses (la première est la bonne, les trois autres sont des distracteurs)
-// Le script mélangera les réponses au moment de l'initialisation.
 const rawQuestions = [
-    {q:"La fonction f définie par f(x) = ln(x²+1) a pour dérivée f'(x) :", correct:"2x/(x²+1)", distractors:["1/(x²+1)","2x.ln(x²+1)","x/(x²+1)"]},
-    {q:"La limite de (sin x)/x quand x tend vers 0 est égale à :", correct:"1", distractors:["0","∞","-1"]},
-    {q:"L'intégrale ∫₀^π sin(x) dx vaut :", correct:"2", distractors:["0","1","π"]},
-    {q:"Le nombre dérivé de la fonction f(x)=x³ en x=2 est :", correct:"12", distractors:["6","8","4"]},
-    {q:"L'équation 2x + 5 = 13 a pour solution :", correct:"4", distractors:["5","6","8"]},
-    {q:"La forme factorisée de x² - 5x + 6 est :", correct:"(x-2)(x-3)", distractors:["(x+2)(x+3)","(x-1)(x-6)","(x+1)(x+6)"]},
-    {q:"Le discriminant Δ de l'équation 2x² - 3x + 1 = 0 vaut :", correct:"1", distractors:["-1","3","9"]},
-    {q:"Le module du nombre complexe z = 3 - 4i est :", correct:"5", distractors:["7","1","√7"]},
-    {q:"La probabilité d'obtenir un 6 en lançant un dé équilibré à 6 faces est :", correct:"1/6", distractors:["1/3","1/2","1/4"]},
-    {q:"La médiane de la série 3, 7, 8, 12, 15 est :", correct:"8", distractors:["7","12","9"]},
-    {q:"L'équation de la droite passant par A(1,2) et de coefficient directeur 3 est :", correct:"y=3x-1", distractors:["y=2x+3","y=3x+2","y=x+3"]},
-    {q:"La primitive de f(x)=2x sur ℝ est :", correct:"x² + C", distractors:["2x² + C","x²/2 + C","2x + C"]},
-    {q:"La valeur de l'accélération de la pesanteur terrestre g est environ :", correct:"9,8 m/s²", distractors:["10 m/s²","8,9 m/s²","9,0 m/s²"]},
-    {q:"La loi d'Ohm s'écrit :", correct:"U = R.I", distractors:["U = I/R","R = U.I","I = U.R"]},
-    {q:"L'unité de la puissance électrique dans le système international est :", correct:"Le watt (W)", distractors:["Le joule (J)","L'ampère (A)","Le volt (V)"]},
-    {q:"La vitesse de la lumière dans le vide est approximativement :", correct:"3×10⁸ m/s", distractors:["3×10⁵ m/s","3×10⁶ m/s","3×10⁹ m/s"]},
-    {q:"Le noyau d'un atome est composé de :", correct:"Protons et neutrons", distractors:["Protons et électrons","Neutrons et électrons","Seulement des protons"]},
-    {q:"L'énergie cinétique d'un mobile de masse m et de vitesse v est donnée par :", correct:"½ mv²", distractors:["mv","mv²","½ m²v"]},
-    {q:"La deuxième loi de Newton (principe fondamental de la dynamique) s'écrit :", correct:"F = m.a", distractors:["F = m.v","F = m.g","F = m/d"]},
-    {q:"Un rayon lumineux passe de l'air (n=1) dans l'eau (n=1,33). Il est :", correct:"Réfracté vers la normale", distractors:["Réfracté loin de la normale","Totalement réfléchi","Non dévié"]},
-    {q:"La période d'un pendule simple dépend de :", correct:"Sa longueur", distractors:["Sa masse","Son amplitude","La couleur"]},
-    {q:"Un transformateur électrique permet de :", correct:"Modifier la tension", distractors:["Stocker l'énergie","Produire du courant","Redresser le courant"]},
-    {q:"Le pH d'une solution neutre à 25°C est :", correct:"7", distractors:["0","14","1"]},
-    {q:"La formule chimique de l'eau est :", correct:"H₂O", distractors:["CO₂","O₂","NaCl"]},
-    {q:"Dans la classification périodique, les éléments sont classés par ordre croissant de :", correct:"Numéro atomique", distractors:["Masse atomique","Densité","Volume"]},
-    {q:"La combustion complète du méthane CH₄ dans le dioxygène donne :", correct:"CO₂ + H₂O", distractors:["CO + H₂O","C + H₂O","CH₄O"]},
-    {q:"L'acide chlorhydrique a pour formule :", correct:"HCl", distractors:["H₂SO₄","HNO₃","CH₃COOH"]},
-    {q:"La liaison chimique entre deux atomes de chlore (Cl₂) est :", correct:"Covalente pure", distractors:["Ionique","Covalente polaire","Métallique"]},
-    {q:"Le nombre d'oxydation du soufre dans H₂SO₄ est :", correct:"+6", distractors:["+4","+2","-2"]},
-    {q:"Une solution de pH = 3 est :", correct:"Acide", distractors:["Basique","Neutre","Tampon"]},
-    {q:"L'organe responsable de la respiration chez l'humain est :", correct:"Les poumons", distractors:["Le cœur","Le foie","Les reins"]},
-    {q:"La photosynthèse a lieu dans :", correct:"Les chloroplastes", distractors:["Les mitochondries","Le noyau","Le cytoplasme"]},
-    {q:"Le support de l'information génétique est :", correct:"L'ADN", distractors:["L'ARN","Les protéines","Les glucides"]},
-    {q:"La méiose permet d'obtenir :", correct:"4 cellules haploïdes", distractors:["2 cellules diploïdes","4 cellules diploïdes","2 cellules haploïdes"]},
-    {q:"La maladie causée par le VIH est :", correct:"Le SIDA", distractors:["Le paludisme","La tuberculose","Le choléra"]},
-    {q:"Le groupe sanguin universel donneur est :", correct:"O négatif", distractors:["A positif","B positif","AB positif"]},
-    {q:"La théorie de l'évolution par sélection naturelle a été proposée par :", correct:"Charles Darwin", distractors:["Louis Pasteur","Gregor Mendel","Albert Einstein"]},
-    {q:"Le cœur humain possède combien de cavités ?", correct:"4", distractors:["2","3","5"]},
-    {q:"La capitale du Burkina Faso est :", correct:"Ouagadougou", distractors:["Bobo-Dioulasso","Koudougou","Banfora"]},
-    {q:"Le Burkina Faso est limité au nord par :", correct:"Le Mali", distractors:["Le Niger","La Côte d'Ivoire","Le Ghana"]},
-    {q:"Le héros de l'indépendance du Burkina Faso et père de la révolution burkinabè est :", correct:"Thomas Sankara", distractors:["Blaise Compaoré","Maurice Yaméogo","Sangoulé Lamizana"]},
-    {q:"La devise du Burkina Faso est :", correct:"Unité - Progrès - Justice", distractors:["Travail - Liberté - Patrie","Fraternité - Égalité - Justice","Paix - Travail - Nation"]},
-    {q:"La fête nationale du Burkina Faso est célébrée le :", correct:"11 décembre", distractors:["4 août","15 octobre","5 août"]},
-    {q:"Le fleuve qui traverse Bobo-Dioulasso est le :", correct:"Houet", distractors:["Nakambé","Mouhoun","Comoé"]},
-    {q:"La langue officielle du Burkina Faso est :", correct:"Le français", distractors:["Le mooré","Le dioula","Le peul"]},
-    {q:"L'ONU a été créée en :", correct:"1945", distractors:["1918","1939","1950"]},
-    {q:"Les droits de l'homme sont proclamés par :", correct:"La Déclaration universelle des droits de l'homme", distractors:["La Constitution française","Le Coran","La Bible"]},
-    {q:"La plus haute instance judiciaire au Burkina Faso est :", correct:"La Cour de cassation", distractors:["Le Conseil constitutionnel","Le tribunal de grande instance","La Haute cour"]},
-    {q:"Le président actuel du Burkina Faso (2025) est :", correct:"Ibrahim Traoré", distractors:["Roch Kaboré","Blaise Compaoré","Paul-Henri Sandaogo Damiba"]},
-    {q:"Le stade international du Burkina Faso situé à Ouagadougou est :", correct:"Stade du 4-Août", distractors:["Stade municipal","Stade de la SONABEL","Stade omnisports"]}
+    // ---- MATHÉMATIQUES ----
+    {q:"Si f(x) = e^(2x), alors f'(x) est égal à :", correct:"2e^(2x)", distractors:["e^(2x)","2xe^x","e^x"]},
+    {q:"La suite (uₙ) définie par u₀ = 3 et uₙ₊₁ = 2uₙ est une suite :", correct:"Géométrique de raison 2", distractors:["Arithmétique de raison 2","Géométrique de raison 3","Arithmétique de raison 3"]},
+    {q:"Le logarithme décimal de 1000 est :", correct:"3", distractors:["10","100","2"]},
+    {q:"La solution de l'inéquation 3x - 7 > 2 est :", correct:"x > 3", distractors:["x < 3","x > -3","x < -3"]},
+    {q:"Combien y a-t-il de permutations de 4 éléments distincts ?", correct:"24", distractors:["12","16","8"]},
+    {q:"La valeur de cos(π/3) est :", correct:"1/2", distractors:["√3/2","√2/2","1"]},
+    {q:"L'ensemble de définition de f(x) = √(x - 2) est :", correct:"[2 ; +∞[", distractors:["]-∞ ; 2]","ℝ","[0 ; +∞["]},
+    {q:"La somme des 10 premiers termes d'une suite arithmétique de premier terme 1 et de raison 2 est :", correct:"100", distractors:["55","110","90"]},
+    {q:"Si log₂(x) = 5, alors x est égal à :", correct:"32", distractors:["10","25","16"]},
+    {q:"Le vecteur directeur de la droite d'équation 2x + 3y - 5 = 0 est :", correct:"(3 ; -2)", distractors:["(2 ; 3)","(-2 ; 3)","(3 ; 2)"]},
+
+    // ---- PHYSIQUE ----
+    {q:"La fréquence d'une onde sonore ayant une période T = 0,02 s est :", correct:"50 Hz", distractors:["20 Hz","100 Hz","200 Hz"]},
+    {q:"Selon la loi de Coulomb, la force entre deux charges est :", correct:"Inversement proportionnelle au carré de la distance", distractors:["Proportionnelle à la distance","Constante","Proportionnelle au carré de la distance"]},
+    {q:"L'effet photoélectrique a été expliqué par :", correct:"Albert Einstein", distractors:["Isaac Newton","Max Planck","Niels Bohr"]},
+    {q:"La puissance dissipée dans une résistance R parcourue par un courant I est :", correct:"P = R·I²", distractors:["P = U/I","P = R/I","P = I/R"]},
+    {q:"Un corps en chute libre depuis une hauteur h = 20 m atteint le sol avec une vitesse (g = 10 m/s²) :", correct:"20 m/s", distractors:["10 m/s","40 m/s","200 m/s"]},
+    {q:"La réfraction de la lumière est décrite par la loi de :", correct:"Snell-Descartes", distractors:["Ohm","Newton","Joule"]},
+    {q:"La constante de Planck h vaut approximativement :", correct:"6,63 × 10⁻³⁴ J·s", distractors:["6,63 × 10⁻²⁴ J·s","6,63 × 10³⁴ J·s","1,6 × 10⁻¹⁹ J·s"]},
+    {q:"Le courant alternatif sinusoïdal en France a une fréquence de :", correct:"50 Hz", distractors:["60 Hz","100 Hz","220 Hz"]},
+    {q:"Un condensateur de capacité C chargé sous une tension U stocke une énergie :", correct:"E = ½ CU²", distractors:["E = CU","E = CU²","E = ½ C²U"]},
+    {q:"La radioactivité alpha consiste en l'émission :", correct:"D'un noyau d'hélium ⁴He", distractors:["D'un électron","D'un photon","D'un neutron"]},
+
+    // ---- CHIMIE ----
+    {q:"La masse molaire de l'eau (H₂O) est :", correct:"18 g/mol", distractors:["16 g/mol","20 g/mol","10 g/mol"]},
+    {q:"Lors d'une oxydoréduction, l'oxydant :", correct:"Gagne des électrons", distractors:["Perd des électrons","Perd des protons","Gagne des protons"]},
+    {q:"La constante d'Avogadro Nₐ est approximativement :", correct:"6,02 × 10²³ mol⁻¹", distractors:["6,02 × 10¹⁰ mol⁻¹","6,63 × 10²³ mol⁻¹","3,01 × 10²³ mol⁻¹"]},
+    {q:"Dans une solution tampon, le pH :", correct:"Varie peu lors d'un ajout d'acide ou de base", distractors:["Est toujours égal à 7","Augmente toujours","Diminue toujours"]},
+    {q:"La réaction de saponification produit :", correct:"Du savon et du glycérol", distractors:["De l'alcool et de l'eau","Un ester et de l'eau","Du sel et de l'acide"]},
+    {q:"L'ion hydroxyde a pour formule :", correct:"OH⁻", distractors:["H₃O⁺","O²⁻","H⁺"]},
+    {q:"La formule moléculaire du glucose est :", correct:"C₆H₁₂O₆", distractors:["C₁₂H₂₂O₁₁","C₂H₆O","C₆H₆"]},
+    {q:"Un atome électriquement neutre a :", correct:"Autant de protons que d'électrons", distractors:["Plus de protons que d'électrons","Autant de neutrons que d'électrons","Plus de neutrons que de protons"]},
+    {q:"La distillation permet de séparer deux liquides selon leur :", correct:"Température d'ébullition", distractors:["Densité","Couleur","Viscosité"]},
+    {q:"Le dioxyde de carbone CO₂ est un gaz :", correct:"À effet de serre", distractors:["Radioactif","Toxique pour les plantes","Rare dans l'atmosphère"]},
+
+    // ---- SVT ----
+    {q:"La mitose produit :", correct:"2 cellules filles génétiquement identiques à la cellule mère", distractors:["4 cellules haploïdes","2 cellules haploïdes","4 cellules diploïdes différentes"]},
+    {q:"L'insuline est sécrétée par :", correct:"Le pancréas", distractors:["Le foie","Les glandes surrénales","L'hypophyse"]},
+    {q:"Le paludisme est transmis par :", correct:"La piqûre d'un moustique anophèle femelle", distractors:["L'eau contaminée","La respiration d'air pollué","Le contact cutané"]},
+    {q:"Les chromosomes homologues se séparent lors de :", correct:"La méiose I", distractors:["La mitose","La méiose II","La fécondation"]},
+    {q:"La digestion des lipides dans l'intestin est facilitée par :", correct:"La bile", distractors:["L'insuline","L'HCl","L'amylase"]},
+    {q:"Un gène est une séquence d'ADN codant pour :", correct:"Une protéine (ou un ARN fonctionnel)", distractors:["Un lipide","Un glucide","Un minéral"]},
+    {q:"La respiration cellulaire a lieu principalement dans :", correct:"Les mitochondries", distractors:["Les chloroplastes","Le réticulum endoplasmique","Le noyau"]},
+    {q:"Le groupe sanguin AB est dit :", correct:"Receveur universel", distractors:["Donneur universel","Neutre","Incompatible avec tous"]},
+    {q:"Le VIH attaque principalement les cellules :", correct:"Lymphocytes T CD4", distractors:["Globules rouges","Plaquettes","Neutrophiles"]},
+    {q:"La vaccination stimule le système immunitaire en produisant des :", correct:"Anticorps mémoires", distractors:["Hormones","Enzymes digestives","Globules rouges"]},
+
+    // ---- BURKINA FASO & CULTURE GÉNÉRALE ----
+    {q:"Le Burkina Faso a accédé à l'indépendance le :", correct:"5 août 1960", distractors:["1er janvier 1960","11 décembre 1958","7 novembre 1960"]},
+    {q:"La monnaie utilisée au Burkina Faso est :", correct:"Le franc CFA (FCFA)", distractors:["Le dalasi","Le cedi","Le naira"]},
+    {q:"Le fleuve Mouhoun est aussi appelé :", correct:"Volta noire", distractors:["Volta rouge","Volta blanche","Volta verte"]},
+    {q:"La ville de Koudougou est connue pour son :", correct:"Festival de cinéma FESPACO (région de référence)", distractors:["Grand port fluvial","Désert de sable","Parc national"]},
+    {q:"L'UEMOA regroupe combien de pays membres ?", correct:"8", distractors:["5","12","15"]},
+    {q:"L'organisation continentale africaine se nomme :", correct:"Union Africaine (UA)", distractors:["Organisation de l'Unité Africaine (OUA)","CEDEAO","UEMOA"]},
+    {q:"La Déclaration des droits de l'homme et du citoyen a été adoptée en :", correct:"1789", distractors:["1815","1848","1776"]},
+    {q:"Le premier président du Burkina Faso (ex Haute-Volta) était :", correct:"Maurice Yaméogo", distractors:["Sangoulé Lamizana","Thomas Sankara","Blaise Compaoré"]},
+    {q:"Le nom « Burkina Faso » signifie :", correct:"Patrie des hommes intègres", distractors:["Terre des ancêtres","Pays de la savane","Nation des braves"]},
+    {q:"La CEDEAO a été créée en :", correct:"1975", distractors:["1960","1945","1991"]}
 ];
 
-// Fonction pour mélanger un tableau (algorithme de Fisher-Yates)
 function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -200,14 +206,10 @@ function shuffleArray(arr) {
     return arr;
 }
 
-// Construire les questions avec réponses mélangées
 function buildShuffledQuestions() {
     return rawQuestions.map(item => {
-        // Construire un tableau des 4 réponses : la bonne + les 3 distracteurs
         let answers = [item.correct, ...item.distractors];
-        // Mélanger ce tableau
         let shuffledAnswers = shuffleArray([...answers]);
-        // Trouver l'index de la bonne réponse dans le tableau mélangé
         let correctIndex = shuffledAnswers.indexOf(item.correct);
         return {
             id: Math.random(),
@@ -219,7 +221,7 @@ function buildShuffledQuestions() {
 }
 
 let fullQuestionsData = buildShuffledQuestions();
-const QUIZ = shuffleArray([...fullQuestionsData]); // mélanger l'ordre des questions aussi
+const QUIZ = shuffleArray([...fullQuestionsData]);
 const TOTAL_QS = QUIZ.length;
 let userAnswers = new Array(TOTAL_QS).fill(null);
 let currentIndex = 0;
@@ -309,10 +311,8 @@ showCorrigeBtn.addEventListener('click', () => {
     }
 });
 function restartQuiz() {
-    // Re-générer un nouveau jeu de questions avec réponses mélangées
     fullQuestionsData = buildShuffledQuestions();
     const newQuiz = shuffleArray([...fullQuestionsData]);
-    // Remplacer QUIZ global (on ne peut pas réaffecter const, on vide et on repousse)
     QUIZ.length = 0;
     newQuiz.forEach(q => QUIZ.push(q));
     userAnswers = new Array(TOTAL_QS).fill(null);
@@ -329,275 +329,6 @@ prevBtn.addEventListener('click', goPrev);
 nextBtn.addEventListener('click', goNext);
 finalSubmitBtn.addEventListener('click', showFinalResult);
 restartQuizBtn.addEventListener('click', restartQuiz);
-renderCurrentQuestion();
-</script>
-</body>
-</html>        button.primary{background:#1c6e8f;color:white}
-        button.primary:hover{background:#0f5877}
-        .submit-area{margin-top:1.5rem;text-align:center;border-top:1px solid #e2edf2;padding-top:1.5rem}
-        .btn-submit-final{background:#2b7a3e;color:white;font-size:1.1rem;padding:.8rem 1.5rem;border-radius:60px;font-weight:bold}
-        .promo-card{background:linear-gradient(135deg,#fef3c7,#fde68a);border-radius:1.5rem;padding:1rem;margin:1rem 0;text-align:center;border:2px solid #f59e0b;display:flex;align-items:center;justify-content:center;gap:15px;flex-wrap:wrap}
-        .promo-card img{width:50px;height:50px;border-radius:12px}
-        .promo-card .promo-text{font-weight:bold;color:#92400e}
-        .promo-card .small-btn{background:#f59e0b;padding:8px 20px;border-radius:50px;text-decoration:none;color:white;font-weight:bold;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;font-family:inherit;font-size:1rem}
-        .result-panel{margin-top:1.5rem;background:#eef6e9;border-radius:1.5rem;padding:1.2rem;text-align:center;display:none;border-left:8px solid #2b7a3e}
-        .result-panel.show{display:block}
-        .corrige-detail{margin-top:1rem;background:#fef7e0;border-radius:1rem;padding:1rem;text-align:left;max-height:350px;overflow-y:auto}
-        .corrige-item{border-bottom:1px solid #f0e0b0;padding:.6rem 0;font-size:.8rem}
-        .final-score{font-size:2rem;font-weight:800;color:#1f5e3a}
-        .reset-btn{margin-top:1rem;background:#334e68;color:white}
-        .toggle-corrige-btn{background:#e0b354;color:#2c2b26;margin-top:.8rem}
-        footer{margin-top:1.5rem;text-align:center;font-size:.75rem;color:#4b6a7f;background:rgba(255,255,255,.8);padding:.8rem;border-radius:1.5rem}
-        .footer-download{display:inline-flex;align-items:center;gap:8px;background:#1f5e3a;color:white;padding:8px 16px;border-radius:50px;text-decoration:none;font-weight:500;margin-top:8px}
-        .footer-download img{width:22px;height:22px;border-radius:5px}
-        @media(max-width:680px){.hero h1{font-size:1.4rem}.btn-download-large{font-size:1rem;padding:12px 20px}.question-text{font-size:1.1rem}.promo-card{flex-direction:column;text-align:center}}
-    </style>
-</head>
-<body>
-
-<div class="top-banner">
-    <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank">
-        <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
-        <strong>Faso Concours</strong> — 2000+ questions pour réussir vos examens &nbsp;|&nbsp; Installer →
-    </a>
-</div>
-
-<div class="container">
-    <div class="hero">
-        <img src="icon.png" alt="Faso Concours" class="hero-logo" onerror="this.style.display='none'">
-        <h1>📋 QCM Officiel — 50 Questions</h1>
-        <p>Testez vos connaissances et préparez vos concours avec Faso Concours</p>
-        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="btn-download-large">
-            <img src="icon.png" alt="" onerror="this.style.display='none'">
-            📱 Télécharger Faso Concours
-        </a>
-        <p style="font-size:.8rem;margin-top:1rem;opacity:.8">⭐ Plus de 10 000 utilisateurs | Questions actualisées</p>
-    </div>
-
-    <div class="promo-card">
-        <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
-        <div class="promo-text">🎯 Vous aimez ce QCM ? Découvrez des milliers d'autres questions dans l'application !</div>
-        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn">
-            <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer maintenant
-        </a>
-    </div>
-
-    <div class="quiz-card" id="quizApp">
-        <div class="progress-area">
-            <span class="question-counter" id="qCounter">Question 1 / 50</span>
-            <span class="score-preview" id="liveScore">✅ 0 / 50 répondues</span>
-        </div>
-        <div class="question-text" id="questionText">Chargement...</div>
-        <div class="answers-list" id="answersContainer"></div>
-        <div class="nav-buttons">
-            <button id="prevBtn">◀ Précédent</button>
-            <button id="nextBtn" class="primary">Suivant ▶</button>
-        </div>
-        <div class="submit-area">
-            <button id="finalSubmitBtn" class="btn-submit-final">📊 Voir score + Corrigé</button>
-        </div>
-        <div id="resultPanel" class="result-panel">
-            <h3>✨ Votre résultat ✨</h3>
-            <div class="final-score" id="finalScoreSpan">0 / 50</div>
-            <p id="feedbackMsg"></p>
-            <button id="showCorrigeBtn" class="toggle-corrige-btn">📖 Afficher le corrigé</button>
-            <div id="corrigeDetails" style="display:none;" class="corrige-detail"></div>
-            <button id="restartQuizBtn" class="reset-btn">🔄 Recommencer</button>
-            <div class="promo-card" style="margin-top:1rem;background:#e8f0fe;">
-                <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
-                <div class="promo-text">📣 Pour encore plus de QCM et de révisions :</div>
-                <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn" style="background:#1f5e3a;">
-                    <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer Faso Concours
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        🧠 Réussissez vos concours avec <strong>Faso Concours</strong>
-        <br>
-        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="footer-download">
-            <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
-            📱 Télécharger l'application
-        </a>
-    </footer>
-</div>
-
-<a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="floating-download">
-    <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
-    <strong>Installer maintenant</strong>
-</a>
-
-<script>
-// ============================================================
-// 50 QUESTIONS NIVEAU BAC (Séries D, A et Culture générale Burkina)
-// Maths, Physique, Chimie, SVT, Histoire/Géo, Burkina Faso
-// ============================================================
-const fullQuestionsData = [
-    {id:1, question:"La fonction f définie par f(x) = ln(x²+1) a pour dérivée f'(x) :", answers:["2x/(x²+1)","1/(x²+1)","2x.ln(x²+1)","x/(x²+1)"], correct:0},
-    {id:2, question:"La limite de (sin x)/x quand x tend vers 0 est égale à :", answers:["0","1","∞","-1"], correct:1},
-    {id:3, question:"L'intégrale ∫₀^π sin(x) dx vaut :", answers:["0","1","2","π"], correct:2},
-    {id:4, question:"Le nombre dérivé de la fonction f(x)=x³ en x=2 est :", answers:["6","8","12","4"], correct:2},
-    {id:5, question:"L'équation 2x + 5 = 13 a pour solution :", answers:["4","5","6","8"], correct:0},
-    {id:6, question:"La forme factorisée de x² - 5x + 6 est :", answers:["(x-2)(x-3)","(x+2)(x+3)","(x-1)(x-6)","(x+1)(x+6)"], correct:0},
-    {id:7, question:"Le discriminant Δ de l'équation 2x² - 3x + 1 = 0 vaut :", answers:["1","-1","3","9"], correct:0},
-    {id:8, question:"Le module du nombre complexe z = 3 - 4i est :", answers:["5","7","1","√7"], correct:0},
-    {id:9, question:"La probabilité d'obtenir un 6 en lançant un dé équilibré à 6 faces est :", answers:["1/6","1/3","1/2","1/4"], correct:0},
-    {id:10, question:"La médiane de la série 3, 7, 8, 12, 15 est :", answers:["8","7","12","9"], correct:0},
-    {id:11, question:"L'équation de la droite passant par A(1,2) et de coefficient directeur 3 est :", answers:["y=3x-1","y=2x+3","y=3x+2","y=x+3"], correct:0},
-    {id:12, question:"La primitive de f(x)=2x sur ℝ est :", answers:["x² + C","2x² + C","x²/2 + C","2x + C"], correct:0},
-    
-    // PHYSIQUE
-    {id:13, question:"La valeur de l'accélération de la pesanteur terrestre g est environ :", answers:["9,8 m/s²","10 m/s²","8,9 m/s²","9,0 m/s²"], correct:0},
-    {id:14, question:"La loi d'Ohm s'écrit :", answers:["U = R.I","U = I/R","R = U.I","I = U.R"], correct:0},
-    {id:15, question:"L'unité de la puissance électrique dans le système international est :", answers:["Le watt (W)","Le joule (J)","L'ampère (A)","Le volt (V)"], correct:0},
-    {id:16, question:"La vitesse de la lumière dans le vide est approximativement :", answers:["3×10⁸ m/s","3×10⁵ m/s","3×10⁶ m/s","3×10⁹ m/s"], correct:0},
-    {id:17, question:"Le noyau d'un atome est composé de :", answers:["Protons et neutrons","Protons et électrons","Neutrons et électrons","Seulement des protons"], correct:0},
-    {id:18, question:"L'énergie cinétique d'un mobile de masse m et de vitesse v est donnée par :", answers:["½ mv²","mv","mv²","½ m²v"], correct:0},
-    {id:19, question:"La deuxième loi de Newton (principe fondamental de la dynamique) s'écrit :", answers:["F = m.a","F = m.v","F = m.g","F = m/d"], correct:0},
-    {id:20, question:"Un rayon lumineux passe de l'air (n=1) dans l'eau (n=1,33). Il est :", answers:["Réfracté vers la normale","Réfracté loin de la normale","Totalement réfléchi","Non dévié"], correct:0},
-    {id:21, question:"La période d'un pendule simple dépend de :", answers:["Sa longueur","Sa masse","Son amplitude","La couleur"], correct:0},
-    {id:22, question:"Un transformateur électrique permet de :", answers:["Modifier la tension","Stocker l'énergie","Produire du courant","Redresser le courant"], correct:0},
-    
-    // CHIMIE
-    {id:23, question:"Le pH d'une solution neutre à 25°C est :", answers:["7","0","14","1"], correct:0},
-    {id:24, question:"La formule chimique de l'eau est :", answers:["H₂O","CO₂","O₂","NaCl"], correct:0},
-    {id:25, question:"Dans la classification périodique, les éléments sont classés par ordre croissant de :", answers:["Numéro atomique","Masse atomique","Densité","Volume"], correct:0},
-    {id:26, question:"La combustion complète du méthane CH₄ dans le dioxygène donne :", answers:["CO₂ + H₂O","CO + H₂O","C + H₂O","CH₄O"], correct:0},
-    {id:27, question:"L'acide chlorhydrique a pour formule :", answers:["HCl","H₂SO₄","HNO₃","CH₃COOH"], correct:0},
-    {id:28, question:"La liaison chimique entre deux atomes de chlore (Cl₂) est :", answers:["Covalente pure","Ionique","Covalente polaire","Métallique"], correct:0},
-    {id:29, question:"Le nombre d'oxydation du soufre dans H₂SO₄ est :", answers:["+6","+4","+2","-2"], correct:0},
-    {id:30, question:"Une solution de pH = 3 est :", answers:["Acide","Basique","Neutre","Tampon"], correct:0},
-    
-    // SVT (Sciences de la Vie et de la Terre)
-    {id:31, question:"L'organe responsable de la respiration chez l'humain est :", answers:["Les poumons","Le cœur","Le foie","Les reins"], correct:0},
-    {id:32, question:"La photosynthèse a lieu dans :", answers:["Les chloroplastes","Les mitochondries","Le noyau","Le cytoplasme"], correct:0},
-    {id:33, question:"Le support de l'information génétique est :", answers:["L'ADN","L'ARN","Les protéines","Les glucides"], correct:0},
-    {id:34, question:"La méiose permet d'obtenir :", answers:["4 cellules haploïdes","2 cellules diploïdes","4 cellules diploïdes","2 cellules haploïdes"], correct:0},
-    {id:35, question:"La maladie causée par le VIH est :", answers:["Le SIDA","Le paludisme","La tuberculose","Le choléra"], correct:0},
-    {id:36, question:"Le groupe sanguin universel donneur est :", answers:["O négatif","A positif","B positif","AB positif"], correct:0},
-    {id:37, question:"La théorie de l'évolution par sélection naturelle a été proposée par :", answers:["Charles Darwin","Louis Pasteur","Gregor Mendel","Albert Einstein"], correct:0},
-    {id:38, question:"Le cœur humain possède combien de cavités ?", answers:["4","2","3","5"], correct:0},
-    
-    // CULTURE GÉNÉRALE & BURKINA FASO
-    {id:39, question:"La capitale du Burkina Faso est :", answers:["Ouagadougou","Bobo-Dioulasso","Koudougou","Banfora"], correct:0},
-    {id:40, question:"Le Burkina Faso est limité au nord par :", answers:["Le Mali","Le Niger","La Côte d'Ivoire","Le Ghana"], correct:0},
-    {id:41, question:"Le héros de l'indépendance du Burkina Faso et père de la révolution burkinabè est :", answers:["Thomas Sankara","Blaise Compaoré","Maurice Yaméogo","Sangoulé Lamizana"], correct:0},
-    {id:42, question:"La devise du Burkina Faso est :", answers:["Unité - Progrès - Justice","Travail - Liberté - Patrie","Fraternité - Égalité - Justice","Paix - Travail - Nation"], correct:0},
-    {id:43, question:"La fête nationale du Burkina Faso est célébrée le :", answers:["11 décembre","4 août","15 octobre","5 août"], correct:0},
-    {id:44, question:"Le fleuve qui traverse Bobo-Dioulasso est le :", answers:["Houet","Nakambé","Mouhoun","Comoé"], correct:0},
-    {id:45, question:"La langue officielle du Burkina Faso est :", answers:["Le français","Le mooré","Le dioula","Le peul"], correct:0},
-    {id:46, question:"L'ONU a été créée en :", answers:["1945","1918","1939","1950"], correct:0},
-    {id:47, question:"Les droits de l'homme sont proclamés par :", answers:["La Déclaration universelle des droits de l'homme","La Constitution française","Le Coran","La Bible"], correct:0},
-    {id:48, question:"La plus haute instance judiciaire au Burkina Faso est :", answers:["La Cour de cassation","Le Conseil constitutionnel","Le tribunal de grande instance","La Haute cour"], correct:0},
-    {id:49, question:"Le président actuel du Burkina Faso (2025) est :", answers:["Ibrahim Traoré","Roch Kaboré","Blaise Compaoré","Paul-Henri Sandaogo Damiba"], correct:0},
-    {id:50, question:"Le stade international du Burkina Faso situé à Ouagadougou est :", answers:["Stade du 4-Août","Stade municipal","Stade de la SONABEL","Stade omnisports"], correct:0}
-];
-
-function shuffleArray(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}return arr;}
-const QUIZ=shuffleArray([...fullQuestionsData]);
-const TOTAL_QS=QUIZ.length;
-let userAnswers=new Array(TOTAL_QS).fill(null);
-let currentIndex=0;
-let quizSubmitted=false;
-
-const questionTextEl=document.getElementById("questionText");
-const answersContainer=document.getElementById("answersContainer");
-const qCounterEl=document.getElementById("qCounter");
-const liveScoreEl=document.getElementById("liveScore");
-const prevBtn=document.getElementById("prevBtn");
-const nextBtn=document.getElementById("nextBtn");
-const finalSubmitBtn=document.getElementById("finalSubmitBtn");
-const resultPanel=document.getElementById("resultPanel");
-const finalScoreSpan=document.getElementById("finalScoreSpan");
-const feedbackMsg=document.getElementById("feedbackMsg");
-const restartQuizBtn=document.getElementById("restartQuizBtn");
-const showCorrigeBtn=document.getElementById("showCorrigeBtn");
-const corrigeDetailsDiv=document.getElementById("corrigeDetails");
-
-function countAnswered(){return userAnswers.filter(a=>a!==null).length}
-function updateProgress(){
-    liveScoreEl.innerText=`✅ ${countAnswered()} / ${TOTAL_QS} répondues`;
-    qCounterEl.innerText=`Question ${currentIndex+1} / ${TOTAL_QS}`;
-}
-function escapeHtml(str){if(!str)return'';return str.replace(/[&<>]/g,m=>m==='&'?'&amp;':m==='<'?'&lt;':'&gt;')}
-function renderCurrentQuestion(){
-    if(quizSubmitted)return;
-    const q=QUIZ[currentIndex];
-    questionTextEl.innerText=q.question;
-    const selectedIdx=userAnswers[currentIndex];
-    const letters=['A','B','C','D'];
-    let html='';
-    q.answers.forEach((ans,idx)=>{
-        html+=`<div class="answer-option ${selectedIdx===idx?'selected':''}" data-ans-index="${idx}">
-                    <span class="answer-prefix">${letters[idx]}</span>
-                    <span>${escapeHtml(ans)}</span>
-                </div>`;
-    });
-    answersContainer.innerHTML=html;
-    document.querySelectorAll('.answer-option').forEach(opt=>{
-        opt.addEventListener('click',()=>{
-            if(quizSubmitted)return;
-            userAnswers[currentIndex]=parseInt(opt.dataset.ansIndex);
-            renderCurrentQuestion();
-            updateProgress();
-        });
-    });
-    updateProgress();
-}
-function goPrev(){if(!quizSubmitted&&currentIndex>0){currentIndex--;renderCurrentQuestion();}}
-function goNext(){if(!quizSubmitted&&currentIndex<TOTAL_QS-1){currentIndex++;renderCurrentQuestion();}}
-function computeScore(){let c=0;for(let i=0;i<TOTAL_QS;i++)if(userAnswers[i]!==null&&QUIZ[i].correct===userAnswers[i])c++;return c;}
-function buildCorrigeHTML(){
-    let html='<h4 style="margin-bottom:.5rem">📖 Corrigé complet</h4>';
-    for(let i=0;i<TOTAL_QS;i++){
-        const q=QUIZ[i];
-        const correctAnswerText=q.answers[q.correct];
-        const userAnswerText=(userAnswers[i]!==null)?q.answers[userAnswers[i]]:"Non répondue";
-        const isCorrect=(userAnswers[i]!==null&&q.correct===userAnswers[i]);
-        html+=`<div class="corrige-item"><div><strong>${i+1}. ${escapeHtml(q.question)}</strong></div>
-                <div>📌 Bonne réponse : <strong>${escapeHtml(correctAnswerText)}</strong></div>
-                <div>${isCorrect?'✅':'❌'} Votre réponse : ${escapeHtml(userAnswerText)}</div></div>`;
-    }
-    return html;
-}
-function showFinalResult(){
-    if(quizSubmitted)return;
-    if(countAnswered()<TOTAL_QS){alert(`Répondez à toutes les questions (${countAnswered()}/${TOTAL_QS})`);return;}
-    const score=computeScore();
-    const percent=Math.round(score/TOTAL_QS*100);
-    finalScoreSpan.innerText=`${score} / ${TOTAL_QS} (${percent}%)`;
-    let msg=percent>=80?'🏅 Excellent ! Téléchargez Faso Concours pour plus de défis.':(percent>=60?'👍 Très bien ! Retrouvez plus de QCM dans l\'application.':(percent>=40?'📚 Bonne base. L\'application vous aidera à progresser.':'💪 Entraînez-vous avec Faso Concours !'));
-    feedbackMsg.innerText=msg;
-    corrigeDetailsDiv.innerHTML=buildCorrigeHTML();
-    resultPanel.classList.add('show');
-    quizSubmitted=true;
-    answersContainer.style.pointerEvents='none';
-    prevBtn.disabled=nextBtn.disabled=finalSubmitBtn.disabled=true;
-}
-showCorrigeBtn.addEventListener('click',()=>{
-    if(corrigeDetailsDiv.style.display==='none'||corrigeDetailsDiv.style.display===''){
-        corrigeDetailsDiv.style.display='block';
-        showCorrigeBtn.textContent='🙈 Masquer le corrigé';
-    }else{
-        corrigeDetailsDiv.style.display='none';
-        showCorrigeBtn.textContent='📖 Afficher le corrigé';
-    }
-});
-function restartQuiz(){
-    userAnswers=new Array(TOTAL_QS).fill(null);
-    currentIndex=0;quizSubmitted=false;
-    resultPanel.classList.remove('show');
-    corrigeDetailsDiv.style.display='none';
-    showCorrigeBtn.textContent='📖 Afficher le corrigé';
-    answersContainer.style.pointerEvents='auto';
-    prevBtn.disabled=nextBtn.disabled=finalSubmitBtn.disabled=false;
-    renderCurrentQuestion();
-}
-prevBtn.addEventListener('click',goPrev);
-nextBtn.addEventListener('click',goNext);
-finalSubmitBtn.addEventListener('click',showFinalResult);
-restartQuizBtn.addEventListener('click',restartQuiz);
 renderCurrentQuestion();
 </script>
 </body>
