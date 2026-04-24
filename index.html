@@ -3,24 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Faso Concours - Préparez vos examens</title>
+    <title>Faso Concours - Préparez vos examens (50 questions)</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{background:linear-gradient(145deg,#eef2f7 0%,#d9e2ec 100%);font-family:'Segoe UI',Roboto,'Helvetica Neue',sans-serif;padding:0;color:#1a2c3e}
         .container{max-width:1100px;margin:0 auto;padding:1rem}
         .top-banner{background:linear-gradient(135deg,#ff6b35 0%,#f7931e 100%);color:white;text-align:center;padding:12px 16px;font-weight:bold;font-size:1rem;position:sticky;top:0;z-index:100;box-shadow:0 4px 10px rgba(0,0,0,.1)}
         .top-banner a{color:white;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px}
-        .top-banner img{width:28px;height:28px;border-radius:8px}
         .hero{background:#0b2b3b;background-image:radial-gradient(circle at 10% 20%,#124c5e,#06212e);border-radius:2rem;padding:2rem 1.5rem;margin:1rem 0 1.5rem 0;text-align:center;color:white;box-shadow:0 20px 30px -12px rgba(0,0,0,.25)}
         .hero-logo{width:90px;height:90px;border-radius:20px;margin-bottom:1rem;box-shadow:0 4px 15px rgba(0,0,0,.4)}
         .hero h1{font-size:1.8rem;letter-spacing:-.5px;font-weight:700;margin-bottom:.5rem}
         .hero p{font-size:1rem;opacity:.9;max-width:600px;margin:0 auto}
         .btn-download-large{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:#f4c542;color:#1e2f3a;padding:14px 28px;border-radius:60px;font-weight:bold;font-size:1.2rem;margin-top:1.5rem;text-decoration:none;transition:all .3s ease;box-shadow:0 6px 14px rgba(0,0,0,.25);width:100%;max-width:340px}
         .btn-download-large:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(0,0,0,.3);background:#ffcf6e}
-        .btn-download-large img{width:28px;height:28px;border-radius:6px}
         .floating-download{position:fixed;bottom:20px;right:20px;background:#2b7a3e;color:white;padding:12px 20px;border-radius:50px;font-weight:bold;text-decoration:none;display:flex;align-items:center;gap:10px;box-shadow:0 4px 15px rgba(0,0,0,.3);z-index:99;transition:transform .2s}
         .floating-download:hover{transform:scale(1.05);background:#1f5e3a}
-        .floating-download img{width:26px;height:26px;border-radius:6px}
         .quiz-card{background:white;border-radius:2rem;box-shadow:0 20px 35px -12px rgba(0,0,0,.2);overflow:hidden;padding:1.5rem;margin-bottom:1rem}
         .progress-area{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;margin-bottom:1.5rem;border-bottom:2px solid #e9edf2;padding-bottom:.8rem}
         .question-counter{font-weight:600;background:#eef2fa;padding:.3rem 1rem;border-radius:30px;font-size:.85rem;color:#1f6392}
@@ -33,8 +30,179 @@
         .answer-prefix{font-weight:800;background:#cbdde9;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:60px;margin-right:1rem;color:#1e3b4a;flex-shrink:0}
         .selected .answer-prefix{background:#2c7cb6;color:white}
         .nav-buttons{display:flex;justify-content:space-between;gap:1rem}
-        button{background:#eef2f7;border:none;padding:.7rem 1.5rem;border-radius:60px;font-weight:600;font-size:.9rem;cursor:pointer;font-family:inherit;color:#1f4e6e}
-        button.primary{background:#1c6e8f;color:white}
+        button{background:#eef2f7;border:none;padding:.7rem 1.5rem;border-radius:60px;font-weight:600;font-size:.9rem;cursor:pointer;font-family:inherit;color:#1f4e6e;transition:all .2s ease}
+        button:hover{background:#e2e9f2;transform:scale(0.97)}
+        button:disabled{opacity:0.5;cursor:not-allowed;transform:none}
+        .btn-primary{background:#f7931e;color:white;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+        .btn-primary:hover{background:#ff8c2c}
+        .result-area{text-align:center;padding:1rem 0}
+        .score-final{font-size:2rem;font-weight:800;background:linear-gradient(135deg,#0b2b3b,#1f6392);display:inline-block;padding:.4rem 1.8rem;border-radius:60px;color:white;margin:1rem 0}
+        .restart-btn{background:#2c7cb6;color:white;padding:.6rem 1.8rem;font-size:1rem;margin-top:1rem}
+        footer{text-align:center;margin-top:1.5rem;font-size:.7rem;color:#5f7f9a}
+    </style>
+</head>
+<body>
+<div class="top-banner">
+    <a href="#" target="_blank">
+        📢 Rejoignez notre canal WhatsApp pour plus de quiz et annales →
+    </a>
+</div>
+<div class="container">
+    <div class="hero">
+        <img class="hero-logo" src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png" alt="Logo Faso Concours">
+        <h1>📚 Faso Concours</h1>
+        <p>Testez vos connaissances avec 50 questions proches des examens officiels (BEPC, BAC, Concours administratifs)</p>
+        <a href="#" class="btn-download-large">
+            📥 Télécharger l'App
+        </a>
+    </div>
+
+    <div class="quiz-card" id="quizCard">
+        <div id="quizContainer"></div>
+    </div>
+    <footer>🔁 50 questions – Entraînez-vous chaque jour – Actualisé pour les concours au Burkina Faso</footer>
+</div>
+<a href="#" class="floating-download">
+    📲 App gratuite
+</a>
+
+<script>
+    // ---------- 50 QUESTIONS (aucune bonne réponse en première position) ----------
+    const QUESTIONS = [
+        { text: "Quelle est la devise nationale du Burkina Faso ?", options: ["Unité – Progrès – Justice", "Travail – Justice – Solidarité", "La patrie ou la mort, nous vaincrons", "Paix – Intégrité – Prospérité"], correct: 2 },
+        { text: "Le 11 décembre 1958, la Haute-Volta devient :", options: ["Une colonie française", "Une république autonome", "Un territoire d'outre-mer", "Indépendante"], correct: 1 },
+        { text: "Qui a composé l'hymne national 'Ditanye' ?", options: ["Abdoulaye Cissé", "Thomas Sankara", "Moussa Diallo", "Baba Dramé"], correct: 1 },
+        { text: "Le symbole du cheval sur les armoiries du Burkina représente :", options: ["La noblesse mossi", "La bravoure du peuple", "L'élevage", "La liberté de mouvement"], correct: 1 },
+        { text: "En mathématiques, la racine carrée de 144 est :", options: ["10", "14", "13", "12"], correct: 3 },
+        { text: "Quel écrivain burkinabè a reçu le Grand prix littéraire d'Afrique noire ?", options: ["Pierre Claver Ilboudo", "Nobert Zongo", "Monic Ilboudo", "Adiza Sanou"], correct: 1 },
+        { text: "La plus longue frontière terrestre du Burkina Faso est avec :", options: ["Le Ghana", "La Côte d'Ivoire", "Le Mali", "Le Niger"], correct: 2 },
+        { text: "Le verbe 'venir' au futur simple, première personne du pluriel :", options: ["Nous venions", "Nous viendrons", "Nous venons", "Nous vînmes"], correct: 1 },
+        { text: "Quel est le pourcentage de 12 sur 40 ?", options: ["40%", "25%", "30%", "20%"], correct: 2 },
+        { text: "Quel est le nom du président actuel de la Transition au Burkina Faso ?", options: ["Roch Kaboré", "Paul-Henri Sandaogo Damiba", "Ibrahim Traoré", "Blaise Compaoré"], correct: 2 },
+        { text: "La mine d'or la plus importante du Burkina se trouve à :", options: ["Inata", "Essakane", "Manza", "Kalsaka"], correct: 1 },
+        { text: "Le complément d'objet direct (COD) dans 'Marie mange une pomme' est :", options: ["Marie", "mange", "une pomme", "aucun"], correct: 2 },
+        { text: "Résoudre : 3(2x - 4) = 6x - 12. Cette équation a :", options: ["Une seule solution", "Aucune solution", "Une infinité de solutions", "x = 2"], correct: 2 },
+        { text: "Quelle langue nationale la plus parlée au Burkina après le mooré ?", options: ["Dioula", "Fulfuldé", "Gourmantché", "Bissa"], correct: 0 },
+        { text: "L'actuel Premier ministre du Burkina Faso est :", options: ["Apollinaire Joachim Kyélem de Tambèla", "Christophe Dabiré", "Lassina Zerbo", "Paul Kaba Thieba"], correct: 0 },
+        { text: "En géographie, quel pays n'est PAS voisin du Burkina ?", options: ["Togo", "Bénin", "Guinée", "Mali"], correct: 2 },
+        { text: "'Son regard était lumineux comme un phare' est une :", options: ["Métaphore", "Comparaison", "Personnification", "Hyperbole"], correct: 1 },
+        { text: "Le carré de (x - 3) est égal à :", options: ["x² + 9", "x² - 6x + 9", "x² - 9", "x² + 6x + 9"], correct: 1 },
+        { text: "Qui a été le premier président du Burkina Faso (indépendance) ?", options: ["Maurice Yaméogo", "Sangoulé Lamizana", "Saye Zerbo", "Jean-Baptiste Ouédraogo"], correct: 0 },
+        { text: "Le barrage de Kompienga a été construit sur quel fleuve ?", options: ["Mouhoun", "Nakambé", "Pendjari", "Comoé"], correct: 1 },
+        { text: "'Il fait froid' – 'froid' est :", options: ["Adverbe", "Nom", "Adjectif qualificatif", "Verbe"], correct: 2 },
+        { text: "Si 5 ouvriers construisent un mur en 8 jours, combien d'ouvriers pour le même mur en 2 jours ?", options: ["20", "16", "10", "25"], correct: 0 },
+        { text: "Le parc national le plus célèbre du Burkina est :", options: ["Parc d'Arly", "Parc du W", "Parc de Kaboré Tambi", "Parc de Nazinga"], correct: 1 },
+        { text: "Laquelle de ces villes est surnommée 'la cité du caviar' ?", options: ["Ouahigouya", "Bobo-Dioulasso", "Banfora", "Koudougou"], correct: 1 },
+        { text: "L'aire d'un triangle rectangle de côtés 3cm et 4cm est :", options: ["12 cm²", "6 cm²", "7 cm²", "10 cm²"], correct: 1 },
+        { text: "'Faso Dan Fani' est :", options: ["Un plat traditionnel", "Un tissu local", "Un instrument de musique", "Une danse"], correct: 1 },
+        { text: "Quelle est la fonction du complément d'objet second (COS) ?", options: ["Désigne la chose", "Désigne la personne bénéficiaire", "Indique le temps", "Précise le lieu"], correct: 1 },
+        { text: "La moyenne de 14, 16, 18, 20 est :", options: ["16", "17", "15", "18"], correct: 1 },
+        { text: "L' Organisation internationale de la Francophonie (OIF) compte combien de pays membres ?", options: ["54", "88", "75", "63"], correct: 1 },
+        { text: "Quel est le point culminant du Burkina Faso ?", options: ["Mont Nabéré", "Pic de Nahouri", "Mont Ténakourou", "Mont Koulfi"], correct: 2 },
+        { text: "'Je le lui ai donné' – 'lui' est :", options: ["COD", "COS", "Pronom tonique", "Adverbe"], correct: 1 },
+        { text: "Un angle droit mesure :", options: ["45°", "60°", "90°", "180°"], correct: 2 },
+        { text: "Laquelle de ces fêtes est célébrée au Burkina pour les récoltes ?", options: ["Tabaski", "Fête de l'Indépendance", "Fête de la musique", "Semaine nationale de la culture"], correct: 3 },
+        { text: "Qui a écrit 'Le Roi cruel' ?", options: ["Kollin Noaga", "Jean-Claude Zongo", "Nobert Zongo", "Adrien Savadogo"], correct: 2 },
+        { text: "Le discriminant de l'équation x² + 3x + 2 = 0 est :", options: ["1", "9", "5", "4"], correct: 0 },
+        { text: "Quel est le fusil d'assaut réglementaire dans l'armée burkinabè ?", options: ["M16", "AK-47", "FAL", "HK G3"], correct: 1 },
+        { text: "'Les abeilles butinent' – Le verbe 'butinent' est au :", options: ["Imparfait", "Présent de l'indicatif", "Futur simple", "Conditionnel"], correct: 1 },
+        { text: "Si le prix d'un article baisse de 20% puis augmente de 20%, le prix final :", options: ["Revient au prix initial", "Est inférieur", "Est supérieur", "Impossible à déterminer"], correct: 1 },
+        { text: "Le drapeau du Burkina comporte les couleurs :", options: ["Rouge, vert, jaune", "Vert, jaune, rouge", "Rouge, jaune, vert", "Jaune, vert, rouge"], correct: 1 },
+        { text: "Quelle est la date de l'indépendance de la Haute-Volta ?", options: ["5 août 1960", "4 août 1984", "11 décembre 1958", "15 octobre 1987"], correct: 0 },
+        { text: "Dans 'La voiture rouge est rapide', 'rouge' est :", options: ["Épithète", "Attribut", "Complément nominal", "Apposition"], correct: 0 },
+        { text: "La somme des angles d'un pentagone (5 cotés) est :", options: ["360°", "540°", "720°", "900°"], correct: 1 },
+        { text: "Quelle compagnie aérienne nationale dessert le Burkina ?", options: ["Air France", "Air Burkina", "Ethiopian Airlines", "Royal Air Maroc"], correct: 1 },
+        { text: "Le monument aux héros nationaux se trouve à :", options: ["Bobo", "Ouaga 2000", "Kossyam", "Cité AN III"], correct: 1 },
+        { text: "Le mot 'inéluctable' signifie :", options: ["Qui peut être évité", "Qui ne peut être évité", "Qui est incertain", "Agréable"], correct: 1 },
+        { text: "L'ordre de grandeur de 0,000357 × 8200 est :", options: ["3", "0,3", "30", "300"], correct: 0 },
+        { text: "Quel sport est le plus pratiqué en compétition au Burkina ?", options: ["Cyclisme", "Football", "Basketball", "Athlétisme"], correct: 1 },
+        { text: "Le suffixe '-logie' dans 'biologie' signifie :", options: ["Vie", "Science/étude", "Discours", "Écriture"], correct: 1 },
+        { text: "Le barrage de Ziga a été construit pour :", options: ["L'irrigation", "L'alimentation en eau de Ouaga", "La production d'électricité", "La pisciculture"], correct: 1 }
+    ];
+
+    let currentIndex = 0;
+    let userAnswers = new Array(QUESTIONS.length).fill(null);
+    let quizFinished = false;
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    function renderQuiz() {
+        const container = document.getElementById('quizContainer');
+        if (!container) return;
+
+        if (quizFinished) {
+            let score = 0;
+            for (let i = 0; i < QUESTIONS.length; i++) {
+                if (userAnswers[i] !== null && userAnswers[i] === QUESTIONS[i].correct) score++;
+            }
+            const percent = Math.round((score / QUESTIONS.length) * 100);
+            let msg = percent >= 80 ? "🏆 Excellent, vous maîtrisez le programme !" : (percent >= 60 ? "👍 Très bien, continuez ainsi." : "📘 Révisez un peu plus pour décrocher votre concours.");
+            container.innerHTML = `
+                <div class="result-area">
+                    <div class="progress-area" style="justify-content:center; border-bottom:none;"><span class="question-counter">Quiz terminé ✅</span><span class="score-preview">50 questions</span></div>
+                    <div class="score-final">${score} / ${QUESTIONS.length}</div>
+                    <p style="margin-bottom:1rem; font-size:1.1rem">${msg}</p>
+                    <button class="restart-btn" id="restartQuizBtn">🔄 Recommencer le quiz</button>
+                </div>
+            `;
+            const restart = document.getElementById('restartQuizBtn');
+            if (restart) restart.addEventListener('click', () => { currentIndex = 0; userAnswers.fill(null); quizFinished = false; renderQuiz(); });
+            return;
+        }
+
+        const q = QUESTIONS[currentIndex];
+        const selected = userAnswers[currentIndex];
+        let answersHtml = '';
+        const letters = ['A', 'B', 'C', 'D'];
+        q.options.forEach((opt, idx) => {
+            const selectedClass = (selected === idx) ? 'selected' : '';
+            answersHtml += `<div class="answer-option ${selectedClass}" data-opt-index="${idx}"><span class="answer-prefix">${letters[idx]}</span><span>${escapeHtml(opt)}</span></div>`;
+        });
+
+        let correctSoFar = 0;
+        for (let i = 0; i <= currentIndex; i++) {
+            if (userAnswers[i] !== null && userAnswers[i] === QUESTIONS[i].correct) correctSoFar++;
+        }
+
+        container.innerHTML = `
+            <div class="progress-area"><span class="question-counter">Question ${currentIndex+1}/${QUESTIONS.length}</span><span class="score-preview">🎯 Score partiel : ${correctSoFar}</span></div>
+            <div class="question-text">${escapeHtml(q.text)}</div>
+            <div class="answers-list" id="answersList">${answersHtml}</div>
+            <div class="nav-buttons"><button id="prevBtn" ${currentIndex===0 ? 'disabled' : ''}>◀ Précédent</button><button id="nextBtn" class="btn-primary">${currentIndex===QUESTIONS.length-1 ? 'Terminer' : 'Suivant ▶'}</button></div>
+            <div style="margin-top:1rem; font-size:0.8rem; text-align:center; color:#4f6f8f;">${userAnswers.filter(a=>a!==null).length}/${QUESTIONS.length} répondues</div>
+        `;
+
+        document.querySelectorAll('.answer-option').forEach(div => {
+            div.addEventListener('click', () => {
+                const idx = parseInt(div.getAttribute('data-opt-index'));
+                userAnswers[currentIndex] = idx;
+                renderQuiz();
+            });
+        });
+
+        document.getElementById('prevBtn')?.addEventListener('click', () => { if (currentIndex > 0) { currentIndex--; renderQuiz(); } });
+        document.getElementById('nextBtn')?.addEventListener('click', () => {
+            if (currentIndex === QUESTIONS.length-1) {
+                quizFinished = true;
+                renderQuiz();
+            } else {
+                currentIndex++;
+                renderQuiz();
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', renderQuiz);
+</script>
+</body>
+</html>        button.primary{background:#1c6e8f;color:white}
         button.primary:hover{background:#0f5877}
         .submit-area{margin-top:1.5rem;text-align:center;border-top:1px solid #e2edf2;padding-top:1.5rem}
         .btn-submit-final{background:#2b7a3e;color:white;font-size:1.1rem;padding:.8rem 1.5rem;border-radius:60px;font-weight:bold}
