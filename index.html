@@ -34,175 +34,7 @@
         .selected .answer-prefix{background:#2c7cb6;color:white}
         .nav-buttons{display:flex;justify-content:space-between;gap:1rem}
         button{background:#eef2f7;border:none;padding:.7rem 1.5rem;border-radius:60px;font-weight:600;font-size:.9rem;cursor:pointer;font-family:inherit;color:#1f4e6e}
-        .btn-primary:hover{background:#ff8c2c}
-        .result-area{text-align:center;padding:1rem 0}
-        .score-final{font-size:2rem;font-weight:800;background:linear-gradient(135deg,#0b2b3b,#1f6392);display:inline-block;padding:.4rem 1.8rem;border-radius:60px;color:white;margin:1rem 0}
-        .restart-btn{background:#2c7cb6;color:white;padding:.6rem 1.8rem;font-size:1rem;margin-top:1rem}
-        footer{text-align:center;margin-top:1.5rem;font-size:.7rem;color:#5f7f9a}
-    </style>
-</head>
-<body>
-<div class="top-banner">
-    <a href="#" target="_blank">
-        📢 Rejoignez notre canal WhatsApp pour plus de quiz et annales →
-    </a>
-</div>
-<div class="container">
-    <div class="hero">
-        <img class="hero-logo" src="https://cdn-icons-png.flaticon.com/512/2838/2838912.png" alt="Logo Faso Concours">
-        <h1>📚 Faso Concours</h1>
-        <p>Testez vos connaissances avec 50 questions proches des examens officiels (BEPC, BAC, Concours administratifs)</p>
-        <a href="#" class="btn-download-large">
-            📥 Télécharger l'App
-        </a>
-    </div>
-
-    <div class="quiz-card" id="quizCard">
-        <div id="quizContainer"></div>
-    </div>
-    <footer>🔁 50 questions – Entraînez-vous chaque jour – Actualisé pour les concours au Burkina Faso</footer>
-</div>
-<a href="#" class="floating-download">
-    📲 App gratuite
-</a>
-
-<script>
-    // ---------- 50 QUESTIONS (aucune bonne réponse en première position) ----------
-    const QUESTIONS = [
-        { text: "Quelle est la devise nationale du Burkina Faso ?", options: ["Unité – Progrès – Justice", "Travail – Justice – Solidarité", "La patrie ou la mort, nous vaincrons", "Paix – Intégrité – Prospérité"], correct: 2 },
-        { text: "Le 11 décembre 1958, la Haute-Volta devient :", options: ["Une colonie française", "Une république autonome", "Un territoire d'outre-mer", "Indépendante"], correct: 1 },
-        { text: "Qui a composé l'hymne national 'Ditanye' ?", options: ["Abdoulaye Cissé", "Thomas Sankara", "Moussa Diallo", "Baba Dramé"], correct: 1 },
-        { text: "Le symbole du cheval sur les armoiries du Burkina représente :", options: ["La noblesse mossi", "La bravoure du peuple", "L'élevage", "La liberté de mouvement"], correct: 1 },
-        { text: "En mathématiques, la racine carrée de 144 est :", options: ["10", "14", "13", "12"], correct: 3 },
-        { text: "Quel écrivain burkinabè a reçu le Grand prix littéraire d'Afrique noire ?", options: ["Pierre Claver Ilboudo", "Nobert Zongo", "Monic Ilboudo", "Adiza Sanou"], correct: 1 },
-        { text: "La plus longue frontière terrestre du Burkina Faso est avec :", options: ["Le Ghana", "La Côte d'Ivoire", "Le Mali", "Le Niger"], correct: 2 },
-        { text: "Le verbe 'venir' au futur simple, première personne du pluriel :", options: ["Nous venions", "Nous viendrons", "Nous venons", "Nous vînmes"], correct: 1 },
-        { text: "Quel est le pourcentage de 12 sur 40 ?", options: ["40%", "25%", "30%", "20%"], correct: 2 },
-        { text: "Quel est le nom du président actuel de la Transition au Burkina Faso ?", options: ["Roch Kaboré", "Paul-Henri Sandaogo Damiba", "Ibrahim Traoré", "Blaise Compaoré"], correct: 2 },
-        { text: "La mine d'or la plus importante du Burkina se trouve à :", options: ["Inata", "Essakane", "Manza", "Kalsaka"], correct: 1 },
-        { text: "Le complément d'objet direct (COD) dans 'Marie mange une pomme' est :", options: ["Marie", "mange", "une pomme", "aucun"], correct: 2 },
-        { text: "Résoudre : 3(2x - 4) = 6x - 12. Cette équation a :", options: ["Une seule solution", "Aucune solution", "Une infinité de solutions", "x = 2"], correct: 2 },
-        { text: "Quelle langue nationale la plus parlée au Burkina après le mooré ?", options: ["Dioula", "Fulfuldé", "Gourmantché", "Bissa"], correct: 0 },
-        { text: "L'actuel Premier ministre du Burkina Faso est :", options: ["Apollinaire Joachim Kyélem de Tambèla", "Christophe Dabiré", "Lassina Zerbo", "Paul Kaba Thieba"], correct: 0 },
-        { text: "En géographie, quel pays n'est PAS voisin du Burkina ?", options: ["Togo", "Bénin", "Guinée", "Mali"], correct: 2 },
-        { text: "'Son regard était lumineux comme un phare' est une :", options: ["Métaphore", "Comparaison", "Personnification", "Hyperbole"], correct: 1 },
-        { text: "Le carré de (x - 3) est égal à :", options: ["x² + 9", "x² - 6x + 9", "x² - 9", "x² + 6x + 9"], correct: 1 },
-        { text: "Qui a été le premier président du Burkina Faso (indépendance) ?", options: ["Maurice Yaméogo", "Sangoulé Lamizana", "Saye Zerbo", "Jean-Baptiste Ouédraogo"], correct: 0 },
-        { text: "Le barrage de Kompienga a été construit sur quel fleuve ?", options: ["Mouhoun", "Nakambé", "Pendjari", "Comoé"], correct: 1 },
-        { text: "'Il fait froid' – 'froid' est :", options: ["Adverbe", "Nom", "Adjectif qualificatif", "Verbe"], correct: 2 },
-        { text: "Si 5 ouvriers construisent un mur en 8 jours, combien d'ouvriers pour le même mur en 2 jours ?", options: ["20", "16", "10", "25"], correct: 0 },
-        { text: "Le parc national le plus célèbre du Burkina est :", options: ["Parc d'Arly", "Parc du W", "Parc de Kaboré Tambi", "Parc de Nazinga"], correct: 1 },
-        { text: "Laquelle de ces villes est surnommée 'la cité du caviar' ?", options: ["Ouahigouya", "Bobo-Dioulasso", "Banfora", "Koudougou"], correct: 1 },
-        { text: "L'aire d'un triangle rectangle de côtés 3cm et 4cm est :", options: ["12 cm²", "6 cm²", "7 cm²", "10 cm²"], correct: 1 },
-        { text: "'Faso Dan Fani' est :", options: ["Un plat traditionnel", "Un tissu local", "Un instrument de musique", "Une danse"], correct: 1 },
-        { text: "Quelle est la fonction du complément d'objet second (COS) ?", options: ["Désigne la chose", "Désigne la personne bénéficiaire", "Indique le temps", "Précise le lieu"], correct: 1 },
-        { text: "La moyenne de 14, 16, 18, 20 est :", options: ["16", "17", "15", "18"], correct: 1 },
-        { text: "L' Organisation internationale de la Francophonie (OIF) compte combien de pays membres ?", options: ["54", "88", "75", "63"], correct: 1 },
-        { text: "Quel est le point culminant du Burkina Faso ?", options: ["Mont Nabéré", "Pic de Nahouri", "Mont Ténakourou", "Mont Koulfi"], correct: 2 },
-        { text: "'Je le lui ai donné' – 'lui' est :", options: ["COD", "COS", "Pronom tonique", "Adverbe"], correct: 1 },
-        { text: "Un angle droit mesure :", options: ["45°", "60°", "90°", "180°"], correct: 2 },
-        { text: "Laquelle de ces fêtes est célébrée au Burkina pour les récoltes ?", options: ["Tabaski", "Fête de l'Indépendance", "Fête de la musique", "Semaine nationale de la culture"], correct: 3 },
-        { text: "Qui a écrit 'Le Roi cruel' ?", options: ["Kollin Noaga", "Jean-Claude Zongo", "Nobert Zongo", "Adrien Savadogo"], correct: 2 },
-        { text: "Le discriminant de l'équation x² + 3x + 2 = 0 est :", options: ["1", "9", "5", "4"], correct: 0 },
-        { text: "Quel est le fusil d'assaut réglementaire dans l'armée burkinabè ?", options: ["M16", "AK-47", "FAL", "HK G3"], correct: 1 },
-        { text: "'Les abeilles butinent' – Le verbe 'butinent' est au :", options: ["Imparfait", "Présent de l'indicatif", "Futur simple", "Conditionnel"], correct: 1 },
-        { text: "Si le prix d'un article baisse de 20% puis augmente de 20%, le prix final :", options: ["Revient au prix initial", "Est inférieur", "Est supérieur", "Impossible à déterminer"], correct: 1 },
-        { text: "Le drapeau du Burkina comporte les couleurs :", options: ["Rouge, vert, jaune", "Vert, jaune, rouge", "Rouge, jaune, vert", "Jaune, vert, rouge"], correct: 1 },
-        { text: "Quelle est la date de l'indépendance de la Haute-Volta ?", options: ["5 août 1960", "4 août 1984", "11 décembre 1958", "15 octobre 1987"], correct: 0 },
-        { text: "Dans 'La voiture rouge est rapide', 'rouge' est :", options: ["Épithète", "Attribut", "Complément nominal", "Apposition"], correct: 0 },
-        { text: "La somme des angles d'un pentagone (5 cotés) est :", options: ["360°", "540°", "720°", "900°"], correct: 1 },
-        { text: "Quelle compagnie aérienne nationale dessert le Burkina ?", options: ["Air France", "Air Burkina", "Ethiopian Airlines", "Royal Air Maroc"], correct: 1 },
-        { text: "Le monument aux héros nationaux se trouve à :", options: ["Bobo", "Ouaga 2000", "Kossyam", "Cité AN III"], correct: 1 },
-        { text: "Le mot 'inéluctable' signifie :", options: ["Qui peut être évité", "Qui ne peut être évité", "Qui est incertain", "Agréable"], correct: 1 },
-        { text: "L'ordre de grandeur de 0,000357 × 8200 est :", options: ["3", "0,3", "30", "300"], correct: 0 },
-        { text: "Quel sport est le plus pratiqué en compétition au Burkina ?", options: ["Cyclisme", "Football", "Basketball", "Athlétisme"], correct: 1 },
-        { text: "Le suffixe '-logie' dans 'biologie' signifie :", options: ["Vie", "Science/étude", "Discours", "Écriture"], correct: 1 },
-        { text: "Le barrage de Ziga a été construit pour :", options: ["L'irrigation", "L'alimentation en eau de Ouaga", "La production d'électricité", "La pisciculture"], correct: 1 }
-    ];
-
-    let currentIndex = 0;
-    let userAnswers = new Array(QUESTIONS.length).fill(null);
-    let quizFinished = false;
-
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-
-    function renderQuiz() {
-        const container = document.getElementById('quizContainer');
-        if (!container) return;
-
-        if (quizFinished) {
-            let score = 0;
-            for (let i = 0; i < QUESTIONS.length; i++) {
-                if (userAnswers[i] !== null && userAnswers[i] === QUESTIONS[i].correct) score++;
-            }
-            const percent = Math.round((score / QUESTIONS.length) * 100);
-            let msg = percent >= 80 ? "🏆 Excellent, vous maîtrisez le programme !" : (percent >= 60 ? "👍 Très bien, continuez ainsi." : "📘 Révisez un peu plus pour décrocher votre concours.");
-            container.innerHTML = `
-                <div class="result-area">
-                    <div class="progress-area" style="justify-content:center; border-bottom:none;"><span class="question-counter">Quiz terminé ✅</span><span class="score-preview">50 questions</span></div>
-                    <div class="score-final">${score} / ${QUESTIONS.length}</div>
-                    <p style="margin-bottom:1rem; font-size:1.1rem">${msg}</p>
-                    <button class="restart-btn" id="restartQuizBtn">🔄 Recommencer le quiz</button>
-                </div>
-            `;
-            const restart = document.getElementById('restartQuizBtn');
-            if (restart) restart.addEventListener('click', () => { currentIndex = 0; userAnswers.fill(null); quizFinished = false; renderQuiz(); });
-            return;
-        }
-
-        const q = QUESTIONS[currentIndex];
-        const selected = userAnswers[currentIndex];
-        let answersHtml = '';
-        const letters = ['A', 'B', 'C', 'D'];
-        q.options.forEach((opt, idx) => {
-            const selectedClass = (selected === idx) ? 'selected' : '';
-            answersHtml += `<div class="answer-option ${selectedClass}" data-opt-index="${idx}"><span class="answer-prefix">${letters[idx]}</span><span>${escapeHtml(opt)}</span></div>`;
-        });
-
-        let correctSoFar = 0;
-        for (let i = 0; i <= currentIndex; i++) {
-            if (userAnswers[i] !== null && userAnswers[i] === QUESTIONS[i].correct) correctSoFar++;
-        }
-
-        container.innerHTML = `
-            <div class="progress-area"><span class="question-counter">Question ${currentIndex+1}/${QUESTIONS.length}</span><span class="score-preview">🎯 Score partiel : ${correctSoFar}</span></div>
-            <div class="question-text">${escapeHtml(q.text)}</div>
-            <div class="answers-list" id="answersList">${answersHtml}</div>
-            <div class="nav-buttons"><button id="prevBtn" ${currentIndex===0 ? 'disabled' : ''}>◀ Précédent</button><button id="nextBtn" class="btn-primary">${currentIndex===QUESTIONS.length-1 ? 'Terminer' : 'Suivant ▶'}</button></div>
-            <div style="margin-top:1rem; font-size:0.8rem; text-align:center; color:#4f6f8f;">${userAnswers.filter(a=>a!==null).length}/${QUESTIONS.length} répondues</div>
-        `;
-
-        document.querySelectorAll('.answer-option').forEach(div => {
-            div.addEventListener('click', () => {
-                const idx = parseInt(div.getAttribute('data-opt-index'));
-                userAnswers[currentIndex] = idx;
-                renderQuiz();
-            });
-        });
-
-        document.getElementById('prevBtn')?.addEventListener('click', () => { if (currentIndex > 0) { currentIndex--; renderQuiz(); } });
-        document.getElementById('nextBtn')?.addEventListener('click', () => {
-            if (currentIndex === QUESTIONS.length-1) {
-                quizFinished = true;
-                renderQuiz();
-            } else {
-                currentIndex++;
-                renderQuiz();
-            }
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', renderQuiz);
-</script>
-</body>
-</html>        button.primary{background:#1c6e8f;color:white}
+        button.primary{background:#1c6e8f;color:white}
         button.primary:hover{background:#0f5877}
         .submit-area{margin-top:1.5rem;text-align:center;border-top:1px solid #e2edf2;padding-top:1.5rem}
         .btn-submit-final{background:#2b7a3e;color:white;font-size:1.1rem;padding:.8rem 1.5rem;border-radius:60px;font-weight:bold}
@@ -300,70 +132,72 @@
 
 <script>
 // ============================================================
-// 50 NOUVELLES QUESTIONS — BAC Burkina Faso
-// Maths, Physique, Chimie, SVT, Histoire/Géo/Culture générale
+// 50 QUESTIONS — Concours Administratifs / Fonction Publique
+// Burkina Faso — Culture générale, Droit, Français, Maths,
+// Histoire/Géo, Économie, Organisation de l'État
 // ============================================================
 
 const rawQuestions = [
-    // ---- MATHÉMATIQUES ----
-    {q:"Si f(x) = e^(2x), alors f'(x) est égal à :", correct:"2e^(2x)", distractors:["e^(2x)","2xe^x","e^x"]},
-    {q:"La suite (uₙ) définie par u₀ = 3 et uₙ₊₁ = 2uₙ est une suite :", correct:"Géométrique de raison 2", distractors:["Arithmétique de raison 2","Géométrique de raison 3","Arithmétique de raison 3"]},
-    {q:"Le logarithme décimal de 1000 est :", correct:"3", distractors:["10","100","2"]},
-    {q:"La solution de l'inéquation 3x - 7 > 2 est :", correct:"x > 3", distractors:["x < 3","x > -3","x < -3"]},
-    {q:"Combien y a-t-il de permutations de 4 éléments distincts ?", correct:"24", distractors:["12","16","8"]},
-    {q:"La valeur de cos(π/3) est :", correct:"1/2", distractors:["√3/2","√2/2","1"]},
-    {q:"L'ensemble de définition de f(x) = √(x - 2) est :", correct:"[2 ; +∞[", distractors:["]-∞ ; 2]","ℝ","[0 ; +∞["]},
-    {q:"La somme des 10 premiers termes d'une suite arithmétique de premier terme 1 et de raison 2 est :", correct:"100", distractors:["55","110","90"]},
-    {q:"Si log₂(x) = 5, alors x est égal à :", correct:"32", distractors:["10","25","16"]},
-    {q:"Le vecteur directeur de la droite d'équation 2x + 3y - 5 = 0 est :", correct:"(3 ; -2)", distractors:["(2 ; 3)","(-2 ; 3)","(3 ; 2)"]},
 
-    // ---- PHYSIQUE ----
-    {q:"La fréquence d'une onde sonore ayant une période T = 0,02 s est :", correct:"50 Hz", distractors:["20 Hz","100 Hz","200 Hz"]},
-    {q:"Selon la loi de Coulomb, la force entre deux charges est :", correct:"Inversement proportionnelle au carré de la distance", distractors:["Proportionnelle à la distance","Constante","Proportionnelle au carré de la distance"]},
-    {q:"L'effet photoélectrique a été expliqué par :", correct:"Albert Einstein", distractors:["Isaac Newton","Max Planck","Niels Bohr"]},
-    {q:"La puissance dissipée dans une résistance R parcourue par un courant I est :", correct:"P = R·I²", distractors:["P = U/I","P = R/I","P = I/R"]},
-    {q:"Un corps en chute libre depuis une hauteur h = 20 m atteint le sol avec une vitesse (g = 10 m/s²) :", correct:"20 m/s", distractors:["10 m/s","40 m/s","200 m/s"]},
-    {q:"La réfraction de la lumière est décrite par la loi de :", correct:"Snell-Descartes", distractors:["Ohm","Newton","Joule"]},
-    {q:"La constante de Planck h vaut approximativement :", correct:"6,63 × 10⁻³⁴ J·s", distractors:["6,63 × 10⁻²⁴ J·s","6,63 × 10³⁴ J·s","1,6 × 10⁻¹⁹ J·s"]},
-    {q:"Le courant alternatif sinusoïdal en France a une fréquence de :", correct:"50 Hz", distractors:["60 Hz","100 Hz","220 Hz"]},
-    {q:"Un condensateur de capacité C chargé sous une tension U stocke une énergie :", correct:"E = ½ CU²", distractors:["E = CU","E = CU²","E = ½ C²U"]},
-    {q:"La radioactivité alpha consiste en l'émission :", correct:"D'un noyau d'hélium ⁴He", distractors:["D'un électron","D'un photon","D'un neutron"]},
+    // ---- ORGANISATION DE L'ÉTAT & DROIT ADMINISTRATIF (10 questions) ----
+    {q:"Quelle est la loi fondamentale qui régit l'organisation de l'État au Burkina Faso ?", correct:"La Constitution", distractors:["Le Code pénal","Le Code civil","Le Règlement intérieur de l'Assemblée"]},
+    {q:"Le Conseil d'État au Burkina Faso est :", correct:"La plus haute juridiction administrative", distractors:["La plus haute juridiction civile","Un organe consultatif du gouvernement","Un organe législatif"]},
+    {q:"Dans la hiérarchie des normes juridiques, laquelle est la plus élevée ?", correct:"La Constitution", distractors:["La loi ordinaire","Le décret","L'ordonnance"]},
+    {q:"Le régime politique du Burkina Faso est :", correct:"Un régime de Transition militaire (depuis 2022)", distractors:["Une monarchie constitutionnelle","Une fédération","Une démocratie parlementaire classique"]},
+    {q:"Qu'est-ce qu'un décret présidentiel ?", correct:"Un acte réglementaire signé par le chef de l'État", distractors:["Une loi votée par l'Assemblée","Une décision d'un tribunal","Un arrêté ministériel"]},
+    {q:"La fonction publique burkinabè est régie principalement par :", correct:"La Zatu (loi) portant statut général de la fonction publique", distractors:["Le Code du travail privé","Le Code pénal","La loi sur les marchés publics"]},
+    {q:"Un fonctionnaire en position de 'détachement' est :", correct:"Temporairement affecté hors de son corps d'origine tout en conservant ses droits", distractors:["Définitivement muté dans un autre ministère","En congé administratif illimité","Suspendu de ses fonctions"]},
+    {q:"Le Médiateur du Faso est chargé de :", correct:"Recevoir les réclamations des citoyens contre les administrations", distractors:["Juger les fonctionnaires en faute","Contrôler les finances publiques","Présider le Conseil économique et social"]},
+    {q:"L'ASCE-LC au Burkina Faso est chargée de :", correct:"La lutte contre la corruption et les infractions assimilées", distractors:["La gestion des archives nationales","Le contrôle de l'immigration","La supervision des élections"]},
+    {q:"Le budget de l'État burkinabè est voté par :", correct:"L'Assemblée législative de Transition (ALT)", distractors:["Le Président du Faso uniquement","Le Conseil des ministres","Le Conseil économique et social"]},
 
-    // ---- CHIMIE ----
-    {q:"La masse molaire de l'eau (H₂O) est :", correct:"18 g/mol", distractors:["16 g/mol","20 g/mol","10 g/mol"]},
-    {q:"Lors d'une oxydoréduction, l'oxydant :", correct:"Gagne des électrons", distractors:["Perd des électrons","Perd des protons","Gagne des protons"]},
-    {q:"La constante d'Avogadro Nₐ est approximativement :", correct:"6,02 × 10²³ mol⁻¹", distractors:["6,02 × 10¹⁰ mol⁻¹","6,63 × 10²³ mol⁻¹","3,01 × 10²³ mol⁻¹"]},
-    {q:"Dans une solution tampon, le pH :", correct:"Varie peu lors d'un ajout d'acide ou de base", distractors:["Est toujours égal à 7","Augmente toujours","Diminue toujours"]},
-    {q:"La réaction de saponification produit :", correct:"Du savon et du glycérol", distractors:["De l'alcool et de l'eau","Un ester et de l'eau","Du sel et de l'acide"]},
-    {q:"L'ion hydroxyde a pour formule :", correct:"OH⁻", distractors:["H₃O⁺","O²⁻","H⁺"]},
-    {q:"La formule moléculaire du glucose est :", correct:"C₆H₁₂O₆", distractors:["C₁₂H₂₂O₁₁","C₂H₆O","C₆H₆"]},
-    {q:"Un atome électriquement neutre a :", correct:"Autant de protons que d'électrons", distractors:["Plus de protons que d'électrons","Autant de neutrons que d'électrons","Plus de neutrons que de protons"]},
-    {q:"La distillation permet de séparer deux liquides selon leur :", correct:"Température d'ébullition", distractors:["Densité","Couleur","Viscosité"]},
-    {q:"Le dioxyde de carbone CO₂ est un gaz :", correct:"À effet de serre", distractors:["Radioactif","Toxique pour les plantes","Rare dans l'atmosphère"]},
+    // ---- CULTURE GÉNÉRALE & BURKINA FASO (10 questions) ----
+    {q:"Le nom 'Burkina Faso' a été donné le :", correct:"4 août 1984", distractors:["5 août 1960","15 octobre 1987","11 décembre 1958"]},
+    {q:"Quelle est la capitale économique du Burkina Faso ?", correct:"Bobo-Dioulasso", distractors:["Koudougou","Ouahigouya","Banfora"]},
+    {q:"Le FESPACO est un festival dédié à :", correct:"Le cinéma africain", distractors:["La musique traditionnelle","L'artisanat africain","La littérature africaine"]},
+    {q:"La principale ressource d'exportation du Burkina Faso est :", correct:"L'or", distractors:["Le pétrole","Le coton","Le manganèse"]},
+    {q:"L'ONU a été fondée en :", correct:"1945", distractors:["1919","1960","1948"]},
+    {q:"Quel est le siège de l'Union Africaine ?", correct:"Addis-Abeba (Éthiopie)", distractors:["Nairobi (Kenya)","Dakar (Sénégal)","Lagos (Nigeria)"]},
+    {q:"La CEDEAO regroupe les pays d'Afrique de :", correct:"L'Ouest", distractors:["L'Est","Le Centre","Le Sud"]},
+    {q:"Quel est le nom du parlement de transition du Burkina Faso ?", correct:"Assemblée Législative de Transition (ALT)", distractors:["Assemblée Nationale","Sénat du Faso","Conseil National de Transition (CNT)"]},
+    {q:"Le Burkina Faso est membre de quelle zone monétaire ?", correct:"Zone franc CFA (UEMOA)", distractors:["Zone sterling","Zone dollar","Zone rand"]},
+    {q:"Combien de régions administratives compte le Burkina Faso ?", correct:"13", distractors:["10","15","12"]},
 
-    // ---- SVT ----
-    {q:"La mitose produit :", correct:"2 cellules filles génétiquement identiques à la cellule mère", distractors:["4 cellules haploïdes","2 cellules haploïdes","4 cellules diploïdes différentes"]},
-    {q:"L'insuline est sécrétée par :", correct:"Le pancréas", distractors:["Le foie","Les glandes surrénales","L'hypophyse"]},
-    {q:"Le paludisme est transmis par :", correct:"La piqûre d'un moustique anophèle femelle", distractors:["L'eau contaminée","La respiration d'air pollué","Le contact cutané"]},
-    {q:"Les chromosomes homologues se séparent lors de :", correct:"La méiose I", distractors:["La mitose","La méiose II","La fécondation"]},
-    {q:"La digestion des lipides dans l'intestin est facilitée par :", correct:"La bile", distractors:["L'insuline","L'HCl","L'amylase"]},
-    {q:"Un gène est une séquence d'ADN codant pour :", correct:"Une protéine (ou un ARN fonctionnel)", distractors:["Un lipide","Un glucide","Un minéral"]},
-    {q:"La respiration cellulaire a lieu principalement dans :", correct:"Les mitochondries", distractors:["Les chloroplastes","Le réticulum endoplasmique","Le noyau"]},
-    {q:"Le groupe sanguin AB est dit :", correct:"Receveur universel", distractors:["Donneur universel","Neutre","Incompatible avec tous"]},
-    {q:"Le VIH attaque principalement les cellules :", correct:"Lymphocytes T CD4", distractors:["Globules rouges","Plaquettes","Neutrophiles"]},
-    {q:"La vaccination stimule le système immunitaire en produisant des :", correct:"Anticorps mémoires", distractors:["Hormones","Enzymes digestives","Globules rouges"]},
+    // ---- FRANÇAIS & EXPRESSION ÉCRITE (10 questions) ----
+    {q:"Dans la phrase 'Le directeur a signé la note de service', le sujet est :", correct:"Le directeur", distractors:["La note","A signé","De service"]},
+    {q:"Quel est le synonyme du mot 'promulguer' ?", correct:"Publier officiellement une loi", distractors:["Abroger une loi","Voter une loi","Suspendre une loi"]},
+    {q:"La note de service est un document administratif qui :", correct:"Transmet des instructions à des agents d'un même service", distractors:["Engage deux parties dans un contrat","Informe le public d'une décision","Demande une autorisation à une autorité supérieure"]},
+    {q:"Quel temps verbal exprime une action passée, achevée, dans un récit formel ?", correct:"Le passé simple", distractors:["L'imparfait","Le présent","Le futur antérieur"]},
+    {q:"Le mot 'hiérarchie' vient du grec et signifie :", correct:"Pouvoir sacré / commandement", distractors:["Justice égale","Liberté totale","Service public"]},
+    {q:"Dans la correspondance administrative, la formule de politesse finale est :", correct:"Une formule de courtoisie sans servilité", distractors:["Une salutation amicale informelle","Un résumé du courrier","Une date et signature uniquement"]},
+    {q:"Un rapport administratif se termine toujours par :", correct:"Une conclusion avec propositions ou recommandations", distractors:["Des remerciements","Une liste de pièces jointes","Un résumé du contexte"]},
+    {q:"Quelle est la nature grammaticale du mot souligné : 'Il travaille ASSIDÛMENT' ?", correct:"Adverbe", distractors:["Adjectif","Nom","Verbe"]},
+    {q:"Le mot 'diligence' dans le contexte administratif signifie :", correct:"Rapidité et soin dans l'exécution d'une tâche", distractors:["Un véhicule de transport","Une sanction disciplinaire","Un type de rapport officiel"]},
+    {q:"Dans 'Suite à votre demande, nous vous informons que…', quel type de document est suggéré ?", correct:"Une lettre de réponse administrative", distractors:["Un procès-verbal","Un compte rendu de réunion","Une directive ministérielle"]},
 
-    // ---- BURKINA FASO & CULTURE GÉNÉRALE ----
-    {q:"Le Burkina Faso a accédé à l'indépendance le :", correct:"5 août 1960", distractors:["1er janvier 1960","11 décembre 1958","7 novembre 1960"]},
-    {q:"La monnaie utilisée au Burkina Faso est :", correct:"Le franc CFA (FCFA)", distractors:["Le dalasi","Le cedi","Le naira"]},
-    {q:"Le fleuve Mouhoun est aussi appelé :", correct:"Volta noire", distractors:["Volta rouge","Volta blanche","Volta verte"]},
-    {q:"La ville de Koudougou est connue pour son :", correct:"Festival de cinéma FESPACO (région de référence)", distractors:["Grand port fluvial","Désert de sable","Parc national"]},
-    {q:"L'UEMOA regroupe combien de pays membres ?", correct:"8", distractors:["5","12","15"]},
-    {q:"L'organisation continentale africaine se nomme :", correct:"Union Africaine (UA)", distractors:["Organisation de l'Unité Africaine (OUA)","CEDEAO","UEMOA"]},
-    {q:"La Déclaration des droits de l'homme et du citoyen a été adoptée en :", correct:"1789", distractors:["1815","1848","1776"]},
-    {q:"Le premier président du Burkina Faso (ex Haute-Volta) était :", correct:"Maurice Yaméogo", distractors:["Sangoulé Lamizana","Thomas Sankara","Blaise Compaoré"]},
-    {q:"Le nom « Burkina Faso » signifie :", correct:"Patrie des hommes intègres", distractors:["Terre des ancêtres","Pays de la savane","Nation des braves"]},
-    {q:"La CEDEAO a été créée en :", correct:"1975", distractors:["1960","1945","1991"]}
+    // ---- MATHÉMATIQUES & LOGIQUE (10 questions) ----
+    {q:"Un agent perçoit un salaire brut de 180 000 FCFA. Après une retenue de 15%, son salaire net est :", correct:"153 000 FCFA", distractors:["165 000 FCFA","162 000 FCFA","150 000 FCFA"]},
+    {q:"Si A = 40% de 250 et B = 25% de 400, alors A + B est égal à :", correct:"200", distractors:["150","250","180"]},
+    {q:"Un bureau achète 12 rames de papier à 2 500 FCFA l'unité. Le coût total est :", correct:"30 000 FCFA", distractors:["24 000 FCFA","36 000 FCFA","28 000 FCFA"]},
+    {q:"La moyenne arithmétique de 72, 85, 63, 90 et 80 est :", correct:"78", distractors:["75","80","82"]},
+    {q:"Un dossier est transmis le lundi. Le délai légal de réponse est de 10 jours ouvrables. La réponse est due au plus tard le :", correct:"Lundi suivant (2 semaines après)", distractors:["Vendredi de la même semaine","Mercredi de la semaine suivante","Jeudi de la semaine suivante"]},
+    {q:"Un agent est en poste depuis le 1er mars 2018. Au 1er mars 2024, il a une ancienneté de :", correct:"6 ans", distractors:["5 ans","7 ans","8 ans"]},
+    {q:"Si 3x + 9 = 27, alors x est égal à :", correct:"6", distractors:["9","3","12"]},
+    {q:"Parmi les nombres suivants, lequel est divisible à la fois par 3 et par 4 ?", correct:"24", distractors:["14","22","26"]},
+    {q:"Un projet a un budget de 5 000 000 FCFA. On a dépensé 3 750 000 FCFA. Quel pourcentage reste-t-il ?", correct:"25%", distractors:["30%","35%","20%"]},
+    {q:"La suite logique : 2, 5, 10, 17, 26, … Le terme suivant est :", correct:"37", distractors:["35","33","39"]},
+
+    // ---- HISTOIRE, GÉOGRAPHIE & ÉCONOMIE (10 questions) ----
+    {q:"La Déclaration Universelle des Droits de l'Homme a été adoptée le :", correct:"10 décembre 1948", distractors:["26 juin 1945","4 novembre 1950","1er janvier 1960"]},
+    {q:"Le Plan d'Action pour la Stabilisation et le Développement (PA-SD) du Burkina Faso couvre la période :", correct:"2023–2025", distractors:["2020–2022","2025–2030","2019–2023"]},
+    {q:"L'inflation désigne :", correct:"La hausse généralisée et durable des prix", distractors:["La baisse du taux de chômage","La dévaluation d'une monnaie étrangère","L'augmentation des exportations"]},
+    {q:"Le PIB (Produit Intérieur Brut) mesure :", correct:"La valeur totale des biens et services produits dans un pays sur une période donnée", distractors:["Les revenus des fonctionnaires uniquement","Le total des importations du pays","Le budget de l'État"]},
+    {q:"Ouagadougou se trouve dans quelle région administrative ?", correct:"Centre", distractors:["Plateau-Central","Centre-Nord","Centre-Ouest"]},
+    {q:"La Haute-Volta a obtenu son indépendance de la France le :", correct:"5 août 1960", distractors:["14 juillet 1960","1er janvier 1960","11 décembre 1958"]},
+    {q:"Thomas Sankara est arrivé au pouvoir au Burkina Faso le :", correct:"4 août 1983", distractors:["15 octobre 1987","25 novembre 1980","7 novembre 1982"]},
+    {q:"Le fleuve qui alimente le barrage de Bagré est :", correct:"Le Nakambé (Volta blanche)", distractors:["Le Mouhoun","La Comoé","La Pendjari"]},
+    {q:"L'agriculture représente environ quelle part du PIB du Burkina Faso ?", correct:"Environ 25 à 30%", distractors:["Environ 5%","Environ 60%","Environ 50%"]},
+    {q:"L'Organisation Mondiale du Commerce (OMC) a son siège à :", correct:"Genève (Suisse)", distractors:["New York (USA)","Paris (France)","Bruxelles (Belgique)"]}
 ];
 
 function shuffleArray(arr) {
@@ -461,7 +295,7 @@ function showFinalResult() {
     const score = computeScore();
     const percent = Math.round(score/TOTAL_QS*100);
     finalScoreSpan.innerText = `${score} / ${TOTAL_QS} (${percent}%)`;
-    let msg = percent>=80 ? '🏅 Excellent ! Téléchargez Faso Concours pour plus de défis.' : (percent>=60 ? '👍 Très bien ! Retrouvez plus de QCM dans l\'application.' : (percent>=40 ? '📚 Bonne base. L\'application vous aidera à progresser.' : '💪 Entraînez-vous avec Faso Concours !'));
+    let msg = percent>=80 ? '🏅 Excellent ! Vous avez le profil d\'un admis au concours !' : (percent>=60 ? '👍 Très bien ! Continuez à vous entraîner avec Faso Concours.' : (percent>=40 ? '📚 Bonne base. L\'application vous aidera à progresser.' : '💪 Ne lâchez pas ! Entraînez-vous chaque jour avec Faso Concours !'));
     feedbackMsg.innerText = msg;
     corrigeDetailsDiv.innerHTML = buildCorrigeHTML();
     resultPanel.classList.add('show');
