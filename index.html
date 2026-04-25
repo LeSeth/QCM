@@ -131,73 +131,67 @@
 </a>
 
 <script>
-// ============================================================
-// 50 QUESTIONS — Concours Administratifs / Fonction Publique
-// Burkina Faso — Culture générale, Droit, Français, Maths,
-// Histoire/Géo, Économie, Organisation de l'État
-// ============================================================
-
 const rawQuestions = [
 
-    // ---- ORGANISATION DE L'ÉTAT & DROIT ADMINISTRATIF (10 questions) ----
-    {q:"Quelle est la loi fondamentale qui régit l'organisation de l'État au Burkina Faso ?", correct:"La Constitution", distractors:["Le Code pénal","Le Code civil","Le Règlement intérieur de l'Assemblée"]},
-    {q:"Le Conseil d'État au Burkina Faso est :", correct:"La plus haute juridiction administrative", distractors:["La plus haute juridiction civile","Un organe consultatif du gouvernement","Un organe législatif"]},
-    {q:"Dans la hiérarchie des normes juridiques, laquelle est la plus élevée ?", correct:"La Constitution", distractors:["La loi ordinaire","Le décret","L'ordonnance"]},
-    {q:"Le régime politique du Burkina Faso est :", correct:"Un régime de Transition militaire (depuis 2022)", distractors:["Une monarchie constitutionnelle","Une fédération","Une démocratie parlementaire classique"]},
-    {q:"Qu'est-ce qu'un décret présidentiel ?", correct:"Un acte réglementaire signé par le chef de l'État", distractors:["Une loi votée par l'Assemblée","Une décision d'un tribunal","Un arrêté ministériel"]},
-    {q:"La fonction publique burkinabè est régie principalement par :", correct:"La Zatu (loi) portant statut général de la fonction publique", distractors:["Le Code du travail privé","Le Code pénal","La loi sur les marchés publics"]},
-    {q:"Un fonctionnaire en position de 'détachement' est :", correct:"Temporairement affecté hors de son corps d'origine tout en conservant ses droits", distractors:["Définitivement muté dans un autre ministère","En congé administratif illimité","Suspendu de ses fonctions"]},
-    {q:"Le Médiateur du Faso est chargé de :", correct:"Recevoir les réclamations des citoyens contre les administrations", distractors:["Juger les fonctionnaires en faute","Contrôler les finances publiques","Présider le Conseil économique et social"]},
-    {q:"L'ASCE-LC au Burkina Faso est chargée de :", correct:"La lutte contre la corruption et les infractions assimilées", distractors:["La gestion des archives nationales","Le contrôle de l'immigration","La supervision des élections"]},
-    {q:"Le budget de l'État burkinabè est voté par :", correct:"L'Assemblée législative de Transition (ALT)", distractors:["Le Président du Faso uniquement","Le Conseil des ministres","Le Conseil économique et social"]},
+    // ---- ORGANISATION DE L'ÉTAT & INSTITUTIONS (10 questions) ----
+    {q:"Quel organe est chargé du contrôle de l'exécution du budget de l'État au Burkina Faso ?", correct:"La Cour des comptes", distractors:["Le Conseil d'État","Le Médiateur du Faso","L'Assemblée nationale"]},
+    {q:"Le Conseil Supérieur de la Magistrature (CSM) est présidé par :", correct:"Le Président du Faso", distractors:["Le Ministre de la Justice","Le Premier Président de la Cour de cassation","Le Procureur général"]},
+    {q:"Dans la hiérarchie administrative, le préfet est l'autorité représentant l'État au niveau :", correct:"Du département", distractors:["De la région","De la commune","De la province"]},
+    {q:"Un acte administratif unilatéral est :", correct:"Un acte pris par une autorité administrative sans le consentement du destinataire", distractors:["Un contrat entre deux administrations","Un accord entre l'État et un syndicat","Un traité international"]},
+    {q:"Le principe de la continuité du service public signifie que :", correct:"Le service public doit fonctionner de manière régulière et sans interruption", distractors:["Tout fonctionnaire peut grever à tout moment","Les usagers peuvent suspendre le service","L'administration peut fermer ses portes à volonté"]},
+    {q:"Quelle est la durée du mandat du Chef de l'État sous la Charte de la Transition du Burkina Faso ?", correct:"La durée est fixée par la Charte de la Transition (non renouvelable immédiatement)", distractors:["5 ans renouvelable une fois","7 ans non renouvelable","3 ans renouvelable deux fois"]},
+    {q:"Un fonctionnaire mis en 'disponibilité' est :", correct:"Temporairement hors de son administration avec suspension de rémunération", distractors:["En congé de maladie","En mission à l'étranger","En stage de formation obligatoire"]},
+    {q:"La tutelle administrative consiste pour une autorité supérieure à :", correct:"Contrôler et encadrer les actes d'une collectivité décentralisée", distractors:["Gérer directement les finances locales","Nommer les élus locaux","Annuler systématiquement toutes les décisions locales"]},
+    {q:"Le Tribunal administratif est compétent pour juger :", correct:"Les litiges entre les citoyens et l'administration", distractors:["Les crimes et délits de droit commun","Les divorces et successions","Les conflits commerciaux entre entreprises privées"]},
+    {q:"Selon le statut général de la fonction publique du Burkina Faso, la notation annuelle d'un fonctionnaire est effectuée par :", correct:"Le supérieur hiérarchique direct", distractors:["Le Ministre en charge de la fonction publique","Le Président du Faso","Un jury indépendant"]},
 
     // ---- CULTURE GÉNÉRALE & BURKINA FASO (10 questions) ----
-    {q:"Le nom 'Burkina Faso' a été donné le :", correct:"4 août 1984", distractors:["5 août 1960","15 octobre 1987","11 décembre 1958"]},
-    {q:"Quelle est la capitale économique du Burkina Faso ?", correct:"Bobo-Dioulasso", distractors:["Koudougou","Ouahigouya","Banfora"]},
-    {q:"Le FESPACO est un festival dédié à :", correct:"Le cinéma africain", distractors:["La musique traditionnelle","L'artisanat africain","La littérature africaine"]},
-    {q:"La principale ressource d'exportation du Burkina Faso est :", correct:"L'or", distractors:["Le pétrole","Le coton","Le manganèse"]},
-    {q:"L'ONU a été fondée en :", correct:"1945", distractors:["1919","1960","1948"]},
-    {q:"Quel est le siège de l'Union Africaine ?", correct:"Addis-Abeba (Éthiopie)", distractors:["Nairobi (Kenya)","Dakar (Sénégal)","Lagos (Nigeria)"]},
-    {q:"La CEDEAO regroupe les pays d'Afrique de :", correct:"L'Ouest", distractors:["L'Est","Le Centre","Le Sud"]},
-    {q:"Quel est le nom du parlement de transition du Burkina Faso ?", correct:"Assemblée Législative de Transition (ALT)", distractors:["Assemblée Nationale","Sénat du Faso","Conseil National de Transition (CNT)"]},
-    {q:"Le Burkina Faso est membre de quelle zone monétaire ?", correct:"Zone franc CFA (UEMOA)", distractors:["Zone sterling","Zone dollar","Zone rand"]},
-    {q:"Combien de régions administratives compte le Burkina Faso ?", correct:"13", distractors:["10","15","12"]},
+    {q:"La ville de Koudougou est chef-lieu de quelle région ?", correct:"Centre-Ouest", distractors:["Centre","Hauts-Bassins","Sahel"]},
+    {q:"Le Burkina Faso partage ses frontières avec combien de pays ?", correct:"6", distractors:["4","5","7"]},
+    {q:"Quelle est la devise nationale du Burkina Faso ?", correct:"Unité — Progrès — Justice", distractors:["Liberté — Égalité — Fraternité","Paix — Travail — Patrie","Foi — Union — Discipline"]},
+    {q:"Le SIAO (Salon International de l'Artisanat de Ouagadougou) se tient tous les :", correct:"Deux ans", distractors:["Un an","Trois ans","Quatre ans"]},
+    {q:"La principale langue nationale véhiculaire au Burkina Faso est :", correct:"Le mooré", distractors:["Le dioula","Le fulfuldé","Le bissa"]},
+    {q:"L'Organisation Internationale de la Francophonie (OIF) a son siège à :", correct:"Paris (France)", distractors:["Genève (Suisse)","Dakar (Sénégal)","Bruxelles (Belgique)"]},
+    {q:"La BCEAO est la banque centrale commune aux pays membres de :", correct:"L'UEMOA", distractors:["La CEDEAO","La CEMAC","L'Union Africaine"]},
+    {q:"Quel est le nom du fleuve qui traverse Bobo-Dioulasso ?", correct:"Le Houet", distractors:["Le Mouhoun","Le Nakambé","La Comoé"]},
+    {q:"L'Agenda 2063 est un programme de développement porté par :", correct:"L'Union Africaine", distractors:["L'ONU","La Banque mondiale","La CEDEAO"]},
+    {q:"Quel est le plus grand parc naturel du Burkina Faso ?", correct:"Le Parc national W (W du Niger)", distractors:["Le Parc national d'Arly","La Réserve de Nazinga","Le Parc national de Pô"]},
 
-    // ---- FRANÇAIS & EXPRESSION ÉCRITE (10 questions) ----
-    {q:"Dans la phrase 'Le directeur a signé la note de service', le sujet est :", correct:"Le directeur", distractors:["La note","A signé","De service"]},
-    {q:"Quel est le synonyme du mot 'promulguer' ?", correct:"Publier officiellement une loi", distractors:["Abroger une loi","Voter une loi","Suspendre une loi"]},
-    {q:"La note de service est un document administratif qui :", correct:"Transmet des instructions à des agents d'un même service", distractors:["Engage deux parties dans un contrat","Informe le public d'une décision","Demande une autorisation à une autorité supérieure"]},
-    {q:"Quel temps verbal exprime une action passée, achevée, dans un récit formel ?", correct:"Le passé simple", distractors:["L'imparfait","Le présent","Le futur antérieur"]},
-    {q:"Le mot 'hiérarchie' vient du grec et signifie :", correct:"Pouvoir sacré / commandement", distractors:["Justice égale","Liberté totale","Service public"]},
-    {q:"Dans la correspondance administrative, la formule de politesse finale est :", correct:"Une formule de courtoisie sans servilité", distractors:["Une salutation amicale informelle","Un résumé du courrier","Une date et signature uniquement"]},
-    {q:"Un rapport administratif se termine toujours par :", correct:"Une conclusion avec propositions ou recommandations", distractors:["Des remerciements","Une liste de pièces jointes","Un résumé du contexte"]},
-    {q:"Quelle est la nature grammaticale du mot souligné : 'Il travaille ASSIDÛMENT' ?", correct:"Adverbe", distractors:["Adjectif","Nom","Verbe"]},
-    {q:"Le mot 'diligence' dans le contexte administratif signifie :", correct:"Rapidité et soin dans l'exécution d'une tâche", distractors:["Un véhicule de transport","Une sanction disciplinaire","Un type de rapport officiel"]},
-    {q:"Dans 'Suite à votre demande, nous vous informons que…', quel type de document est suggéré ?", correct:"Une lettre de réponse administrative", distractors:["Un procès-verbal","Un compte rendu de réunion","Une directive ministérielle"]},
+    // ---- FRANÇAIS & RÉDACTION ADMINISTRATIVE (10 questions) ----
+    {q:"Dans une lettre administrative, la mention 'Objet' sert à :", correct:"Indiquer brièvement le sujet traité dans le courrier", distractors:["Citer les pièces jointes","Désigner le destinataire","Préciser la date d'envoi"]},
+    {q:"Quel est l'antonyme du mot 'approuver' ?", correct:"Réfuter / Désapprouver", distractors:["Valider","Confirmer","Signer"]},
+    {q:"Le procès-verbal (PV) est un document qui :", correct:"Relate de manière officielle et fidèle le déroulement d'une réunion ou d'un constat", distractors:["Donne des instructions à un subordonné","Informe un supérieur d'un problème","Soumet une demande de congé"]},
+    {q:"Dans la phrase 'Les dossiers que j'ai transmis sont complets', le mot 'que' est :", correct:"Un pronom relatif complément d'objet direct", distractors:["Une conjonction de subordination","Un adverbe interrogatif","Un pronom démonstratif"]},
+    {q:"Le mot 'prérogative' désigne :", correct:"Un avantage ou un droit particulier attaché à une fonction", distractors:["Une sanction disciplinaire","Un devoir réglementaire","Un formulaire administratif"]},
+    {q:"Une circulaire administrative est un document destiné à :", correct:"Donner des instructions ou des directives à plusieurs agents ou services", distractors:["Informer le public d'une décision de justice","Engager une dépense budgétaire","Notifier une sanction à un fonctionnaire"]},
+    {q:"Quel est le mode verbal utilisé dans les ordres et les injonctions officielles ?", correct:"L'impératif", distractors:["Le subjonctif","Le conditionnel","Le participe"]},
+    {q:"Le terme 'bordereau' dans l'administration désigne :", correct:"Un document récapitulatif listant des pièces transmises", distractors:["Un registre de présence","Un état de frais de mission","Un formulaire de demande de congé"]},
+    {q:"La forme passive de 'Le directeur signe la décision' est :", correct:"La décision est signée par le directeur", distractors:["La décision se signe","Le directeur a signé la décision","La décision fut signée"]},
+    {q:"Dans la correspondance administrative, le 'visa' désigne :", correct:"L'approbation formelle apposée par une autorité compétente sur un document", distractors:["Un document de voyage","Une signature simple","Un cachet de la poste"]},
 
     // ---- MATHÉMATIQUES & LOGIQUE (10 questions) ----
-    {q:"Un agent perçoit un salaire brut de 180 000 FCFA. Après une retenue de 15%, son salaire net est :", correct:"153 000 FCFA", distractors:["165 000 FCFA","162 000 FCFA","150 000 FCFA"]},
-    {q:"Si A = 40% de 250 et B = 25% de 400, alors A + B est égal à :", correct:"200", distractors:["150","250","180"]},
-    {q:"Un bureau achète 12 rames de papier à 2 500 FCFA l'unité. Le coût total est :", correct:"30 000 FCFA", distractors:["24 000 FCFA","36 000 FCFA","28 000 FCFA"]},
-    {q:"La moyenne arithmétique de 72, 85, 63, 90 et 80 est :", correct:"78", distractors:["75","80","82"]},
-    {q:"Un dossier est transmis le lundi. Le délai légal de réponse est de 10 jours ouvrables. La réponse est due au plus tard le :", correct:"Lundi suivant (2 semaines après)", distractors:["Vendredi de la même semaine","Mercredi de la semaine suivante","Jeudi de la semaine suivante"]},
-    {q:"Un agent est en poste depuis le 1er mars 2018. Au 1er mars 2024, il a une ancienneté de :", correct:"6 ans", distractors:["5 ans","7 ans","8 ans"]},
-    {q:"Si 3x + 9 = 27, alors x est égal à :", correct:"6", distractors:["9","3","12"]},
-    {q:"Parmi les nombres suivants, lequel est divisible à la fois par 3 et par 4 ?", correct:"24", distractors:["14","22","26"]},
-    {q:"Un projet a un budget de 5 000 000 FCFA. On a dépensé 3 750 000 FCFA. Quel pourcentage reste-t-il ?", correct:"25%", distractors:["30%","35%","20%"]},
-    {q:"La suite logique : 2, 5, 10, 17, 26, … Le terme suivant est :", correct:"37", distractors:["35","33","39"]},
+    {q:"Un agent reçoit une indemnité de logement de 45 000 FCFA par mois. En un an, le total perçu est :", correct:"540 000 FCFA", distractors:["480 000 FCFA","450 000 FCFA","520 000 FCFA"]},
+    {q:"Si 20% d'un effectif représente 80 agents, l'effectif total est de :", correct:"400 agents", distractors:["160 agents","320 agents","500 agents"]},
+    {q:"Un service a un budget de fonctionnement de 2 400 000 FCFA réparti sur 12 mois. La dotation mensuelle est de :", correct:"200 000 FCFA", distractors:["240 000 FCFA","180 000 FCFA","220 000 FCFA"]},
+    {q:"La suite logique : 3, 6, 12, 24, 48, … Le terme suivant est :", correct:"96", distractors:["72","84","100"]},
+    {q:"Un fonctionnaire passe un concours composé de 4 épreuves notées sur 20. Il obtient 14, 16, 12 et 18. Sa moyenne est :", correct:"15", distractors:["14","16","14,5"]},
+    {q:"Si A est le double de B et B vaut 35, alors A + B est égal à :", correct:"105", distractors:["70","140","85"]},
+    {q:"Un rapport est rédigé sur 8 pages. Chaque page compte en moyenne 30 lignes de 12 mots. Le rapport contient environ :", correct:"2 880 mots", distractors:["2 400 mots","3 600 mots","2 160 mots"]},
+    {q:"Parmi les propositions suivantes, laquelle est vraie pour tout entier n ? ", correct:"n² ≥ 0", distractors:["n² > n","n² = n","n² < 2n"]},
+    {q:"Un agent prend sa retraite à 60 ans. Il est né le 15 avril 1970. Sa date de retraite est :", correct:"15 avril 2030", distractors:["15 avril 2025","15 avril 2035","15 avril 2027"]},
+    {q:"La série : 100, 95, 85, 70, 50, … La différence entre deux termes consécutifs suit quelle loi ?", correct:"La différence augmente de 5 à chaque fois (5, 10, 15, 20…)", distractors:["La différence est constante de 5","La différence diminue de 5","Les termes sont divisés par 2"]},
 
-    // ---- HISTOIRE, GÉOGRAPHIE & ÉCONOMIE (10 questions) ----
-    {q:"La Déclaration Universelle des Droits de l'Homme a été adoptée le :", correct:"10 décembre 1948", distractors:["26 juin 1945","4 novembre 1950","1er janvier 1960"]},
-    {q:"Le Plan d'Action pour la Stabilisation et le Développement (PA-SD) du Burkina Faso couvre la période :", correct:"2023–2025", distractors:["2020–2022","2025–2030","2019–2023"]},
-    {q:"L'inflation désigne :", correct:"La hausse généralisée et durable des prix", distractors:["La baisse du taux de chômage","La dévaluation d'une monnaie étrangère","L'augmentation des exportations"]},
-    {q:"Le PIB (Produit Intérieur Brut) mesure :", correct:"La valeur totale des biens et services produits dans un pays sur une période donnée", distractors:["Les revenus des fonctionnaires uniquement","Le total des importations du pays","Le budget de l'État"]},
-    {q:"Ouagadougou se trouve dans quelle région administrative ?", correct:"Centre", distractors:["Plateau-Central","Centre-Nord","Centre-Ouest"]},
-    {q:"La Haute-Volta a obtenu son indépendance de la France le :", correct:"5 août 1960", distractors:["14 juillet 1960","1er janvier 1960","11 décembre 1958"]},
-    {q:"Thomas Sankara est arrivé au pouvoir au Burkina Faso le :", correct:"4 août 1983", distractors:["15 octobre 1987","25 novembre 1980","7 novembre 1982"]},
-    {q:"Le fleuve qui alimente le barrage de Bagré est :", correct:"Le Nakambé (Volta blanche)", distractors:["Le Mouhoun","La Comoé","La Pendjari"]},
-    {q:"L'agriculture représente environ quelle part du PIB du Burkina Faso ?", correct:"Environ 25 à 30%", distractors:["Environ 5%","Environ 60%","Environ 50%"]},
-    {q:"L'Organisation Mondiale du Commerce (OMC) a son siège à :", correct:"Genève (Suisse)", distractors:["New York (USA)","Paris (France)","Bruxelles (Belgique)"]}
+    // ---- HISTOIRE, GÉOGRAPHIE, ÉCONOMIE & DROIT (10 questions) ----
+    {q:"La Révolution Française a eu lieu en :", correct:"1789", distractors:["1815","1776","1848"]},
+    {q:"Le Burkina Faso a rejoint l'Alliance des États du Sahel (AES) en :", correct:"2023", distractors:["2020","2022","2024"]},
+    {q:"Le taux de change fixe entre le franc CFA et l'euro est de :", correct:"1 euro = 655,957 FCFA", distractors:["1 euro = 500 FCFA","1 euro = 750 FCFA","1 euro = 600 FCFA"]},
+    {q:"Le développement durable repose sur trois piliers fondamentaux qui sont :", correct:"Économique, social et environnemental", distractors:["Politique, culturel et militaire","Financier, juridique et technologique","Agricole, industriel et commercial"]},
+    {q:"La province du Houet a pour chef-lieu :", correct:"Bobo-Dioulasso", distractors:["Dédougou","Banfora","Diébougou"]},
+    {q:"La première Constitution du Burkina Faso (Haute-Volta) après l'indépendance a été adoptée en :", correct:"1960", distractors:["1978","1991","1970"]},
+    {q:"Le soulèvement populaire du 30 et 31 octobre 2014 au Burkina Faso a conduit à :", correct:"La chute du président Blaise Compaoré", distractors:["L'adoption d'une nouvelle Constitution","La création de l'ALT","La mise en place du MPSR"]},
+    {q:"Le Sahel burkinabè est caractérisé principalement par :", correct:"Un climat semi-aride avec de faibles précipitations", distractors:["Un climat équatorial humide","Un climat tropical humide","Un climat tempéré océanique"]},
+    {q:"Le concept d'État de droit implique que :", correct:"Toute autorité, y compris l'État, est soumise au respect du droit", distractors:["L'État peut agir sans contrainte juridique","Les lois s'appliquent uniquement aux citoyens","Le gouvernement est au-dessus des tribunaux"]},
+    {q:"La Banque Mondiale a son siège à :", correct:"Washington D.C. (États-Unis)", distractors:["New York (États-Unis)","Genève (Suisse)","Londres (Royaume-Uni)"]}
 ];
 
 function shuffleArray(arr) {
