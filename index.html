@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Faso Concours - Préparez vos examens</title>
+    <script>
+    window.MathJax = {
+        tex: { inlineMath: [['\\(','\\)'], ['$','$']], displayMath: [['\\[','\\]'],['$$','$$']] },
+        startup: { typeset: false }
+    };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.min.js"></script>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{background:linear-gradient(145deg,#eef2f7 0%,#d9e2ec 100%);font-family:'Segoe UI',Roboto,'Helvetica Neue',sans-serif;padding:0;color:#1a2c3e}
@@ -25,13 +32,14 @@
         .progress-area{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;margin-bottom:1.5rem;border-bottom:2px solid #e9edf2;padding-bottom:.8rem}
         .question-counter{font-weight:600;background:#eef2fa;padding:.3rem 1rem;border-radius:30px;font-size:.85rem;color:#1f6392}
         .score-preview{font-size:.85rem;background:#f0f4f9;padding:.3rem 1rem;border-radius:30px;font-weight:500}
-        .question-text{font-size:1.3rem;font-weight:600;line-height:1.3;margin-bottom:1.5rem;color:#0f2f40}
+        .question-text{font-size:1.2rem;font-weight:600;line-height:1.5;margin-bottom:1.5rem;color:#0f2f40}
         .answers-list{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.5rem}
         .answer-option{background:#f8fafd;border:2px solid #e2e8f0;border-radius:1.2rem;padding:.8rem 1.2rem;display:flex;align-items:center;cursor:pointer;transition:all .2s ease;font-size:.95rem;font-weight:500}
         .answer-option:hover{background:#eef3fc;border-color:#8bb3d4;transform:translateX(5px)}
         .answer-option.selected{background:#e1f0fe;border-color:#2c7cb6}
         .answer-prefix{font-weight:800;background:#cbdde9;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;border-radius:60px;margin-right:1rem;color:#1e3b4a;flex-shrink:0}
         .selected .answer-prefix{background:#2c7cb6;color:white}
+        .answer-text{flex:1;line-height:1.4}
         .nav-buttons{display:flex;justify-content:space-between;gap:1rem}
         button{background:#eef2f7;border:none;padding:.7rem 1.5rem;border-radius:60px;font-weight:600;font-size:.9rem;cursor:pointer;font-family:inherit;color:#1f4e6e}
         button.primary{background:#1c6e8f;color:white}
@@ -45,14 +53,15 @@
         .result-panel{margin-top:1.5rem;background:#eef6e9;border-radius:1.5rem;padding:1.2rem;text-align:center;display:none;border-left:8px solid #2b7a3e}
         .result-panel.show{display:block}
         .corrige-detail{margin-top:1rem;background:#fef7e0;border-radius:1rem;padding:1rem;text-align:left;max-height:350px;overflow-y:auto}
-        .corrige-item{border-bottom:1px solid #f0e0b0;padding:.6rem 0;font-size:.8rem}
+        .corrige-item{border-bottom:1px solid #f0e0b0;padding:.6rem 0;font-size:.85rem;line-height:1.5}
         .final-score{font-size:2rem;font-weight:800;color:#1f5e3a}
         .reset-btn{margin-top:1rem;background:#334e68;color:white}
         .toggle-corrige-btn{background:#e0b354;color:#2c2b26;margin-top:.8rem}
         footer{margin-top:1.5rem;text-align:center;font-size:.75rem;color:#4b6a7f;background:rgba(255,255,255,.8);padding:.8rem;border-radius:1.5rem}
         .footer-download{display:inline-flex;align-items:center;gap:8px;background:#1f5e3a;color:white;padding:8px 16px;border-radius:50px;text-decoration:none;font-weight:500;margin-top:8px}
         .footer-download img{width:22px;height:22px;border-radius:5px}
-        @media(max-width:680px){.hero h1{font-size:1.4rem}.btn-download-large{font-size:1rem;padding:12px 20px}.question-text{font-size:1.1rem}.promo-card{flex-direction:column;text-align:center}}
+        .mathjax-loading{opacity:.5;font-style:italic;font-size:.85rem}
+        @media(max-width:680px){.hero h1{font-size:1.4rem}.btn-download-large{font-size:1rem;padding:12px 20px}.question-text{font-size:1rem}.promo-card{flex-direction:column;text-align:center}}
     </style>
 </head>
 <body>
@@ -89,7 +98,7 @@
             <span class="question-counter" id="qCounter">Question 1 / 50</span>
             <span class="score-preview" id="liveScore">✅ 0 / 50 répondues</span>
         </div>
-        <div class="question-text" id="questionText">Chargement...</div>
+        <div class="question-text" id="questionText">Chargement…</div>
         <div class="answers-list" id="answersContainer"></div>
         <div class="nav-buttons">
             <button id="prevBtn">◀ Précédent</button>
@@ -133,67 +142,70 @@
 <script>
 const rawQuestions = [
 
-    // ---- DROIT ADMINISTRATIF & FONCTION PUBLIQUE (15 questions) ----
-    {q:"Le principe de légalité en droit administratif signifie que :", correct:"L'administration doit agir conformément aux règles de droit en vigueur", distractors:["L'administration peut prendre toute décision utile sans contrainte juridique","Les décisions administratives ne peuvent pas être contestées devant un juge","Le citoyen doit obéir à l'administration sans condition"]},
-    {q:"Un fonctionnaire stagiaire au Burkina Faso est :", correct:"Un agent en période probatoire avant sa titularisation définitive", distractors:["Un agent contractuel payé à la journée","Un fonctionnaire déjà titulaire affecté dans un nouveau poste","Un travailleur temporaire recruté pour une mission précise"]},
-    {q:"La compétence liée d'une autorité administrative désigne le cas où :", correct:"L'autorité n'a aucun choix et doit prendre la décision prévue par la loi", distractors:["L'autorité dispose d'une large marge d'appréciation","L'autorité peut refuser d'agir sans motiver sa décision","L'autorité est libre de choisir entre plusieurs mesures équivalentes"]},
-    {q:"En matière de fonction publique, l'avancement de grade est soumis à :", correct:"Des conditions d'ancienneté, de mérite et à l'existence de postes vacants", distractors:["La seule ancienneté dans le corps","La décision exclusive du ministre compétent sans critères définis","Un concours obligatoire organisé chaque année"]},
-    {q:"Le droit de grève dans la fonction publique burkinabè est :", correct:"Reconnu mais encadré par des dispositions légales (préavis, services minimums)", distractors:["Interdit pour tous les fonctionnaires sans exception","Totalement libre sans aucune condition","Réservé aux seuls agents contractuels de l'État"]},
-    {q:"La décentralisation territoriale au Burkina Faso consiste à :", correct:"Transférer des compétences et des ressources de l'État vers les collectivités territoriales élues", distractors:["Déléguer des pouvoirs à des fonctionnaires nommés par le gouvernement","Confier la gestion des services publics à des entreprises privées","Regrouper les ministères en pôles régionaux"]},
-    {q:"Un acte administratif est dit 'exécutoire' parce qu'il :", correct:"S'impose aux administrés sans qu'il soit nécessaire d'obtenir l'accord d'un juge", distractors:["Doit être validé par le Parlement avant d'entrer en vigueur","Ne peut être appliqué qu'après un délai de 30 jours","Requiert la signature d'un notaire pour être valide"]},
-    {q:"Le recours hiérarchique en matière administrative est adressé à :", correct:"L'autorité supérieure de celle qui a pris la décision contestée", distractors:["Le Tribunal administratif","Le Conseil d'État","Le Médiateur du Faso"]},
-    {q:"La mise en position de détachement d'un fonctionnaire signifie qu'il :", correct:"Exerce temporairement des fonctions hors de son corps d'origine tout en y conservant ses droits", distractors:["Est licencié de manière définitive de la fonction publique","Prend une retraite anticipée pour convenance personnelle","Est suspendu de ses fonctions pour faute disciplinaire"]},
-    {q:"Les collectivités territoriales au Burkina Faso sont au nombre de :", correct:"Deux niveaux : les régions et les communes", distractors:["Trois niveaux : régions, provinces et communes","Un seul niveau : les communes","Quatre niveaux : régions, provinces, départements et communes"]},
-    {q:"Le principe du contradictoire dans une procédure disciplinaire garantit à l'agent :", correct:"Le droit d'être entendu et de présenter sa défense avant toute sanction", distractors:["L'impossibilité pour l'administration de le sanctionner","Le droit de choisir la sanction qui lui sera appliquée","L'obligation pour l'administration de classer le dossier sans suite"]},
-    {q:"Un contrat administratif se distingue d'un contrat de droit privé notamment parce qu'il :", correct:"Contient des clauses exorbitantes du droit commun et est soumis au juge administratif", distractors:["Est toujours conclu pour une durée indéterminée","Ne peut jamais être résilié par l'administration","Est nécessairement soumis à l'arbitrage international"]},
-    {q:"La fonction de contrôleur financier dans les services publics burkinabè a pour rôle de :", correct:"Viser les actes d'engagement de dépenses avant leur exécution", distractors:["Percevoir les impôts et taxes au nom de l'État","Auditer les comptes des entreprises publiques a posteriori","Gérer la trésorerie quotidienne du Trésor public"]},
-    {q:"Le recrutement dans la fonction publique du Burkina Faso se fait principalement par :", correct:"Concours ouvert ou professionnel", distractors:["Nomination directe par le Président du Faso","Contrat à durée indéterminée signé par le ministère compétent","Cooptation par les fonctionnaires en poste"]},
-    {q:"La responsabilité pour faute de service engage :", correct:"La responsabilité de l'administration et non celle du fonctionnaire à titre personnel", distractors:["Uniquement la responsabilité pénale du fonctionnaire","La responsabilité civile de l'agent devant les tribunaux judiciaires","La responsabilité conjointe de l'agent et de sa famille"]},
+    // ---- LIMITES (8 questions) ----
+    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\frac{3x^2 - 5x + 2}{x^2 + 1}\\)", correct:"\\(3\\)", distractors:["\\(0\\)","\\(5\\)","\\(+\\infty\\)"]},
+    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to 0} \\frac{\\sin x}{x}\\)", correct:"\\(1\\)", distractors:["\\(0\\)","\\(+\\infty\\)","Indéterminé"]},
+    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\frac{e^x}{x^n}\\) pour tout entier \\(n \\geq 1\\)", correct:"\\(+\\infty\\) (l'exponentielle l'emporte sur tout polynôme)", distractors:["\\(0\\)","\\(1\\)","\\(n\\)"]},
+    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to 0^+} x\\ln x\\)", correct:"\\(0\\)", distractors:["\\(-\\infty\\)","\\(1\\)","Indéterminé"]},
+    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\left(1 + \\frac{1}{x}\\right)^x\\)", correct:"\\(e\\) (nombre d'Euler \\(\\approx 2{,}718\\))", distractors:["\\(1\\)","\\(2\\)","\\(+\\infty\\)"]},
+    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to 0} \\frac{e^x - 1}{x}\\)", correct:"\\(1\\)", distractors:["\\(0\\)","\\(e\\)","Indéterminé"]},
+    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\frac{\\ln x}{x}\\)", correct:"\\(0\\)", distractors:["\\(1\\)","\\(+\\infty\\)","\\(-1\\)"]},
+    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to -\\infty} e^x\\)", correct:"\\(0\\)", distractors:["\\(-\\infty\\)","\\(1\\)","\\(+\\infty\\)"]},
 
-    // ---- FINANCES PUBLIQUES & GESTION BUDGÉTAIRE (10 questions) ----
-    {q:"Le budget de l'État au Burkina Faso est adopté par :", correct:"L'Assemblée législative de transition (ou le Parlement selon la période)", distractors:["Le Conseil des ministres seul","Le Premier ministre par décret","La Cour des comptes"]},
-    {q:"La règle de l'annualité budgétaire signifie que :", correct:"Le budget est voté et exécuté pour une période d'un an", distractors:["Les dépenses doivent être effectuées au cours du premier trimestre de l'année","Le budget peut être révisé uniquement une fois par an","Les recettes fiscales sont collectées mensuellement"]},
-    {q:"Dans l'exécution du budget, l'ordonnateur est l'agent habilité à :", correct:"Prescrire l'exécution des recettes et des dépenses, sans manier les fonds", distractors:["Encaisser les recettes et décaisser les dépenses","Vérifier les pièces justificatives après paiement","Contrôler la légalité des marchés publics a posteriori"]},
-    {q:"Le principe de spécialité budgétaire implique que :", correct:"Les crédits sont votés par destination précise et ne peuvent être utilisés à d'autres fins sans autorisation", distractors:["Chaque ministère dispose d'un budget secret","Les fonds publics peuvent être librement transférés entre chapitres","Le budget est établi une seule fois pour toute la durée d'un mandat"]},
-    {q:"La règle du service fait en matière de dépenses publiques signifie que :", correct:"Le paiement d'une dépense ne peut intervenir qu'après la livraison effective du bien ou du service", distractors:["Le paiement doit être effectué avant toute prestation","Les agents publics perçoivent leur salaire en avance chaque mois","La facture doit être signée par le ministre avant envoi au fournisseur"]},
-    {q:"Un virement de crédit budgétaire consiste à :", correct:"Déplacer des crédits à l'intérieur d'un même chapitre du budget", distractors:["Transférer des fonds vers un compte bancaire privé","Annuler des crédits non consommés en fin d'exercice","Augmenter le montant total du budget en cours d'année"]},
-    {q:"Le Trésor public est chargé notamment de :", correct:"Centraliser les recettes et assurer les paiements des dépenses de l'État", distractors:["Voter les recettes fiscales du budget national","Contrôler les marchés publics au niveau des communes","Recruter les agents de la fonction publique financière"]},
-    {q:"Le compte de gestion est un document comptable établi par :", correct:"Le comptable public pour retracer l'ensemble des opérations qu'il a effectuées", distractors:["Le contrôleur financier en fin de mission","L'ordonnateur du budget après visa du ministre","Le vérificateur de la Cour des comptes"]},
-    {q:"Les ressources propres d'une commune comprennent :", correct:"Les taxes locales, les redevances et les produits du domaine communal", distractors:["Uniquement les dotations de l'État central","Les impôts sur le revenu perçus sur son territoire","Les bénéfices des entreprises publiques nationales"]},
-    {q:"Un budget en déficit signifie que :", correct:"Les dépenses prévues sont supérieures aux recettes attendues", distractors:["Les recettes dépassent largement les dépenses","Le budget n'a pas été voté dans les délais légaux","Les crédits alloués ont tous été consommés avant la fin de l'année"]},
+    // ---- INTÉGRALES (8 questions) ----
+    {q:"Calculer : \\(\\displaystyle\\int_0^1 x^2\\, dx\\)", correct:"\\(\\dfrac{1}{3}\\)", distractors:["\\(\\dfrac{1}{2}\\)","\\(\\dfrac{1}{4}\\)","\\(\\dfrac{2}{3}\\)"]},
+    {q:"Calculer : \\(\\displaystyle\\int e^{2x}\\, dx\\)", correct:"\\(\\dfrac{1}{2}e^{2x} + C\\)", distractors:["\\(2e^{2x} + C\\)","\\(e^{2x} + C\\)","\\(\\dfrac{1}{4}e^{2x} + C\\)"]},
+    {q:"Calculer : \\(\\displaystyle\\int_0^{\\pi} \\sin x\\, dx\\)", correct:"\\(2\\)", distractors:["\\(0\\)","\\(1\\)","\\(\\pi\\)"]},
+    {q:"Calculer : \\(\\displaystyle\\int \\frac{1}{x}\\, dx\\) pour \\(x > 0\\)", correct:"\\(\\ln|x| + C\\)", distractors:["\\(x^{-2} + C\\)","\\(1 + C\\)","\\(-\\dfrac{1}{x^2} + C\\)"]},
+    {q:"Calculer par intégration par parties : \\(\\displaystyle\\int_1^e \\ln x\\, dx\\)", correct:"\\(1\\)", distractors:["\\(e - 1\\)","\\(e\\)","\\(0\\)"]},
+    {q:"Calculer : \\(\\displaystyle\\int_0^1 e^x\\, dx\\)", correct:"\\(e - 1\\)", distractors:["\\(e\\)","\\(1\\)","\\(e + 1\\)"]},
+    {q:"Calculer par intégration par parties : \\(\\displaystyle\\int x\\,e^x\\, dx\\)", correct:"\\((x-1)e^x + C\\)", distractors:["\\(x\\,e^x + C\\)","\\((x+1)e^x + C\\)","\\(e^x + C\\)"]},
+    {q:"Calculer : \\(\\displaystyle\\int_0^2 (3x^2 + 2x)\\, dx\\)", correct:"\\(12\\)", distractors:["\\(8\\)","\\(10\\)","\\(14\\)"]},
 
-    // ---- FRANÇAIS & COMMUNICATION ADMINISTRATIVE (10 questions) ----
-    {q:"Dans une note de service, le ton doit être :", correct:"Direct, concis et impersonnel", distractors:["Familier et décontracté","Littéraire avec des figures de style élaborées","Très long pour être exhaustif"]},
-    {q:"Le mot 'diligence' dans un contexte administratif signifie :", correct:"Promptitude et soin dans l'exécution d'une tâche", distractors:["Un moyen de transport ancien","Une pièce comptable justificative","Un formulaire de réclamation"]},
-    {q:"Dans la phrase 'Les dossiers auxquels vous faites référence ont été traités', le mot 'auxquels' est :", correct:"Un pronom relatif composé (à + lequel)", distractors:["Un adverbe de manière","Une préposition","Un adjectif démonstratif"]},
-    {q:"Un rapport de synthèse a pour objectif de :", correct:"Résumer et analyser des informations provenant de plusieurs sources pour aider à la prise de décision", distractors:["Relater fidèlement une réunion minute par minute","Donner des instructions précises à des subordonnés","Notifier une sanction disciplinaire à un agent"]},
-    {q:"L'expression 'en référence à' dans un courrier administratif sert à :", correct:"Rappeler un document antérieur auquel la lettre se rapporte", distractors:["Formuler une demande urgente","Clore la correspondance de manière formelle","Introduire une liste de pièces jointes"]},
+    // ---- EXPONENTIELLES & LOGARITHMES (7 questions) ----
+    {q:"Résoudre : \\(e^{2x} = e^5\\)", correct:"\\(x = \\dfrac{5}{2}\\)", distractors:["\\(x = 5\\)","\\(x = 10\\)","\\(x = \\dfrac{2}{5}\\)"]},
+    {q:"Résoudre : \\(\\ln(x) = -2\\)", correct:"\\(x = e^{-2} \\approx 0{,}135\\)", distractors:["\\(x = -2\\)","\\(x = 2\\)","\\(x = \\dfrac{1}{2}\\)"]},
+    {q:"Simplifier : \\(\\ln\\!\\left(e^3 \\times e^{-1}\\right)\\)", correct:"\\(2\\)", distractors:["\\(-3\\)","\\(e^2\\)","\\(3\\)"]},
+    {q:"La dérivée de \\(f(x) = e^{3x-1}\\) est :", correct:"\\(f'(x) = 3e^{3x-1}\\)", distractors:["\\(f'(x) = e^{3x-1}\\)","\\(f'(x) = (3x-1)e^{3x-2}\\)","\\(f'(x) = 3x\\,e^{3x}\\)"]},
+    {q:"Résoudre : \\(\\ln(2x+1) = \\ln(x+4)\\)", correct:"\\(x = 3\\)", distractors:["\\(x = 1\\)","\\(x = 5\\)","\\(x = 2\\)"]},
+    {q:"La dérivée de \\(f(x) = \\ln(x^2+1)\\) est :", correct:"\\(f'(x) = \\dfrac{2x}{x^2+1}\\)", distractors:["\\(f'(x) = \\dfrac{1}{x^2+1}\\)","\\(f'(x) = \\dfrac{2}{x^2+1}\\)","\\(f'(x) = \\dfrac{x}{x^2+1}\\)"]},
+    {q:"Résoudre dans \\(\\mathbb{R}\\) : \\(e^{x^2 - 3x} = 1\\)", correct:"\\(x = 0\\) ou \\(x = 3\\)", distractors:["\\(x = 1\\) ou \\(x = 2\\)","\\(x = 3\\) uniquement","\\(x = 0\\) uniquement"]},
+
+    // ---- PHYSIQUE (12 questions) ----
+    {q:"L'unité de mesure de la force dans le Système International est :", correct:"Le Newton (N)", distractors:["Le Joule (J)","Le Watt (W)","Le Pascal (Pa)"]},
+    {q:"Un objet de masse \\(4\\,\\text{kg}\\) soumis à une accélération de \\(5\\,\\text{m/s}^2\\). La force exercée est :", correct:"\\(20\\,\\text{N}\\)", distractors:["\\(0{,}8\\,\\text{N}\\)","\\(9\\,\\text{N}\\)","\\(25\\,\\text{N}\\)"]},
+    {q:"La loi d'Ohm s'écrit :", correct:"\\(U = R \\times I\\)", distractors:["\\(U = R / I\\)","\\(U = I / R\\)","\\(U = R + I\\)"]},
+    {q:"L'énergie cinétique d'un objet de masse \\(2\\,\\text{kg}\\) roulant à \\(10\\,\\text{m/s}\\) est :", correct:"\\(100\\,\\text{J}\\)", distractors:["\\(20\\,\\text{J}\\)","\\(200\\,\\text{J}\\)","\\(50\\,\\text{J}\\)"]},
+    {q:"La puissance d'un circuit parcouru par \\(I = 3\\,\\text{A}\\) sous \\(U = 220\\,\\text{V}\\) est :", correct:"\\(660\\,\\text{W}\\)", distractors:["\\(73{,}3\\,\\text{W}\\)","\\(440\\,\\text{W}\\)","\\(726\\,\\text{W}\\)"]},
+    {q:"La vitesse de la lumière dans le vide est :", correct:"\\(3 \\times 10^8\\,\\text{m/s}\\)", distractors:["\\(3 \\times 10^6\\,\\text{m/s}\\)","\\(3 \\times 10^{10}\\,\\text{m/s}\\)","\\(1{,}5 \\times 10^8\\,\\text{m/s}\\)"]},
+    {q:"Un transformateur a \\(N_1 = 500\\) spires au primaire et \\(N_2 = 2000\\) spires au secondaire. Si \\(U_1 = 230\\,\\text{V}\\), alors \\(U_2\\) est :", correct:"\\(920\\,\\text{V}\\)", distractors:["\\(57{,}5\\,\\text{V}\\)","\\(115\\,\\text{V}\\)","\\(460\\,\\text{V}\\)"]},
+    {q:"La première loi de Newton stipule que :", correct:"Tout corps persiste dans son état de repos ou de mouvement rectiligne uniforme en l'absence de force résultante", distractors:["\\(\\vec{F} = m\\vec{a}\\)","À toute action correspond une réaction égale et opposée","L'énergie se conserve dans un système isolé"]},
+    {q:"L'effet Joule : la chaleur dégagée est donnée par :", correct:"\\(Q = R\\,I^2\\,t\\)", distractors:["\\(Q = U\\,I\\)","\\(Q = m\\,c\\,\\Delta T\\)","\\(Q = \\dfrac{U^2}{R}\\cdot t\\) uniquement si \\(R\\) varie"]},
+    {q:"Un corps en chute libre depuis \\(45\\,\\text{m}\\) (\\(g = 10\\,\\text{m/s}^2\\)). Sa vitesse à l'impact est :", correct:"\\(30\\,\\text{m/s}\\)", distractors:["\\(20\\,\\text{m/s}\\)","\\(45\\,\\text{m/s}\\)","\\(15\\,\\text{m/s}\\)"]},
+    {q:"La relation entre fréquence \\(f\\) et période \\(T\\) est :", correct:"\\(f = \\dfrac{1}{T}\\)", distractors:["\\(f = T\\)","\\(f = T^2\\)","\\(f = \\dfrac{2\\pi}{T}\\)"]},
+    {q:"L'énergie potentielle gravitationnelle est :", correct:"\\(E_p = m\\,g\\,h\\)", distractors:["\\(E_p = \\dfrac{1}{2}m v^2\\)","\\(E_p = \\dfrac{m\\,g}{h}\\)","\\(E_p = m^2 g h\\)"]},
+
+    // ---- DROIT ADMINISTRATIF & FONCTION PUBLIQUE (8 questions) ----
+    {q:"Le principe de légalité en droit administratif signifie que :", correct:"L'administration doit agir conformément aux règles de droit en vigueur", distractors:["L'administration peut prendre toute décision utile sans contrainte juridique","Les décisions administratives ne peuvent pas être contestées","Le citoyen doit obéir à l'administration sans condition"]},
+    {q:"La délégation de signature permet à une autorité de :", correct:"Autoriser un subordonné à signer des actes en son nom, dans les limites fixées", distractors:["Transférer définitivement ses compétences à un subordonné","Partager la responsabilité pénale avec un autre agent","Confier la totalité de ses attributions à un intérimaire"]},
+    {q:"La suspension d'un fonctionnaire est :", correct:"Une mesure conservatoire et provisoire dans l'attente d'une décision disciplinaire définitive", distractors:["Une sanction définitive équivalant à la révocation","Automatique après trois absences injustifiées","Prononcée uniquement par le tribunal administratif"]},
+    {q:"Le principe de mutabilité du service public signifie que :", correct:"L'administration peut modifier le service public pour l'intérêt général", distractors:["Le service public ne peut jamais être supprimé","Les usagers peuvent exiger le maintien du service tel quel","Les agents refusent toute réforme sans consultation préalable"]},
+    {q:"Les sanctions disciplinaires du premier degré dans la fonction publique burkinabè sont :", correct:"L'avertissement et le blâme", distractors:["La mise à pied et la rétrogradation","La révocation et la mise en disponibilité d'office","La suspension de salaire et le licenciement"]},
+    {q:"La déconcentration administrative consiste à :", correct:"Transférer des attributions de l'État central à des agents locaux nommés par lui", distractors:["Élire des représentants locaux pour gérer les affaires de proximité","Supprimer les échelons administratifs intermédiaires","Privatiser les services publics régionaux"]},
+    {q:"Le Médiateur du Faso est chargé de :", correct:"Faciliter le règlement amiable des litiges entre les citoyens et l'administration", distractors:["Juger en appel les décisions du Tribunal administratif","Contrôler la constitutionnalité des lois","Superviser les élections nationales"]},
+    {q:"Le principe de neutralité du service public interdit notamment :", correct:"Toute discrimination fondée sur les opinions politiques, religieuses ou syndicales", distractors:["Aux agents de prendre des congés annuels","Aux fonctionnaires d'exercer un second emploi le week-end","Aux usagers de faire des réclamations auprès de l'administration"]},
+
+    // ---- FRANÇAIS & CULTURE GÉNÉRALE (7 questions) ----
     {q:"Le verbe 'abroger' signifie :", correct:"Supprimer définitivement un texte législatif ou réglementaire", distractors:["Publier un nouveau décret","Modifier partiellement une loi existante","Suspendre temporairement l'application d'une règle"]},
-    {q:"Quelle est la formule de politesse correcte pour clore une lettre adressée à un supérieur hiérarchique ?", correct:"'Veuillez agréer, Monsieur le Directeur, l'expression de mon profond respect.'", distractors:["'Cordialement vôtre'","'Avec mes sincères amitiés'","'En espérant une réponse favorable, je vous salue'"]},
-    {q:"Dans un compte rendu de réunion, on doit obligatoirement mentionner :", correct:"La date, les participants, l'ordre du jour, les discussions et les décisions prises", distractors:["Les opinions personnelles du rédacteur sur chaque participant","Les absences non justifiées sous forme de sanction","Le budget de la réunion et les frais engagés"]},
-    {q:"L'accord du participe passé dans 'Les décisions que j'ai prises' est justifié parce que :", correct:"Le COD 'que' (mis pour 'décisions') est placé avant le verbe avoir", distractors:["Le sujet est féminin pluriel","Le participe s'accorde toujours avec le nom le plus proche","L'auxiliaire être impose l'accord avec le sujet"]},
-    {q:"Le terme 'préambule' dans un texte réglementaire désigne :", correct:"La partie introductive qui expose les motifs et le contexte de l'acte", distractors:["La liste des articles d'un décret","La signature de l'autorité compétente","Les annexes techniques jointes au texte"]},
-
-    // ---- MATHÉMATIQUES & RAISONNEMENT LOGIQUE (10 questions) ----
-    {q:"Un fonctionnaire perçoit un salaire mensuel brut de 180 000 FCFA. Après une retenue de 12%, son salaire net est de :", correct:"158 400 FCFA", distractors:["168 000 FCFA","162 000 FCFA","154 000 FCFA"]},
-    {q:"Un bureau dispose de 5 agents. En 8 heures, ils traitent 400 dossiers. Combien de dossiers traitent-ils par agent et par heure ?", correct:"10 dossiers", distractors:["8 dossiers","12 dossiers","16 dossiers"]},
-    {q:"La suite : 2, 5, 10, 17, 26, … Le terme suivant est :", correct:"37", distractors:["34","35","40"]},
-    {q:"Un projet est budgété à 6 000 000 FCFA. Après exécution, 4 500 000 FCFA ont été dépensés. Le taux de consommation des crédits est de :", correct:"75%", distractors:["70%","80%","65%"]},
-    {q:"Si A est plus grand que B, et B est plus grand que C, alors :", correct:"A est plus grand que C", distractors:["C est plus grand que A","A est égal à C","On ne peut rien conclure sur la relation entre A et C"]},
-    {q:"Un agent travaille du lundi au vendredi (8 heures par jour). Combien d'heures travaille-t-il en un mois de 22 jours ouvrables ?", correct:"176 heures", distractors:["160 heures","184 heures","192 heures"]},
-    {q:"Dans un concours, 1 200 candidats se présentent. 30% sont retenus en liste principale. Combien de candidats sont admis ?", correct:"360 candidats", distractors:["300 candidats","400 candidats","420 candidats"]},
-    {q:"Si le prix d'un article augmente de 25%, puis diminue de 20%, le prix final par rapport au prix initial est :", correct:"Identique au prix initial (variation nulle)", distractors:["Supérieur de 5% au prix initial","Inférieur de 5% au prix initial","Supérieur de 10% au prix initial"]},
-    {q:"Un fonctionnaire a été recruté le 1er janvier 2015. En 2025, son ancienneté dans le service est de :", correct:"10 ans", distractors:["9 ans","11 ans","12 ans"]},
-    {q:"Parmi les nombres suivants, lequel est divisible à la fois par 3 et par 4 ?", correct:"48", distractors:["38","46","50"]},
-
-    // ---- CULTURE GÉNÉRALE, INSTITUTIONS & GÉOPOLITIQUE (5 questions) ----
-    {q:"L'OHADA est une organisation qui harmonise :", correct:"Le droit des affaires dans les États membres africains", distractors:["Les politiques de défense des pays du Sahel","Les règles d'immigration entre pays africains","La politique monétaire de la zone franc"]},
-    {q:"Le siège de la Cour de Justice de la CEDEAO est situé à :", correct:"Abuja (Nigeria)", distractors:["Accra (Ghana)","Dakar (Sénégal)","Lomé (Togo)"]},
-    {q:"La langue officielle de travail au Burkina Faso est :", correct:"Le français", distractors:["Le mooré","Le dioula","L'arabe"]},
-    {q:"L'UEMOA regroupe combien de pays membres ?", correct:"8 pays", distractors:["6 pays","10 pays","12 pays"]},
-    {q:"Le Fonds Monétaire International (FMI) a pour mission principale de :", correct:"Assurer la stabilité du système monétaire international et soutenir les pays en difficulté de balance des paiements", distractors:["Financer les projets d'infrastructure en Afrique","Réguler le commerce mondial des matières premières","Gérer les réserves d'or des banques centrales africaines"]}
+    {q:"Dans 'Bien que le dossier soit incomplet, il a été accepté', la proposition en gras est :", correct:"Une subordonnée circonstancielle de concession", distractors:["Une subordonnée causale","Une subordonnée de conséquence","Une proposition principale"]},
+    {q:"L'UEMOA a son siège à :", correct:"Ouagadougou (Burkina Faso)", distractors:["Abidjan (Côte d'Ivoire)","Dakar (Sénégal)","Lomé (Togo)"]},
+    {q:"Un 'bordereau de transmission' sert à :", correct:"Accompagner un envoi de pièces et en dresser la liste pour en assurer le suivi", distractors:["Certifier la conformité d'une dépense","Fixer les objectifs annuels d'un service","Notifier une mutation à un agent"]},
+    {q:"Le pluriel du mot 'bail' est :", correct:"Baux", distractors:["Bails","Bailes","Bailx"]},
+    {q:"L'ONU a été fondée en :", correct:"1945", distractors:["1919","1948","1960"]},
+    {q:"La capitale économique du Burkina Faso est :", correct:"Bobo-Dioulasso", distractors:["Ouagadougou","Koudougou","Banfora"]}
 ];
 
+// ---- MOTEUR DU QUIZ ----
 function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -205,14 +217,8 @@ function shuffleArray(arr) {
 function buildShuffledQuestions() {
     return rawQuestions.map(item => {
         let answers = [item.correct, ...item.distractors];
-        let shuffledAnswers = shuffleArray([...answers]);
-        let correctIndex = shuffledAnswers.indexOf(item.correct);
-        return {
-            id: Math.random(),
-            question: item.q,
-            answers: shuffledAnswers,
-            correct: correctIndex
-        };
+        let shuffled = shuffleArray([...answers]);
+        return { question: item.q, answers: shuffled, correct: shuffled.indexOf(item.correct) };
     });
 }
 
@@ -238,74 +244,105 @@ const showCorrigeBtn = document.getElementById("showCorrigeBtn");
 const corrigeDetailsDiv = document.getElementById("corrigeDetails");
 
 function countAnswered() { return userAnswers.filter(a => a !== null).length; }
+
 function updateProgress() {
     liveScoreEl.innerText = `✅ ${countAnswered()} / ${TOTAL_QS} répondues`;
-    qCounterEl.innerText = `Question ${currentIndex+1} / ${TOTAL_QS}`;
+    qCounterEl.innerText = `Question ${currentIndex + 1} / ${TOTAL_QS}`;
 }
-function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;': m==='<'?'&lt;':'&gt;'); }
+
+// Typeset un seul élément DOM avec MathJax 3
+function typesetElement(el) {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+        window.MathJax.typesetPromise([el]).catch(err => console.warn("MathJax:", err));
+    }
+}
+
 function renderCurrentQuestion() {
-    if(quizSubmitted) return;
+    if (quizSubmitted) return;
     const q = QUIZ[currentIndex];
-    questionTextEl.innerText = q.question;
     const selectedIdx = userAnswers[currentIndex];
-    const letters = ['A','B','C','D'];
+    const letters = ['A', 'B', 'C', 'D'];
+
+    // Question
+    questionTextEl.innerHTML = q.question;
+
+    // Réponses
     let html = '';
     q.answers.forEach((ans, idx) => {
-        html += `<div class="answer-option ${selectedIdx===idx?'selected':''}" data-ans-index="${idx}">
+        html += `<div class="answer-option ${selectedIdx === idx ? 'selected' : ''}" data-ans-index="${idx}">
                     <span class="answer-prefix">${letters[idx]}</span>
-                    <span>${escapeHtml(ans)}</span>
-                </div>`;
+                    <span class="answer-text">${ans}</span>
+                 </div>`;
     });
     answersContainer.innerHTML = html;
+
+    // Listeners
     document.querySelectorAll('.answer-option').forEach(opt => {
         opt.addEventListener('click', () => {
-            if(quizSubmitted) return;
+            if (quizSubmitted) return;
             userAnswers[currentIndex] = parseInt(opt.dataset.ansIndex);
             renderCurrentQuestion();
             updateProgress();
         });
     });
+
     updateProgress();
+
+    // Typsetter MathJax sur la zone question + réponses
+    typesetElement(questionTextEl);
+    typesetElement(answersContainer);
 }
-function goPrev() { if(!quizSubmitted && currentIndex>0) { currentIndex--; renderCurrentQuestion(); } }
-function goNext() { if(!quizSubmitted && currentIndex<TOTAL_QS-1) { currentIndex++; renderCurrentQuestion(); } }
-function computeScore() { let c=0; for(let i=0;i<TOTAL_QS;i++) if(userAnswers[i]!==null && QUIZ[i].correct===userAnswers[i]) c++; return c; }
+
+function goPrev() { if (!quizSubmitted && currentIndex > 0) { currentIndex--; renderCurrentQuestion(); } }
+function goNext() { if (!quizSubmitted && currentIndex < TOTAL_QS - 1) { currentIndex++; renderCurrentQuestion(); } }
+function computeScore() {
+    let c = 0;
+    for (let i = 0; i < TOTAL_QS; i++) if (userAnswers[i] !== null && QUIZ[i].correct === userAnswers[i]) c++;
+    return c;
+}
+
 function buildCorrigeHTML() {
     let html = '<h4 style="margin-bottom:.5rem">📖 Corrigé complet</h4>';
-    for(let i=0;i<TOTAL_QS;i++) {
+    for (let i = 0; i < TOTAL_QS; i++) {
         const q = QUIZ[i];
-        const correctAnswerText = q.answers[q.correct];
-        const userAnswerText = (userAnswers[i]!==null) ? q.answers[userAnswers[i]] : "Non répondue";
-        const isCorrect = (userAnswers[i]!==null && q.correct===userAnswers[i]);
-        html += `<div class="corrige-item"><div><strong>${i+1}. ${escapeHtml(q.question)}</strong></div>
-                <div>📌 Bonne réponse : <strong>${escapeHtml(correctAnswerText)}</strong></div>
-                <div>${isCorrect?'✅':'❌'} Votre réponse : ${escapeHtml(userAnswerText)}</div></div>`;
+        const correct = q.answers[q.correct];
+        const given = userAnswers[i] !== null ? q.answers[userAnswers[i]] : "Non répondue";
+        const ok = userAnswers[i] !== null && q.correct === userAnswers[i];
+        html += `<div class="corrige-item">
+                    <div><strong>${i + 1}. ${q.question}</strong></div>
+                    <div>📌 Bonne réponse : <strong>${correct}</strong></div>
+                    <div>${ok ? '✅' : '❌'} Votre réponse : ${given}</div>
+                 </div>`;
     }
     return html;
 }
+
 function showFinalResult() {
-    if(quizSubmitted) return;
-    if(countAnswered() < TOTAL_QS) { alert(`Répondez à toutes les questions (${countAnswered()}/${TOTAL_QS})`); return; }
+    if (quizSubmitted) return;
+    if (countAnswered() < TOTAL_QS) { alert(`Répondez à toutes les questions (${countAnswered()}/${TOTAL_QS})`); return; }
     const score = computeScore();
-    const percent = Math.round(score/TOTAL_QS*100);
-    finalScoreSpan.innerText = `${score} / ${TOTAL_QS} (${percent}%)`;
-    let msg = percent>=80 ? '🏅 Excellent ! Vous avez le profil d\'un admis au concours !' : (percent>=60 ? '👍 Très bien ! Continuez à vous entraîner avec Faso Concours.' : (percent>=40 ? '📚 Bonne base. L\'application vous aidera à progresser.' : '💪 Ne lâchez pas ! Entraînez-vous chaque jour avec Faso Concours !'));
-    feedbackMsg.innerText = msg;
+    const pct = Math.round(score / TOTAL_QS * 100);
+    finalScoreSpan.innerText = `${score} / ${TOTAL_QS} (${pct}%)`;
+    feedbackMsg.innerText = pct >= 80 ? '🏅 Excellent ! Vous avez le profil d\'un admis au concours !'
+        : pct >= 60 ? '👍 Très bien ! Continuez à vous entraîner avec Faso Concours.'
+        : pct >= 40 ? '📚 Bonne base. L\'application vous aidera à progresser.'
+        : '💪 Ne lâchez pas ! Entraînez-vous chaque jour avec Faso Concours !';
     corrigeDetailsDiv.innerHTML = buildCorrigeHTML();
     resultPanel.classList.add('show');
     quizSubmitted = true;
     answersContainer.style.pointerEvents = 'none';
     prevBtn.disabled = nextBtn.disabled = finalSubmitBtn.disabled = true;
+    // Typeset le corrigé
+    typesetElement(corrigeDetailsDiv);
 }
+
 showCorrigeBtn.addEventListener('click', () => {
-    if(corrigeDetailsDiv.style.display === 'none' || corrigeDetailsDiv.style.display === '') {
-        corrigeDetailsDiv.style.display = 'block';
-        showCorrigeBtn.textContent = '🙈 Masquer le corrigé';
-    } else {
-        corrigeDetailsDiv.style.display = 'none';
-        showCorrigeBtn.textContent = '📖 Afficher le corrigé';
-    }
+    const hidden = corrigeDetailsDiv.style.display === 'none' || corrigeDetailsDiv.style.display === '';
+    corrigeDetailsDiv.style.display = hidden ? 'block' : 'none';
+    showCorrigeBtn.textContent = hidden ? '🙈 Masquer le corrigé' : '📖 Afficher le corrigé';
+    if (hidden) typesetElement(corrigeDetailsDiv);
 });
+
 function restartQuiz() {
     fullQuestionsData = buildShuffledQuestions();
     const newQuiz = shuffleArray([...fullQuestionsData]);
@@ -321,11 +358,18 @@ function restartQuiz() {
     prevBtn.disabled = nextBtn.disabled = finalSubmitBtn.disabled = false;
     renderCurrentQuestion();
 }
+
 prevBtn.addEventListener('click', goPrev);
 nextBtn.addEventListener('click', goNext);
 finalSubmitBtn.addEventListener('click', showFinalResult);
 restartQuizBtn.addEventListener('click', restartQuiz);
-renderCurrentQuestion();
+
+// Attendre MathJax avant le premier rendu
+if (window.MathJax && window.MathJax.startup) {
+    window.MathJax.startup.promise.then(() => renderCurrentQuestion());
+} else {
+    window.addEventListener('load', renderCurrentQuestion);
+}
 </script>
 </body>
 </html>
