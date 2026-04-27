@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Faso Concours - Préparez vos examens</title>
+    <title>Faso Concours - Préparez vos examens (Examens Blancs)</title>
     <script>
     window.MathJax = {
         tex: { inlineMath: [['\\(','\\)'], ['$','$']], displayMath: [['\\[','\\]'],['$$','$$']] },
@@ -117,7 +117,7 @@
 <div class="container">
     <div class="hero">
         <img src="icon.png" alt="Faso Concours" class="hero-logo" onerror="this.style.display='none'">
-        <h1>📋 Concours blanc</h1>
+        <h1>📋 Concours blanc 2025</h1>
         <p>Maths · Physique · Chimie · SVT · Philo · Histoire · Français · Droit · actualisées</p>
         <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="btn-download-large">
             <img src="icon.png" alt="" onerror="this.style.display='none'">
@@ -358,79 +358,86 @@ async function lancerPaiement() {
 }
 
 // ════════════════════════════════════════════════
-//  QUESTIONS
+//  QUESTIONS (NOUVEAU CONTENU UNIQUEMENT)
 // ════════════════════════════════════════════════
 const rawQuestions = [
-    // ===== MATHÉMATIQUES — 10 =====
-    {subject:"math", q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\frac{3x^2 - 5x + 2}{x^2 + 1}\\)", correct:"\\(3\\)", distractors:["\\(0\\)","\\(5\\)","\\(+\\infty\\)"]},
-    {subject:"math", q:"Calculer : \\(\\displaystyle\\lim_{x \\to 0} \\frac{e^x - 1}{x}\\)", correct:"\\(1\\)", distractors:["\\(0\\)","\\(e\\)","Indéterminé"]},
-    {subject:"math", q:"Calculer : \\(\\displaystyle\\lim_{x \\to 0^+} x\\ln x\\)", correct:"\\(0\\)", distractors:["\\(-\\infty\\)","\\(1\\)","\\(+\\infty\\)"]},
-    {subject:"math", q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\left(1 + \\frac{1}{x}\\right)^x\\)", correct:"\\(e \\approx 2{,}718\\)", distractors:["\\(1\\)","\\(2\\)","\\(+\\infty\\)"]},
-    {subject:"math", q:"Calculer : \\(\\displaystyle\\int_0^1 x^2\\, dx\\)", correct:"\\(\\dfrac{1}{3}\\)", distractors:["\\(\\dfrac{1}{2}\\)","\\(\\dfrac{1}{4}\\)","\\(\\dfrac{2}{3}\\)"]},
-    {subject:"math", q:"Calculer : \\(\\displaystyle\\int e^{2x}\\, dx\\)", correct:"\\(\\dfrac{1}{2}e^{2x} + C\\)", distractors:["\\(2e^{2x} + C\\)","\\(e^{2x} + C\\)","\\(\\dfrac{1}{4}e^{2x} + C\\)"]},
-    {subject:"math", q:"Calculer par intégration par parties : \\(\\displaystyle\\int x\\,e^x\\, dx\\)", correct:"\\((x-1)e^x + C\\)", distractors:["\\(x\\,e^x + C\\)","\\((x+1)e^x + C\\)","\\(e^x + C\\)"]},
-    {subject:"math", q:"La dérivée de \\(f(x) = \\ln(x^2+1)\\) est :", correct:"\\(f'(x) = \\dfrac{2x}{x^2+1}\\)", distractors:["\\(f'(x) = \\dfrac{1}{x^2+1}\\)","\\(f'(x) = \\dfrac{2}{x^2+1}\\)","\\(f'(x) = \\dfrac{x}{x^2+1}\\)"]},
-    {subject:"math", q:"Résoudre dans \\(\\mathbb{R}\\) : \\(e^{x^2 - 3x} = 1\\)", correct:"\\(x = 0\\) ou \\(x = 3\\)", distractors:["\\(x = 1\\) ou \\(x = 2\\)","\\(x = 3\\) uniquement","\\(x = 0\\) uniquement"]},
-    {subject:"math", q:"Calculer : \\(\\displaystyle\\int_0^{\\pi} \\sin x\\, dx\\)", correct:"\\(2\\)", distractors:["\\(0\\)","\\(1\\)","\\(\\pi\\)"]},
-    // ===== PHYSIQUE — 8 =====
-    {subject:"physique", q:"Un objet de masse \\(4\\,\\text{kg}\\) soumis à \\(a = 5\\,\\text{m/s}^2\\). La force exercée vaut :", correct:"\\(20\\,\\text{N}\\)", distractors:["\\(0{,}8\\,\\text{N}\\)","\\(9\\,\\text{N}\\)","\\(25\\,\\text{N}\\)"]},
-    {subject:"physique", q:"La loi d'Ohm s'écrit :", correct:"\\(U = R \\times I\\)", distractors:["\\(U = R / I\\)","\\(U = I / R\\)","\\(U = R + I\\)"]},
-    {subject:"physique", q:"L'énergie cinétique d'un objet de \\(2\\,\\text{kg}\\) à \\(10\\,\\text{m/s}\\) est :", correct:"\\(E_c = 100\\,\\text{J}\\)", distractors:["\\(20\\,\\text{J}\\)","\\(200\\,\\text{J}\\)","\\(50\\,\\text{J}\\)"]},
-    {subject:"physique", q:"La puissance d'un circuit avec \\(I = 3\\,\\text{A}\\) et \\(U = 220\\,\\text{V}\\) est :", correct:"\\(P = 660\\,\\text{W}\\)", distractors:["\\(73{,}3\\,\\text{W}\\)","\\(440\\,\\text{W}\\)","\\(726\\,\\text{W}\\)"]},
-    {subject:"physique", q:"Un transformateur a \\(N_1 = 500\\) spires et \\(N_2 = 2000\\) spires. Si \\(U_1 = 230\\,\\text{V}\\), alors \\(U_2\\) vaut :", correct:"\\(920\\,\\text{V}\\)", distractors:["\\(57{,}5\\,\\text{V}\\)","\\(115\\,\\text{V}\\)","\\(460\\,\\text{V}\\)"]},
-    {subject:"physique", q:"L'effet Joule : la chaleur dégagée est :", correct:"\\(Q = R\\,I^2\\,t\\)", distractors:["\\(Q = U + I\\)","\\(Q = m\\,c\\,\\Delta T\\)","\\(Q = U/R\\)"]},
-    {subject:"physique", q:"Un corps en chute libre depuis \\(45\\,\\text{m}\\) (\\(g = 10\\,\\text{m/s}^2\\)). Sa vitesse à l'impact est :", correct:"\\(v = 30\\,\\text{m/s}\\)", distractors:["\\(20\\,\\text{m/s}\\)","\\(45\\,\\text{m/s}\\)","\\(15\\,\\text{m/s}\\)"]},
-    {subject:"physique", q:"La relation entre fréquence \\(f\\) et période \\(T\\) est :", correct:"\\(f = \\dfrac{1}{T}\\)", distractors:["\\(f = T\\)","\\(f = T^2\\)","\\(f = \\dfrac{2\\pi}{T}\\)"]},
-    // ===== CHIMIE — 6 =====
-    {subject:"chimie", q:"Le nombre d'Avogadro vaut environ :", correct:"\\(6{,}022 \\times 10^{23}\\,\\text{mol}^{-1}\\)", distractors:["\\(6{,}022 \\times 10^{20}\\,\\text{mol}^{-1}\\)","\\(3{,}0 \\times 10^{23}\\,\\text{mol}^{-1}\\)","\\(6{,}022 \\times 10^{26}\\,\\text{mol}^{-1}\\)"]},
-    {subject:"chimie", q:"Le pH d'une solution est défini par :", correct:"\\(\\text{pH} = -\\log[\\text{H}_3\\text{O}^+]\\)", distractors:["\\(\\text{pH} = \\log[\\text{H}_3\\text{O}^+]\\)","\\(\\text{pH} = -\\ln[\\text{H}_3\\text{O}^+]\\)","\\(\\text{pH} = [\\text{H}_3\\text{O}^+] \\times 10\\)"]},
-    {subject:"chimie", q:"Dans \\(\\text{CH}_4 + 2\\,\\text{O}_2 \\rightarrow \\text{CO}_2 + 2\\,\\text{H}_2\\text{O}\\), le méthane est :", correct:"Le combustible (réducteur)", distractors:["Le comburant (oxydant)","Un catalyseur","Un produit de la réaction"]},
-    {subject:"chimie", q:"La loi de Beer-Lambert s'écrit :", correct:"\\(A = \\varepsilon \\cdot l \\cdot c\\)", distractors:["\\(A = \\varepsilon / (l \\cdot c)\\)","\\(A = c / (\\varepsilon \\cdot l)\\)","\\(A = \\varepsilon + l + c\\)"]},
-    {subject:"chimie", q:"La configuration électronique du carbone (\\(Z = 6\\)) est :", correct:"\\(1s^2\\, 2s^2\\, 2p^2\\)", distractors:["\\(1s^2\\, 2s^4\\)","\\(1s^2\\, 2s^2\\, 2p^4\\)","\\(1s^4\\, 2s^2\\)"]},
-    {subject:"chimie", q:"La constante des gaz parfaits \\(R\\) vaut :", correct:"\\(8{,}314\\,\\text{J}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}\\)", distractors:["\\(8{,}314\\,\\text{J}\\cdot\\text{mol}^{-1}\\cdot\\text{°C}^{-1}\\)","\\(6{,}022\\,\\text{J}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}\\)","\\(9{,}81\\,\\text{J}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}\\)"]},
-    // ===== SVT — 10 =====
-    {subject:"svt", q:"La mitose produit :", correct:"Deux cellules filles génétiquement identiques à la cellule mère (2n chromosomes)", distractors:["Quatre cellules haploïdes différentes","Deux cellules haploïdes identiques","Une seule cellule avec un noyau double"]},
-    {subject:"svt", q:"La méiose aboutit à :", correct:"4 cellules haploïdes après deux divisions successives (méiose I et II)", distractors:["2 cellules diploïdes identiques","8 cellules après trois divisions","2 cellules diploïdes différentes"]},
-    {subject:"svt", q:"Le rôle principal des mitochondries est :", correct:"La production d'ATP par la respiration cellulaire", distractors:["La synthèse des protéines","La digestion des déchets cellulaires","La production de lipides"]},
-    {subject:"svt", q:"La photosynthèse se déroule dans :", correct:"Les chloroplastes, grâce à la chlorophylle", distractors:["Les mitochondries","Le noyau cellulaire","Les ribosomes"]},
-    {subject:"svt", q:"L'équation globale de la photosynthèse est :", correct:"\\(6\\,\\text{CO}_2 + 6\\,\\text{H}_2\\text{O} \\xrightarrow{\\text{lumière}} \\text{C}_6\\text{H}_{12}\\text{O}_6 + 6\\,\\text{O}_2\\)", distractors:["\\(\\text{C}_6\\text{H}_{12}\\text{O}_6 + 6\\,\\text{O}_2 \\rightarrow 6\\,\\text{CO}_2 + 6\\,\\text{H}_2\\text{O}\\)","\\(6\\,\\text{CO}_2 + 6\\,\\text{H}_2 \\rightarrow \\text{C}_6\\text{H}_{12}\\text{O}_6\\)","\\(6\\,\\text{H}_2\\text{O} \\rightarrow 6\\,\\text{O}_2 + 6\\,\\text{H}_2\\)"]},
-    {subject:"svt", q:"Le groupe sanguin est déterminé par :", correct:"La présence ou l'absence d'antigènes A et/ou B sur les globules rouges", distractors:["La couleur des globules blancs","Le taux de plaquettes dans le sang","La quantité d'hémoglobine par globule rouge"]},
-    {subject:"svt", q:"La double hélice de l'ADN est reliée par :", correct:"Des liaisons hydrogène entre bases complémentaires (A-T et G-C)", distractors:["Des liaisons covalentes entre phosphates","Des liaisons ioniques entre sucres","Des ponts disulfures entre acides aminés"]},
-    {subject:"svt", q:"Le système nerveux central comprend :", correct:"L'encéphale (cerveau, cervelet, tronc cérébral) et la moelle épinière", distractors:["Les nerfs rachidiens uniquement","Le système sympathique et parasympathique","Le cerveau et les nerfs crâniens uniquement"]},
-    {subject:"svt", q:"La sélection naturelle selon Darwin agit sur :", correct:"Les variations héréditaires favorisant la survie et la reproduction", distractors:["Les caractères acquis durant la vie","Les mutations non transmissibles","L'ensemble des individus de façon uniforme"]},
-    {subject:"svt", q:"L'insuline sécrétée par le pancréas :", correct:"Fait baisser la glycémie en favorisant le stockage du glucose (glycogène)", distractors:["Augmente la glycémie en dégradant le glycogène","Stimule la production de globules rouges","Régule la pression artérielle"]},
-    // ===== PHILOSOPHIE — 2 =====
-    {subject:"philo", q:"Le cogito de Descartes « Je pense, donc je suis » établit :", correct:"La certitude de l'existence du sujet pensant comme premier fondement indubitable", distractors:["Que le corps est plus certain que l'esprit","Que la matière est source de toute pensée","Que le doute lui-même est impossible"]},
-    {subject:"philo", q:"La distinction kantienne phénomène / noumène signifie que :", correct:"Nous ne connaissons que les apparences ; la chose en soi reste inaccessible à notre entendement", distractors:["Tout ce qui existe est directement connaissable","Les phénomènes sont des illusions","La science peut tout connaître sans limite"]},
-    // ===== HISTOIRE — 8 =====
-    {subject:"histoire", q:"La Première Guerre mondiale s'est déroulée de :", correct:"1914 à 1918", distractors:["1910 à 1914","1918 à 1923","1939 à 1945"]},
-    {subject:"histoire", q:"La Révolution française a débuté en :", correct:"1789, avec la prise de la Bastille le 14 juillet", distractors:["1776","1804","1815"]},
-    {subject:"histoire", q:"La décolonisation de l'Afrique subsaharienne a eu lieu majoritairement dans :", correct:"Les années 1960", distractors:["Les années 1930","Les années 1945–1950","Les années 1975–1980"]},
-    {subject:"histoire", q:"La Haute-Volta (Burkina Faso) a obtenu son indépendance en :", correct:"1960", distractors:["1956","1947","1975"]},
-    {subject:"histoire", q:"Le régime nazi en Allemagne (1933–1945) est :", correct:"Un totalitarisme fondé sur la dictature, le racisme et l'antisémitisme", distractors:["Un régime parlementaire à parti unique modéré","Une démocratie populaire d'inspiration soviétique","Une monarchie constitutionnelle avec censure partielle"]},
-    {subject:"histoire", q:"La Seconde Guerre mondiale a pris fin en :", correct:"1945 (capitulation de l'Allemagne en mai, du Japon en septembre)", distractors:["1943","1944","1947"]},
-    {subject:"histoire", q:"Le mouvement panafricain du XXe siècle visait à :", correct:"Unir les peuples africains pour lutter contre la colonisation et promouvoir leur émancipation", distractors:["Établir une colonie africaine en Europe","Créer une union économique Afrique-Asie uniquement","Séparer les États africains en entités ethniques"]},
-    {subject:"histoire", q:"La Conférence de Berlin (1884–1885) a eu pour conséquence :", correct:"D'organiser et légitimer le partage colonial de l'Afrique entre les puissances européennes", distractors:["D'accorder l'indépendance aux colonies africaines","D'interdire la traite négrière transatlantique","De fixer les frontières entre France et Allemagne"]},
-    // ===== FRANÇAIS & CULTURE GÉNÉRALE — 8 =====
-    {subject:"francais", q:"Le verbe 'abroger' signifie :", correct:"Supprimer définitivement un texte législatif ou réglementaire", distractors:["Publier un nouveau décret","Modifier partiellement une loi","Suspendre temporairement une règle"]},
-    {subject:"francais", q:"Dans 'Bien que le dossier soit incomplet, il a été accepté', la proposition est :", correct:"Une subordonnée circonstancielle de concession", distractors:["Une subordonnée causale","Une subordonnée de conséquence","Une proposition principale"]},
-    {subject:"francais", q:"Le pluriel du mot 'bail' est :", correct:"Baux", distractors:["Bails","Bailes","Bailx"]},
-    {subject:"francais", q:"Un 'bordereau de transmission' sert à :", correct:"Accompagner un envoi de pièces et en dresser la liste pour assurer le suivi", distractors:["Certifier la conformité d'une dépense","Fixer les objectifs annuels d'un service","Notifier une mutation à un agent"]},
-    {subject:"francais", q:"L'UEMOA a son siège à :", correct:"Ouagadougou (Burkina Faso)", distractors:["Abidjan (Côte d'Ivoire)","Dakar (Sénégal)","Lomé (Togo)"]},
-    {subject:"francais", q:"L'ONU a été fondée en :", correct:"1945", distractors:["1919","1948","1960"]},
-    {subject:"francais", q:"La capitale économique du Burkina Faso est :", correct:"Bobo-Dioulasso", distractors:["Ouagadougou","Koudougou","Banfora"]},
-    {subject:"francais", q:"Le mot 'diligence' dans un contexte administratif signifie :", correct:"Promptitude et soin dans l'exécution d'une tâche", distractors:["Un formulaire de réclamation","Une pièce comptable justificative","Un arrêté ministériel"]},
-    // ===== DROIT ADMINISTRATIF — 10 =====
-    {subject:"droit", q:"Le principe de légalité en droit administratif signifie que :", correct:"L'administration doit agir conformément aux règles de droit en vigueur", distractors:["L'administration peut prendre toute décision utile sans contrainte","Les décisions administratives ne peuvent pas être contestées","Le citoyen doit obéir à l'administration sans condition"]},
-    {subject:"droit", q:"La délégation de signature permet à une autorité de :", correct:"Autoriser un subordonné à signer des actes en son nom, dans les limites fixées", distractors:["Transférer définitivement ses compétences à un subordonné","Partager la responsabilité pénale avec un autre agent","Confier la totalité de ses attributions à un intérimaire"]},
-    {subject:"droit", q:"La suspension d'un fonctionnaire est :", correct:"Une mesure conservatoire et provisoire dans l'attente d'une décision disciplinaire définitive", distractors:["Une sanction définitive équivalant à la révocation","Automatique après trois absences injustifiées","Prononcée uniquement par le tribunal administratif"]},
-    {subject:"droit", q:"Le principe de mutabilité du service public signifie que :", correct:"L'administration peut modifier le service public pour l'intérêt général", distractors:["Le service public ne peut jamais être supprimé","Les usagers peuvent exiger le maintien du service tel quel","Les agents refusent toute réforme sans consultation"]},
-    {subject:"droit", q:"Les sanctions disciplinaires du premier degré dans la fonction publique burkinabè sont :", correct:"L'avertissement et le blâme", distractors:["La mise à pied et la rétrogradation","La révocation et la mise en disponibilité d'office","La suspension de salaire et le licenciement"]},
-    {subject:"droit", q:"La déconcentration administrative consiste à :", correct:"Transférer des attributions de l'État central à des agents locaux nommés par lui", distractors:["Élire des représentants locaux pour gérer les affaires de proximité","Supprimer les échelons administratifs intermédiaires","Privatiser les services publics régionaux"]},
-    {subject:"droit", q:"Le Médiateur du Faso est chargé de :", correct:"Faciliter le règlement amiable des litiges entre les citoyens et l'administration", distractors:["Juger en appel les décisions du Tribunal administratif","Contrôler la constitutionnalité des lois","Superviser les élections nationales"]},
-    {subject:"droit", q:"Le principe de neutralité du service public interdit :", correct:"Toute discrimination fondée sur les opinions politiques, religieuses ou syndicales", distractors:["Aux agents de prendre des congés annuels","Aux fonctionnaires d'exercer un second emploi le week-end","Aux usagers de faire des réclamations"]},
-    {subject:"droit", q:"La compétence liée désigne le cas où :", correct:"L'autorité n'a aucun choix et doit prendre la décision prévue par la loi", distractors:["L'autorité dispose d'une large marge d'appréciation","L'autorité peut refuser d'agir sans motiver","L'autorité choisit librement entre plusieurs mesures"]},
-    {subject:"droit", q:"Un acte administratif est dit 'exécutoire' parce qu'il :", correct:"S'impose aux administrés sans l'accord préalable d'un juge", distractors:["Doit être validé par le Parlement avant d'entrer en vigueur","Ne peut être appliqué qu'après 30 jours","Requiert la signature d'un notaire"]},
+    // ===== MATHÉMATIQUES (10) =====
+    {subject:"math", q:"Calculer : \\(\\displaystyle\\int_{0}^{1} (3x^2 + 2x) dx\\)", correct:"\\(2\\)", distractors:["\\(1\\)","\\(3\\)","\\(0\\)"]},
+    {subject:"math", q:"La dérivée de \\(f(x) = \\sin(2x)\\) est :", correct:"\\(2\\cos(2x)\\)", distractors:["\\(\\cos(2x)\\)","\\(-2\\cos(2x)\\)","\\(2\\sin(2x)\\)"]},
+    {subject:"math", q:"Résoudre \\(\\ln(x-1) = 0\\) :", correct:"\\(x = 2\\)", distractors:["\\(x = 1\\)","\\(x = e\\)","\\(x = 0\\)"]},
+    {subject:"math", q:"Le développement de \\((a+b)^3\\) est :", correct:"\\(a^3 + 3a^2b + 3ab^2 + b^3\\)", distractors:["\\(a^3 + b^3\\)","\\(a^3 + 3ab + b^3\\)","\\(a^3 + a^2b + ab^2 + b^3\\)"]},
+    {subject:"math", q:"Soit \\(f(x) = x^3 - 3x\\). Le coefficient directeur de la tangente en \\(x=1\\) est :", correct:"\\(0\\)", distractors:["\\(3\\)","\\(-3\\)","\\(1\\)"]},
+    {subject:"math", q:"\\(\\lim_{x \\to 0} \\frac{\\tan x}{x} = \\)", correct:"\\(1\\)", distractors:["\\(0\\)","\\(\\infty\\)","\\(-1\\)"]},
+    {subject:"math", q:"La valeur moyenne de \\(f(x)=x\\) sur \\([0,2]\\) est :", correct:"\\(1\\)", distractors:["\\(2\\)","\\(0.5\\)","\\(1.5\\)"]},
+    {subject:"math", q:"Le conjugué de \\(z = 3 - 4i\\) est :", correct:"\\(3+4i\\)", distractors:["\\(-3+4i\\)","\\(-3-4i\\)","\\(4-3i\\)"]},
+    {subject:"math", q:"\\(\\sqrt{50} - \\sqrt{18} = \\)", correct:"\\(2\\sqrt{2}\\)", distractors:["\\(\\sqrt{32}\\)","\\(8\\sqrt{2}\\)","\\(\\sqrt{2}\\)"]},
+    {subject:"math", q:"Le discriminant de \\(x^2 + 4x + 4 = 0\\) est :", correct:"\\(0\\)", distractors:["\\(16\\)","\\(8\\)","\\(-8\\)"]},
+    
+    // ===== PHYSIQUE (8) =====
+    {subject:"physique", q:"Un mobile parcourt 120 m en 8 s. Sa vitesse moyenne est :", correct:"\\(15\\,\\text{m/s}\\)", distractors:["\\(10\\,\\text{m/s}\\)","\\(20\\,\\text{m/s}\\)","\\(12\\,\\text{m/s}\\)"]},
+    {subject:"physique", q:"L'unité de la puissance électrique est :", correct:"Le watt (W)", distractors:["Le joule (J)","Le volt (V)","L'ampère (A)"]},
+    {subject:"physique", q:"Un objet de 500 g est soumis à une accélération de \\(4\\,\\text{m/s}^2\\). Force = ?", correct:"\\(2\\,\\text{N}\\)", distractors:["\\(2000\\,\\text{N}\\)","\\(0.125\\,\\text{N}\\)","\\(20\\,\\text{N}\\)"]},
+    {subject:"physique", q:"Un générateur fournit 12 V, l'intensité est 2 A. La puissance est :", correct:"\\(24\\,\\text{W}\\)", distractors:["\\(6\\,\\text{W}\\)","\\(14\\,\\text{W}\\)","\\(10\\,\\text{W}\\)"]},
+    {subject:"physique", q:"Une lampe de 100 W fonctionne 2 heures. Énergie consommée :", correct:"\\(0.2\\,\\text{kWh}\\)", distractors:["\\(200\\,\\text{kWh}\\)","\\(50\\,\\text{kWh}\\)","\\(0.02\\,\\text{kWh}\\)"]},
+    {subject:"physique", q:"Un son aigu correspond à :", correct:"Une haute fréquence", distractors:["Une basse fréquence","Une grande amplitude","Une faible amplitude"]},
+    {subject:"physique", q:"La vitesse de la lumière dans le vide vaut environ :", correct:"\\(3 \\times 10^8\\,\\text{m/s}\\)", distractors:["\\(3 \\times 10^5\\,\\text{m/s}\\)","\\(3 \\times 10^6\\,\\text{m/s}\\)","\\(3 \\times 10^{10}\\,\\text{m/s}\\)"]},
+    {subject:"physique", q:"Le poids d'un objet de masse 10 kg sur Terre \\((g=10\\,\\text{m/s}^2)\\) est :", correct:"\\(100\\,\\text{N}\\)", distractors:["\\(10\\,\\text{N}\\)","\\(1\\,\\text{N}\\)","\\(1000\\,\\text{N}\\)"]},
+
+    // ===== CHIMIE (6) =====
+    {subject:"chimie", q:"La molécule d'eau est composée de :", correct:"2 atomes d'hydrogène et 1 atome d'oxygène", distractors:["1 hydrogène et 2 oxygènes","2 oxygènes et 2 hydrogènes","1 oxygène et 1 hydrogène"]},
+    {subject:"chimie", q:"Le numéro atomique Z correspond :", correct:"Au nombre de protons", distractors:["Au nombre de neutrons","Au nombre de nucléons","Au nombre d'électrons de valence"]},
+    {subject:"chimie", q:"Le pH d'une solution neutre à 25°C est :", correct:"7", distractors:["0","14","1"]},
+    {subject:"chimie", q:"La formule du dioxyde de carbone est :", correct:"\\(\\text{CO}_2\\)", distractors:["\\(\\text{CO}\\)","\\(\\text{C}_2\\text{O}\\)","\\(\\text{CO}_3\\)"]},
+    {subject:"chimie", q:"La combustion complète du méthane donne :", correct:"\\(\\text{CO}_2 + 2\\text{H}_2\\text{O}\\)", distractors:["\\(\\text{CO} + 2\\text{H}_2\\text{O}\\)","\\(\\text{C} + 2\\text{H}_2\\text{O}\\)","\\(\\text{CO}_2 + \\text{H}_2\\)"]},
+    {subject:"chimie", q:"Le tableau périodique des éléments est organisé par :", correct:"Numéro atomique croissant", distractors:["Masse atomique décroissante","Ordre alphabétique","Date de découverte"]},
+
+    // ===== SVT (10) =====
+    {subject:"svt", q:"La photosynthèse a lieu dans :", correct:"Les chloroplastes", distractors:["Les mitochondries","Le noyau","Les ribosomes"]},
+    {subject:"svt", q:"Le cœur humain possède combien de cavités principales ?", correct:"4", distractors:["2","3","5"]},
+    {subject:"svt", q:"Quel est le rôle des reins ?", correct:"Filtrer le sang pour produire l'urine", distractors:["Digérer les aliments","Produire les hormones sexuelles","Stocker le glucose"]},
+    {subject:"svt", q:"La méiose est une division cellulaire qui :", correct:"Produit des gamètes haploïdes", distractors:["Produit des cellules identiques","Permet la croissance","Remplace les cellules mortes"]},
+    {subject:"svt", q:"Le groupement sanguin O peut donner du sang à :", correct:"Tous les groupes (donneur universel)", distractors:["Seulement au groupe O","Aux groupes A et B","Aucun"]},
+    {subject:"svt", q:"La chaîne alimentaire débute toujours par :", correct:"Un producteur (plante)", distractors:["Un consommateur primaire","Un décomposeur","Un carnivore"]},
+    {subject:"svt", q:"L’ADN est une molécule qui contient :", correct:"Le code génétique héréditaire", distractors:["Des protéines","Des glucides","Des lipides"]},
+    {subject:"svt", q:"Le système nerveux central se compose :", correct:"Du cerveau et de la moelle épinière", distractors:["Des nerfs et des muscles","Du cœur et des poumons","Des yeux et des oreilles"]},
+    {subject:"svt", q:"L’unité de base de tout être vivant est :", correct:"La cellule", distractors:["L’atome","La molécule","Le tissu"]},
+    {subject:"svt", q:"Quelle vitamine est synthétisée par la peau exposée au soleil ?", correct:"Vitamine D", distractors:["Vitamine A","Vitamine C","Vitamine B12"]},
+
+    // ===== PHILOSOPHIE (2) =====
+    {subject:"philo", q:""L’homme est un loup pour l’homme" est une citation de :", correct:"Thomas Hobbes", distractors:["Rousseau","Voltaire","Platon"]},
+    {subject:"philo", q:"Le "contrat social" selon Rousseau vise à :", correct:"Concilier liberté individuelle et autorité politique", distractors:["Établir une monarchie absolue","Supprimer toute forme de gouvernement","Favoriser les inégalités"]},
+
+    // ===== HISTOIRE (8) =====
+    {subject:"histoire", q:"La prise de la Bastille a eu lieu le :", correct:"14 juillet 1789", distractors:["14 juillet 1790","5 mai 1789","20 juin 1789"]},
+    {subject:"histoire", q:"L'armistice de la Première Guerre mondiale a été signé le :", correct:"11 novembre 1918", distractors:["8 mai 1945","28 juin 1914","2 septembre 1945"]},
+    {subject:"histoire", q:"Thomas Sankara a été président du Burkina Faso de :", correct:"1983 à 1987", distractors:["1980 à 1983","1987 à 1991","1978 à 1982"]},
+    {subject:"histoire", q:"L’indépendance du Burkina Faso (ex Haute-Volta) a été proclamée en :", correct:"1960", distractors:["1958","1962","1975"]},
+    {subject:"histoire", q:"La chute du mur de Berlin a eu lieu en :", correct:"1989", distractors:["1985","1991","1987"]},
+    {subject:"histoire", q:"Qui a écrit "Le Capital" ?", correct:"Karl Marx", distractors:["Friedrich Engels","Adam Smith","John Keynes"]},
+    {subject:"histoire", q:"L'ONU a été créée après :", correct:"La Seconde Guerre mondiale", distractors:["La Première Guerre mondiale","La guerre froide","La révolution russe"]},
+    {subject:"histoire", q:"Le premier président du Burkina Faso indépendant était :", correct:"Maurice Yaméogo", distractors:["Sangoulé Lamizana","Thomas Sankara","Blaise Compaoré"]},
+
+    // ===== FRANÇAIS (8) =====
+    {subject:"francais", q:"Le mot "académie" prend deux ‘c’ ?", correct:"Non, un seul ‘c’", distractors:["Oui, deux ‘c’","Cela dépend","Trois ‘c’"]},
+    {subject:"francais", q:""Aller" au futur simple, première personne :", correct:"J’irai", distractors:["J’irais","Je vais aller","J’allai"]},
+    {subject:"francais", q:"Le pluriel de "travail" est :", correct:"Travaux", distractors:["Travails","Travailles","Travail"]},
+    {subject:"francais", q:"La règle de l’accord du participe passé avec l’auxiliaire ‘avoir’ dépend :", correct:"Du complément d’objet direct placé avant", distractors:"Du sujet","Du genre du nom","Aucune règle"]},
+    {subject:"francais", q:""Écrire" au participe passé est :", correct:"Écrit", distractors:["Écris","Écrite","Écrivait"]},
+    {subject:"francais", q:"Quel est le synonyme de "perspicace" ?", correct:"Avisé", distractors:["Lent","Naïf","Distrait"]},
+    {subject:"francais", q:""Il a plu" est :", correct:"Un verbe impersonnel", distractors:["Un verbe transitif","Un verbe d’état","Un verbe pronominal"]},
+    {subject:"francais", q:"L'UEMOA a son siège à :", correct:"Ouagadougou", distractors:["Abidjan","Dakar","Niamey"]},
+
+    // ===== DROIT ADMINISTRATIF (10) =====
+    {subject:"droit", q:"Le principe de laïcité implique :", correct:"La neutralité de l’État en matière religieuse", distractors:["L’interdiction de toute religion","La promotion d’une religion d’État","L’obligation d’être croyant"]},
+    {subject:"droit", q:"Un arrêté municipal est signé par :", correct:"Le maire", distractors:["Le préfet","Le président de région","Le ministre de l’intérieur"]},
+    {subject:"droit", q:"Le recours pour excès de pouvoir permet de :", correct:"Contester la légalité d’un acte administratif", distractors:["Demander des dommages et intérêts","Faire appel d’un jugement pénal","Contester une loi"]},
+    {subject:"droit", q:"Le Conseil d’État est :", correct:"La plus haute juridiction administrative", distractors:["Une cour criminelle","Un tribunal de commerce","Une assemblée politique"]},
+    {subject:"droit", q:"La fonction publique recrute généralement sur :", correct:"Concours", distractors:["Cooptation","Héritage","Suffrage universel"]},
+    {subject:"droit", q:"Le contrat de travail à durée indéterminée (CDI) :", correct:"N’a pas de date de fin prévue", distractors:["A une durée maximale d’un an","Se termine automatiquement","Est interdit dans la fonction publique"]},
+    {subject:"droit", q:"Le harcèlement moral au travail est :", correct:"Interdit par la loi", distractors:["Autorisé en cas d’accord","Non défini en droit","Une simple recommandation"]},
+    {subject:"droit", q:"Lequel n’est pas un principe général du droit ?", correct:"La loi du plus fort", distractors:["Le contradictoire","L’égalité devant la loi","La non-rétroactivité des lois pénales"]},
+    {subject:"droit", q:"La signature d’un acte administratif engage :", correct:"La responsabilité de l’autorité signataire", distractors:"Celle de l’agent subalterne","Celle de l’usager","Aucune responsabilité"]},
+    {subject:"droit", q:"Le statut général des fonctionnaires vise à :", correct:"Protéger les agents publics tout en définissant leurs obligations", distractors:["Permettre l’arbitraire","Remplacer tous les fonctionnaires","Instaurer le salaire à la tâche"]},
 ];
 
 // Badge config
@@ -446,7 +453,7 @@ const BADGE_CONFIG = {
 };
 
 // ════════════════════════════════════════════════
-//  MOTEUR DU QUIZ
+//  MOTEUR DU QUIZ (INCHANGÉ)
 // ════════════════════════════════════════════════
 let QUIZ = [], TOTAL_QS = 0, userAnswers = [], currentIndex = 0, quizSubmitted = false;
 
