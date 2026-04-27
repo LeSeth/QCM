@@ -32,6 +32,15 @@
         .progress-area{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;margin-bottom:1.5rem;border-bottom:2px solid #e9edf2;padding-bottom:.8rem}
         .question-counter{font-weight:600;background:#eef2fa;padding:.3rem 1rem;border-radius:30px;font-size:.85rem;color:#1f6392}
         .score-preview{font-size:.85rem;background:#f0f4f9;padding:.3rem 1rem;border-radius:30px;font-weight:500}
+        .subject-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:.6rem;letter-spacing:.5px;text-transform:uppercase}
+        .badge-math{background:#dbeafe;color:#1d4ed8}
+        .badge-physique{background:#fce7f3;color:#9d174d}
+        .badge-chimie{background:#d1fae5;color:#065f46}
+        .badge-svt{background:#ecfccb;color:#3f6212}
+        .badge-philo{background:#ede9fe;color:#5b21b6}
+        .badge-histoire{background:#ffedd5;color:#9a3412}
+        .badge-francais{background:#e0f2fe;color:#075985}
+        .badge-droit{background:#fef9c3;color:#854d0e}
         .question-text{font-size:1.2rem;font-weight:600;line-height:1.5;margin-bottom:1.5rem;color:#0f2f40}
         .answers-list{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.5rem}
         .answer-option{background:#f8fafd;border:2px solid #e2e8f0;border-radius:1.2rem;padding:.8rem 1.2rem;display:flex;align-items:center;cursor:pointer;transition:all .2s ease;font-size:.95rem;font-weight:500}
@@ -60,7 +69,6 @@
         footer{margin-top:1.5rem;text-align:center;font-size:.75rem;color:#4b6a7f;background:rgba(255,255,255,.8);padding:.8rem;border-radius:1.5rem}
         .footer-download{display:inline-flex;align-items:center;gap:8px;background:#1f5e3a;color:white;padding:8px 16px;border-radius:50px;text-decoration:none;font-weight:500;margin-top:8px}
         .footer-download img{width:22px;height:22px;border-radius:5px}
-        .mathjax-loading{opacity:.5;font-style:italic;font-size:.85rem}
         @media(max-width:680px){.hero h1{font-size:1.4rem}.btn-download-large{font-size:1rem;padding:12px 20px}.question-text{font-size:1rem}.promo-card{flex-direction:column;text-align:center}}
     </style>
 </head>
@@ -76,8 +84,8 @@
 <div class="container">
     <div class="hero">
         <img src="icon.png" alt="Faso Concours" class="hero-logo" onerror="this.style.display='none'">
-        <h1>📋 QCM Officiel — 50 Questions</h1>
-        <p>Testez vos connaissances et préparez vos concours avec Faso Concours</p>
+        <h1>📋 QCM Officiel — 62 Questions</h1>
+        <p>Maths · Physique · Chimie · SVT · Philo · Histoire · Français · Droit</p>
         <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="btn-download-large">
             <img src="icon.png" alt="" onerror="this.style.display='none'">
             📱 Télécharger Faso Concours
@@ -95,9 +103,10 @@
 
     <div class="quiz-card" id="quizApp">
         <div class="progress-area">
-            <span class="question-counter" id="qCounter">Question 1 / 50</span>
-            <span class="score-preview" id="liveScore">✅ 0 / 50 répondues</span>
+            <span class="question-counter" id="qCounter">Question 1 / 62</span>
+            <span class="score-preview" id="liveScore">✅ 0 / 62 répondues</span>
         </div>
+        <div id="subjectBadge"></div>
         <div class="question-text" id="questionText">Chargement…</div>
         <div class="answers-list" id="answersContainer"></div>
         <div class="nav-buttons">
@@ -109,7 +118,7 @@
         </div>
         <div id="resultPanel" class="result-panel">
             <h3>✨ Votre résultat ✨</h3>
-            <div class="final-score" id="finalScoreSpan">0 / 50</div>
+            <div class="final-score" id="finalScoreSpan">0 / 62</div>
             <p id="feedbackMsg"></p>
             <button id="showCorrigeBtn" class="toggle-corrige-btn">📖 Afficher le corrigé</button>
             <div id="corrigeDetails" style="display:none;" class="corrige-detail"></div>
@@ -142,70 +151,97 @@
 <script>
 const rawQuestions = [
 
-    // ---- LIMITES (8 questions) ----
-    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\frac{3x^2 - 5x + 2}{x^2 + 1}\\)", correct:"\\(3\\)", distractors:["\\(0\\)","\\(5\\)","\\(+\\infty\\)"]},
-    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to 0} \\frac{\\sin x}{x}\\)", correct:"\\(1\\)", distractors:["\\(0\\)","\\(+\\infty\\)","Indéterminé"]},
-    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\frac{e^x}{x^n}\\) pour tout entier \\(n \\geq 1\\)", correct:"\\(+\\infty\\) (l'exponentielle l'emporte sur tout polynôme)", distractors:["\\(0\\)","\\(1\\)","\\(n\\)"]},
-    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to 0^+} x\\ln x\\)", correct:"\\(0\\)", distractors:["\\(-\\infty\\)","\\(1\\)","Indéterminé"]},
-    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\left(1 + \\frac{1}{x}\\right)^x\\)", correct:"\\(e\\) (nombre d'Euler \\(\\approx 2{,}718\\))", distractors:["\\(1\\)","\\(2\\)","\\(+\\infty\\)"]},
-    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to 0} \\frac{e^x - 1}{x}\\)", correct:"\\(1\\)", distractors:["\\(0\\)","\\(e\\)","Indéterminé"]},
-    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\frac{\\ln x}{x}\\)", correct:"\\(0\\)", distractors:["\\(1\\)","\\(+\\infty\\)","\\(-1\\)"]},
-    {q:"Calculer : \\(\\displaystyle\\lim_{x \\to -\\infty} e^x\\)", correct:"\\(0\\)", distractors:["\\(-\\infty\\)","\\(1\\)","\\(+\\infty\\)"]},
+    // ===== MATHÉMATIQUES — 10 questions =====
+    {subject:"math", q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\frac{3x^2 - 5x + 2}{x^2 + 1}\\)", correct:"\\(3\\)", distractors:["\\(0\\)","\\(5\\)","\\(+\\infty\\)"]},
+    {subject:"math", q:"Calculer : \\(\\displaystyle\\lim_{x \\to 0} \\frac{e^x - 1}{x}\\)", correct:"\\(1\\)", distractors:["\\(0\\)","\\(e\\)","Indéterminé"]},
+    {subject:"math", q:"Calculer : \\(\\displaystyle\\lim_{x \\to 0^+} x\\ln x\\)", correct:"\\(0\\)", distractors:["\\(-\\infty\\)","\\(1\\)","\\(+\\infty\\)"]},
+    {subject:"math", q:"Calculer : \\(\\displaystyle\\lim_{x \\to +\\infty} \\left(1 + \\frac{1}{x}\\right)^x\\)", correct:"\\(e \\approx 2{,}718\\)", distractors:["\\(1\\)","\\(2\\)","\\(+\\infty\\)"]},
+    {subject:"math", q:"Calculer : \\(\\displaystyle\\int_0^1 x^2\\, dx\\)", correct:"\\(\\dfrac{1}{3}\\)", distractors:["\\(\\dfrac{1}{2}\\)","\\(\\dfrac{1}{4}\\)","\\(\\dfrac{2}{3}\\)"]},
+    {subject:"math", q:"Calculer : \\(\\displaystyle\\int e^{2x}\\, dx\\)", correct:"\\(\\dfrac{1}{2}e^{2x} + C\\)", distractors:["\\(2e^{2x} + C\\)","\\(e^{2x} + C\\)","\\(\\dfrac{1}{4}e^{2x} + C\\)"]},
+    {subject:"math", q:"Calculer par intégration par parties : \\(\\displaystyle\\int x\\,e^x\\, dx\\)", correct:"\\((x-1)e^x + C\\)", distractors:["\\(x\\,e^x + C\\)","\\((x+1)e^x + C\\)","\\(e^x + C\\)"]},
+    {subject:"math", q:"La dérivée de \\(f(x) = \\ln(x^2+1)\\) est :", correct:"\\(f'(x) = \\dfrac{2x}{x^2+1}\\)", distractors:["\\(f'(x) = \\dfrac{1}{x^2+1}\\)","\\(f'(x) = \\dfrac{2}{x^2+1}\\)","\\(f'(x) = \\dfrac{x}{x^2+1}\\)"]},
+    {subject:"math", q:"Résoudre dans \\(\\mathbb{R}\\) : \\(e^{x^2 - 3x} = 1\\)", correct:"\\(x = 0\\) ou \\(x = 3\\)", distractors:["\\(x = 1\\) ou \\(x = 2\\)","\\(x = 3\\) uniquement","\\(x = 0\\) uniquement"]},
+    {subject:"math", q:"Calculer : \\(\\displaystyle\\int_0^{\\pi} \\sin x\\, dx\\)", correct:"\\(2\\)", distractors:["\\(0\\)","\\(1\\)","\\(\\pi\\)"]},
 
-    // ---- INTÉGRALES (8 questions) ----
-    {q:"Calculer : \\(\\displaystyle\\int_0^1 x^2\\, dx\\)", correct:"\\(\\dfrac{1}{3}\\)", distractors:["\\(\\dfrac{1}{2}\\)","\\(\\dfrac{1}{4}\\)","\\(\\dfrac{2}{3}\\)"]},
-    {q:"Calculer : \\(\\displaystyle\\int e^{2x}\\, dx\\)", correct:"\\(\\dfrac{1}{2}e^{2x} + C\\)", distractors:["\\(2e^{2x} + C\\)","\\(e^{2x} + C\\)","\\(\\dfrac{1}{4}e^{2x} + C\\)"]},
-    {q:"Calculer : \\(\\displaystyle\\int_0^{\\pi} \\sin x\\, dx\\)", correct:"\\(2\\)", distractors:["\\(0\\)","\\(1\\)","\\(\\pi\\)"]},
-    {q:"Calculer : \\(\\displaystyle\\int \\frac{1}{x}\\, dx\\) pour \\(x > 0\\)", correct:"\\(\\ln|x| + C\\)", distractors:["\\(x^{-2} + C\\)","\\(1 + C\\)","\\(-\\dfrac{1}{x^2} + C\\)"]},
-    {q:"Calculer par intégration par parties : \\(\\displaystyle\\int_1^e \\ln x\\, dx\\)", correct:"\\(1\\)", distractors:["\\(e - 1\\)","\\(e\\)","\\(0\\)"]},
-    {q:"Calculer : \\(\\displaystyle\\int_0^1 e^x\\, dx\\)", correct:"\\(e - 1\\)", distractors:["\\(e\\)","\\(1\\)","\\(e + 1\\)"]},
-    {q:"Calculer par intégration par parties : \\(\\displaystyle\\int x\\,e^x\\, dx\\)", correct:"\\((x-1)e^x + C\\)", distractors:["\\(x\\,e^x + C\\)","\\((x+1)e^x + C\\)","\\(e^x + C\\)"]},
-    {q:"Calculer : \\(\\displaystyle\\int_0^2 (3x^2 + 2x)\\, dx\\)", correct:"\\(12\\)", distractors:["\\(8\\)","\\(10\\)","\\(14\\)"]},
+    // ===== PHYSIQUE — 8 questions =====
+    {subject:"physique", q:"Un objet de masse \\(4\\,\\text{kg}\\) soumis à \\(a = 5\\,\\text{m/s}^2\\). La force exercée vaut :", correct:"\\(20\\,\\text{N}\\)", distractors:["\\(0{,}8\\,\\text{N}\\)","\\(9\\,\\text{N}\\)","\\(25\\,\\text{N}\\)"]},
+    {subject:"physique", q:"La loi d'Ohm s'écrit :", correct:"\\(U = R \\times I\\)", distractors:["\\(U = R / I\\)","\\(U = I / R\\)","\\(U = R + I\\)"]},
+    {subject:"physique", q:"L'énergie cinétique d'un objet de \\(2\\,\\text{kg}\\) à \\(10\\,\\text{m/s}\\) est :", correct:"\\(E_c = 100\\,\\text{J}\\)", distractors:["\\(20\\,\\text{J}\\)","\\(200\\,\\text{J}\\)","\\(50\\,\\text{J}\\)"]},
+    {subject:"physique", q:"La puissance d'un circuit avec \\(I = 3\\,\\text{A}\\) et \\(U = 220\\,\\text{V}\\) est :", correct:"\\(P = 660\\,\\text{W}\\)", distractors:["\\(73{,}3\\,\\text{W}\\)","\\(440\\,\\text{W}\\)","\\(726\\,\\text{W}\\)"]},
+    {subject:"physique", q:"Un transformateur a \\(N_1 = 500\\) spires et \\(N_2 = 2000\\) spires. Si \\(U_1 = 230\\,\\text{V}\\), alors \\(U_2\\) vaut :", correct:"\\(920\\,\\text{V}\\)", distractors:["\\(57{,}5\\,\\text{V}\\)","\\(115\\,\\text{V}\\)","\\(460\\,\\text{V}\\)"]},
+    {subject:"physique", q:"L'effet Joule : la chaleur dégagée est donnée par :", correct:"\\(Q = R\\,I^2\\,t\\)", distractors:["\\(Q = U + I\\)","\\(Q = m\\,c\\,\\Delta T\\)","\\(Q = \\dfrac{U}{R}\\)"]},
+    {subject:"physique", q:"Un corps en chute libre depuis \\(45\\,\\text{m}\\) (\\(g = 10\\,\\text{m/s}^2\\)). Sa vitesse à l'impact est :", correct:"\\(v = 30\\,\\text{m/s}\\)", distractors:["\\(20\\,\\text{m/s}\\)","\\(45\\,\\text{m/s}\\)","\\(15\\,\\text{m/s}\\)"]},
+    {subject:"physique", q:"La relation entre fréquence \\(f\\) et période \\(T\\) est :", correct:"\\(f = \\dfrac{1}{T}\\)", distractors:["\\(f = T\\)","\\(f = T^2\\)","\\(f = \\dfrac{2\\pi}{T}\\)"]},
 
-    // ---- EXPONENTIELLES & LOGARITHMES (7 questions) ----
-    {q:"Résoudre : \\(e^{2x} = e^5\\)", correct:"\\(x = \\dfrac{5}{2}\\)", distractors:["\\(x = 5\\)","\\(x = 10\\)","\\(x = \\dfrac{2}{5}\\)"]},
-    {q:"Résoudre : \\(\\ln(x) = -2\\)", correct:"\\(x = e^{-2} \\approx 0{,}135\\)", distractors:["\\(x = -2\\)","\\(x = 2\\)","\\(x = \\dfrac{1}{2}\\)"]},
-    {q:"Simplifier : \\(\\ln\\!\\left(e^3 \\times e^{-1}\\right)\\)", correct:"\\(2\\)", distractors:["\\(-3\\)","\\(e^2\\)","\\(3\\)"]},
-    {q:"La dérivée de \\(f(x) = e^{3x-1}\\) est :", correct:"\\(f'(x) = 3e^{3x-1}\\)", distractors:["\\(f'(x) = e^{3x-1}\\)","\\(f'(x) = (3x-1)e^{3x-2}\\)","\\(f'(x) = 3x\\,e^{3x}\\)"]},
-    {q:"Résoudre : \\(\\ln(2x+1) = \\ln(x+4)\\)", correct:"\\(x = 3\\)", distractors:["\\(x = 1\\)","\\(x = 5\\)","\\(x = 2\\)"]},
-    {q:"La dérivée de \\(f(x) = \\ln(x^2+1)\\) est :", correct:"\\(f'(x) = \\dfrac{2x}{x^2+1}\\)", distractors:["\\(f'(x) = \\dfrac{1}{x^2+1}\\)","\\(f'(x) = \\dfrac{2}{x^2+1}\\)","\\(f'(x) = \\dfrac{x}{x^2+1}\\)"]},
-    {q:"Résoudre dans \\(\\mathbb{R}\\) : \\(e^{x^2 - 3x} = 1\\)", correct:"\\(x = 0\\) ou \\(x = 3\\)", distractors:["\\(x = 1\\) ou \\(x = 2\\)","\\(x = 3\\) uniquement","\\(x = 0\\) uniquement"]},
+    // ===== CHIMIE — 6 questions =====
+    {subject:"chimie", q:"Le nombre d'Avogadro \\(N_A\\) vaut environ :", correct:"\\(6{,}022 \\times 10^{23}\\,\\text{mol}^{-1}\\)", distractors:["\\(6{,}022 \\times 10^{20}\\,\\text{mol}^{-1}\\)","\\(3{,}0 \\times 10^{23}\\,\\text{mol}^{-1}\\)","\\(6{,}022 \\times 10^{26}\\,\\text{mol}^{-1}\\)"]},
+    {subject:"chimie", q:"Le pH d'une solution est défini par :", correct:"\\(\\text{pH} = -\\log[\\text{H}_3\\text{O}^+]\\)", distractors:["\\(\\text{pH} = \\log[\\text{H}_3\\text{O}^+]\\)","\\(\\text{pH} = -\\ln[\\text{H}_3\\text{O}^+]\\)","\\(\\text{pH} = [\\text{H}_3\\text{O}^+] \\times 10\\)"]},
+    {subject:"chimie", q:"Dans la réaction \\(\\text{CH}_4 + 2\\,\\text{O}_2 \\rightarrow \\text{CO}_2 + 2\\,\\text{H}_2\\text{O}\\), le méthane est :", correct:"Le combustible (réducteur)", distractors:["Le comburant (oxydant)","Un catalyseur","Un produit de la réaction"]},
+    {subject:"chimie", q:"La loi de Beer-Lambert pour l'absorbance \\(A\\) s'écrit :", correct:"\\(A = \\varepsilon \\cdot l \\cdot c\\)", distractors:["\\(A = \\varepsilon / (l \\cdot c)\\)","\\(A = c / (\\varepsilon \\cdot l)\\)","\\(A = \\varepsilon + l + c\\)"]},
+    {subject:"chimie", q:"La configuration électronique du carbone (\\(Z = 6\\)) est :", correct:"\\(1s^2\\, 2s^2\\, 2p^2\\)", distractors:["\\(1s^2\\, 2s^4\\)","\\(1s^2\\, 2s^2\\, 2p^4\\)","\\(1s^4\\, 2s^2\\)"]},
+    {subject:"chimie", q:"La constante des gaz parfaits \\(R\\) vaut :", correct:"\\(8{,}314\\,\\text{J}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}\\)", distractors:["\\(8{,}314\\,\\text{J}\\cdot\\text{mol}^{-1}\\cdot\\text{°C}^{-1}\\)","\\(6{,}022\\,\\text{J}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}\\)","\\(9{,}81\\,\\text{J}\\cdot\\text{mol}^{-1}\\cdot\\text{K}^{-1}\\)"]},
 
-    // ---- PHYSIQUE (12 questions) ----
-    {q:"L'unité de mesure de la force dans le Système International est :", correct:"Le Newton (N)", distractors:["Le Joule (J)","Le Watt (W)","Le Pascal (Pa)"]},
-    {q:"Un objet de masse \\(4\\,\\text{kg}\\) soumis à une accélération de \\(5\\,\\text{m/s}^2\\). La force exercée est :", correct:"\\(20\\,\\text{N}\\)", distractors:["\\(0{,}8\\,\\text{N}\\)","\\(9\\,\\text{N}\\)","\\(25\\,\\text{N}\\)"]},
-    {q:"La loi d'Ohm s'écrit :", correct:"\\(U = R \\times I\\)", distractors:["\\(U = R / I\\)","\\(U = I / R\\)","\\(U = R + I\\)"]},
-    {q:"L'énergie cinétique d'un objet de masse \\(2\\,\\text{kg}\\) roulant à \\(10\\,\\text{m/s}\\) est :", correct:"\\(100\\,\\text{J}\\)", distractors:["\\(20\\,\\text{J}\\)","\\(200\\,\\text{J}\\)","\\(50\\,\\text{J}\\)"]},
-    {q:"La puissance d'un circuit parcouru par \\(I = 3\\,\\text{A}\\) sous \\(U = 220\\,\\text{V}\\) est :", correct:"\\(660\\,\\text{W}\\)", distractors:["\\(73{,}3\\,\\text{W}\\)","\\(440\\,\\text{W}\\)","\\(726\\,\\text{W}\\)"]},
-    {q:"La vitesse de la lumière dans le vide est :", correct:"\\(3 \\times 10^8\\,\\text{m/s}\\)", distractors:["\\(3 \\times 10^6\\,\\text{m/s}\\)","\\(3 \\times 10^{10}\\,\\text{m/s}\\)","\\(1{,}5 \\times 10^8\\,\\text{m/s}\\)"]},
-    {q:"Un transformateur a \\(N_1 = 500\\) spires au primaire et \\(N_2 = 2000\\) spires au secondaire. Si \\(U_1 = 230\\,\\text{V}\\), alors \\(U_2\\) est :", correct:"\\(920\\,\\text{V}\\)", distractors:["\\(57{,}5\\,\\text{V}\\)","\\(115\\,\\text{V}\\)","\\(460\\,\\text{V}\\)"]},
-    {q:"La première loi de Newton stipule que :", correct:"Tout corps persiste dans son état de repos ou de mouvement rectiligne uniforme en l'absence de force résultante", distractors:["\\(\\vec{F} = m\\vec{a}\\)","À toute action correspond une réaction égale et opposée","L'énergie se conserve dans un système isolé"]},
-    {q:"L'effet Joule : la chaleur dégagée est donnée par :", correct:"\\(Q = R\\,I^2\\,t\\)", distractors:["\\(Q = U\\,I\\)","\\(Q = m\\,c\\,\\Delta T\\)","\\(Q = \\dfrac{U^2}{R}\\cdot t\\) uniquement si \\(R\\) varie"]},
-    {q:"Un corps en chute libre depuis \\(45\\,\\text{m}\\) (\\(g = 10\\,\\text{m/s}^2\\)). Sa vitesse à l'impact est :", correct:"\\(30\\,\\text{m/s}\\)", distractors:["\\(20\\,\\text{m/s}\\)","\\(45\\,\\text{m/s}\\)","\\(15\\,\\text{m/s}\\)"]},
-    {q:"La relation entre fréquence \\(f\\) et période \\(T\\) est :", correct:"\\(f = \\dfrac{1}{T}\\)", distractors:["\\(f = T\\)","\\(f = T^2\\)","\\(f = \\dfrac{2\\pi}{T}\\)"]},
-    {q:"L'énergie potentielle gravitationnelle est :", correct:"\\(E_p = m\\,g\\,h\\)", distractors:["\\(E_p = \\dfrac{1}{2}m v^2\\)","\\(E_p = \\dfrac{m\\,g}{h}\\)","\\(E_p = m^2 g h\\)"]},
+    // ===== SVT — 10 questions =====
+    {subject:"svt", q:"La mitose est une division cellulaire qui produit :", correct:"Deux cellules filles génétiquement identiques à la cellule mère (2n chromosomes)", distractors:["Quatre cellules haploïdes différentes","Deux cellules haploïdes identiques","Une seule cellule avec un noyau double"]},
+    {subject:"svt", q:"La méiose se déroule en :", correct:"Deux divisions successives (méiose I et méiose II) aboutissant à 4 cellules haploïdes", distractors:["Une seule division donnant 2 cellules diploïdes","Trois divisions donnant 8 cellules","Deux divisions donnant 2 cellules diploïdes"]},
+    {subject:"svt", q:"Le rôle principal des mitochondries dans la cellule est :", correct:"La production d'énergie sous forme d'ATP par la respiration cellulaire", distractors:["La synthèse des protéines","La digestion des déchets cellulaires","La production de lipides"]},
+    {subject:"svt", q:"La photosynthèse se déroule dans :", correct:"Les chloroplastes, grâce à la chlorophylle", distractors:["Les mitochondries","Le noyau cellulaire","Les ribosomes"]},
+    {subject:"svt", q:"L'équation globale de la photosynthèse est :", correct:"\\(6\\,\\text{CO}_2 + 6\\,\\text{H}_2\\text{O} \\xrightarrow{\\text{lumière}} \\text{C}_6\\text{H}_{12}\\text{O}_6 + 6\\,\\text{O}_2\\)", distractors:["\\(\\text{C}_6\\text{H}_{12}\\text{O}_6 + 6\\,\\text{O}_2 \\rightarrow 6\\,\\text{CO}_2 + 6\\,\\text{H}_2\\text{O}\\)","\\(6\\,\\text{CO}_2 + 6\\,\\text{H}_2 \\rightarrow \\text{C}_6\\text{H}_{12}\\text{O}_6\\)","\\(6\\,\\text{H}_2\\text{O} \\rightarrow 6\\,\\text{O}_2 + 6\\,\\text{H}_2\\)"]},
+    {subject:"svt", q:"Le groupe sanguin d'un individu est déterminé par :", correct:"La présence ou l'absence d'antigènes A et/ou B sur les globules rouges", distractors:["La couleur de ses globules blancs","Le taux de plaquettes dans le sang","La quantité d'hémoglobine par globule rouge"]},
+    {subject:"svt", q:"La double hélice de l'ADN est composée de deux brins reliés par :", correct:"Des liaisons hydrogène entre bases complémentaires (A-T et G-C)", distractors:["Des liaisons covalentes entre phosphates","Des liaisons ioniques entre sucres","Des ponts disulfures entre acides aminés"]},
+    {subject:"svt", q:"Le système nerveux central est composé de :", correct:"L'encéphale (cerveau, cervelet, tronc cérébral) et la moelle épinière", distractors:["Les nerfs rachidiens uniquement","Le système sympathique et parasympathique","Le cerveau et les nerfs crâniens uniquement"]},
+    {subject:"svt", q:"La sélection naturelle selon Darwin agit sur :", correct:"Les variations héréditaires qui augmentent la survie et la reproduction dans un environnement donné", distractors:["Les caractères acquis durant la vie d'un individu","Les mutations non transmissibles à la descendance","L'ensemble des individus d'une espèce de façon uniforme"]},
+    {subject:"svt", q:"L'hormone insuline, sécrétée par le pancréas, a pour rôle de :", correct:"Faire baisser la glycémie en favorisant le stockage du glucose (glycogène)", distractors:["Augmenter la glycémie en dégradant le glycogène","Stimuler la production de globules rouges","Réguler la pression artérielle"]},
 
-    // ---- DROIT ADMINISTRATIF & FONCTION PUBLIQUE (8 questions) ----
-    {q:"Le principe de légalité en droit administratif signifie que :", correct:"L'administration doit agir conformément aux règles de droit en vigueur", distractors:["L'administration peut prendre toute décision utile sans contrainte juridique","Les décisions administratives ne peuvent pas être contestées","Le citoyen doit obéir à l'administration sans condition"]},
-    {q:"La délégation de signature permet à une autorité de :", correct:"Autoriser un subordonné à signer des actes en son nom, dans les limites fixées", distractors:["Transférer définitivement ses compétences à un subordonné","Partager la responsabilité pénale avec un autre agent","Confier la totalité de ses attributions à un intérimaire"]},
-    {q:"La suspension d'un fonctionnaire est :", correct:"Une mesure conservatoire et provisoire dans l'attente d'une décision disciplinaire définitive", distractors:["Une sanction définitive équivalant à la révocation","Automatique après trois absences injustifiées","Prononcée uniquement par le tribunal administratif"]},
-    {q:"Le principe de mutabilité du service public signifie que :", correct:"L'administration peut modifier le service public pour l'intérêt général", distractors:["Le service public ne peut jamais être supprimé","Les usagers peuvent exiger le maintien du service tel quel","Les agents refusent toute réforme sans consultation préalable"]},
-    {q:"Les sanctions disciplinaires du premier degré dans la fonction publique burkinabè sont :", correct:"L'avertissement et le blâme", distractors:["La mise à pied et la rétrogradation","La révocation et la mise en disponibilité d'office","La suspension de salaire et le licenciement"]},
-    {q:"La déconcentration administrative consiste à :", correct:"Transférer des attributions de l'État central à des agents locaux nommés par lui", distractors:["Élire des représentants locaux pour gérer les affaires de proximité","Supprimer les échelons administratifs intermédiaires","Privatiser les services publics régionaux"]},
-    {q:"Le Médiateur du Faso est chargé de :", correct:"Faciliter le règlement amiable des litiges entre les citoyens et l'administration", distractors:["Juger en appel les décisions du Tribunal administratif","Contrôler la constitutionnalité des lois","Superviser les élections nationales"]},
-    {q:"Le principe de neutralité du service public interdit notamment :", correct:"Toute discrimination fondée sur les opinions politiques, religieuses ou syndicales", distractors:["Aux agents de prendre des congés annuels","Aux fonctionnaires d'exercer un second emploi le week-end","Aux usagers de faire des réclamations auprès de l'administration"]},
+    // ===== PHILOSOPHIE — 2 questions =====
+    {subject:"philo", q:"Selon Descartes, le cogito « Je pense, donc je suis » (Cogito ergo sum) établit :", correct:"La certitude de l'existence du sujet pensant comme premier fondement indubitable de la connaissance", distractors:["Que le corps est plus certain que l'esprit","Que la matière est la source de toute pensée","Que le doute lui-même est impossible"]},
+    {subject:"philo", q:"La distinction kantienne entre « phénomène » et « noumène » signifie que :", correct:"Nous ne connaissons que les apparences (phénomènes) ; la chose en soi (noumène) reste inaccessible à notre entendement", distractors:["Tout ce qui existe est directement connaissable par la raison","Les phénomènes sont des illusions et seul le noumène est réel","La science peut connaître toutes choses sans limite"]},
 
-    // ---- FRANÇAIS & CULTURE GÉNÉRALE (7 questions) ----
-    {q:"Le verbe 'abroger' signifie :", correct:"Supprimer définitivement un texte législatif ou réglementaire", distractors:["Publier un nouveau décret","Modifier partiellement une loi existante","Suspendre temporairement l'application d'une règle"]},
-    {q:"Dans 'Bien que le dossier soit incomplet, il a été accepté', la proposition en gras est :", correct:"Une subordonnée circonstancielle de concession", distractors:["Une subordonnée causale","Une subordonnée de conséquence","Une proposition principale"]},
-    {q:"L'UEMOA a son siège à :", correct:"Ouagadougou (Burkina Faso)", distractors:["Abidjan (Côte d'Ivoire)","Dakar (Sénégal)","Lomé (Togo)"]},
-    {q:"Un 'bordereau de transmission' sert à :", correct:"Accompagner un envoi de pièces et en dresser la liste pour en assurer le suivi", distractors:["Certifier la conformité d'une dépense","Fixer les objectifs annuels d'un service","Notifier une mutation à un agent"]},
-    {q:"Le pluriel du mot 'bail' est :", correct:"Baux", distractors:["Bails","Bailes","Bailx"]},
-    {q:"L'ONU a été fondée en :", correct:"1945", distractors:["1919","1948","1960"]},
-    {q:"La capitale économique du Burkina Faso est :", correct:"Bobo-Dioulasso", distractors:["Ouagadougou","Koudougou","Banfora"]}
+    // ===== HISTOIRE — 8 questions =====
+    {subject:"histoire", q:"La Première Guerre mondiale s'est déroulée de :", correct:"1914 à 1918", distractors:["1910 à 1914","1918 à 1923","1939 à 1945"]},
+    {subject:"histoire", q:"La Révolution française a débuté en :", correct:"1789, avec la prise de la Bastille le 14 juillet", distractors:["1776","1804","1815"]},
+    {subject:"histoire", q:"La décolonisation de l'Afrique subsaharienne a eu lieu majoritairement dans :", correct:"Les années 1960", distractors:["Les années 1930","Les années 1945–1950","Les années 1975–1980"]},
+    {subject:"histoire", q:"La Haute-Volta (Burkina Faso) a obtenu son indépendance de la France en :", correct:"1960", distractors:["1956","1947","1975"]},
+    {subject:"histoire", q:"Le régime nazi en Allemagne (1933–1945) est caractérisé par :", correct:"Un totalitarisme fondé sur la dictature d'un parti unique, le racisme et l'antisémitisme", distractors:["Un régime parlementaire à parti unique modéré","Une démocratie populaire d'inspiration soviétique","Une monarchie constitutionnelle avec censure partielle"]},
+    {subject:"histoire", q:"La Seconde Guerre mondiale a pris fin en :", correct:"1945, avec la capitulation de l'Allemagne (mai) et du Japon (septembre)", distractors:["1943","1944","1947"]},
+    {subject:"histoire", q:"Le mouvement panafricain du XXe siècle visait principalement à :", correct:"Unir les peuples africains pour lutter contre la colonisation et promouvoir leur émancipation", distractors:["Établir une colonie africaine en Europe","Créer une union économique entre l'Afrique et l'Asie uniquement","Séparer les États africains en entités ethniques indépendantes"]},
+    {subject:"histoire", q:"La Conférence de Berlin (1884–1885) a eu pour conséquence principale de :", correct:"Organiser et légitimer le partage colonial de l'Afrique entre les puissances européennes", distractors:["Accorder l'indépendance aux colonies africaines","Interdire la traite négrière transatlantique","Fixer les frontières entre la France et l'Allemagne"]},
+
+    // ===== FRANÇAIS & CULTURE GÉNÉRALE — 8 questions =====
+    {subject:"francais", q:"Le verbe 'abroger' signifie :", correct:"Supprimer définitivement un texte législatif ou réglementaire", distractors:["Publier un nouveau décret","Modifier partiellement une loi existante","Suspendre temporairement une règle"]},
+    {subject:"francais", q:"Dans 'Bien que le dossier soit incomplet, il a été accepté', la proposition soulignée est :", correct:"Une subordonnée circonstancielle de concession", distractors:["Une subordonnée causale","Une subordonnée de conséquence","Une proposition principale"]},
+    {subject:"francais", q:"Le pluriel du mot 'bail' est :", correct:"Baux", distractors:["Bails","Bailes","Bailx"]},
+    {subject:"francais", q:"Un 'bordereau de transmission' sert à :", correct:"Accompagner un envoi de pièces et en dresser la liste pour en assurer le suivi", distractors:["Certifier la conformité d'une dépense","Fixer les objectifs annuels d'un service","Notifier une mutation à un agent"]},
+    {subject:"francais", q:"L'UEMOA a son siège à :", correct:"Ouagadougou (Burkina Faso)", distractors:["Abidjan (Côte d'Ivoire)","Dakar (Sénégal)","Lomé (Togo)"]},
+    {subject:"francais", q:"L'ONU a été fondée en :", correct:"1945", distractors:["1919","1948","1960"]},
+    {subject:"francais", q:"La capitale économique du Burkina Faso est :", correct:"Bobo-Dioulasso", distractors:["Ouagadougou","Koudougou","Banfora"]},
+    {subject:"francais", q:"Le mot 'diligence' dans un contexte administratif signifie :", correct:"Promptitude et soin dans l'exécution d'une tâche", distractors:["Un formulaire de réclamation","Une pièce comptable justificative","Un arrêté ministériel"]},
+
+    // ===== DROIT ADMINISTRATIF & FONCTION PUBLIQUE — 10 questions =====
+    {subject:"droit", q:"Le principe de légalité en droit administratif signifie que :", correct:"L'administration doit agir conformément aux règles de droit en vigueur", distractors:["L'administration peut prendre toute décision utile sans contrainte","Les décisions administratives ne peuvent pas être contestées","Le citoyen doit obéir à l'administration sans condition"]},
+    {subject:"droit", q:"La délégation de signature permet à une autorité de :", correct:"Autoriser un subordonné à signer des actes en son nom, dans les limites fixées", distractors:["Transférer définitivement ses compétences à un subordonné","Partager la responsabilité pénale avec un autre agent","Confier la totalité de ses attributions à un intérimaire"]},
+    {subject:"droit", q:"La suspension d'un fonctionnaire est :", correct:"Une mesure conservatoire et provisoire dans l'attente d'une décision disciplinaire définitive", distractors:["Une sanction définitive équivalant à la révocation","Automatique après trois absences injustifiées","Prononcée uniquement par le tribunal administratif"]},
+    {subject:"droit", q:"Le principe de mutabilité du service public signifie que :", correct:"L'administration peut modifier le service public pour l'intérêt général", distractors:["Le service public ne peut jamais être supprimé","Les usagers peuvent exiger le maintien du service tel quel","Les agents refusent toute réforme sans consultation"]},
+    {subject:"droit", q:"Les sanctions disciplinaires du premier degré dans la fonction publique burkinabè sont :", correct:"L'avertissement et le blâme", distractors:["La mise à pied et la rétrogradation","La révocation et la mise en disponibilité d'office","La suspension de salaire et le licenciement"]},
+    {subject:"droit", q:"La déconcentration administrative consiste à :", correct:"Transférer des attributions de l'État central à des agents locaux nommés par lui", distractors:["Élire des représentants locaux pour gérer les affaires de proximité","Supprimer les échelons administratifs intermédiaires","Privatiser les services publics régionaux"]},
+    {subject:"droit", q:"Le Médiateur du Faso est chargé de :", correct:"Faciliter le règlement amiable des litiges entre les citoyens et l'administration", distractors:["Juger en appel les décisions du Tribunal administratif","Contrôler la constitutionnalité des lois","Superviser les élections nationales"]},
+    {subject:"droit", q:"Le principe de neutralité du service public interdit notamment :", correct:"Toute discrimination fondée sur les opinions politiques, religieuses ou syndicales", distractors:["Aux agents de prendre des congés annuels","Aux fonctionnaires d'exercer un second emploi le week-end","Aux usagers de faire des réclamations"]},
+    {subject:"droit", q:"La compétence liée d'une autorité administrative désigne le cas où :", correct:"L'autorité n'a aucun choix et doit prendre la décision prévue par la loi", distractors:["L'autorité dispose d'une large marge d'appréciation","L'autorité peut refuser d'agir sans motiver sa décision","L'autorité choisit librement entre plusieurs mesures équivalentes"]},
+    {subject:"droit", q:"Un acte administratif est dit 'exécutoire' parce qu'il :", correct:"S'impose aux administrés sans qu'il soit nécessaire d'obtenir l'accord d'un juge", distractors:["Doit être validé par le Parlement avant d'entrer en vigueur","Ne peut être appliqué qu'après un délai de 30 jours","Requiert la signature d'un notaire pour être valide"]}
 ];
 
-// ---- MOTEUR DU QUIZ ----
+// Badge config
+const BADGE_CONFIG = {
+    math:    { label: "📐 Mathématiques",        cls: "badge-math" },
+    physique:{ label: "⚡ Physique",              cls: "badge-physique" },
+    chimie:  { label: "🧪 Chimie",               cls: "badge-chimie" },
+    svt:     { label: "🌿 SVT",                  cls: "badge-svt" },
+    philo:   { label: "🧠 Philosophie",           cls: "badge-philo" },
+    histoire:{ label: "📜 Histoire",              cls: "badge-histoire" },
+    francais:{ label: "🗣️ Français & Culture",   cls: "badge-francais" },
+    droit:   { label: "⚖️ Droit Administratif",  cls: "badge-droit" }
+};
+
 function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -218,7 +254,7 @@ function buildShuffledQuestions() {
     return rawQuestions.map(item => {
         let answers = [item.correct, ...item.distractors];
         let shuffled = shuffleArray([...answers]);
-        return { question: item.q, answers: shuffled, correct: shuffled.indexOf(item.correct) };
+        return { subject: item.subject, question: item.q, answers: shuffled, correct: shuffled.indexOf(item.correct) };
     });
 }
 
@@ -229,28 +265,28 @@ let userAnswers = new Array(TOTAL_QS).fill(null);
 let currentIndex = 0;
 let quizSubmitted = false;
 
-const questionTextEl = document.getElementById("questionText");
-const answersContainer = document.getElementById("answersContainer");
-const qCounterEl = document.getElementById("qCounter");
-const liveScoreEl = document.getElementById("liveScore");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-const finalSubmitBtn = document.getElementById("finalSubmitBtn");
-const resultPanel = document.getElementById("resultPanel");
-const finalScoreSpan = document.getElementById("finalScoreSpan");
-const feedbackMsg = document.getElementById("feedbackMsg");
-const restartQuizBtn = document.getElementById("restartQuizBtn");
-const showCorrigeBtn = document.getElementById("showCorrigeBtn");
+const questionTextEl  = document.getElementById("questionText");
+const answersContainer= document.getElementById("answersContainer");
+const subjectBadgeEl  = document.getElementById("subjectBadge");
+const qCounterEl      = document.getElementById("qCounter");
+const liveScoreEl     = document.getElementById("liveScore");
+const prevBtn         = document.getElementById("prevBtn");
+const nextBtn         = document.getElementById("nextBtn");
+const finalSubmitBtn  = document.getElementById("finalSubmitBtn");
+const resultPanel     = document.getElementById("resultPanel");
+const finalScoreSpan  = document.getElementById("finalScoreSpan");
+const feedbackMsg     = document.getElementById("feedbackMsg");
+const restartQuizBtn  = document.getElementById("restartQuizBtn");
+const showCorrigeBtn  = document.getElementById("showCorrigeBtn");
 const corrigeDetailsDiv = document.getElementById("corrigeDetails");
 
 function countAnswered() { return userAnswers.filter(a => a !== null).length; }
 
 function updateProgress() {
     liveScoreEl.innerText = `✅ ${countAnswered()} / ${TOTAL_QS} répondues`;
-    qCounterEl.innerText = `Question ${currentIndex + 1} / ${TOTAL_QS}`;
+    qCounterEl.innerText  = `Question ${currentIndex + 1} / ${TOTAL_QS}`;
 }
 
-// Typeset un seul élément DOM avec MathJax 3
 function typesetElement(el) {
     if (window.MathJax && window.MathJax.typesetPromise) {
         window.MathJax.typesetPromise([el]).catch(err => console.warn("MathJax:", err));
@@ -262,6 +298,10 @@ function renderCurrentQuestion() {
     const q = QUIZ[currentIndex];
     const selectedIdx = userAnswers[currentIndex];
     const letters = ['A', 'B', 'C', 'D'];
+    const bc = BADGE_CONFIG[q.subject] || { label: q.subject, cls: "badge-math" };
+
+    // Badge matière
+    subjectBadgeEl.innerHTML = `<span class="subject-badge ${bc.cls}">${bc.label}</span>`;
 
     // Question
     questionTextEl.innerHTML = q.question;
@@ -276,7 +316,6 @@ function renderCurrentQuestion() {
     });
     answersContainer.innerHTML = html;
 
-    // Listeners
     document.querySelectorAll('.answer-option').forEach(opt => {
         opt.addEventListener('click', () => {
             if (quizSubmitted) return;
@@ -287,14 +326,13 @@ function renderCurrentQuestion() {
     });
 
     updateProgress();
-
-    // Typsetter MathJax sur la zone question + réponses
     typesetElement(questionTextEl);
     typesetElement(answersContainer);
 }
 
 function goPrev() { if (!quizSubmitted && currentIndex > 0) { currentIndex--; renderCurrentQuestion(); } }
 function goNext() { if (!quizSubmitted && currentIndex < TOTAL_QS - 1) { currentIndex++; renderCurrentQuestion(); } }
+
 function computeScore() {
     let c = 0;
     for (let i = 0; i < TOTAL_QS; i++) if (userAnswers[i] !== null && QUIZ[i].correct === userAnswers[i]) c++;
@@ -305,10 +343,12 @@ function buildCorrigeHTML() {
     let html = '<h4 style="margin-bottom:.5rem">📖 Corrigé complet</h4>';
     for (let i = 0; i < TOTAL_QS; i++) {
         const q = QUIZ[i];
+        const bc = BADGE_CONFIG[q.subject] || { label: q.subject, cls: "badge-math" };
         const correct = q.answers[q.correct];
-        const given = userAnswers[i] !== null ? q.answers[userAnswers[i]] : "Non répondue";
-        const ok = userAnswers[i] !== null && q.correct === userAnswers[i];
+        const given   = userAnswers[i] !== null ? q.answers[userAnswers[i]] : "Non répondue";
+        const ok      = userAnswers[i] !== null && q.correct === userAnswers[i];
         html += `<div class="corrige-item">
+                    <div><span class="subject-badge ${bc.cls}" style="font-size:.65rem">${bc.label}</span></div>
                     <div><strong>${i + 1}. ${q.question}</strong></div>
                     <div>📌 Bonne réponse : <strong>${correct}</strong></div>
                     <div>${ok ? '✅' : '❌'} Votre réponse : ${given}</div>
@@ -332,7 +372,6 @@ function showFinalResult() {
     quizSubmitted = true;
     answersContainer.style.pointerEvents = 'none';
     prevBtn.disabled = nextBtn.disabled = finalSubmitBtn.disabled = true;
-    // Typeset le corrigé
     typesetElement(corrigeDetailsDiv);
 }
 
@@ -364,7 +403,6 @@ nextBtn.addEventListener('click', goNext);
 finalSubmitBtn.addEventListener('click', showFinalResult);
 restartQuizBtn.addEventListener('click', restartQuiz);
 
-// Attendre MathJax avant le premier rendu
 if (window.MathJax && window.MathJax.startup) {
     window.MathJax.startup.promise.then(() => renderCurrentQuestion());
 } else {
