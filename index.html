@@ -509,6 +509,167 @@ function restartQuiz() {
     document.getElementById('finalSubmitBtn').disabled = false;
     renderCurrentQuestion();
 }
+// ════════════════════════════════════════════════
+//  TÉLÉCHARGEMENT PDF DU CORRIGÉ
+// ════════════════════════════════════════════════
+async function telechargerPDF() {
+    const btn = document.getElementById('btnPdf');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner" style="border-top-color:#fff"></span> Génération…';
+
+    // Construire le contenu HTML du corrigé pour le PDF
+    const score    = computeScore();
+    const pct      = Math.round(score / TOTAL_QS * 100);
+    const dateStr  = new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
+    const letters  = ['A','B','C','D'];
+
+    // Couleurs matières
+    const COLORS = {
+        math:'#1d4ed8', physique:'#9d174d', chimie:'#065f46',
+        svt:'#3f6212', philo:'#5b21b6', histoire:'#9a3412',
+        francais:'#075985', droit:'#854d0e'
+    };
+    const BG = {
+        math:'#dbeafe', physique:'#fce7f3', chimie:'#d1fae5',
+        svt:'#ecfccb', philo:'#ede9fe', histoire:'#ffedd5',
+        francais:'#e0f2fe', droit:'#fef9c3'
+    };
+
+    // Convertir LaTeX \(...\) en texte lisible pour le PDF
+    function latexToText(str) {
+        return str
+            .replace(/\\\(|\\\)/g, '')
+            .replace(/\\\[|\\\]/g, '')
+            .replace(/\\displaystyle/g, '')
+            .replace(/\\dfrac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')
+            .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')
+            .replace(/\\lim_\{([^}]+)\}/g, 'lim($1)')
+            .replace(/\\int_\{([^}]+)\}\^\{([^}]+)\}/g, '∫[$1→$2]')
+            .replace(/\\int/g, '∫')
+            .replace(/\\ln/g, 'ln')
+            .replace(/\\sin/g, 'sin')
+            .replace(/\\cos/g, 'cos')
+            .replace(/\\tan/g, 'tan')
+            .replace(/\\sqrt\{([^}]+)\}/g, '√($1)')
+            .replace(/\\infty/g, '∞')
+            .replace(/\\to/g, '→')
+            .replace(/\\pi/g, 'π')
+            .replace(/\\mathbb\{R\}/g, 'ℝ')
+            .replace(/\\vec\{([^}]+)\}/g, '$1⃗')
+            .replace(/\^2/g, '²').replace(/\^3/g, '³')
+            .replace(/\\_\{([^}]+)\}/g, '_$1')
+            .replace(/\{|\}/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
+    // Créer une div cachée propre pour le rendu PDF
+    const wrap = document.createElement('div');
+    wrap.id = 'pdfWrap';
+    wrap.style.cssText = 'position:fixed;left:-9999px;top:0;width:794px;background:#fff;padding:40px;font-family:Segoe UI,sans-serif;font-size:13px;color:#1a2c3e;z-index:-1';
+
+    let rows = '';
+    QUIZ.forEach((q, i) => {
+        const correct = latexToText(q.answers[q.correct]);
+        const given   = userAnswers[i] !== null ? latexToText(q.answers[userAnswers[i]]) : 'Non répondue';
+        const ok      = userAnswers[i] !== null && q.correct === userAnswers[i];
+        const qText   = latexToText(q.question);
+        const label   = BADGE_CONFIG[q.subject]?.label || q.subject;
+        const color   = COLORS[q.subject] || '#333';
+        const bg      = BG[q.subject]    || '#eee';
+
+        // Détail des choix
+        let choicesHTML = '<div style="margin:4px 0 2px;display:flex;flex-wrap:wrap;gap:4px;">';
+        q.answers.forEach((ans, idx) => {
+            const isCorrect = idx === q.correct;
+            const isChosen  = idx === userAnswers[i];
+            const ansText   = latexToText(ans);
+            let style = `display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;border:1.5px solid #ddd;background:#f8f9fa;color:#555;`;
+            if (isCorrect) style = `display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;border:1.5px solid #2b7a3e;background:#d1fae5;color:#065f46;font-weight:700;`;
+            else if (isChosen && !isCorrect) style = `display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;border:1.5px solid #e53e3e;background:#fff0f0;color:#c0392b;text-decoration:line-through;`;
+            choicesHTML += `<span style="${style}">${letters[idx]}. ${ansText}</span>`;
+        });
+        choicesHTML += '</div>';
+
+        rows += `
+        <div style="margin-bottom:14px;padding:12px 14px;border-radius:10px;border-left:4px solid ${color};background:${ok?'#f0fff4':'#fff8f8'};page-break-inside:avoid;">
+            <div style="margin-bottom:6px;">
+                <span style="background:${bg};color:${color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px;">${label}</span>
+                <span style="margin-left:8px;font-size:11px;color:#888;">Q.${i+1}</span>
+                <span style="float:right;font-size:16px;">${ok ? '✅' : '❌'}</span>
+            </div>
+            <div style="font-weight:600;margin-bottom:6px;font-size:12.5px;line-height:1.4;">${qText}</div>
+            ${choicesHTML}
+            <div style="margin-top:6px;font-size:11px;">
+                <span style="color:#2b7a3e;font-weight:700;">📌 Bonne réponse : ${correct}</span>
+                ${!ok ? `<span style="color:#c0392b;margin-left:10px;">Votre réponse : ${given}</span>` : ''}
+            </div>
+        </div>`;
+    });
+
+    wrap.innerHTML = `
+        <div style="text-align:center;margin-bottom:24px;border-bottom:3px solid #1c6e8f;padding-bottom:16px;">
+            <div style="font-size:22px;font-weight:900;color:#0b2b3b;">📋 Faso Concours</div>
+            <div style="font-size:14px;color:#4b6a7f;margin-top:4px;">Corrigé complet — Concours blanc 2025</div>
+            <div style="font-size:12px;color:#888;margin-top:2px;">Généré le ${dateStr}</div>
+        </div>
+        <div style="text-align:center;background:linear-gradient(135deg,#eef6e9,#d1fae5);border-radius:12px;padding:16px;margin-bottom:24px;">
+            <div style="font-size:32px;font-weight:900;color:#1f5e3a;">${score} / ${TOTAL_QS}</div>
+            <div style="font-size:14px;color:#2b7a3e;font-weight:600;">${pct}% de réussite</div>
+            <div style="font-size:13px;color:#4b6a7f;margin-top:4px;">${
+                pct>=80 ? '🏅 Excellent ! Profil admis au concours !'
+                : pct>=60 ? '👍 Très bien ! Continuez à vous entraîner.'
+                : pct>=40 ? '📚 Bonne base. Encore des efforts !'
+                : '💪 Ne lâchez pas ! Entraînez-vous chaque jour !'
+            }</div>
+        </div>
+        <div style="margin-bottom:16px;font-size:14px;font-weight:700;color:#0b2b3b;">Détail des réponses :</div>
+        ${rows}
+        <div style="margin-top:24px;text-align:center;font-size:11px;color:#888;border-top:1px solid #eee;padding-top:10px;">
+            Faso Concours — Application de préparation aux concours du Burkina Faso<br>
+            play.google.com/store/apps/details?id=com.fasoapp.app
+        </div>`;
+
+    document.body.appendChild(wrap);
+
+    try {
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF({ unit:'px', format:'a4', hotfixes:['px_scaling'] });
+        const pageW = pdf.internal.pageSize.getWidth();
+        const pageH = pdf.internal.pageSize.getHeight();
+
+        const canvas = await html2canvas(wrap, {
+            scale: 2,
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: '#ffffff',
+            width: 794,
+            windowWidth: 794
+        });
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.92);
+        const imgW    = pageW;
+        const imgH    = (canvas.height * pageW) / canvas.width;
+        let y = 0;
+
+        // Paginer si le contenu dépasse une page
+        while (y < imgH) {
+            if (y > 0) pdf.addPage();
+            pdf.addImage(imgData, 'JPEG', 0, -y, imgW, imgH);
+            y += pageH;
+        }
+
+        pdf.save(`Faso_Concours_Corrige_${score}_sur_${TOTAL_QS}.pdf`);
+    } catch (err) {
+        console.error('PDF error:', err);
+        alert('Erreur lors de la génération du PDF. Veuillez réessayer.');
+    } finally {
+        document.body.removeChild(wrap);
+        btn.disabled = false;
+        btn.innerHTML = '📥 Télécharger le corrigé en PDF';
+    }
+}
+
 if (window.MathJax && window.MathJax.startup) {
     window.MathJax.startup.promise.then(() => { /* prêt */ });
 }
