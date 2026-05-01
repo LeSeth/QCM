@@ -17,9 +17,13 @@
         *{margin:0;padding:0;box-sizing:border-box}
         body{background:linear-gradient(145deg,#eef2f7 0%,#d9e2ec 100%);font-family:'Segoe UI',Roboto,'Helvetica Neue',sans-serif;padding:0;color:#1a2c3e}
         .container{max-width:1100px;margin:0 auto;padding:1rem}
-        .top-banner{background:linear-gradient(135deg,#ff6b35 0%,#f7931e 100%);color:white;text-align:center;padding:12px 16px;font-weight:bold;font-size:1rem;position:sticky;top:0;z-index:100;box-shadow:0 4px 10px rgba(0,0,0,.1)}
+
+        /* ── BANNER ── */
+        .top-banner{background:linear-gradient(135deg,#ff6b35 0%,#f7931e 100%);color:white;text-align:center;padding:12px 16px;font-weight:bold;font-size:1rem;position:sticky;top:0;z-index:200;box-shadow:0 4px 10px rgba(0,0,0,.1)}
         .top-banner a{color:white;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px}
         .top-banner img{width:28px;height:28px;border-radius:8px}
+
+        /* ── HERO ── */
         .hero{background:#0b2b3b;background-image:radial-gradient(circle at 10% 20%,#124c5e,#06212e);border-radius:2rem;padding:2rem 1.5rem;margin:1rem 0 1.5rem 0;text-align:center;color:white;box-shadow:0 20px 30px -12px rgba(0,0,0,.25)}
         .hero-logo{width:90px;height:90px;border-radius:20px;margin-bottom:1rem;box-shadow:0 4px 15px rgba(0,0,0,.4)}
         .hero h1{font-size:1.8rem;letter-spacing:-.5px;font-weight:700;margin-bottom:.5rem}
@@ -30,32 +34,55 @@
         .floating-download{position:fixed;bottom:20px;right:20px;background:#2b7a3e;color:white;padding:12px 20px;border-radius:50px;font-weight:bold;text-decoration:none;display:flex;align-items:center;gap:10px;box-shadow:0 4px 15px rgba(0,0,0,.3);z-index:99;transition:transform .2s}
         .floating-download:hover{transform:scale(1.05);background:#1f5e3a}
         .floating-download img{width:26px;height:26px;border-radius:6px}
-        #paywallSection{display:block}
-        #quizSection{display:none}
-        .paywall-card{background:white;border-radius:2rem;box-shadow:0 20px 35px -12px rgba(0,0,0,.2);padding:2rem;margin-bottom:1rem;text-align:center}
-        .paywall-card h2{font-size:1.5rem;font-weight:700;color:#0f2f40;margin-bottom:.5rem}
-        .paywall-card .price-badge{display:inline-block;background:linear-gradient(135deg,#ff8c00,#ff6b35);color:white;font-size:2.5rem;font-weight:900;padding:.5rem 2rem;border-radius:60px;margin:1rem 0;box-shadow:0 6px 20px rgba(255,107,53,.35)}
-        .paywall-card .price-sub{color:#4b6a7f;font-size:.95rem;margin-bottom:1.5rem}
-        .orange-form{background:#fff8f0;border:2px solid #ff8c00;border-radius:1.5rem;padding:1.5rem;margin-top:1.2rem;text-align:left}
-        .orange-form label{display:block;font-weight:600;color:#7c3600;margin-bottom:.3rem;font-size:.9rem}
-        .orange-form input{width:100%;padding:.75rem 1rem;border:2px solid #ffd0a0;border-radius:.8rem;font-size:1rem;font-family:inherit;margin-bottom:1rem;outline:none;transition:border-color .2s}
+
+        /* ── PAYWALL MODAL OVERLAY ── */
+        #paywallOverlay{
+            display:none;
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            background:rgba(5,20,35,.82);
+            z-index:300;
+            backdrop-filter:blur(4px);
+            -webkit-backdrop-filter:blur(4px);
+            overflow-y:auto;
+            padding:1rem;
+        }
+        #paywallOverlay.show{display:flex;align-items:center;justify-content:center;}
+        .paywall-modal{
+            background:white;border-radius:2rem;
+            box-shadow:0 30px 60px rgba(0,0,0,.4);
+            padding:2rem 1.5rem;
+            max-width:480px;width:100%;
+            text-align:center;
+            animation:popIn .3s ease;
+        }
+        @keyframes popIn{from{transform:scale(.88);opacity:0}to{transform:scale(1);opacity:1}}
+        .paywall-modal h2{font-size:1.4rem;font-weight:700;color:#0f2f40;margin-bottom:.4rem}
+        .paywall-modal .lock-icon{font-size:2.8rem;margin-bottom:.5rem}
+        .price-badge{display:inline-block;background:linear-gradient(135deg,#ff8c00,#ff6b35);color:white;font-size:2.2rem;font-weight:900;padding:.4rem 1.8rem;border-radius:60px;margin:.8rem 0;box-shadow:0 6px 20px rgba(255,107,53,.35)}
+        .price-sub{color:#4b6a7f;font-size:.9rem;margin-bottom:1.2rem}
+        .features-list{display:flex;flex-direction:column;gap:.4rem;margin:.8rem 0 1.2rem;text-align:left}
+        .features-list li{list-style:none;padding:.35rem .5rem;display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:#1a2c3e}
+        .features-list li::before{content:"✅";font-size:.95rem}
+
+        /* Formulaire Orange Money */
+        .orange-form{background:#fff8f0;border:2px solid #ff8c00;border-radius:1.5rem;padding:1.3rem;margin-top:1rem;text-align:left}
+        .orange-form label{display:block;font-weight:600;color:#7c3600;margin-bottom:.3rem;font-size:.88rem}
+        .orange-form input{width:100%;padding:.7rem 1rem;border:2px solid #ffd0a0;border-radius:.8rem;font-size:1rem;font-family:inherit;margin-bottom:.9rem;outline:none;transition:border-color .2s}
         .orange-form input:focus{border-color:#ff8c00}
-        .orange-form .hint{font-size:.78rem;color:#9a6030;margin-top:-.7rem;margin-bottom:.8rem}
-        .ussd-box{background:#fff3e0;border:1px solid #ffcc80;border-radius:.8rem;padding:.8rem 1rem;display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;flex-wrap:wrap}
-        .ussd-box span{flex:1;font-size:.85rem;color:#e65100}
-        .ussd-code{font-family:monospace;font-weight:700;font-size:1.1rem;background:#ff8c00;color:white;padding:.3rem .8rem;border-radius:.5rem;letter-spacing:1px}
-        .btn-compose{background:#ff8c00;color:white;border:none;padding:.5rem 1rem;border-radius:30px;font-weight:600;cursor:pointer;font-size:.85rem;white-space:nowrap}
+        .orange-form .hint{font-size:.75rem;color:#9a6030;margin-top:-.65rem;margin-bottom:.8rem}
+        .ussd-box{background:#fff3e0;border:1px solid #ffcc80;border-radius:.8rem;padding:.7rem 1rem;display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;flex-wrap:wrap}
+        .ussd-code{font-family:monospace;font-weight:700;font-size:1rem;background:#ff8c00;color:white;padding:.25rem .7rem;border-radius:.4rem;letter-spacing:1px}
+        .btn-compose{background:#ff8c00;color:white;border:none;padding:.45rem .9rem;border-radius:30px;font-weight:600;cursor:pointer;font-size:.82rem;white-space:nowrap}
         .btn-compose:hover{background:#e07000}
-        .btn-pay{width:100%;background:linear-gradient(135deg,#ff8c00,#ff6b35);color:white;border:none;padding:1rem;border-radius:60px;font-size:1.1rem;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 6px 18px rgba(255,107,53,.4);transition:all .25s}
+        .btn-pay{width:100%;background:linear-gradient(135deg,#ff8c00,#ff6b35);color:white;border:none;padding:.9rem;border-radius:60px;font-size:1.05rem;font-weight:700;cursor:pointer;font-family:inherit;box-shadow:0 6px 18px rgba(255,107,53,.4);transition:all .25s;margin-top:.3rem}
         .btn-pay:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(255,107,53,.5)}
         .btn-pay:disabled{opacity:.6;cursor:not-allowed;transform:none}
-        .spinner{display:inline-block;width:20px;height:20px;border:3px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:.5rem}
+        .spinner{display:inline-block;width:18px;height:18px;border:3px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:.5rem}
         @keyframes spin{to{transform:rotate(360deg)}}
-        .error-msg{background:#fff0f0;border:1px solid #ffb3b3;color:#c0392b;border-radius:.8rem;padding:.7rem 1rem;margin-top:.8rem;font-size:.9rem;display:none}
-        .success-msg{background:#f0fff4;border:1px solid #b3ffcc;color:#1f7a3e;border-radius:.8rem;padding:.7rem 1rem;margin-top:.8rem;font-size:.9rem;display:none}
-        .features-list{display:flex;flex-direction:column;gap:.5rem;margin:1rem 0;text-align:left}
-        .features-list li{list-style:none;padding:.4rem .5rem;display:flex;align-items:center;gap:.6rem;font-size:.9rem;color:#1a2c3e}
-        .features-list li::before{content:"✅";font-size:1rem}
+        .error-msg{background:#fff0f0;border:1px solid #ffb3b3;color:#c0392b;border-radius:.8rem;padding:.6rem 1rem;margin-top:.7rem;font-size:.87rem;display:none}
+        .success-msg{background:#f0fff4;border:1px solid #b3ffcc;color:#1f7a3e;border-radius:.8rem;padding:.6rem 1rem;margin-top:.7rem;font-size:.87rem;display:none}
+
+        /* ── QUIZ ── */
         .quiz-card{background:white;border-radius:2rem;box-shadow:0 20px 35px -12px rgba(0,0,0,.2);overflow:hidden;padding:1.5rem;margin-bottom:1rem}
         .progress-area{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;margin-bottom:1.5rem;border-bottom:2px solid #e9edf2;padding-bottom:.8rem}
         .question-counter{font-weight:600;background:#eef2fa;padding:.3rem 1rem;border-radius:30px;font-size:.85rem;color:#1f6392}
@@ -93,6 +120,8 @@
         .btn-pdf{background:linear-gradient(135deg,#e53e3e,#c0392b);color:white;margin-top:.6rem;border:none;padding:.7rem 1.5rem;border-radius:60px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(192,57,43,.35);transition:all .2s}
         .btn-pdf:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(192,57,43,.45)}
         .btn-pdf:disabled{opacity:.6;cursor:not-allowed;transform:none}
+
+        /* ── FOOTER & VISITEURS ── */
         footer{margin-top:1.5rem;text-align:center;font-size:.75rem;color:#4b6a7f;background:rgba(255,255,255,.8);padding:.8rem;border-radius:1.5rem}
         .footer-download{display:inline-flex;align-items:center;gap:8px;background:#1f5e3a;color:white;padding:8px 16px;border-radius:50px;text-decoration:none;font-weight:500;margin-top:8px}
         .footer-download img{width:22px;height:22px;border-radius:5px}
@@ -100,11 +129,21 @@
         .visitor-counter .vc-dot{width:8px;height:8px;background:#4ade80;border-radius:50%;flex-shrink:0;animation:pulse-dot 1.5s ease-in-out infinite}
         @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
         .visitor-counter .vc-num{font-size:1.05rem;font-weight:900;color:#f4c542;letter-spacing:.5px}
-        @media(max-width:680px){.hero h1{font-size:1.4rem}.btn-download-large{font-size:1rem;padding:12px 20px}.question-text{font-size:1rem}.promo-card{flex-direction:column;text-align:center}.ussd-box{flex-direction:column;align-items:flex-start}}
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:680px){
+            .hero h1{font-size:1.4rem}
+            .btn-download-large{font-size:1rem;padding:12px 20px}
+            .question-text{font-size:1rem}
+            .promo-card{flex-direction:column;text-align:center}
+            .ussd-box{flex-direction:column;align-items:flex-start}
+            .paywall-modal{padding:1.5rem 1rem}
+        }
     </style>
 </head>
 <body>
 
+<!-- BANNER -->
 <div class="top-banner">
     <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank">
         <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
@@ -112,10 +151,54 @@
     </a>
 </div>
 
+<!-- ══ PAYWALL MODAL OVERLAY (caché au départ) ══ -->
+<div id="paywallOverlay">
+    <div class="paywall-modal">
+        <div class="lock-icon">🔒</div>
+        <h2>Accès au QCM complet</h2>
+        <p style="color:#4b6a7f;font-size:.9rem;margin-top:.2rem">Un seul paiement pour continuer les 62 questions</p>
+        <div class="price-badge">100 FCFA</div>
+        <div class="price-sub">Paiement unique · Accès immédiat</div>
+        <ul class="features-list">
+            <li>62 questions tous niveaux (Maths, Physique, Chimie, SVT…)</li>
+            <li>Corrigé complet téléchargeable en PDF</li>
+            <li>Score et analyse de vos résultats</li>
+        </ul>
+
+        <!-- Orange Money -->
+        <div class="orange-form">
+            <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem">
+                <span style="font-size:1.6rem">🟠</span>
+                <span style="font-weight:700;font-size:1rem;color:#e65100">Orange Money</span>
+            </div>
+            <div class="ussd-box">
+                <div style="flex:1">
+                    <div style="font-size:.78rem;color:#7c3600;font-weight:600;margin-bottom:.3rem">Étape 1 — Obtenir votre code OTP</div>
+                    <span style="font-size:.83rem;color:#e65100">Composez :</span>
+                    <span class="ussd-code" id="ussdDisplay">*144*4*6*100#</span>
+                </div>
+                <button class="btn-compose" onclick="composerUSSD()">📞 Composer</button>
+            </div>
+            <label>Étape 2 — Votre numéro Orange Money</label>
+            <input type="tel" id="phoneInput" placeholder="+226 70123456" maxlength="13" oninput="formatPhone(this)" />
+            <div class="hint">Format : +226 suivi de 8 chiffres</div>
+            <label>Code OTP reçu par SMS</label>
+            <input type="text" id="otpInput" placeholder="123456" maxlength="6" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" />
+            <div class="hint">Code à 6 chiffres reçu après composition du *144*…</div>
+            <div id="payErrorMsg" class="error-msg"></div>
+            <div id="paySuccessMsg" class="success-msg"></div>
+            <button class="btn-pay" id="btnPay" onclick="lancerPaiement()">
+                🔓 Payer 100 FCFA et continuer le QCM
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ══ CONTENU PRINCIPAL ══ -->
 <div class="container">
     <div class="hero">
         <img src="icon.png" alt="Faso Concours" class="hero-logo" onerror="this.style.display='none'">
-        <h1>📋 Concours blanc 2026 — 62 Questions</h1>
+        <h1>📋 Concours blanc 2025 — 62 Questions</h1>
         <p>Maths · Physique · Chimie · SVT · Philo · Histoire · Français · Droit</p>
         <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="btn-download-large">
             <img src="icon.png" alt="" onerror="this.style.display='none'">
@@ -124,84 +207,44 @@
         <p style="font-size:.8rem;margin-top:1rem;opacity:.8">⭐ Plus de 10 000 utilisateurs | Questions actualisées</p>
     </div>
 
-    <div id="paywallSection">
-        <div class="paywall-card">
-            <div style="font-size:3rem">🔒</div>
-            <h2>Accès au QCM complet</h2>
-            <p style="color:#4b6a7f;margin-top:.3rem">Un seul paiement pour accéder aux 62 questions</p>
-            <div class="price-badge">100 FCFA</div>
-            <div class="price-sub">Paiement unique · Accès immédiat</div>
-            <ul class="features-list">
-                <li>62 questions tous niveaux (Maths, Physique, Chimie, SVT…)</li>
-                <li>Corrigé complet avec explications</li>
-                <li>Score et analyse de vos résultats</li>
-            </ul>
-            <div class="orange-form">
-                <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem">
-                    <span style="font-size:1.8rem">🟠</span>
-                    <span style="font-weight:700;font-size:1.1rem;color:#e65100">Orange Money</span>
-                </div>
-                <div class="ussd-box">
-                    <div style="flex:1">
-                        <div style="font-size:.8rem;color:#7c3600;font-weight:600;margin-bottom:.3rem">Étape 1 — Obtenir votre code OTP</div>
-                        <span>Composez ce code sur votre téléphone Orange :</span>
-                        <span class="ussd-code" id="ussdDisplay">*144*4*6*100#</span>
-                    </div>
-                    <button class="btn-compose" onclick="composerUSSD()">📞 Composer</button>
-                </div>
-                <label>Étape 2 — Votre numéro Orange Money</label>
-                <input type="tel" id="phoneInput" placeholder="+226 70123456" maxlength="13" oninput="formatPhone(this)" />
-                <div class="hint">Format : +226 suivi de 8 chiffres</div>
-                <label>Code OTP reçu par SMS</label>
-                <input type="text" id="otpInput" placeholder="123456" maxlength="6" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" />
-                <div class="hint">Code à 6 chiffres reçu après avoir composé le *144*…</div>
-                <div id="payErrorMsg" class="error-msg"></div>
-                <div id="paySuccessMsg" class="success-msg"></div>
-                <button class="btn-pay" id="btnPay" onclick="lancerPaiement()">
-                    🔓 Payer 100 FCFA et accéder au QCM
-                </button>
-            </div>
-        </div>
+    <div class="promo-card">
+        <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+        <div class="promo-text">🎯 Vous aimez ce QCM ? Découvrez des milliers d'autres questions dans l'application !</div>
+        <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn">
+            <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer maintenant
+        </a>
     </div>
 
-    <div id="quizSection">
-        <div class="promo-card">
-            <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
-            <div class="promo-text">🎯 Vous aimez ce QCM ? Découvrez des milliers d'autres questions dans l'application !</div>
-            <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn">
-                <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer maintenant
-            </a>
+    <!-- QUIZ -->
+    <div class="quiz-card" id="quizApp">
+        <div class="progress-area">
+            <span class="question-counter" id="qCounter">Question 1 / 62</span>
+            <span class="score-preview" id="liveScore">✅ 0 / 62 répondues</span>
         </div>
-        <div class="quiz-card" id="quizApp">
-            <div class="progress-area">
-                <span class="question-counter" id="qCounter">Question 1 / 62</span>
-                <span class="score-preview" id="liveScore">✅ 0 / 62 répondues</span>
-            </div>
-            <div id="subjectBadge"></div>
-            <div class="question-text" id="questionText">Chargement…</div>
-            <div class="answers-list" id="answersContainer"></div>
-            <div class="nav-buttons">
-                <button class="nav-btn" id="prevBtn">◀ Précédent</button>
-                <button class="nav-btn primary" id="nextBtn">Suivant ▶</button>
-            </div>
-            <div class="submit-area">
-                <button class="btn-submit-final" id="finalSubmitBtn">📊 Voir score + Corrigé</button>
-            </div>
-            <div id="resultPanel" class="result-panel">
-                <h3>✨ Votre résultat ✨</h3>
-                <div class="final-score" id="finalScoreSpan">0 / 62</div>
-                <p id="feedbackMsg"></p>
-                <button class="toggle-corrige-btn" id="showCorrigeBtn">📖 Afficher le corrigé</button>
-                <div id="corrigeDetails" style="display:none;" class="corrige-detail"></div>
-                <button class="btn-pdf" id="btnPdf">📥 Télécharger le corrigé en PDF</button>
-                <button class="reset-btn" id="restartQuizBtn">🔄 Recommencer</button>
-                <div class="promo-card" style="margin-top:1rem;background:#e8f0fe;">
-                    <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
-                    <div class="promo-text">📣 Pour encore plus de QCM et de révisions :</div>
-                    <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn" style="background:#1f5e3a;">
-                        <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer Faso Concours
-                    </a>
-                </div>
+        <div id="subjectBadge"></div>
+        <div class="question-text" id="questionText">Chargement…</div>
+        <div class="answers-list" id="answersContainer"></div>
+        <div class="nav-buttons">
+            <button class="nav-btn" id="prevBtn">◀ Précédent</button>
+            <button class="nav-btn primary" id="nextBtn">Suivant ▶</button>
+        </div>
+        <div class="submit-area">
+            <button class="btn-submit-final" id="finalSubmitBtn">📊 Voir score + Corrigé</button>
+        </div>
+        <div id="resultPanel" class="result-panel">
+            <h3>✨ Votre résultat ✨</h3>
+            <div class="final-score" id="finalScoreSpan">0 / 62</div>
+            <p id="feedbackMsg"></p>
+            <button class="toggle-corrige-btn" id="showCorrigeBtn">📖 Afficher le corrigé</button>
+            <div id="corrigeDetails" style="display:none;" class="corrige-detail"></div>
+            <button class="btn-pdf" id="btnPdf">📥 Télécharger le corrigé en PDF</button>
+            <button class="reset-btn" id="restartQuizBtn">🔄 Recommencer</button>
+            <div class="promo-card" style="margin-top:1rem;background:#e8f0fe;">
+                <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
+                <div class="promo-text">📣 Pour encore plus de QCM et de révisions :</div>
+                <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="small-btn" style="background:#1f5e3a;">
+                    <img src="icon.png" alt="" style="width:20px;height:20px;border-radius:4px" onerror="this.style.display='none'"> Installer Faso Concours
+                </a>
             </div>
         </div>
     </div>
@@ -227,53 +270,52 @@
 </a>
 
 <script>
-const SUPABASE_URL  = 'https://lprlkkosbpcizaambiny.supabase.co';
-const EDGE_FUNCTION = `${SUPABASE_URL}/functions/v1/create-payment`;
-const MONTANT       = 100;
-const USSD_CODE     = `*144*4*6*${MONTANT}#`;
-
 // ════════════════════════════════════════════════
-//  COMPTEUR DE VISITEURS — Supabase REST API
+//  CONFIG
 // ════════════════════════════════════════════════
+const SUPABASE_URL      = 'https://lprlkkosbpcizaambiny.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxwcmxra29zYnBjaXphYW1iaW55Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzMzI1MzgsImV4cCI6MjA4NjkwODUzOH0.SRcfnwyCki7M7tD_2RcUg-WmJUBhVmuV8jAJqNB9RbI';
+const EDGE_FUNCTION     = `${SUPABASE_URL}/functions/v1/create-payment`;
+const MONTANT           = 100;
+const USSD_CODE         = `*144*4*6*${MONTANT}#`;
 
+// État : paiement validé ?
+let paiementValide = false;
+
+// ════════════════════════════════════════════════
+//  COMPTEUR DE VISITEURS
+// ════════════════════════════════════════════════
 async function incrementerVisiteurs() {
     const el = document.getElementById('visitorCount');
     try {
-        // 1. Lire la valeur actuelle
         const getRes = await fetch(
             `${SUPABASE_URL}/rest/v1/visits?id=eq.1&select=count`,
             { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
         );
         const getData = await getRes.json();
-        const current = (getData && getData[0]) ? parseInt(getData[0].count) : 0;
+        const current  = (getData && getData[0]) ? parseInt(getData[0].count) : 0;
         const newCount = current + 1;
-
-        // 2. Mettre à jour
-        await fetch(
-            `${SUPABASE_URL}/rest/v1/visits?id=eq.1`,
-            {
-                method: 'PATCH',
-                headers: {
-                    'apikey': SUPABASE_ANON_KEY,
-                    'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-                    'Content-Type': 'application/json',
-                    'Prefer': 'return=minimal'
-                },
-                body: JSON.stringify({ count: newCount })
-            }
-        );
-
-        // 3. Afficher avec formatage
+        await fetch(`${SUPABASE_URL}/rest/v1/visits?id=eq.1`, {
+            method: 'PATCH',
+            headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify({ count: newCount })
+        });
         el.textContent = newCount.toLocaleString('fr-FR');
     } catch (err) {
         console.warn('Compteur visiteurs:', err);
         el.textContent = '—';
     }
 }
-
 incrementerVisiteurs();
 
+// ════════════════════════════════════════════════
+//  PAYWALL HELPERS
+// ════════════════════════════════════════════════
 document.getElementById('ussdDisplay').textContent = USSD_CODE;
 
 function formatPhone(input) {
@@ -298,47 +340,64 @@ function composerUSSD() {
 function getPhoneNumber() {
     return document.getElementById('phoneInput').value.replace(/\+226\s?/, '').replace(/\s/g, '');
 }
+
+function ouvrirPaywall() {
+    document.getElementById('paywallOverlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+function fermerPaywall() {
+    document.getElementById('paywallOverlay').classList.remove('show');
+    document.body.style.overflow = '';
+}
+
 async function lancerPaiement() {
     const phone = getPhoneNumber();
     const otp   = document.getElementById('otpInput').value.trim();
     if (!/^\d{8}$/.test(phone)) { showPayError('Numéro invalide. Entrez +226 suivi de 8 chiffres.'); return; }
     if (!/^\d{6}$/.test(otp))   { showPayError('Code OTP invalide. Il doit contenir exactement 6 chiffres.'); return; }
+
     const btn = document.getElementById('btnPay');
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span>Traitement en cours…';
     document.getElementById('payErrorMsg').style.display = 'none';
     document.getElementById('paySuccessMsg').style.display = 'none';
+
     const orderId = 'QCM_' + Date.now() + '_' + Math.floor(Math.random() * 9999);
     try {
         const res  = await fetch(EDGE_FUNCTION, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ operator:'ORANGE', phone, amount:MONTANT, orderId,
-                description:'Accès QCM Faso Concours 62 questions', senderCountry:'BFA', otp }),
+            body: JSON.stringify({
+                operator:'ORANGE', phone, amount:MONTANT, orderId,
+                description:'Accès QCM Faso Concours 62 questions',
+                senderCountry:'BFA', otp
+            }),
         });
         const data = await res.json();
         if (data && data.success === true) {
-            showPaySuccess('Paiement accepté ! Chargement du QCM…');
+            showPaySuccess('Paiement accepté ! Reprise du QCM…');
+            paiementValide = true;
             setTimeout(() => {
-                document.getElementById('paywallSection').style.display = 'none';
-                document.getElementById('quizSection').style.display    = 'block';
-                initQuiz();
-            }, 1800);
+                fermerPaywall();
+                // Continuer vers la question 2
+                currentIndex = 1;
+                renderCurrentQuestion();
+            }, 1600);
         } else {
             showPayError(data?.error || data?.message || 'Paiement refusé. Vérifiez votre solde et le code OTP.');
             btn.disabled = false;
-            btn.innerHTML = '🔓 Payer 100 FCFA et accéder au QCM';
+            btn.innerHTML = '🔓 Payer 100 FCFA et continuer le QCM';
         }
     } catch (err) {
-        const isNet = err.message && (err.message.includes('Failed to fetch') || err.message.includes('NetworkError') || err.message.includes('network'));
-        showPayError(isNet ? 'Erreur réseau. Vérifiez votre connexion Internet.' : 'Erreur inattendue : ' + err.message);
+        const isNet = err.message && (err.message.includes('Failed to fetch') || err.message.includes('NetworkError'));
+        showPayError(isNet ? 'Erreur réseau. Vérifiez votre connexion.' : 'Erreur : ' + err.message);
         btn.disabled = false;
-        btn.innerHTML = '🔓 Payer 100 FCFA et accéder au QCM';
+        btn.innerHTML = '🔓 Payer 100 FCFA et continuer le QCM';
     }
 }
 
 // ════════════════════════════════════════════════
-//  QUESTIONS — 62 questions, même structure
+//  QUESTIONS
 // ════════════════════════════════════════════════
 const rawQuestions = [
 
@@ -347,7 +406,7 @@ const rawQuestions = [
     {subject:"math", q:"Calculer : \\(\\displaystyle\\lim_{x\\to+\\infty} x\\,e^{-x}\\)", correct:"\\(0\\)", distractors:["\\(+\\infty\\)","\\(1\\)","\\(-1\\)"]},
     {subject:"math", q:"Calculer : \\(\\displaystyle\\int_0^{\\ln 2} e^x\\,dx\\)", correct:"\\(1\\)", distractors:["\\(\\ln 2\\)","\\(2\\)","\\(e-1\\)"]},
     {subject:"math", q:"Calculer : \\(\\displaystyle\\int_1^4 \\frac{1}{\\sqrt{x}}\\,dx\\)", correct:"\\(2\\)", distractors:["\\(1\\)","\\(4\\)","\\(3\\)"]},
-    {subject:"math", q:"La dérivée de \\(f(x)=\\ln(\\sin x)\\) est :", correct:"\\(f'(x)=\\dfrac{\\cos x}{\\sin x}=\\cot x\\)", distractors:["\\(f'(x)=\\dfrac{1}{\\sin x}\\)","\\(f'(x)=\\cos(\\ln x)\\)","\\(f'(x)=-\\dfrac{1}{\\sin^2 x}\\)"]},
+    {subject:"math", q:"La dérivée de \\(f(x)=\\ln(\\sin x)\\) est :", correct:"\\(f'(x)=\\dfrac{\\cos x}{\\sin x}\\)", distractors:["\\(f'(x)=\\dfrac{1}{\\sin x}\\)","\\(f'(x)=\\cos(\\ln x)\\)","\\(f'(x)=-\\dfrac{1}{\\sin^2 x}\\)"]},
     {subject:"math", q:"Résoudre : \\(\\ln(x^2-3)=\\ln(2x)\\) pour \\(x>0\\)", correct:"\\(x=3\\)", distractors:["\\(x=1\\)","\\(x=2\\)","\\(x=6\\)"]},
     {subject:"math", q:"\\(\\displaystyle\\lim_{x\\to 0^+}\\left(1+x\\right)^{1/x}=\\)", correct:"\\(e\\)", distractors:["\\(1\\)","\\(0\\)","\\(+\\infty\\)"]},
     {subject:"math", q:"La primitive de \\(f(x)=\\dfrac{2x}{x^2+1}\\) est :", correct:"\\(F(x)=\\ln(x^2+1)+C\\)", distractors:["\\(F(x)=\\dfrac{x^2}{x^2+1}+C\\)","\\(F(x)=2\\ln(x)+C\\)","\\(F(x)=\\dfrac{1}{x^2+1}+C\\)"]},
@@ -355,34 +414,34 @@ const rawQuestions = [
     {subject:"math", q:"Si \\(f(x)=x^3-6x^2+9x\\), les points critiques sont en :", correct:"\\(x=1\\) et \\(x=3\\)", distractors:["\\(x=0\\) et \\(x=3\\)","\\(x=2\\) et \\(x=4\\)","\\(x=1\\) et \\(x=2\\)"]},
 
     // ===== PHYSIQUE — 8 =====
-    {subject:"physique", q:"L'énergie mécanique totale d'un système est :", correct:"La somme de l'énergie cinétique et de l'énergie potentielle : \\(E_m = E_c + E_p\\)", distractors:["\\(E_m = E_c - E_p\\)","\\(E_m = E_c \\times E_p\\)","\\(E_m = \\frac{E_c}{E_p}\\)"]},
-    {subject:"physique", q:"La loi de Snell-Descartes pour la réfraction s'écrit :", correct:"\\(n_1\\sin\\theta_1 = n_2\\sin\\theta_2\\)", distractors:["\\(n_1\\cos\\theta_1 = n_2\\cos\\theta_2\\)","\\(\\dfrac{n_1}{\\sin\\theta_1} = \\dfrac{n_2}{\\sin\\theta_2}\\)","\\(n_1\\theta_1 = n_2\\theta_2\\)"]},
-    {subject:"physique", q:"Un circuit RC en charge : la constante de temps \\(\\tau\\) est :", correct:"\\(\\tau = R\\,C\\)", distractors:["\\(\\tau = R/C\\)","\\(\\tau = R+C\\)","\\(\\tau = \\sqrt{RC}\\)"]},
-    {subject:"physique", q:"La loi de Faraday sur l'induction électromagnétique stipule que :", correct:"La force électromotrice induite est égale à l'opposé de la dérivée du flux magnétique : \\(e=-\\frac{d\\Phi}{dt}\\)", distractors:["\\(e=\\frac{d\\Phi}{dt}\\)","\\(e=\\Phi\\cdot t\\)","\\(e=\\frac{\\Phi}{t}\\)"]},
-    {subject:"physique", q:"Le principe de conservation de l'énergie mécanique s'applique quand :", correct:"Les seules forces qui travaillent sont conservatives (pas de frottement)", distractors:["Il y a toujours conservation quelle que soit la situation","Il existe des forces de frottement","Le système est en équilibre statique"]},
-    {subject:"physique", q:"La longueur d'onde \\(\\lambda\\) d'une onde est liée à sa vitesse \\(v\\) et sa fréquence \\(f\\) par :", correct:"\\(\\lambda = \\dfrac{v}{f}\\)", distractors:["\\(\\lambda = v\\cdot f\\)","\\(\\lambda = \\dfrac{f}{v}\\)","\\(\\lambda = v + f\\)"]},
-    {subject:"physique", q:"La pression exercée par un liquide de masse volumique \\(\\rho\\) à une profondeur \\(h\\) est :", correct:"\\(P = \\rho\\,g\\,h\\)", distractors:["\\(P = \\rho\\,g/h\\)","\\(P = \\rho\\,h\\)","\\(P = g/\\rho\\,h\\)"]},
-    {subject:"physique", q:"En thermodynamique, le premier principe stipule que :", correct:"La variation d'énergie interne \\(\\Delta U = Q + W\\) (chaleur reçue + travail reçu)", distractors:["L'entropie d'un système isolé reste constante","L'énergie d'un système isolé est nulle","La chaleur se propage toujours du froid vers le chaud"]},
+    {subject:"physique", q:"L'énergie mécanique totale d'un système est :", correct:"\\(E_m = E_c + E_p\\)", distractors:["\\(E_m = E_c - E_p\\)","\\(E_m = E_c \\times E_p\\)","\\(E_m = \\frac{E_c}{E_p}\\)"]},
+    {subject:"physique", q:"La loi de Snell-Descartes s'écrit :", correct:"\\(n_1\\sin\\theta_1 = n_2\\sin\\theta_2\\)", distractors:["\\(n_1\\cos\\theta_1 = n_2\\cos\\theta_2\\)","\\(\\dfrac{n_1}{\\sin\\theta_1} = \\dfrac{n_2}{\\sin\\theta_2}\\)","\\(n_1\\theta_1 = n_2\\theta_2\\)"]},
+    {subject:"physique", q:"La constante de temps d'un circuit RC est :", correct:"\\(\\tau = R\\,C\\)", distractors:["\\(\\tau = R/C\\)","\\(\\tau = R+C\\)","\\(\\tau = \\sqrt{RC}\\)"]},
+    {subject:"physique", q:"La loi de Faraday donne :", correct:"\\(e=-\\dfrac{d\\Phi}{dt}\\)", distractors:["\\(e=\\dfrac{d\\Phi}{dt}\\)","\\(e=\\Phi\\cdot t\\)","\\(e=\\dfrac{\\Phi}{t}\\)"]},
+    {subject:"physique", q:"La conservation de l'énergie mécanique s'applique quand :", correct:"Les seules forces qui travaillent sont conservatives (absence de frottement)", distractors:["Il y a toujours conservation quelle que soit la situation","Il existe des forces de frottement","Le système est en équilibre statique"]},
+    {subject:"physique", q:"La longueur d'onde \\(\\lambda\\) est liée à \\(v\\) et \\(f\\) par :", correct:"\\(\\lambda = \\dfrac{v}{f}\\)", distractors:["\\(\\lambda = v\\cdot f\\)","\\(\\lambda = \\dfrac{f}{v}\\)","\\(\\lambda = v + f\\)"]},
+    {subject:"physique", q:"La pression à la profondeur \\(h\\) dans un liquide de masse volumique \\(\\rho\\) est :", correct:"\\(P = \\rho\\,g\\,h\\)", distractors:["\\(P = \\rho\\,g/h\\)","\\(P = \\rho\\,h\\)","\\(P = g/\\rho\\,h\\)"]},
+    {subject:"physique", q:"Le premier principe de la thermodynamique s'écrit :", correct:"\\(\\Delta U = Q + W\\)", distractors:["\\(\\Delta U = Q - W\\)","\\(\\Delta U = Q \\times W\\)","\\(\\Delta U = W / Q\\)"]},
 
     // ===== CHIMIE — 6 =====
-    {subject:"chimie", q:"Le principe de Le Chatelier stipule que :", correct:"Tout système en équilibre perturbé évolue pour s'opposer à la perturbation", distractors:["Une réaction exothermique favorise les produits","La pression n'influence pas l'équilibre","La concentration des réactifs est toujours égale à celle des produits"]},
+    {subject:"chimie", q:"Le principe de Le Chatelier stipule que :", correct:"Tout système en équilibre perturbé évolue pour s'opposer à la perturbation", distractors:["Une réaction exothermique favorise toujours les produits","La pression n'influence pas l'équilibre","La concentration des réactifs égale celle des produits"]},
     {subject:"chimie", q:"L'oxydation d'un atome correspond à :", correct:"Une perte d'électrons (augmentation du degré d'oxydation)", distractors:["Un gain d'électrons","Une perte de protons","Un gain de neutrons"]},
     {subject:"chimie", q:"La formule de l'ammoniac est :", correct:"\\(\\text{NH}_3\\)", distractors:["\\(\\text{NO}_2\\)","\\(\\text{N}_2\\text{H}_4\\)","\\(\\text{HNO}_3\\)"]},
     {subject:"chimie", q:"Un acide selon Brønsted-Lowry est une espèce qui :", correct:"Peut céder un proton \\((\\text{H}^+)\\)", distractors:["Peut accepter un proton","Peut accepter un électron","Produit des ions \\(\\text{OH}^-\\) en solution"]},
-    {subject:"chimie", q:"La réaction d'estérification entre un acide carboxylique et un alcool donne :", correct:"Un ester et de l'eau", distractors:["Un aldéhyde et du \\(\\text{CO}_2\\)","Un sel et de l'eau","Une cétone et de l'hydrogène"]},
+    {subject:"chimie", q:"La réaction d'estérification donne :", correct:"Un ester et de l'eau", distractors:["Un aldéhyde et du \\(\\text{CO}_2\\)","Un sel et de l'eau","Une cétone et de l'hydrogène"]},
     {subject:"chimie", q:"Le degré d'oxydation du soufre dans \\(\\text{H}_2\\text{SO}_4\\) est :", correct:"\\(+6\\)", distractors:["\\(-2\\)","\\(+4\\)","\\(+2\\)"]},
 
     // ===== SVT — 10 =====
-    {subject:"svt", q:"La respiration cellulaire a lieu dans :", correct:"Les mitochondries (membrane interne et matrice)", distractors:["Les chloroplastes","Le noyau","Les lysosomes"]},
+    {subject:"svt", q:"La respiration cellulaire a lieu dans :", correct:"Les mitochondries", distractors:["Les chloroplastes","Le noyau","Les lysosomes"]},
     {subject:"svt", q:"Le cycle de Krebs produit principalement :", correct:"Du \\(\\text{CO}_2\\), du NADH et du FADH\\(_2\\)", distractors:["De l'ATP directement en grande quantité","Du glucose","De l'oxygène"]},
     {subject:"svt", q:"La méiose II ressemble à :", correct:"Une mitose ordinaire séparant les chromatides sœurs", distractors:["La méiose I avec brassage","Une duplication de l'ADN","La fécondation"]},
-    {subject:"svt", q:"Le virus du SIDA (VIH) attaque principalement :", correct:"Les lymphocytes T CD4 (cellules immunitaires)", distractors:["Les globules rouges","Les plaquettes sanguines","Les neurones moteurs"]},
-    {subject:"svt", q:"La régulation de la glycémie fait intervenir :", correct:"L'insuline (diminue la glycémie) et le glucagon (augmente la glycémie)", distractors:["L'adrénaline uniquement","La thyroxine et la calcitonine","La leptine et la ghréline"]},
+    {subject:"svt", q:"Le virus VIH attaque principalement :", correct:"Les lymphocytes T CD4", distractors:["Les globules rouges","Les plaquettes sanguines","Les neurones moteurs"]},
+    {subject:"svt", q:"La régulation de la glycémie fait intervenir :", correct:"L'insuline (diminue) et le glucagon (augmente la glycémie)", distractors:["L'adrénaline uniquement","La thyroxine et la calcitonine","La leptine et la ghréline"]},
     {subject:"svt", q:"Un écosystème comprend :", correct:"Une biocénose (êtres vivants) et un biotope (milieu physique)", distractors:["Uniquement les êtres vivants","Uniquement les facteurs abiotiques","Les végétaux et les champignons uniquement"]},
-    {subject:"svt", q:"La mutation génétique est :", correct:"Une modification permanente de la séquence d'ADN", distractors:["Toujours héréditaire","Toujours visible phénotypiquement","Toujours nuisible à l'organisme"]},
+    {subject:"svt", q:"Une mutation génétique est :", correct:"Une modification permanente de la séquence d'ADN", distractors:["Toujours héréditaire","Toujours visible phénotypiquement","Toujours nuisible à l'organisme"]},
     {subject:"svt", q:"Le système lymphatique a pour fonction principale de :", correct:"Drainer les liquides interstitiels et participer à l'immunité", distractors:["Transporter l'oxygène","Digérer les aliments","Produire les hormones"]},
-    {subject:"svt", q:"Le réflexe myotatique (rotulien) est un arc réflexe :", correct:"Monosynaptique impliquant récepteur, voie afférente, moelle épinière et effecteur musculaire", distractors:["Polysynaptique passant par le cervelet","Passant obligatoirement par le cerveau","Impliquant uniquement le système nerveux autonome"]},
-    {subject:"svt", q:"La transpiration chez les plantes (transpiration stomatale) est régulée par :", correct:"L'ouverture et la fermeture des stomates (cellules de garde)", distractors:["La pression osmotique des racines uniquement","La photosynthèse dans les chloroplastes","La respiration dans les mitochondries"]},
+    {subject:"svt", q:"Le réflexe myotatique est un arc réflexe :", correct:"Monosynaptique impliquant récepteur, moelle épinière et effecteur musculaire", distractors:["Polysynaptique passant par le cervelet","Passant obligatoirement par le cerveau","Impliquant uniquement le système nerveux autonome"]},
+    {subject:"svt", q:"La transpiration stomatale des plantes est régulée par :", correct:"L'ouverture et la fermeture des stomates (cellules de garde)", distractors:["La pression osmotique des racines uniquement","La photosynthèse dans les chloroplastes","La respiration dans les mitochondries"]},
 
     // ===== PHILOSOPHIE — 2 =====
     {subject:"philo", q:"Pour Platon, la connaissance véritable s'atteint par :", correct:"La raison et le monde des Idées, au-delà des apparences sensibles", distractors:["L'expérience sensorielle directe","Le langage et la rhétorique","L'action politique et le pouvoir"]},
@@ -392,36 +451,38 @@ const rawQuestions = [
     {subject:"histoire", q:"La colonisation du Burkina Faso par la France a officiellement débuté en :", correct:"1896, avec la prise de Ouagadougou", distractors:["1850","1920","1789"]},
     {subject:"histoire", q:"Le Conseil de sécurité de l'ONU compte combien de membres permanents ?", correct:"5 (États-Unis, Russie, Chine, France, Royaume-Uni)", distractors:["3","7","10"]},
     {subject:"histoire", q:"La révolution industrielle a débuté au :", correct:"Royaume-Uni à la fin du XVIIIe siècle", distractors:["France au début du XIXe siècle","États-Unis au milieu du XIXe siècle","Allemagne à la fin du XIXe siècle"]},
-    {subject:"histoire", q:"Le soulèvement populaire du 30-31 octobre 2014 au Burkina Faso a entraîné :", correct:"La chute du président Blaise Compaoré après 27 ans au pouvoir", distractors:["La mise en place d'une monarchie constitutionnelle","L'instauration d'un régime militaire permanent","La création d'une nouvelle constitution par référendum"]},
+    {subject:"histoire", q:"Le soulèvement du 30-31 octobre 2014 au Burkina Faso a entraîné :", correct:"La chute du président Blaise Compaoré après 27 ans au pouvoir", distractors:["La mise en place d'une monarchie constitutionnelle","L'instauration d'un régime militaire permanent","La création d'une nouvelle constitution par référendum"]},
     {subject:"histoire", q:"La Déclaration universelle des droits de l'homme a été adoptée en :", correct:"1948 par l'Assemblée générale de l'ONU", distractors:["1789","1919","1945"]},
     {subject:"histoire", q:"L'indépendance de l'Inde a été obtenue en :", correct:"1947, sous la direction de Gandhi et Nehru", distractors:["1919","1955","1960"]},
-    {subject:"histoire", q:"La CEDEAO (Communauté économique des États de l'Afrique de l'Ouest) a été fondée en :", correct:"1975", distractors:["1963","1991","1960"]},
-    {subject:"histoire", q:"La Charte de l'OUA (Organisation de l'Unité Africaine) a été signée en :", correct:"1963 à Addis-Abeba", distractors:["1957","1975","1948"]},
+    {subject:"histoire", q:"La CEDEAO a été fondée en :", correct:"1975", distractors:["1963","1991","1960"]},
+    {subject:"histoire", q:"La Charte de l'OUA a été signée en :", correct:"1963 à Addis-Abeba", distractors:["1957","1975","1948"]},
 
     // ===== FRANÇAIS & CULTURE GÉNÉRALE — 8 =====
     {subject:"francais", q:"Le mot 'acrimonie' signifie :", correct:"Aigreur, amertume dans les propos ou le comportement", distractors:["Douceur bienveillante","Indifférence totale","Enthousiasme excessif"]},
-    {subject:"francais", q:"Dans la phrase 'Quoi qu'il en soit, il faut agir', 'quoi qu'il en soit' est :", correct:"Une proposition concessive au subjonctif", distractors:["Une proposition causale","Une proposition de conséquence","Une proposition relative"]},
+    {subject:"francais", q:"Dans 'Quoi qu'il en soit, il faut agir', la proposition est :", correct:"Une proposition concessive au subjonctif", distractors:["Une proposition causale","Une proposition de conséquence","Une proposition relative"]},
     {subject:"francais", q:"Le Bureau international du travail (BIT) a son siège à :", correct:"Genève (Suisse)", distractors:["New York (États-Unis)","Paris (France)","Bruxelles (Belgique)"]},
-    {subject:"francais", q:"Le mot 'aporie' en philosophie désigne :", correct:"Une difficulté logique sans solution apparente, une impasse de la pensée", distractors:["Une démonstration mathématique rigoureuse","Un argument rhétorique convaincant","Une thèse bien établie et acceptée"]},
-    {subject:"francais", q:"L'accord du verbe dans 'C'est vous qui avez raison' :", correct:"Le verbe s'accorde avec 'vous' : 'avez'", distractors:["Le verbe s'accorde avec 'C'' : 'a raison'","Le verbe reste à l'infinitif","Le verbe s'accorde avec le sujet réel 'raison'"]},
-    {subject:"francais", q:"Le FESPACO (Festival Panafricain du Cinéma) se tient à :", correct:"Ouagadougou, Burkina Faso", distractors:["Dakar, Sénégal","Abidjan, Côte d'Ivoire","Lagos, Nigeria"]},
-    {subject:"francais", q:"Le verbe 'solutionner' est :", correct:"Un néologisme critiqué ; il vaut mieux dire 'résoudre un problème'", distractors:["Parfaitement correct et recommandé","Synonyme exact de 'dissoudre'","Un terme juridique officiel"]},
+    {subject:"francais", q:"Le mot 'aporie' en philosophie désigne :", correct:"Une difficulté logique sans solution apparente, une impasse de la pensée", distractors:["Une démonstration mathématique rigoureuse","Un argument rhétorique convaincant","Une thèse bien établie"]},
+    {subject:"francais", q:"L'accord du verbe dans 'C'est vous qui avez raison' :", correct:"Le verbe s'accorde avec 'vous' : 'avez'", distractors:["Le verbe s'accorde avec 'C'' : 'a raison'","Le verbe reste à l'infinitif","Le verbe s'accorde avec 'raison'"]},
+    {subject:"francais", q:"Le FESPACO se tient à :", correct:"Ouagadougou, Burkina Faso", distractors:["Dakar, Sénégal","Abidjan, Côte d'Ivoire","Lagos, Nigeria"]},
+    {subject:"francais", q:"Le verbe 'solutionner' est :", correct:"Un néologisme critiqué ; il vaut mieux dire 'résoudre'", distractors:["Parfaitement correct et recommandé","Synonyme exact de 'dissoudre'","Un terme juridique officiel"]},
     {subject:"francais", q:"La monnaie commune aux pays de l'UEMOA est :", correct:"Le franc CFA (XOF)", distractors:["L'euro","Le dirham","Le dollar américain"]},
 
-    // ===== DROIT ADMINISTRATIF & FONCTION PUBLIQUE — 10 =====
+    // ===== DROIT ADMINISTRATIF — 10 =====
     {subject:"droit", q:"Le recours gracieux est adressé à :", correct:"L'auteur même de la décision contestée", distractors:["La juridiction administrative compétente","Le Médiateur du Faso","Le ministre de tutelle"]},
-    {subject:"droit", q:"Le principe de l'égalité de traitement entre candidats à un concours de la fonction publique interdit :", correct:"Toute discrimination fondée sur le sexe, l'ethnie, la religion ou les opinions politiques", distractors:["De poser des conditions de diplôme","D'organiser des épreuves écrites et orales","De fixer un âge limite d'accès"]},
-    {subject:"droit", q:"La mise en régie d'un service public consiste à :", correct:"Gérer directement le service par l'administration elle-même, sans délégation", distractors:["Confier la gestion à une entreprise privée","Transférer la compétence à une collectivité locale","Supprimer le service et externaliser ses missions"]},
-    {subject:"droit", q:"Le pouvoir discrétionnaire d'une autorité administrative signifie qu'elle :", correct:"Dispose d'une marge d'appréciation pour prendre sa décision dans le cadre légal", distractors:["Peut agir en dehors de tout cadre juridique","Est obligée d'agir exactement comme le prévoit la loi","Ne peut jamais être contrôlée par un juge"]},
-    {subject:"droit", q:"La règle du parallélisme des formes en droit administratif exige que :", correct:"L'acte qui modifie ou abroge un acte antérieur soit pris selon la même forme et procédure", distractors:["Tous les actes soient signés par le même auteur","Les actes soient rédigés dans les deux langues","Les décisions soient publiées dans un délai de 30 jours"]},
-    {subject:"droit", q:"L'obligation de réserve d'un fonctionnaire lui interdit de :", correct:"Exprimer publiquement des opinions de nature à nuire au bon fonctionnement du service", distractors:["Appartenir à un syndicat","Voter aux élections politiques","Exercer un droit de grève légalement encadré"]},
-    {subject:"droit", q:"Un marché public est conclu entre :", correct:"Une personne publique (acheteur) et un opérateur économique privé ou public (fournisseur)", distractors:["Deux personnes privées uniquement","Deux administrations publiques uniquement","Une ONG et un particulier"]},
+    {subject:"droit", q:"L'égalité de traitement entre candidats à un concours interdit :", correct:"Toute discrimination fondée sur le sexe, l'ethnie, la religion ou les opinions politiques", distractors:["De poser des conditions de diplôme","D'organiser des épreuves écrites et orales","De fixer un âge limite d'accès"]},
+    {subject:"droit", q:"La mise en régie d'un service public consiste à :", correct:"Gérer directement le service par l'administration, sans délégation", distractors:["Confier la gestion à une entreprise privée","Transférer la compétence à une collectivité locale","Supprimer le service"]},
+    {subject:"droit", q:"Le pouvoir discrétionnaire d'une autorité signifie qu'elle :", correct:"Dispose d'une marge d'appréciation pour décider dans le cadre légal", distractors:["Peut agir en dehors de tout cadre juridique","Est obligée d'agir exactement comme la loi prévoit","Ne peut jamais être contrôlée par un juge"]},
+    {subject:"droit", q:"La règle du parallélisme des formes exige que :", correct:"L'acte qui modifie un acte antérieur soit pris selon la même forme et procédure", distractors:["Tous les actes soient signés par le même auteur","Les actes soient rédigés dans deux langues","Les décisions soient publiées dans un délai de 30 jours"]},
+    {subject:"droit", q:"L'obligation de réserve d'un fonctionnaire lui interdit de :", correct:"Exprimer publiquement des opinions nuisant au bon fonctionnement du service", distractors:["Appartenir à un syndicat","Voter aux élections politiques","Exercer un droit de grève légalement encadré"]},
+    {subject:"droit", q:"Un marché public est conclu entre :", correct:"Une personne publique (acheteur) et un opérateur économique (fournisseur)", distractors:["Deux personnes privées uniquement","Deux administrations publiques uniquement","Une ONG et un particulier"]},
     {subject:"droit", q:"Le contrôle de constitutionnalité au Burkina Faso est exercé par :", correct:"Le Conseil constitutionnel", distractors:["La Cour suprême","Le Tribunal administratif","L'Assemblée nationale"]},
-    {subject:"droit", q:"La prescription quadriennale en droit public signifie que :", correct:"Les créances sur l'État sont éteintes si elles ne sont pas réclamées dans un délai de 4 ans", distractors:["L'État peut poursuivre un débiteur pendant 40 ans","Les fonctionnaires sont titularisés après 4 ans","Les marchés publics doivent être renouvelés tous les 4 ans"]},
-    {subject:"droit", q:"Le droit à la communication du dossier administratif garantit à l'agent :", correct:"L'accès à tous les documents qui le concernent avant toute décision défavorable", distractors:["Le droit de modifier les pièces de son dossier","La possibilité de détruire des documents compromettants","L'accès aux dossiers de ses collègues"]},
+    {subject:"droit", q:"La prescription quadriennale signifie que :", correct:"Les créances sur l'État sont éteintes si elles ne sont pas réclamées dans un délai de 4 ans", distractors:["L'État peut poursuivre un débiteur pendant 40 ans","Les fonctionnaires sont titularisés après 4 ans","Les marchés publics doivent être renouvelés tous les 4 ans"]},
+    {subject:"droit", q:"Le droit à la communication du dossier administratif garantit à l'agent :", correct:"L'accès à tous les documents le concernant avant toute décision défavorable", distractors:["Le droit de modifier les pièces de son dossier","La possibilité de détruire des documents compromettants","L'accès aux dossiers de ses collègues"]},
 ];
 
-// Badge config
+// ════════════════════════════════════════════════
+//  BADGE CONFIG
+// ════════════════════════════════════════════════
 const BADGE_CONFIG = {
     math:    { label:"📐 Mathématiques",       cls:"badge-math" },
     physique:{ label:"⚡ Physique",             cls:"badge-physique" },
@@ -433,6 +494,9 @@ const BADGE_CONFIG = {
     droit:   { label:"⚖️ Droit Administratif", cls:"badge-droit" }
 };
 
+// ════════════════════════════════════════════════
+//  MOTEUR DU QUIZ
+// ════════════════════════════════════════════════
 let QUIZ = [], TOTAL_QS = 0, userAnswers = [], currentIndex = 0, quizSubmitted = false;
 
 function shuffleArray(arr) {
@@ -453,32 +517,42 @@ function typesetElement(el) {
     if (window.MathJax && window.MathJax.typesetPromise)
         window.MathJax.typesetPromise([el]).catch(e => console.warn("MathJax:", e));
 }
+
 function initQuiz() {
-    QUIZ        = shuffleArray(buildShuffledQuestions());
-    TOTAL_QS    = QUIZ.length;
-    userAnswers = new Array(TOTAL_QS).fill(null);
-    currentIndex = 0; quizSubmitted = false;
+    QUIZ         = shuffleArray(buildShuffledQuestions());
+    TOTAL_QS     = QUIZ.length;
+    userAnswers  = new Array(TOTAL_QS).fill(null);
+    currentIndex = 0;
+    quizSubmitted = false;
+
     document.getElementById('prevBtn').addEventListener('click', goPrev);
     document.getElementById('nextBtn').addEventListener('click', goNext);
     document.getElementById('finalSubmitBtn').addEventListener('click', showFinalResult);
     document.getElementById('restartQuizBtn').addEventListener('click', restartQuiz);
     document.getElementById('showCorrigeBtn').addEventListener('click', toggleCorrige);
     document.getElementById('btnPdf').addEventListener('click', telechargerPDF);
+
     renderCurrentQuestion();
 }
+
 function countAnswered() { return userAnswers.filter(a => a !== null).length; }
 function updateProgress() {
     document.getElementById('liveScore').innerText = `✅ ${countAnswered()} / ${TOTAL_QS} répondues`;
     document.getElementById('qCounter').innerText  = `Question ${currentIndex + 1} / ${TOTAL_QS}`;
 }
+
 function renderCurrentQuestion() {
     if (quizSubmitted) return;
     const q = QUIZ[currentIndex], selectedIdx = userAnswers[currentIndex];
     const letters = ['A','B','C','D'];
     const bc = BADGE_CONFIG[q.subject] || { label: q.subject, cls:"badge-math" };
-    document.getElementById('subjectBadge').innerHTML = `<span class="subject-badge ${bc.cls}">${bc.label}</span>`;
+
+    document.getElementById('subjectBadge').innerHTML =
+        `<span class="subject-badge ${bc.cls}">${bc.label}</span>`;
+
     const qEl = document.getElementById('questionText');
     qEl.innerHTML = q.question;
+
     let html = '';
     q.answers.forEach((ans, idx) => {
         html += `<div class="answer-option ${selectedIdx===idx?'selected':''}" data-ans-index="${idx}">
@@ -488,6 +562,7 @@ function renderCurrentQuestion() {
     });
     const aC = document.getElementById('answersContainer');
     aC.innerHTML = html;
+
     aC.querySelectorAll('.answer-option').forEach(opt => {
         opt.addEventListener('click', () => {
             if (quizSubmitted) return;
@@ -495,15 +570,38 @@ function renderCurrentQuestion() {
             renderCurrentQuestion(); updateProgress();
         });
     });
-    updateProgress(); typesetElement(qEl); typesetElement(aC);
+
+    updateProgress();
+    typesetElement(qEl);
+    typesetElement(aC);
 }
-function goPrev() { if (!quizSubmitted && currentIndex > 0) { currentIndex--; renderCurrentQuestion(); } }
-function goNext() { if (!quizSubmitted && currentIndex < TOTAL_QS - 1) { currentIndex++; renderCurrentQuestion(); } }
+
+function goPrev() {
+    if (!quizSubmitted && currentIndex > 0) {
+        currentIndex--;
+        renderCurrentQuestion();
+    }
+}
+
+function goNext() {
+    if (quizSubmitted) return;
+    // Si on est à la Q1 (index 0) et paiement pas encore validé → ouvrir paywall
+    if (currentIndex === 0 && !paiementValide) {
+        ouvrirPaywall();
+        return;
+    }
+    if (currentIndex < TOTAL_QS - 1) {
+        currentIndex++;
+        renderCurrentQuestion();
+    }
+}
+
 function computeScore() {
     let c = 0;
     for (let i = 0; i < TOTAL_QS; i++) if (userAnswers[i] !== null && QUIZ[i].correct === userAnswers[i]) c++;
     return c;
 }
+
 function buildCorrigeHTML() {
     let html = '<h4 style="margin-bottom:.5rem">📖 Corrigé complet</h4>';
     for (let i = 0; i < TOTAL_QS; i++) {
@@ -520,6 +618,7 @@ function buildCorrigeHTML() {
     }
     return html;
 }
+
 function showFinalResult() {
     if (quizSubmitted) return;
     if (countAnswered() < TOTAL_QS) { alert(`Répondez à toutes les questions (${countAnswered()}/${TOTAL_QS})`); return; }
@@ -540,6 +639,7 @@ function showFinalResult() {
     document.getElementById('finalSubmitBtn').disabled = true;
     typesetElement(cd);
 }
+
 function toggleCorrige() {
     const cd = document.getElementById('corrigeDetails'), btn = document.getElementById('showCorrigeBtn');
     const hidden = cd.style.display === 'none' || cd.style.display === '';
@@ -547,6 +647,7 @@ function toggleCorrige() {
     btn.textContent  = hidden ? '🙈 Masquer le corrigé' : '📖 Afficher le corrigé';
     if (hidden) typesetElement(cd);
 }
+
 function restartQuiz() {
     QUIZ = shuffleArray(buildShuffledQuestions());
     userAnswers = new Array(TOTAL_QS).fill(null);
@@ -560,63 +661,35 @@ function restartQuiz() {
     document.getElementById('finalSubmitBtn').disabled = false;
     renderCurrentQuestion();
 }
+
 // ════════════════════════════════════════════════
-//  TÉLÉCHARGEMENT PDF DU CORRIGÉ
+//  TÉLÉCHARGEMENT PDF
 // ════════════════════════════════════════════════
 async function telechargerPDF() {
     const btn = document.getElementById('btnPdf');
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner" style="border-top-color:#fff"></span> Génération…';
 
-    // Construire le contenu HTML du corrigé pour le PDF
-    const score    = computeScore();
-    const pct      = Math.round(score / TOTAL_QS * 100);
-    const dateStr  = new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
-    const letters  = ['A','B','C','D'];
+    const score   = computeScore();
+    const pct     = Math.round(score / TOTAL_QS * 100);
+    const dateStr = new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
+    const letters = ['A','B','C','D'];
 
-    // Couleurs matières
-    const COLORS = {
-        math:'#1d4ed8', physique:'#9d174d', chimie:'#065f46',
-        svt:'#3f6212', philo:'#5b21b6', histoire:'#9a3412',
-        francais:'#075985', droit:'#854d0e'
-    };
-    const BG = {
-        math:'#dbeafe', physique:'#fce7f3', chimie:'#d1fae5',
-        svt:'#ecfccb', philo:'#ede9fe', histoire:'#ffedd5',
-        francais:'#e0f2fe', droit:'#fef9c3'
-    };
+    const COLORS = { math:'#1d4ed8', physique:'#9d174d', chimie:'#065f46', svt:'#3f6212', philo:'#5b21b6', histoire:'#9a3412', francais:'#075985', droit:'#854d0e' };
+    const BG     = { math:'#dbeafe', physique:'#fce7f3', chimie:'#d1fae5', svt:'#ecfccb', philo:'#ede9fe', histoire:'#ffedd5', francais:'#e0f2fe', droit:'#fef9c3' };
 
-    // Convertir LaTeX \(...\) en texte lisible pour le PDF
     function latexToText(str) {
-        return str
-            .replace(/\\\(|\\\)/g, '')
-            .replace(/\\\[|\\\]/g, '')
-            .replace(/\\displaystyle/g, '')
-            .replace(/\\dfrac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')
-            .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '($1)/($2)')
-            .replace(/\\lim_\{([^}]+)\}/g, 'lim($1)')
-            .replace(/\\int_\{([^}]+)\}\^\{([^}]+)\}/g, '∫[$1→$2]')
-            .replace(/\\int/g, '∫')
-            .replace(/\\ln/g, 'ln')
-            .replace(/\\sin/g, 'sin')
-            .replace(/\\cos/g, 'cos')
-            .replace(/\\tan/g, 'tan')
-            .replace(/\\sqrt\{([^}]+)\}/g, '√($1)')
-            .replace(/\\infty/g, '∞')
-            .replace(/\\to/g, '→')
-            .replace(/\\pi/g, 'π')
-            .replace(/\\mathbb\{R\}/g, 'ℝ')
-            .replace(/\\vec\{([^}]+)\}/g, '$1⃗')
-            .replace(/\^2/g, '²').replace(/\^3/g, '³')
-            .replace(/\\_\{([^}]+)\}/g, '_$1')
-            .replace(/\{|\}/g, '')
-            .replace(/\s+/g, ' ')
-            .trim();
+        return str.replace(/\\\(|\\\)/g,'').replace(/\\\[|\\\]/g,'')
+            .replace(/\\displaystyle/g,'').replace(/\\dfrac\{([^}]+)\}\{([^}]+)\}/g,'($1)/($2)')
+            .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g,'($1)/($2)').replace(/\\lim_\{([^}]+)\}/g,'lim($1)')
+            .replace(/\\int_\{([^}]+)\}\^\{([^}]+)\}/g,'∫[$1→$2]').replace(/\\int/g,'∫')
+            .replace(/\\ln/g,'ln').replace(/\\sin/g,'sin').replace(/\\cos/g,'cos').replace(/\\tan/g,'tan')
+            .replace(/\\sqrt\{([^}]+)\}/g,'√($1)').replace(/\\infty/g,'∞').replace(/\\to/g,'→')
+            .replace(/\\pi/g,'π').replace(/\\mathbb\{R\}/g,'ℝ').replace(/\\vec\{([^}]+)\}/g,'$1⃗')
+            .replace(/\^2/g,'²').replace(/\^3/g,'³').replace(/\{|\}/g,'').replace(/\s+/g,' ').trim();
     }
 
-    // Créer une div cachée propre pour le rendu PDF
     const wrap = document.createElement('div');
-    wrap.id = 'pdfWrap';
     wrap.style.cssText = 'position:fixed;left:-9999px;top:0;width:794px;background:#fff;padding:40px;font-family:Segoe UI,sans-serif;font-size:13px;color:#1a2c3e;z-index:-1';
 
     let rows = '';
@@ -628,33 +701,21 @@ async function telechargerPDF() {
         const label   = BADGE_CONFIG[q.subject]?.label || q.subject;
         const color   = COLORS[q.subject] || '#333';
         const bg      = BG[q.subject]    || '#eee';
-
-        // Détail des choix
         let choicesHTML = '<div style="margin:4px 0 2px;display:flex;flex-wrap:wrap;gap:4px;">';
         q.answers.forEach((ans, idx) => {
-            const isCorrect = idx === q.correct;
-            const isChosen  = idx === userAnswers[i];
-            const ansText   = latexToText(ans);
-            let style = `display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;border:1.5px solid #ddd;background:#f8f9fa;color:#555;`;
-            if (isCorrect) style = `display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;border:1.5px solid #2b7a3e;background:#d1fae5;color:#065f46;font-weight:700;`;
-            else if (isChosen && !isCorrect) style = `display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;border:1.5px solid #e53e3e;background:#fff0f0;color:#c0392b;text-decoration:line-through;`;
+            const isCorrect = idx === q.correct, isChosen = idx === userAnswers[i];
+            const ansText = latexToText(ans);
+            let style = 'display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;border:1.5px solid #ddd;background:#f8f9fa;color:#555;';
+            if (isCorrect) style = 'display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;border:1.5px solid #2b7a3e;background:#d1fae5;color:#065f46;font-weight:700;';
+            else if (isChosen && !isCorrect) style = 'display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;border:1.5px solid #e53e3e;background:#fff0f0;color:#c0392b;text-decoration:line-through;';
             choicesHTML += `<span style="${style}">${letters[idx]}. ${ansText}</span>`;
         });
         choicesHTML += '</div>';
-
-        rows += `
-        <div style="margin-bottom:14px;padding:12px 14px;border-radius:10px;border-left:4px solid ${color};background:${ok?'#f0fff4':'#fff8f8'};page-break-inside:avoid;">
-            <div style="margin-bottom:6px;">
-                <span style="background:${bg};color:${color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase;letter-spacing:.5px;">${label}</span>
-                <span style="margin-left:8px;font-size:11px;color:#888;">Q.${i+1}</span>
-                <span style="float:right;font-size:16px;">${ok ? '✅' : '❌'}</span>
-            </div>
+        rows += `<div style="margin-bottom:14px;padding:12px 14px;border-radius:10px;border-left:4px solid ${color};background:${ok?'#f0fff4':'#fff8f8'};page-break-inside:avoid;">
+            <div style="margin-bottom:6px;"><span style="background:${bg};color:${color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase;">${label}</span><span style="margin-left:8px;font-size:11px;color:#888;">Q.${i+1}</span><span style="float:right;font-size:16px;">${ok?'✅':'❌'}</span></div>
             <div style="font-weight:600;margin-bottom:6px;font-size:12.5px;line-height:1.4;">${qText}</div>
             ${choicesHTML}
-            <div style="margin-top:6px;font-size:11px;">
-                <span style="color:#2b7a3e;font-weight:700;">📌 Bonne réponse : ${correct}</span>
-                ${!ok ? `<span style="color:#c0392b;margin-left:10px;">Votre réponse : ${given}</span>` : ''}
-            </div>
+            <div style="margin-top:6px;font-size:11px;"><span style="color:#2b7a3e;font-weight:700;">📌 ${correct}</span>${!ok?`<span style="color:#c0392b;margin-left:10px;">Votre réponse : ${given}</span>`:''}</div>
         </div>`;
     });
 
@@ -667,49 +728,25 @@ async function telechargerPDF() {
         <div style="text-align:center;background:linear-gradient(135deg,#eef6e9,#d1fae5);border-radius:12px;padding:16px;margin-bottom:24px;">
             <div style="font-size:32px;font-weight:900;color:#1f5e3a;">${score} / ${TOTAL_QS}</div>
             <div style="font-size:14px;color:#2b7a3e;font-weight:600;">${pct}% de réussite</div>
-            <div style="font-size:13px;color:#4b6a7f;margin-top:4px;">${
-                pct>=80 ? '🏅 Excellent ! Profil admis au concours !'
-                : pct>=60 ? '👍 Très bien ! Continuez à vous entraîner.'
-                : pct>=40 ? '📚 Bonne base. Encore des efforts !'
-                : '💪 Ne lâchez pas ! Entraînez-vous chaque jour !'
-            }</div>
+            <div style="font-size:13px;color:#4b6a7f;margin-top:4px;">${pct>=80?'🏅 Excellent !':pct>=60?'👍 Très bien !':pct>=40?'📚 Bonne base !':'💪 Continuez !'}</div>
         </div>
         <div style="margin-bottom:16px;font-size:14px;font-weight:700;color:#0b2b3b;">Détail des réponses :</div>
         ${rows}
         <div style="margin-top:24px;text-align:center;font-size:11px;color:#888;border-top:1px solid #eee;padding-top:10px;">
-            Faso Concours — Application de préparation aux concours du Burkina Faso<br>
-            play.google.com/store/apps/details?id=com.fasoapp.app
+            Faso Concours — play.google.com/store/apps/details?id=com.fasoapp.app
         </div>`;
 
     document.body.appendChild(wrap);
-
     try {
         const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({ unit:'px', format:'a4', hotfixes:['px_scaling'] });
-        const pageW = pdf.internal.pageSize.getWidth();
-        const pageH = pdf.internal.pageSize.getHeight();
-
-        const canvas = await html2canvas(wrap, {
-            scale: 2,
-            useCORS: true,
-            allowTaint: true,
-            backgroundColor: '#ffffff',
-            width: 794,
-            windowWidth: 794
-        });
-
+        const pdf    = new jsPDF({ unit:'px', format:'a4', hotfixes:['px_scaling'] });
+        const pageW  = pdf.internal.pageSize.getWidth();
+        const pageH  = pdf.internal.pageSize.getHeight();
+        const canvas = await html2canvas(wrap, { scale:2, useCORS:true, backgroundColor:'#ffffff', width:794, windowWidth:794 });
         const imgData = canvas.toDataURL('image/jpeg', 0.92);
-        const imgW    = pageW;
-        const imgH    = (canvas.height * pageW) / canvas.width;
+        const imgW = pageW, imgH = (canvas.height * pageW) / canvas.width;
         let y = 0;
-
-        // Paginer si le contenu dépasse une page
-        while (y < imgH) {
-            if (y > 0) pdf.addPage();
-            pdf.addImage(imgData, 'JPEG', 0, -y, imgW, imgH);
-            y += pageH;
-        }
-
+        while (y < imgH) { if (y > 0) pdf.addPage(); pdf.addImage(imgData,'JPEG',0,-y,imgW,imgH); y += pageH; }
         pdf.save(`Faso_Concours_Corrige_${score}_sur_${TOTAL_QS}.pdf`);
     } catch (err) {
         console.error('PDF error:', err);
@@ -721,8 +758,13 @@ async function telechargerPDF() {
     }
 }
 
+// ════════════════════════════════════════════════
+//  DÉMARRAGE
+// ════════════════════════════════════════════════
 if (window.MathJax && window.MathJax.startup) {
-    window.MathJax.startup.promise.then(() => { /* prêt */ });
+    window.MathJax.startup.promise.then(() => initQuiz());
+} else {
+    window.addEventListener('load', initQuiz);
 }
 </script>
 </body>
