@@ -87,14 +87,6 @@
         .progress-area{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;margin-bottom:1.5rem;border-bottom:2px solid #e9edf2;padding-bottom:.8rem}
         .question-counter{font-weight:600;background:#eef2fa;padding:.3rem 1rem;border-radius:30px;font-size:.85rem;color:#1f6392}
         .score-preview{font-size:.85rem;background:#f0f4f9;padding:.3rem 1rem;border-radius:30px;font-weight:500}
-        .subject-badge{display:inline-block;font-size:.7rem;font-weight:700;padding:.2rem .7rem;border-radius:20px;margin-bottom:.6rem;letter-spacing:.5px;text-transform:uppercase}
-        .badge-math{background:#dbeafe;color:#1d4ed8}.badge-physique{background:#fce7f3;color:#9d174d}
-        .badge-chimie{background:#d1fae5;color:#065f46}.badge-svt{background:#ecfccb;color:#3f6212}
-        .badge-philo{background:#ede9fe;color:#5b21b6}.badge-histoire{background:#ffedd5;color:#9a3412}
-        .badge-francais{background:#e0f2fe;color:#075985}.badge-droit{background:#fef9c3;color:#854d0e}
-        .badge-geo{background:#fce7f3;color:#7c3aed}.badge-eco{background:#d1fae5;color:#065f46}
-        .badge-info{background:#e0f2fe;color:#075985}.badge-anglais{background:#ffedd5;color:#9a3412}
-        .badge-gestion{background:#ede9fe;color:#5b21b6}.badge-stats{background:#dbeafe;color:#1d4ed8}
         .question-text{font-size:1.2rem;font-weight:600;line-height:1.5;margin-bottom:1.5rem;color:#0f2f40}
         .answers-list{display:flex;flex-direction:column;gap:.8rem;margin-bottom:1.5rem}
         .answer-option{background:#f8fafd;border:2px solid #e2e8f0;border-radius:1.2rem;padding:.8rem 1.2rem;display:flex;align-items:center;cursor:pointer;transition:all .2s ease;font-size:.95rem;font-weight:500}
@@ -124,17 +116,16 @@
         .btn-pdf{background:linear-gradient(135deg,#e53e3e,#c0392b);color:white;margin-top:.6rem;border:none;padding:.7rem 1.5rem;border-radius:60px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit;box-shadow:0 4px 12px rgba(192,57,43,.35);transition:all .2s}
         .btn-pdf:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(192,57,43,.45)}
         .btn-pdf:disabled{opacity:.6;cursor:not-allowed;transform:none}
-        .level-indicator{display:inline-flex;align-items:center;gap:.5rem;background:#1a2c3e;color:white;padding:.3rem .9rem;border-radius:20px;font-size:.78rem;font-weight:700;margin-bottom:.5rem;}
+        .level-indicator{display:inline-flex;align-items:center;gap:.5rem;padding:.3rem .9rem;border-radius:20px;font-size:.78rem;font-weight:700;margin-bottom:.8rem;}
 
         /* ── LEVEL SWITCHER BAR ── */
         .level-switcher{background:white;border-radius:1.5rem;box-shadow:0 8px 24px -6px rgba(0,0,0,.15);padding:.7rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
         .level-switcher-label{font-size:.78rem;font-weight:700;color:#4b6a7f;white-space:nowrap;margin-right:.3rem;}
         .level-switch-btn{flex:1;min-width:80px;border:2.5px solid #e2e8f0;background:#f8fafd;border-radius:1rem;padding:.55rem .8rem;cursor:pointer;font-family:inherit;font-size:.82rem;font-weight:700;color:#4b6a7f;transition:all .2s ease;display:flex;align-items:center;justify-content:center;gap:.4rem;white-space:nowrap;}
         .level-switch-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.12);}
-        .level-switch-btn.active-bepc{border-color:#10b981;background:linear-gradient(135deg,#d1fae5,#a7f3d0);color:#065f46;box-shadow:0 4px 14px rgba(16,185,129,.25);}
-        .level-switch-btn.active-bac{border-color:#3b82f6;background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1d4ed8;box-shadow:0 4px 14px rgba(59,130,246,.25);}
-        .level-switch-btn.active-licence{border-color:#8b5cf6;background:linear-gradient(135deg,#ede9fe,#ddd6fe);color:#5b21b6;box-shadow:0 4px 14px rgba(139,92,246,.25);}
-        .level-switch-btn.active-bepc,.level-switch-btn.active-bac,.level-switch-btn.active-licence{transform:translateY(-2px);}
+        .level-switch-btn.active-bepc{border-color:#10b981;background:linear-gradient(135deg,#d1fae5,#a7f3d0);color:#065f46;box-shadow:0 4px 14px rgba(16,185,129,.25);transform:translateY(-2px);}
+        .level-switch-btn.active-bac{border-color:#3b82f6;background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1d4ed8;box-shadow:0 4px 14px rgba(59,130,246,.25);transform:translateY(-2px);}
+        .level-switch-btn.active-licence{border-color:#8b5cf6;background:linear-gradient(135deg,#ede9fe,#ddd6fe);color:#5b21b6;box-shadow:0 4px 14px rgba(139,92,246,.25);transform:translateY(-2px);}
 
         /* ── CONFIRM MODAL ── */
         #confirmOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,20,35,.7);z-index:400;backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);align-items:center;justify-content:center;padding:1rem;}
@@ -147,6 +138,7 @@
         .btn-confirm-yes:hover{background:linear-gradient(135deg,#6d28d9,#5b21b6);}
         .btn-confirm-no{background:#eef2f7;color:#334e68;border:none;padding:.7rem 1.4rem;border-radius:50px;font-weight:700;font-size:.9rem;cursor:pointer;font-family:inherit;flex:1;}
         .btn-confirm-no:hover{background:#dde4ef;}
+
         footer{margin-top:1.5rem;text-align:center;font-size:.75rem;color:#4b6a7f;background:rgba(255,255,255,.8);padding:.8rem;border-radius:1.5rem}
         .footer-download{display:inline-flex;align-items:center;gap:8px;background:#1f5e3a;color:white;padding:8px 16px;border-radius:50px;text-decoration:none;font-weight:500;margin-top:8px}
         .footer-download img{width:22px;height:22px;border-radius:5px}
@@ -172,7 +164,7 @@
                     <strong>BEPC</strong>
                     <span>Brevet d'Études du Premier Cycle — Classe de 3ème</span>
                 </div>
-                <span class="level-badge-pill">50 questions</span>
+                <span class="level-badge-pill">48 questions</span>
             </div>
             <div class="level-card bac" onclick="choisirNiveau('BAC')">
                 <div class="level-icon">📘</div>
@@ -188,8 +180,21 @@
                     <strong>Licence</strong>
                     <span>Enseignement supérieur — L1 / L2 / L3</span>
                 </div>
-                <span class="level-badge-pill">55 questions</span>
+                <span class="level-badge-pill">53 questions</span>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════ CONFIRM LEVEL CHANGE ══════════════ -->
+<div id="confirmOverlay">
+    <div class="confirm-modal">
+        <div style="font-size:2rem;margin-bottom:.5rem">⚠️</div>
+        <h3>Changer de niveau ?</h3>
+        <p id="confirmMsg">Changer de niveau réinitialisera le quiz en cours.</p>
+        <div class="confirm-btns">
+            <button class="btn-confirm-no" onclick="annulerChangement()">❌ Annuler</button>
+            <button class="btn-confirm-yes" onclick="confirmerChangement()">✅ Confirmer</button>
         </div>
     </div>
 </div>
@@ -235,19 +240,6 @@
     </div>
 </div>
 
-<!-- ══════════════ CONFIRM LEVEL CHANGE ══════════════ -->
-<div id="confirmOverlay">
-    <div class="confirm-modal">
-        <div style="font-size:2rem;margin-bottom:.5rem">⚠️</div>
-        <h3>Changer de niveau ?</h3>
-        <p id="confirmMsg">Vous avez déjà répondu à des questions. Changer de niveau réinitialisera le quiz en cours.</p>
-        <div class="confirm-btns">
-            <button class="btn-confirm-no" onclick="annulerChangement()">❌ Annuler</button>
-            <button class="btn-confirm-yes" onclick="confirmerChangement()">✅ Confirmer</button>
-        </div>
-    </div>
-</div>
-
 <div class="top-banner">
     <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank">
         <img src="icon.png" alt="Faso Concours" onerror="this.style.display='none'">
@@ -256,18 +248,19 @@
 </div>
 
 <div class="container">
+
     <!-- ── LEVEL SWITCHER BAR ── -->
     <div class="level-switcher" id="levelSwitcherBar" style="display:none;">
         <span class="level-switcher-label">🎓 Niveau :</span>
-        <button class="level-switch-btn" id="switchBEPC" onclick="demanderChangementNiveau('BEPC')">📗 BEPC</button>
-        <button class="level-switch-btn" id="switchBAC"  onclick="demanderChangementNiveau('BAC')">📘 BAC</button>
+        <button class="level-switch-btn" id="switchBEPC"    onclick="demanderChangementNiveau('BEPC')">📗 BEPC</button>
+        <button class="level-switch-btn" id="switchBAC"     onclick="demanderChangementNiveau('BAC')">📘 BAC</button>
         <button class="level-switch-btn" id="switchLICENCE" onclick="demanderChangementNiveau('LICENCE')">📙 Licence</button>
     </div>
 
     <div class="hero">
         <img src="icon.png" alt="Faso Concours" class="hero-logo" onerror="this.style.display='none'">
         <h1 id="heroTitle">📋 Concours blanc 2026</h1>
-        <p id="heroSub">Maths · Physique · Chimie · SVT · Philo · Histoire · Français · Droit</p>
+        <p id="heroSub">Toutes matières confondues</p>
         <a href="https://play.google.com/store/apps/details?id=com.fasoapp.app" target="_blank" class="btn-download-large">
             <img src="icon.png" alt="" onerror="this.style.display='none'">
             📱 Télécharger Faso Concours
@@ -289,7 +282,6 @@
             <span class="score-preview" id="liveScore">✅ 0 / … répondues</span>
         </div>
         <div id="levelIndicatorArea"></div>
-        <div id="subjectBadge"></div>
         <div class="question-text" id="questionText">Chargement…</div>
         <div class="answers-list" id="answersContainer"></div>
         <div class="nav-buttons">
@@ -344,8 +336,9 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const EDGE_FUNCTION     = `${SUPABASE_URL}/functions/v1/create-payment`;
 const MONTANT           = 100;
 const USSD_CODE         = `*144*4*6*${MONTANT}#`;
-let paiementValide = false;
-let niveauChoisi = null;
+let paiementValide  = false;
+let niveauChoisi    = null;
+let niveauEnAttente = null;
 
 // ════════════ VISITOR COUNTER ════════════
 async function incrementerVisiteurs() {
@@ -366,17 +359,14 @@ async function incrementerVisiteurs() {
 }
 incrementerVisiteurs();
 
-// ════════════ LEVEL SELECTOR ════════════
+// ════════════ LEVEL CONFIG ════════════
 const LEVEL_CONFIG = {
-    BEPC:    { label:'📗 BEPC',    emoji:'📗', color:'#10b981', totalLabel:'50 questions', subjects:'Maths · Français · Histoire-Géo · Sciences · Anglais · Instruction Civique' },
-    BAC:     { label:'📘 BAC',     emoji:'📘', color:'#3b82f6', totalLabel:'62 questions', subjects:'Maths · Physique · Chimie · SVT · Philo · Histoire · Français · Droit' },
-    LICENCE: { label:'📙 Licence', emoji:'📙', color:'#8b5cf6', totalLabel:'55 questions', subjects:'Économie · Droit · Gestion · Informatique · Stats · Anglais académique' },
+    BEPC:    { label:'📗 BEPC',    emoji:'📗', color:'#10b981', totalLabel:'48 questions' },
+    BAC:     { label:'📘 BAC',     emoji:'📘', color:'#3b82f6', totalLabel:'62 questions' },
+    LICENCE: { label:'📙 Licence', emoji:'📙', color:'#8b5cf6', totalLabel:'53 questions' },
 };
 
-let niveauEnAttente = null; // niveau demandé mais pas encore confirmé
-
 function choisirNiveau(niveau) {
-    niveauChoisi = niveau;
     document.getElementById('levelOverlay').style.display = 'none';
     document.body.style.overflow = '';
     appliquerNiveau(niveau);
@@ -386,37 +376,33 @@ function appliquerNiveau(niveau) {
     niveauChoisi = niveau;
     const cfg = LEVEL_CONFIG[niveau];
     document.getElementById('heroTitle').textContent = `📋 QCM_${niveau} — Concours blanc 2026`;
-    document.getElementById('heroSub').textContent = cfg.subjects;
+    document.getElementById('heroSub').textContent = cfg.totalLabel + ' — toutes matières confondues';
     document.getElementById('paywallSubtitle').textContent = `Un seul paiement pour continuer le QCM ${niveau}`;
     document.getElementById('paywallFeatures').innerHTML = `
-        <li>${cfg.totalLabel} tous niveaux adaptés au ${niveau}</li>
+        <li>${cfg.totalLabel} adaptées au niveau ${niveau}</li>
         <li>Corrigé complet téléchargeable en PDF</li>
         <li>Score et analyse de vos résultats</li>`;
     paiementValide = false;
-    // Show & update the switcher bar
     const bar = document.getElementById('levelSwitcherBar');
     bar.style.display = 'flex';
     ['BEPC','BAC','LICENCE'].forEach(n => {
-        const btn = document.getElementById('switch' + n);
-        btn.className = 'level-switch-btn' + (n === niveau ? ` active-${n.toLowerCase()}` : '');
+        document.getElementById('switch' + n).className =
+            'level-switch-btn' + (n === niveau ? ` active-${n.toLowerCase()}` : '');
     });
     startQuizForLevel(niveau);
 }
 
-// Called when user clicks a switcher button
 function demanderChangementNiveau(niveau) {
-    if (niveau === niveauChoisi) return; // déjà sur ce niveau
+    if (niveau === niveauChoisi) return;
     niveauEnAttente = niveau;
     const answered = countAnswered();
     if (answered > 0 && !quizSubmitted) {
-        // Show confirmation
         const cfg = LEVEL_CONFIG[niveau];
         document.getElementById('confirmMsg').textContent =
-            `Vous avez déjà répondu à ${answered} question(s). Passer en mode ${cfg.label} réinitialisera le quiz en cours. Continuer ?`;
+            `Vous avez répondu à ${answered} question(s). Passer au niveau ${cfg.label} réinitialisera le quiz. Continuer ?`;
         document.getElementById('confirmOverlay').classList.add('show');
         document.body.style.overflow = 'hidden';
     } else {
-        // Switch directly — no progress to lose
         appliquerNiveau(niveau);
     }
 }
@@ -424,18 +410,13 @@ function demanderChangementNiveau(niveau) {
 function confirmerChangement() {
     document.getElementById('confirmOverlay').classList.remove('show');
     document.body.style.overflow = '';
-    if (niveauEnAttente) {
-        appliquerNiveau(niveauEnAttente);
-        niveauEnAttente = null;
-    }
+    if (niveauEnAttente) { appliquerNiveau(niveauEnAttente); niveauEnAttente = null; }
 }
-
 function annulerChangement() {
     document.getElementById('confirmOverlay').classList.remove('show');
     document.body.style.overflow = '';
     niveauEnAttente = null;
 }
-
 function ouvrirLevelSelector() {
     document.getElementById('levelOverlay').style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -449,35 +430,25 @@ function formatPhone(input) {
     raw = raw.slice(0, 11);
     input.value = '+226 ' + raw.slice(3);
 }
-function showPayError(msg) {
-    const el = document.getElementById('payErrorMsg');
-    el.textContent = '❌ ' + msg; el.style.display = 'block';
-    document.getElementById('paySuccessMsg').style.display = 'none';
-}
-function showPaySuccess(msg) {
-    const el = document.getElementById('paySuccessMsg');
-    el.textContent = '✅ ' + msg; el.style.display = 'block';
-    document.getElementById('payErrorMsg').style.display = 'none';
-}
-function composerUSSD() { window.location.href = 'tel:' + USSD_CODE.replace(/#/g, '%23'); }
+function showPayError(msg)   { const e=document.getElementById('payErrorMsg');   e.textContent='❌ '+msg; e.style.display='block';  document.getElementById('paySuccessMsg').style.display='none'; }
+function showPaySuccess(msg) { const e=document.getElementById('paySuccessMsg'); e.textContent='✅ '+msg; e.style.display='block';  document.getElementById('payErrorMsg').style.display='none'; }
+function composerUSSD()   { window.location.href = 'tel:' + USSD_CODE.replace(/#/g, '%23'); }
 function getPhoneNumber() { return document.getElementById('phoneInput').value.replace(/\+226\s?/, '').replace(/\s/g, ''); }
-function ouvrirPaywall() { document.getElementById('paywallOverlay').classList.add('show'); document.body.style.overflow = 'hidden'; }
-function fermerPaywall() { document.getElementById('paywallOverlay').classList.remove('show'); document.body.style.overflow = ''; }
+function ouvrirPaywall()  { document.getElementById('paywallOverlay').classList.add('show');    document.body.style.overflow='hidden'; }
+function fermerPaywall()  { document.getElementById('paywallOverlay').classList.remove('show'); document.body.style.overflow=''; }
 
 async function lancerPaiement() {
-    const phone = getPhoneNumber();
-    const otp   = document.getElementById('otpInput').value.trim();
+    const phone = getPhoneNumber(), otp = document.getElementById('otpInput').value.trim();
     if (!/^\d{8}$/.test(phone)) { showPayError('Numéro invalide. Entrez +226 suivi de 8 chiffres.'); return; }
     if (!/^\d{6}$/.test(otp))   { showPayError('Code OTP invalide. Il doit contenir exactement 6 chiffres.'); return; }
     const btn = document.getElementById('btnPay');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>Traitement en cours…';
+    btn.disabled = true; btn.innerHTML = '<span class="spinner"></span>Traitement en cours…';
     document.getElementById('payErrorMsg').style.display = 'none';
     document.getElementById('paySuccessMsg').style.display = 'none';
     const orderId = 'QCM_' + Date.now() + '_' + Math.floor(Math.random() * 9999);
     try {
         const res  = await fetch(EDGE_FUNCTION, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            method:'POST', headers:{'Content-Type':'application/json'},
             body: JSON.stringify({ operator:'ORANGE', phone, amount:MONTANT, orderId, description:`Accès QCM Faso Concours ${niveauChoisi}`, senderCountry:'BFA', otp }),
         });
         const data = await res.json();
@@ -496,230 +467,217 @@ async function lancerPaiement() {
     }
 }
 
-// ════════════════════════════════════════════════
-//  QUESTIONS — BEPC (50 questions)
-// ════════════════════════════════════════════════
+// ════════════════════════════════════════════════════════════
+//  QUESTIONS — BEPC (48 questions)
+//  Maths : domaine de définition + calcul d'images inclus
+//  Anglais : 2 questions seulement
+// ════════════════════════════════════════════════════════════
 const rawQuestions_BEPC = [
-    // MATHÉMATIQUES — 10
-    {subject:"math", q:"Calculer : \\(12 + 8 \\times 3 - 4\\)", correct:"\\(32\\)", distractors:["\\(56\\)","\\(28\\)","\\(40\\)"]},
-    {subject:"math", q:"Quel est le PGCD de 24 et 36 ?", correct:"12", distractors:["6","9","3"]},
-    {subject:"math", q:"Simplifier la fraction : \\(\\dfrac{18}{24}\\)", correct:"\\(\\dfrac{3}{4}\\)", distractors:["\\(\\dfrac{2}{3}\\)","\\(\\dfrac{3}{5}\\)","\\(\\dfrac{4}{5}\\)"]},
-    {subject:"math", q:"La valeur de \\(x\\) dans \\(3x + 7 = 22\\) est :", correct:"\\(x = 5\\)", distractors:["\\(x = 3\\)","\\(x = 6\\)","\\(x = 4\\)"]},
-    {subject:"math", q:"Un triangle rectangle a des côtés de 3 cm et 4 cm. L'hypoténuse mesure :", correct:"5 cm", distractors:["6 cm","7 cm","4,5 cm"]},
-    {subject:"math", q:"Calculer : \\((-3)^2 + (-2)^3\\)", correct:"\\(1\\)", distractors:["\\(-1\\)","\\(17\\)","\\(-17\\)"]},
-    {subject:"math", q:"Quel est le périmètre d'un cercle de rayon 7 cm ? (\\(\\pi \\approx 3{,}14\\))", correct:"43,96 cm", distractors:["21,98 cm","153,86 cm","44 cm"]},
-    {subject:"math", q:"Si \\(y = 2x^2 - 3\\), quelle est la valeur de \\(y\\) pour \\(x = 2\\) ?", correct:"\\(5\\)", distractors:["\\(1\\)","\\(11\\)","\\(9\\)"]},
-    {subject:"math", q:"Résoudre : \\(\\dfrac{x}{4} = 6\\)", correct:"\\(x = 24\\)", distractors:["\\(x = 10\\)","\\(x = 12\\)","\\(x = 2\\)"]},
-    {subject:"math", q:"L'aire d'un rectangle de longueur 8 m et de largeur 5 m est :", correct:"40 m²", distractors:["26 m²","13 m²","80 m²"]},
-    // FRANÇAIS — 10
-    {subject:"francais", q:"Quel est le pluriel de 'œil' ?", correct:"Yeux", distractors:["Œils","Œils ou yeux","Œillères"]},
-    {subject:"francais", q:"Dans la phrase 'Le chat mange la souris', quel est le COD ?", correct:"La souris", distractors:["Le chat","Mange","La"]},
-    {subject:"francais", q:"Choisir le bon accord : 'Les fleurs que j'ai _____ sont belles.'", correct:"cueillies", distractors:["cueilli","cueillis","cueillies ou cueillis"]},
-    {subject:"francais", q:"Quel mot est un adverbe dans 'Il parle très rapidement' ?", correct:"Très", distractors:["Il","Parle","Rapidement"]},
-    {subject:"francais", q:"Quelle figure de style est utilisée dans 'Ses yeux sont des étoiles' ?", correct:"Métaphore", distractors:["Comparaison","Hyperbole","Antithèse"]},
-    {subject:"francais", q:"Le synonyme de 'courageux' est :", correct:"Brave", distractors:["Lâche","Timide","Prudent"]},
-    {subject:"francais", q:"Le contraire de 'bénéfique' est :", correct:"Nuisible", distractors:["Utile","Profitable","Favorable"]},
-    {subject:"francais", q:"Quel type de phrase est 'Ferme cette porte !' ?", correct:"Impérative", distractors:["Interrogative","Exclamative","Déclarative"]},
-    {subject:"francais", q:"Le radical du verbe 'finir' au présent est :", correct:"fin-", distractors:["finir-","fini-","fin ou finiss-"]},
-    {subject:"francais", q:"'Nonobstant' est un mot de liaison qui signifie :", correct:"Malgré, en dépit de", distractors:["Donc, par conséquent","Parce que","De même que"]},
-    // HISTOIRE-GÉOGRAPHIE — 10
-    {subject:"histoire", q:"La capitale du Burkina Faso est :", correct:"Ouagadougou", distractors:["Bobo-Dioulasso","Koudougou","Banfora"]},
-    {subject:"histoire", q:"Le fleuve qui traverse Ouagadougou est :", correct:"Le Nakambé (Volta Blanche)", distractors:["Le Niger","Le Mouhoun","Le Nazinon"]},
-    {subject:"histoire", q:"La colonisation française au Burkina Faso a débuté vers :", correct:"1896", distractors:["1850","1920","1885"]},
-    {subject:"histoire", q:"La Haute-Volta a obtenu son indépendance en :", correct:"1960", distractors:["1958","1962","1945"]},
-    {subject:"histoire", q:"Le continent africain est bordé à l'ouest par :", correct:"L'océan Atlantique", distractors:["L'océan Pacifique","L'océan Indien","La mer Méditerranée"]},
-    {subject:"histoire", q:"L'ONU a été créée en :", correct:"1945", distractors:["1948","1920","1956"]},
-    {subject:"histoire", q:"La Révolution française a eu lieu en :", correct:"1789", distractors:["1815","1748","1804"]},
-    {subject:"histoire", q:"La traite négrière désigne :", correct:"La déportation et vente d'Africains comme esclaves", distractors:["Le commerce entre pays africains","La migration volontaire vers l'Europe","L'échange de produits agricoles"]},
-    {subject:"histoire", q:"Quel pays a colonisé le Burkina Faso ?", correct:"La France", distractors:["La Grande-Bretagne","L'Allemagne","La Belgique"]},
-    {subject:"histoire", q:"La désertification est causée principalement par :", correct:"La déforestation et les changements climatiques", distractors:["L'augmentation des pluies","L'urbanisation contrôlée","La reforestation intensive"]},
-    // SCIENCES NATURELLES — 10
-    {subject:"svt", q:"La photosynthèse se réalise dans :", correct:"Les chloroplastes des cellules végétales", distractors:["Les mitochondries","Le noyau cellulaire","Les vacuoles"]},
-    {subject:"svt", q:"Quel organe filtre le sang chez l'être humain ?", correct:"Les reins", distractors:["Le foie","Les poumons","Le cœur"]},
-    {subject:"svt", q:"Les plantes fabriquent leur nourriture grâce à :", correct:"La photosynthèse", distractors:["La respiration","La transpiration","La digestion"]},
-    {subject:"svt", q:"Le groupe sanguin le plus répandu en Afrique est :", correct:"O", distractors:["A","B","AB"]},
-    {subject:"svt", q:"Combien de dents a un adulte (dents de sagesse comprises) ?", correct:"32", distractors:["28","30","24"]},
-    {subject:"svt", q:"La vaccination sert à :", correct:"Protéger l'organisme contre des maladies infectieuses", distractors:["Guérir une maladie déjà installée","Nourrir l'organisme","Nettoyer le sang"]},
-    {subject:"svt", q:"Quelle maladie est transmise par le moustique anophèle ?", correct:"Le paludisme", distractors:["La tuberculose","Le choléra","La rougeole"]},
-    {subject:"svt", q:"Le cœur humain possède :", correct:"4 cavités (2 oreillettes et 2 ventricules)", distractors:["2 cavités","3 cavités","6 cavités"]},
-    {subject:"svt", q:"Le squelette humain est composé d'environ :", correct:"206 os", distractors:["150 os","300 os","100 os"]},
-    {subject:"svt", q:"L'eau est indispensable à la vie car elle :", correct:"Constitue le principal composant des cellules et intervient dans les réactions chimiques", distractors:["Produit de l'énergie directement","Remplace les minéraux alimentaires","Fabrique les hormones"]},
-    // ANGLAIS — 5
-    {subject:"anglais", q:"Choose the correct form: 'She ___ to school every day.'", correct:"goes", distractors:["go","going","gone"]},
-    {subject:"anglais", q:"What is the past tense of 'eat'?", correct:"ate", distractors:["eated","eaten","aten"]},
-    {subject:"anglais", q:"'Beautiful' in French means:", correct:"Beau / Belle", distractors:["Laid / Laide","Grand / Grande","Petit / Petite"]},
-    {subject:"anglais", q:"Choose the correct sentence:", correct:"There are many students in the classroom.", distractors:["There is many students in the classroom.","There have many students in the classroom.","There were much students in the classroom."]},
-    {subject:"anglais", q:"'I haven't seen him ___ last year.' — Fill in the blank:", correct:"since", distractors:["for","from","during"]},
-    // INSTRUCTION CIVIQUE — 5
-    {subject:"droit", q:"Le droit de vote en Afrique est généralement accordé à partir de :", correct:"18 ans", distractors:["16 ans","21 ans","25 ans"]},
-    {subject:"droit", q:"La Constitution est :", correct:"La loi fondamentale qui organise l'État et protège les droits des citoyens", distractors:["Un simple règlement municipal","Un traité international","Un décret présidentiel"]},
-    {subject:"droit", q:"La Déclaration Universelle des Droits de l'Homme a été adoptée en :", correct:"1948", distractors:["1945","1960","1789"]},
-    {subject:"droit", q:"Le Parlement burkinabè est :", correct:"L'Assemblée Législative de Transition (ALT) depuis 2022", distractors:["Le Sénat","La Cour de Cassation","Le Conseil d'État"]},
-    {subject:"droit", q:"La laïcité signifie que :", correct:"L'État ne favorise aucune religion et garantit la liberté de conscience", distractors:["L'État impose une religion officielle","La religion est interdite dans l'espace public","Les religieux dirigent l'État"]},
+    // ── MATHÉMATIQUES (12 questions) ──
+    // Calcul numérique / algèbre
+    {q:"Calculer : \\(12 + 8 \\times 3 - 4\\)", correct:"\\(32\\)", distractors:["\\(56\\)","\\(28\\)","\\(40\\)"]},
+    {q:"Quel est le PGCD de 24 et 36 ?", correct:"12", distractors:["6","9","3"]},
+    {q:"Simplifier : \\(\\dfrac{18}{24}\\)", correct:"\\(\\dfrac{3}{4}\\)", distractors:["\\(\\dfrac{2}{3}\\)","\\(\\dfrac{3}{5}\\)","\\(\\dfrac{4}{5}\\)"]},
+    {q:"La valeur de \\(x\\) dans \\(3x + 7 = 22\\) est :", correct:"\\(x = 5\\)", distractors:["\\(x = 3\\)","\\(x = 6\\)","\\(x = 4\\)"]},
+    {q:"Un triangle rectangle a des côtés de 3 cm et 4 cm. L'hypoténuse mesure :", correct:"5 cm", distractors:["6 cm","7 cm","4,5 cm"]},
+    {q:"Calculer : \\((-3)^2 + (-2)^3\\)", correct:"\\(1\\)", distractors:["\\(-1\\)","\\(17\\)","\\(-17\\)"]},
+    // Domaine de définition
+    {q:"Quel est le domaine de définition de \\(f(x) = \\dfrac{1}{x - 3}\\) ?", correct:"\\(\\mathbb{R} \\setminus \\{3\\}\\) (tous les réels sauf 3)", distractors:["\\(\\mathbb{R}\\) (tous les réels)","\\(x > 3\\)","\\(x < 3\\)"]},
+    {q:"Quel est le domaine de définition de \\(f(x) = \\sqrt{x - 2}\\) ?", correct:"\\([2 ; +\\infty[\\)", distractors:["\\(]−\\infty ; 2]\\)","\\(\\mathbb{R}\\)","\\([0 ; +\\infty[\\)"]},
+    {q:"La fonction \\(f(x) = \\dfrac{x+1}{x^2 - 4}\\) n'est pas définie pour :", correct:"\\(x = 2\\) et \\(x = -2\\)", distractors:["\\(x = 4\\)","\\(x = -1\\)","\\(x = 0\\)"]},
+    // Calcul d'images
+    {q:"Soit \\(f(x) = 3x^2 - 2x + 1\\). Calculer \\(f(2)\\) :", correct:"\\(9\\)", distractors:["\\(7\\)","\\(13\\)","\\(5\\)"]},
+    {q:"Soit \\(g(x) = 2x - 5\\). Quelle est l'image de \\(x = 4\\) par \\(g\\) ?", correct:"\\(3\\)", distractors:["\\(13\\)","\\(-3\\)","\\(8\\)"]},
+    {q:"Si \\(h(x) = \\dfrac{x+3}{2}\\), quelle est l'image de \\(x = 7\\) ?", correct:"\\(5\\)", distractors:["\\(4\\)","\\(2\\)","\\(10\\)"]},
+    // ── FRANÇAIS (12 questions) ──
+    {q:"Quel est le pluriel de 'œil' ?", correct:"Yeux", distractors:["Œils","Œils ou yeux","Œillères"]},
+    {q:"Dans la phrase 'Le chat mange la souris', quel est le COD ?", correct:"La souris", distractors:["Le chat","Mange","La"]},
+    {q:"Choisir le bon accord : 'Les fleurs que j'ai _____ sont belles.'", correct:"cueillies", distractors:["cueilli","cueillis","cueillies ou cueillis"]},
+    {q:"Quel mot est un adverbe dans 'Il parle très rapidement' ?", correct:"Très", distractors:["Il","Parle","Rapidement"]},
+    {q:"Quelle figure de style est utilisée dans 'Ses yeux sont des étoiles' ?", correct:"Métaphore", distractors:["Comparaison","Hyperbole","Antithèse"]},
+    {q:"Le synonyme de 'courageux' est :", correct:"Brave", distractors:["Lâche","Timide","Prudent"]},
+    {q:"Le contraire de 'bénéfique' est :", correct:"Nuisible", distractors:["Utile","Profitable","Favorable"]},
+    {q:"Quel type de phrase est 'Ferme cette porte !' ?", correct:"Impérative", distractors:["Interrogative","Exclamative","Déclarative"]},
+    {q:"'Nonobstant' signifie :", correct:"Malgré, en dépit de", distractors:["Donc, par conséquent","Parce que","De même que"]},
+    {q:"Dans 'Il est parti hier soir', 'hier soir' est :", correct:"Un complément circonstanciel de temps", distractors:["Un COD","Un attribut du sujet","Un complément d'agent"]},
+    {q:"Le mot 'itinérant' signifie :", correct:"Qui voyage, se déplace de lieu en lieu", distractors:["Qui reste fixe en un lieu","Qui est étranger à son pays","Qui pratique le commerce illicite"]},
+    {q:"Le verbe 'corroborer' signifie :", correct:"Confirmer, renforcer par des preuves supplémentaires", distractors:["Infirmer, contredire","Modifier partiellement","Annuler définitivement"]},
+    // ── HISTOIRE-GÉOGRAPHIE (10 questions) ──
+    {q:"La capitale du Burkina Faso est :", correct:"Ouagadougou", distractors:["Bobo-Dioulasso","Koudougou","Banfora"]},
+    {q:"La Haute-Volta a obtenu son indépendance en :", correct:"1960", distractors:["1958","1962","1945"]},
+    {q:"Le continent africain est bordé à l'ouest par :", correct:"L'océan Atlantique", distractors:["L'océan Pacifique","L'océan Indien","La mer Méditerranée"]},
+    {q:"L'ONU a été créée en :", correct:"1945", distractors:["1948","1920","1956"]},
+    {q:"La Révolution française a eu lieu en :", correct:"1789", distractors:["1815","1748","1804"]},
+    {q:"Quel pays a colonisé le Burkina Faso ?", correct:"La France", distractors:["La Grande-Bretagne","L'Allemagne","La Belgique"]},
+    {q:"La désertification est causée principalement par :", correct:"La déforestation et les changements climatiques", distractors:["L'augmentation des pluies","L'urbanisation contrôlée","La reforestation intensive"]},
+    {q:"La traite négrière désigne :", correct:"La déportation et vente d'Africains comme esclaves", distractors:["Le commerce entre pays africains","La migration volontaire vers l'Europe","L'échange de produits agricoles"]},
+    {q:"Le fleuve le plus long d'Afrique est :", correct:"Le Nil", distractors:["Le Congo","Le Niger","Le Zambèze"]},
+    {q:"La colonisation française au Burkina Faso a débuté vers :", correct:"1896", distractors:["1850","1920","1885"]},
+    // ── SCIENCES NATURELLES (10 questions) ──
+    {q:"La photosynthèse se réalise dans :", correct:"Les chloroplastes des cellules végétales", distractors:["Les mitochondries","Le noyau cellulaire","Les vacuoles"]},
+    {q:"Quel organe filtre le sang chez l'être humain ?", correct:"Les reins", distractors:["Le foie","Les poumons","Le cœur"]},
+    {q:"Le groupe sanguin universel donneur est :", correct:"O négatif", distractors:["AB positif","A positif","B négatif"]},
+    {q:"Combien de dents a un adulte (dents de sagesse comprises) ?", correct:"32", distractors:["28","30","24"]},
+    {q:"La vaccination sert à :", correct:"Protéger l'organisme contre des maladies infectieuses", distractors:["Guérir une maladie déjà installée","Nourrir l'organisme","Nettoyer le sang"]},
+    {q:"Quelle maladie est transmise par le moustique anophèle ?", correct:"Le paludisme", distractors:["La tuberculose","Le choléra","La rougeole"]},
+    {q:"Le cœur humain possède :", correct:"4 cavités (2 oreillettes et 2 ventricules)", distractors:["2 cavités","3 cavités","6 cavités"]},
+    {q:"Le squelette humain est composé d'environ :", correct:"206 os", distractors:["150 os","300 os","100 os"]},
+    {q:"Les plantes produisent de l'oxygène grâce à :", correct:"La photosynthèse", distractors:["La respiration","La transpiration","La digestion"]},
+    {q:"Le VIH est un virus qui attaque :", correct:"Le système immunitaire (les lymphocytes CD4)", distractors:["Le système digestif","Les os et articulations","Le système nerveux central"]},
+    // ── ANGLAIS (2 questions) ──
+    {q:"Choose the correct form: 'She ___ to school every day.'", correct:"goes", distractors:["go","going","gone"]},
+    {q:"What is the past tense of 'eat'?", correct:"ate", distractors:["eated","eaten","aten"]},
+    // ── INSTRUCTION CIVIQUE / DROIT (4 questions) ──
+    {q:"Le droit de vote au Burkina Faso est accordé à partir de :", correct:"18 ans", distractors:["16 ans","21 ans","25 ans"]},
+    {q:"La Constitution est :", correct:"La loi fondamentale qui organise l'État et protège les droits des citoyens", distractors:["Un simple règlement municipal","Un traité international","Un décret présidentiel"]},
+    {q:"La Déclaration Universelle des Droits de l'Homme a été adoptée en :", correct:"1948", distractors:["1945","1960","1789"]},
+    {q:"La laïcité signifie que :", correct:"L'État ne favorise aucune religion et garantit la liberté de conscience", distractors:["L'État impose une religion officielle","La religion est interdite dans l'espace public","Les religieux dirigent l'État"]},
 ];
 
 // ════════════════════════════════════════════════
-//  QUESTIONS — BAC (62 questions — originales)
+//  QUESTIONS — BAC (62 questions) — inchangées
 // ════════════════════════════════════════════════
 const rawQuestions_BAC = [
     // MATHÉMATIQUES — 10
-    {subject:"math", q:"Quel est le résultat de \\(\\displaystyle\\lim_{x\\to 0}\\frac{\\sin(3x)}{x}\\) ?", correct:"\\(3\\)", distractors:["\\(1\\)","\\(0\\)","\\(\\dfrac{1}{3}\\)"]},
-    {subject:"math", q:"Calculer : \\(\\displaystyle\\int_0^2 (x^2+1)\\,dx\\)", correct:"\\(\\dfrac{14}{3}\\)", distractors:["\\(\\dfrac{8}{3}\\)","\\(\\dfrac{10}{3}\\)","\\(4\\)"]},
-    {subject:"math", q:"La dérivée de \\(f(x)=e^{x^2}\\) est :", correct:"\\(2x\\,e^{x^2}\\)", distractors:["\\(e^{x^2}\\)","\\(x^2\\,e^{x^2-1}\\)","\\(2\\,e^{x^2}\\)"]},
-    {subject:"math", q:"Résoudre : \\(e^{2x-1}=e^5\\)", correct:"\\(x=3\\)", distractors:["\\(x=2\\)","\\(x=5\\)","\\(x=4\\)"]},
-    {subject:"math", q:"\\(\\displaystyle\\lim_{x\\to+\\infty}\\frac{5x^3-2x}{x^3+7}=\\)", correct:"\\(5\\)", distractors:["\\(0\\)","\\(+\\infty\\)","\\(-2\\)"]},
-    {subject:"math", q:"Calculer : \\(\\displaystyle\\int \\cos(2x)\\,dx\\)", correct:"\\(\\dfrac{\\sin(2x)}{2}+C\\)", distractors:["\\(-\\dfrac{\\sin(2x)}{2}+C\\)","\\(\\sin(2x)+C\\)","\\(-\\dfrac{\\cos(2x)}{2}+C\\)"]},
-    {subject:"math", q:"La dérivée de \\(f(x)=\\ln(x^2+4x)\\) est :", correct:"\\(\\dfrac{2x+4}{x^2+4x}\\)", distractors:["\\(\\dfrac{1}{x^2+4x}\\)","\\(\\dfrac{2x}{x^2+4x}\\)","\\(\\dfrac{x+4}{x^2+4x}\\)"]},
-    {subject:"math", q:"Résoudre dans \\(\\mathbb{R}\\) : \\(\\ln(3x+1)=\\ln(x+5)\\)", correct:"\\(x=2\\)", distractors:["\\(x=3\\)","\\(x=1\\)","\\(x=4\\)"]},
-    {subject:"math", q:"\\(\\displaystyle\\lim_{x\\to 0}\\frac{e^x-1-x}{x^2}=\\)", correct:"\\(\\dfrac{1}{2}\\)", distractors:["\\(0\\)","\\(1\\)","\\(2\\)"]},
-    {subject:"math", q:"L'ensemble de définition de \\(f(x)=\\sqrt{4-x^2}\\) est :", correct:"\\([-2\\,;\\,2]\\)", distractors:["\\([0\\,;\\,4]\\)","\\(\\mathbb{R}\\)","\\(]-\\infty\\,;\\,2]\\)"]},
+    {q:"Quel est le résultat de \\(\\displaystyle\\lim_{x\\to 0}\\frac{\\sin(3x)}{x}\\) ?", correct:"\\(3\\)", distractors:["\\(1\\)","\\(0\\)","\\(\\dfrac{1}{3}\\)"]},
+    {q:"Calculer : \\(\\displaystyle\\int_0^2 (x^2+1)\\,dx\\)", correct:"\\(\\dfrac{14}{3}\\)", distractors:["\\(\\dfrac{8}{3}\\)","\\(\\dfrac{10}{3}\\)","\\(4\\)"]},
+    {q:"La dérivée de \\(f(x)=e^{x^2}\\) est :", correct:"\\(2x\\,e^{x^2}\\)", distractors:["\\(e^{x^2}\\)","\\(x^2\\,e^{x^2-1}\\)","\\(2\\,e^{x^2}\\)"]},
+    {q:"Résoudre : \\(e^{2x-1}=e^5\\)", correct:"\\(x=3\\)", distractors:["\\(x=2\\)","\\(x=5\\)","\\(x=4\\)"]},
+    {q:"\\(\\displaystyle\\lim_{x\\to+\\infty}\\frac{5x^3-2x}{x^3+7}=\\)", correct:"\\(5\\)", distractors:["\\(0\\)","\\(+\\infty\\)","\\(-2\\)"]},
+    {q:"Calculer : \\(\\displaystyle\\int \\cos(2x)\\,dx\\)", correct:"\\(\\dfrac{\\sin(2x)}{2}+C\\)", distractors:["\\(-\\dfrac{\\sin(2x)}{2}+C\\)","\\(\\sin(2x)+C\\)","\\(-\\dfrac{\\cos(2x)}{2}+C\\)"]},
+    {q:"La dérivée de \\(f(x)=\\ln(x^2+4x)\\) est :", correct:"\\(\\dfrac{2x+4}{x^2+4x}\\)", distractors:["\\(\\dfrac{1}{x^2+4x}\\)","\\(\\dfrac{2x}{x^2+4x}\\)","\\(\\dfrac{x+4}{x^2+4x}\\)"]},
+    {q:"Résoudre dans \\(\\mathbb{R}\\) : \\(\\ln(3x+1)=\\ln(x+5)\\)", correct:"\\(x=2\\)", distractors:["\\(x=3\\)","\\(x=1\\)","\\(x=4\\)"]},
+    {q:"\\(\\displaystyle\\lim_{x\\to 0}\\frac{e^x-1-x}{x^2}=\\)", correct:"\\(\\dfrac{1}{2}\\)", distractors:["\\(0\\)","\\(1\\)","\\(2\\)"]},
+    {q:"L'ensemble de définition de \\(f(x)=\\sqrt{4-x^2}\\) est :", correct:"\\([-2\\,;\\,2]\\)", distractors:["\\([0\\,;\\,4]\\)","\\(\\mathbb{R}\\)","\\(]-\\infty\\,;\\,2]\\)"]},
     // PHYSIQUE — 8
-    {subject:"physique", q:"Un objet de 3 kg glisse sans frottement depuis \\(h=5\\,\\text{m}\\). Sa vitesse en bas est (\\(g=10\\,\\text{m/s}^2\\)) :", correct:"\\(5\\sqrt{2}\\,\\text{m/s}\\)", distractors:["\\(10\\,\\text{m/s}\\)","\\(\\sqrt{50}\\,\\text{m/s identique}\\)","\\(50\\,\\text{m/s}\\)"]},
-    {subject:"physique", q:"Deux résistances \\(R_1=6\\,\\Omega\\) et \\(R_2=3\\,\\Omega\\) sont en parallèle. La résistance équivalente est :", correct:"\\(2\\,\\Omega\\)", distractors:["\\(9\\,\\Omega\\)","\\(4\\,\\Omega\\)","\\(18\\,\\Omega\\)"]},
-    {subject:"physique", q:"Un générateur de f.é.m. 12 V et de résistance interne \\(2\\,\\Omega\\) alimente une résistance de \\(4\\,\\Omega\\). L'intensité est :", correct:"\\(2\\,\\text{A}\\)", distractors:["\\(3\\,\\text{A}\\)","\\(6\\,\\text{A}\\)","\\(1\\,\\text{A}\\)"]},
-    {subject:"physique", q:"L'énergie stockée dans un condensateur \\(C\\) sous tension \\(U\\) est :", correct:"\\(E=\\dfrac{C\\,U^2}{2}\\)", distractors:["\\(E=C\\cdot U\\)","\\(E=C\\cdot U^2\\)","\\(E=\\dfrac{U^2}{2C}\\)"]},
-    {subject:"physique", q:"Un signal sinusoïdal a une période \\(T=0{,}02\\,\\text{s}\\). Sa fréquence est :", correct:"\\(50\\,\\text{Hz}\\)", distractors:["\\(200\\,\\text{Hz}\\)","\\(20\\,\\text{Hz}\\)","\\(5\\,\\text{Hz}\\)"]},
-    {subject:"physique", q:"La troisième loi de Newton stipule que :", correct:"À toute action correspond une réaction égale, opposée et exercée sur un autre corps", distractors:["\\(F=ma\\)","Tout corps au repos tend à rester au repos","Toute force a une réaction de même direction"]},
-    {subject:"physique", q:"La quantité de chaleur reçue par un corps de masse \\(m\\) et de chaleur massique \\(c\\) s'écrit :", correct:"\\(Q=m\\,c\\,\\Delta T\\)", distractors:["\\(Q=\\dfrac{m}{c\\,\\Delta T}\\)","\\(Q=c\\,\\Delta T\\)","\\(Q=\\dfrac{m\\,c}{\\Delta T}\\)"]},
-    {subject:"physique", q:"La force de Lorentz sur une charge \\(q\\) de vitesse \\(\\vec{v}\\) dans un champ \\(\\vec{B}\\) est :", correct:"\\(\\vec{F}=q\\,(\\vec{v}\\times\\vec{B})\\)", distractors:["\\(\\vec{F}=q\\,\\vec{E}\\)","\\(\\vec{F}=q\\,v\\,B\\cos\\theta\\)","\\(\\vec{F}=\\dfrac{q}{v\\,B}\\)"]},
+    {q:"Un objet de 3 kg glisse sans frottement depuis \\(h=5\\,\\text{m}\\). Sa vitesse en bas est (\\(g=10\\,\\text{m/s}^2\\)) :", correct:"\\(5\\sqrt{2}\\,\\text{m/s}\\)", distractors:["\\(10\\,\\text{m/s}\\)","\\(\\sqrt{50}\\,\\text{m/s identique}\\)","\\(50\\,\\text{m/s}\\)"]},
+    {q:"Deux résistances \\(R_1=6\\,\\Omega\\) et \\(R_2=3\\,\\Omega\\) sont en parallèle. La résistance équivalente est :", correct:"\\(2\\,\\Omega\\)", distractors:["\\(9\\,\\Omega\\)","\\(4\\,\\Omega\\)","\\(18\\,\\Omega\\)"]},
+    {q:"Un générateur de f.é.m. 12 V et de résistance interne \\(2\\,\\Omega\\) alimente une résistance de \\(4\\,\\Omega\\). L'intensité est :", correct:"\\(2\\,\\text{A}\\)", distractors:["\\(3\\,\\text{A}\\)","\\(6\\,\\text{A}\\)","\\(1\\,\\text{A}\\)"]},
+    {q:"L'énergie stockée dans un condensateur \\(C\\) sous tension \\(U\\) est :", correct:"\\(E=\\dfrac{C\\,U^2}{2}\\)", distractors:["\\(E=C\\cdot U\\)","\\(E=C\\cdot U^2\\)","\\(E=\\dfrac{U^2}{2C}\\)"]},
+    {q:"Un signal sinusoïdal a une période \\(T=0{,}02\\,\\text{s}\\). Sa fréquence est :", correct:"\\(50\\,\\text{Hz}\\)", distractors:["\\(200\\,\\text{Hz}\\)","\\(20\\,\\text{Hz}\\)","\\(5\\,\\text{Hz}\\)"]},
+    {q:"La troisième loi de Newton stipule que :", correct:"À toute action correspond une réaction égale, opposée et exercée sur un autre corps", distractors:["\\(F=ma\\)","Tout corps au repos tend à rester au repos","Toute force a une réaction de même direction"]},
+    {q:"La quantité de chaleur reçue par un corps de masse \\(m\\) et de chaleur massique \\(c\\) s'écrit :", correct:"\\(Q=m\\,c\\,\\Delta T\\)", distractors:["\\(Q=\\dfrac{m}{c\\,\\Delta T}\\)","\\(Q=c\\,\\Delta T\\)","\\(Q=\\dfrac{m\\,c}{\\Delta T}\\)"]},
+    {q:"La force de Lorentz sur une charge \\(q\\) de vitesse \\(\\vec{v}\\) dans un champ \\(\\vec{B}\\) est :", correct:"\\(\\vec{F}=q\\,(\\vec{v}\\times\\vec{B})\\)", distractors:["\\(\\vec{F}=q\\,\\vec{E}\\)","\\(\\vec{F}=q\\,v\\,B\\cos\\theta\\)","\\(\\vec{F}=\\dfrac{q}{v\\,B}\\)"]},
     // CHIMIE — 6
-    {subject:"chimie", q:"La masse molaire de l'eau \\((\\text{H}_2\\text{O})\\) est :", correct:"\\(18\\,\\text{g/mol}\\)", distractors:["\\(16\\,\\text{g/mol}\\)","\\(20\\,\\text{g/mol}\\)","\\(14\\,\\text{g/mol}\\)"]},
-    {subject:"chimie", q:"Une solution de pH = 3 est :", correct:"Fortement acide", distractors:["Neutre","Légèrement basique","Fortement basique"]},
-    {subject:"chimie", q:"La configuration électronique de l'oxygène \\((Z=8)\\) est :", correct:"\\(1s^2\\,2s^2\\,2p^4\\)", distractors:["\\(1s^2\\,2s^2\\,2p^6\\)","\\(1s^2\\,2s^6\\)","\\(1s^4\\,2s^4\\)"]},
-    {subject:"chimie", q:"La loi des gaz parfaits s'écrit :", correct:"\\(PV=nRT\\)", distractors:["\\(P/V=nRT\\)","\\(PV=RT\\)","\\(P=nRTV\\)"]},
-    {subject:"chimie", q:"Le nombre de moles dans 36 g d'eau \\((M=18\\,\\text{g/mol})\\) est :", correct:"\\(2\\,\\text{mol}\\)", distractors:["\\(1\\,\\text{mol}\\)","\\(3\\,\\text{mol}\\)","\\(0{,}5\\,\\text{mol}\\)"]},
-    {subject:"chimie", q:"Dans une réaction acido-basique, la base de Brønsted :", correct:"Accepte un proton \\(\\text{H}^+\\)", distractors:["Cède un proton \\(\\text{H}^+\\)","Accepte un électron","Cède un électron"]},
+    {q:"La masse molaire de l'eau \\((\\text{H}_2\\text{O})\\) est :", correct:"\\(18\\,\\text{g/mol}\\)", distractors:["\\(16\\,\\text{g/mol}\\)","\\(20\\,\\text{g/mol}\\)","\\(14\\,\\text{g/mol}\\)"]},
+    {q:"Une solution de pH = 3 est :", correct:"Fortement acide", distractors:["Neutre","Légèrement basique","Fortement basique"]},
+    {q:"La configuration électronique de l'oxygène \\((Z=8)\\) est :", correct:"\\(1s^2\\,2s^2\\,2p^4\\)", distractors:["\\(1s^2\\,2s^2\\,2p^6\\)","\\(1s^2\\,2s^6\\)","\\(1s^4\\,2s^4\\)"]},
+    {q:"La loi des gaz parfaits s'écrit :", correct:"\\(PV=nRT\\)", distractors:["\\(P/V=nRT\\)","\\(PV=RT\\)","\\(P=nRTV\\)"]},
+    {q:"Le nombre de moles dans 36 g d'eau \\((M=18\\,\\text{g/mol})\\) est :", correct:"\\(2\\,\\text{mol}\\)", distractors:["\\(1\\,\\text{mol}\\)","\\(3\\,\\text{mol}\\)","\\(0{,}5\\,\\text{mol}\\)"]},
+    {q:"Dans une réaction acido-basique, la base de Brønsted :", correct:"Accepte un proton \\(\\text{H}^+\\)", distractors:["Cède un proton \\(\\text{H}^+\\)","Accepte un électron","Cède un électron"]},
     // SVT — 10
-    {subject:"svt", q:"La translation de l'ARN messager en protéine s'appelle :", correct:"Traduction", distractors:["Réplication","Transcription","Transduction"]},
-    {subject:"svt", q:"Quel type de liaison unit les acides aminés dans une protéine ?", correct:"Liaison peptidique", distractors:["Liaison hydrogène","Liaison ionique","Liaison disulfure"]},
-    {subject:"svt", q:"L'osmorégulation chez les mammifères est principalement assurée par :", correct:"Les reins", distractors:["Les poumons","Le foie","La peau"]},
-    {subject:"svt", q:"Les cellules somatiques humaines contiennent :", correct:"46 chromosomes", distractors:["23 chromosomes","48 chromosomes","44 chromosomes"]},
-    {subject:"svt", q:"La membrane plasmique est composée principalement de :", correct:"Phospholipides et protéines", distractors:["Protéines uniquement","Glucides uniquement","ADN et ARN"]},
-    {subject:"svt", q:"La symbiose est une relation où :", correct:"Les deux organismes bénéficient mutuellement", distractors:["L'un profite et l'autre est lésé","Les deux organismes sont en compétition","L'un profite sans que l'autre soit affecté"]},
-    {subject:"svt", q:"ATP signifie :", correct:"Adénosine Tri-Phosphate", distractors:["Acide Tri-Phosphorique","Adénine Tri-Protéique","Acide Tétra-Phosphate"]},
-    {subject:"svt", q:"La phase où les chromosomes s'alignent au centre de la cellule lors de la mitose est :", correct:"Métaphase", distractors:["Prophase","Anaphase","Télophase"]},
-    {subject:"svt", q:"La loi de Mendel sur la ségrégation stipule que :", correct:"Les deux allèles d'un gène se séparent lors de la formation des gamètes", distractors:["Les allèles dominants masquent toujours les récessifs","Tous les caractères sont liés génétiquement","Les gènes d'un même chromosome ne se séparent jamais"]},
-    {subject:"svt", q:"Le glucagon, sécrété par le pancréas, a pour effet de :", correct:"Augmenter la glycémie en stimulant la glycogénolyse", distractors:["Diminuer la glycémie","Stocker le glucose sous forme de glycogène","Inhiber la sécrétion d'insuline uniquement"]},
+    {q:"La translation de l'ARN messager en protéine s'appelle :", correct:"Traduction", distractors:["Réplication","Transcription","Transduction"]},
+    {q:"Quel type de liaison unit les acides aminés dans une protéine ?", correct:"Liaison peptidique", distractors:["Liaison hydrogène","Liaison ionique","Liaison disulfure"]},
+    {q:"L'osmorégulation chez les mammifères est principalement assurée par :", correct:"Les reins", distractors:["Les poumons","Le foie","La peau"]},
+    {q:"Les cellules somatiques humaines contiennent :", correct:"46 chromosomes", distractors:["23 chromosomes","48 chromosomes","44 chromosomes"]},
+    {q:"La membrane plasmique est composée principalement de :", correct:"Phospholipides et protéines", distractors:["Protéines uniquement","Glucides uniquement","ADN et ARN"]},
+    {q:"La symbiose est une relation où :", correct:"Les deux organismes bénéficient mutuellement", distractors:["L'un profite et l'autre est lésé","Les deux organismes sont en compétition","L'un profite sans que l'autre soit affecté"]},
+    {q:"ATP signifie :", correct:"Adénosine Tri-Phosphate", distractors:["Acide Tri-Phosphorique","Adénine Tri-Protéique","Acide Tétra-Phosphate"]},
+    {q:"La phase où les chromosomes s'alignent au centre de la cellule lors de la mitose est :", correct:"Métaphase", distractors:["Prophase","Anaphase","Télophase"]},
+    {q:"La loi de Mendel sur la ségrégation stipule que :", correct:"Les deux allèles d'un gène se séparent lors de la formation des gamètes", distractors:["Les allèles dominants masquent toujours les récessifs","Tous les caractères sont liés génétiquement","Les gènes d'un même chromosome ne se séparent jamais"]},
+    {q:"Le glucagon, sécrété par le pancréas, a pour effet de :", correct:"Augmenter la glycémie en stimulant la glycogénolyse", distractors:["Diminuer la glycémie","Stocker le glucose sous forme de glycogène","Inhiber la sécrétion d'insuline uniquement"]},
     // PHILOSOPHIE — 2
-    {subject:"philo", q:"Pour Hegel, la dialectique repose sur trois moments :", correct:"Thèse, Antithèse, Synthèse", distractors:["Thèse, Synthèse, Antithèse","Affirmation, Négation, Affirmation","Analyse, Critique, Dépassement"]},
-    {subject:"philo", q:"L'utilitarisme de John Stuart Mill affirme que la bonne action est celle qui :", correct:"Maximise le bonheur du plus grand nombre", distractors:["Respecte un devoir moral universel","Obéit à la nature divine","Suit la vertu aristotélicienne"]},
+    {q:"Pour Hegel, la dialectique repose sur trois moments :", correct:"Thèse, Antithèse, Synthèse", distractors:["Thèse, Synthèse, Antithèse","Affirmation, Négation, Affirmation","Analyse, Critique, Dépassement"]},
+    {q:"L'utilitarisme de John Stuart Mill affirme que la bonne action est celle qui :", correct:"Maximise le bonheur du plus grand nombre", distractors:["Respecte un devoir moral universel","Obéit à la nature divine","Suit la vertu aristotélicienne"]},
     // HISTOIRE — 8
-    {subject:"histoire", q:"La traite négrière transatlantique a duré environ :", correct:"Du XVe au XIXe siècle (environ 4 siècles)", distractors:["Du XIIe au XVIe siècle","Du XVIe au XVIIe siècle uniquement","Du XVIIIe au XXe siècle"]},
-    {subject:"histoire", q:"La conférence de Bandung (1955) a réuni des pays afro-asiatiques pour :", correct:"Proclamer les principes du non-alignement et de la solidarité tiers-mondiste", distractors:["Créer l'OTAN","Signer un traité de libre-échange","Partager l'Afrique entre puissances coloniales"]},
-    {subject:"histoire", q:"Thomas Sankara a proclamé le changement de nom de la Haute-Volta en Burkina Faso en :", correct:"1983", distractors:["1980","1987","1985"]},
-    {subject:"histoire", q:"La guerre de Corée (1950-1953) opposait :", correct:"La Corée du Nord (soutenue par l'URSS/Chine) et la Corée du Sud (soutenue par les USA/ONU)", distractors:["La Chine et le Japon","Les États-Unis et l'URSS directement","Le Japon et les États-Unis"]},
-    {subject:"histoire", q:"Le Plan Marshall (1948) visait à :", correct:"Reconstruire l'économie européenne après la Seconde Guerre mondiale avec l'aide américaine", distractors:["Créer l'OTAN","Partager l'Allemagne en deux","Établir les frontières de l'Europe de l'Est"]},
-    {subject:"histoire", q:"La Charte des Nations Unies a été signée à :", correct:"San Francisco en 1945", distractors:["New York en 1945","Genève en 1945","Paris en 1946"]},
-    {subject:"histoire", q:"Le mouvement des non-alignés a été cofondé notamment par :", correct:"Nehru, Nasser, Tito", distractors:["De Gaulle, Churchill, Roosevelt","Lénine, Mao, Castro","Mandela, Sankara, Nkrumah"]},
-    {subject:"histoire", q:"La décolonisation de l'Algérie a officiellement pris fin en :", correct:"1962", distractors:["1956","1954","1968"]},
+    {q:"La traite négrière transatlantique a duré environ :", correct:"Du XVe au XIXe siècle (environ 4 siècles)", distractors:["Du XIIe au XVIe siècle","Du XVIe au XVIIe siècle uniquement","Du XVIIIe au XXe siècle"]},
+    {q:"La conférence de Bandung (1955) a réuni des pays afro-asiatiques pour :", correct:"Proclamer les principes du non-alignement et de la solidarité tiers-mondiste", distractors:["Créer l'OTAN","Signer un traité de libre-échange","Partager l'Afrique entre puissances coloniales"]},
+    {q:"Thomas Sankara a proclamé le changement de nom de la Haute-Volta en Burkina Faso en :", correct:"1983", distractors:["1980","1987","1985"]},
+    {q:"La guerre de Corée (1950-1953) opposait :", correct:"La Corée du Nord (soutenue par l'URSS/Chine) et la Corée du Sud (soutenue par les USA/ONU)", distractors:["La Chine et le Japon","Les États-Unis et l'URSS directement","Le Japon et les États-Unis"]},
+    {q:"Le Plan Marshall (1948) visait à :", correct:"Reconstruire l'économie européenne après la Seconde Guerre mondiale avec l'aide américaine", distractors:["Créer l'OTAN","Partager l'Allemagne en deux","Établir les frontières de l'Europe de l'Est"]},
+    {q:"La Charte des Nations Unies a été signée à :", correct:"San Francisco en 1945", distractors:["New York en 1945","Genève en 1945","Paris en 1946"]},
+    {q:"Le mouvement des non-alignés a été cofondé notamment par :", correct:"Nehru, Nasser, Tito", distractors:["De Gaulle, Churchill, Roosevelt","Lénine, Mao, Castro","Mandela, Sankara, Nkrumah"]},
+    {q:"La décolonisation de l'Algérie a officiellement pris fin en :", correct:"1962", distractors:["1956","1954","1968"]},
     // FRANÇAIS — 8
-    {subject:"francais", q:"Le mot 'prérogative' désigne :", correct:"Un droit ou avantage exclusif attaché à une fonction", distractors:["Une obligation légale","Une sanction disciplinaire","Un formulaire officiel"]},
-    {subject:"francais", q:"L'accord du participe passé dans 'Les lettres que j'ai écrites sont parties' est justifié parce que :", correct:"Le COD 'que' (mis pour 'lettres') est placé avant le verbe avoir", distractors:["Le sujet est féminin pluriel","L'auxiliaire être impose l'accord avec le sujet","Le participe s'accorde avec le nom le plus proche"]},
-    {subject:"francais", q:"Le mot 'itinérant' signifie :", correct:"Qui voyage, se déplace de lieu en lieu", distractors:["Qui reste fixe en un lieu","Qui est étranger à son pays","Qui pratique le commerce illicite"]},
-    {subject:"francais", q:"Dans la rédaction administrative, la note de service est destinée à :", correct:"Donner des instructions ou informations à des agents d'un même service", distractors:["Informer le public d'une décision officielle","Transmettre des pièces comptables","Notifier une sanction disciplinaire"]},
-    {subject:"francais", q:"Le siège de la Banque Africaine de Développement (BAD) est à :", correct:"Abidjan (Côte d'Ivoire)", distractors:["Lagos (Nigeria)","Dakar (Sénégal)","Nairobi (Kenya)"]},
-    {subject:"francais", q:"Le verbe 'corroborer' signifie :", correct:"Confirmer, renforcer par des preuves supplémentaires", distractors:["Infirmer, contredire une affirmation","Modifier partiellement une décision","Annuler définitivement un acte"]},
-    {subject:"francais", q:"Le Burkina Faso compte combien de régions administratives ?", correct:"13", distractors:["10","45","15"]},
-    {subject:"francais", q:"L'expression 'sous réserve de' dans un texte administratif signifie :", correct:"À condition que, sauf si une condition particulière n'est pas remplie", distractors:["Définitivement et sans condition","Immédiatement et sans délai","Conformément aux usages traditionnels"]},
+    {q:"Le mot 'prérogative' désigne :", correct:"Un droit ou avantage exclusif attaché à une fonction", distractors:["Une obligation légale","Une sanction disciplinaire","Un formulaire officiel"]},
+    {q:"L'accord du participe passé dans 'Les lettres que j'ai écrites sont parties' est justifié parce que :", correct:"Le COD 'que' (mis pour 'lettres') est placé avant le verbe avoir", distractors:["Le sujet est féminin pluriel","L'auxiliaire être impose l'accord avec le sujet","Le participe s'accorde avec le nom le plus proche"]},
+    {q:"Le mot 'itinérant' signifie :", correct:"Qui voyage, se déplace de lieu en lieu", distractors:["Qui reste fixe en un lieu","Qui est étranger à son pays","Qui pratique le commerce illicite"]},
+    {q:"Dans la rédaction administrative, la note de service est destinée à :", correct:"Donner des instructions ou informations à des agents d'un même service", distractors:["Informer le public d'une décision officielle","Transmettre des pièces comptables","Notifier une sanction disciplinaire"]},
+    {q:"Le siège de la Banque Africaine de Développement (BAD) est à :", correct:"Abidjan (Côte d'Ivoire)", distractors:["Lagos (Nigeria)","Dakar (Sénégal)","Nairobi (Kenya)"]},
+    {q:"Le verbe 'corroborer' signifie :", correct:"Confirmer, renforcer par des preuves supplémentaires", distractors:["Infirmer, contredire une affirmation","Modifier partiellement une décision","Annuler définitivement un acte"]},
+    {q:"Le Burkina Faso compte combien de régions administratives ?", correct:"13", distractors:["10","45","15"]},
+    {q:"L'expression 'sous réserve de' dans un texte administratif signifie :", correct:"À condition que, sauf si une condition particulière n'est pas remplie", distractors:["Définitivement et sans condition","Immédiatement et sans délai","Conformément aux usages traditionnels"]},
     // DROIT — 10
-    {subject:"droit", q:"Le principe d'égalité devant le service public implique que :", correct:"Tous les usagers dans une même situation sont traités de façon identique", distractors:["Tous les agents perçoivent le même salaire","Les services publics sont gratuits pour tous","Les fonctionnaires ne peuvent être sanctionnés"]},
-    {subject:"droit", q:"La tutelle administrative exercée sur les collectivités territoriales consiste à :", correct:"Contrôler la légalité de leurs actes sans se substituer à elles", distractors:["Gérer directement les affaires locales à leur place","Nommer les maires et présidents de région","Financer intégralement leurs budgets"]},
-    {subject:"droit", q:"En droit administratif burkinabè, le décret est signé par :", correct:"Le Président du Faso seul ou en Conseil des ministres", distractors:["Le ministre compétent uniquement","Le Parlement après délibération","Le Président de l'Assemblée nationale"]},
-    {subject:"droit", q:"La responsabilité pénale d'un fonctionnaire est engagée lorsqu'il :", correct:"Commet une faute personnelle constitutive d'une infraction pénale", distractors:["Prend du retard dans l'exécution d'un dossier","Effectue un acte délégué par son supérieur","Applique une directive ministérielle"]},
-    {subject:"droit", q:"Le principe de non-rétroactivité des lois signifie que :", correct:"Une loi ne peut en principe s'appliquer qu'aux situations nées après son entrée en vigueur", distractors:["Une loi nouvelle peut toujours s'appliquer aux faits antérieurs","Les lois s'appliquent rétroactivement en matière fiscale","Le juge peut appliquer la loi la plus ancienne en cas de doute"]},
-    {subject:"droit", q:"L'acte de délégation de pouvoir transfère :", correct:"La compétence elle-même à un subordonné de manière permanente", distractors:["La signature uniquement, sans transfert de compétence","La responsabilité pénale au délégué exclusivement","Le titre hiérarchique de l'autorité délégante"]},
-    {subject:"droit", q:"Le principe de l'unité de caisse en finances publiques signifie que :", correct:"Toutes les recettes et dépenses publiques sont centralisées dans un compte unique du Trésor", distractors:["Chaque ministère gère son propre compte bancaire","Les communes disposent de leurs propres caisses autonomes","Le budget est voté en plusieurs parties distinctes"]},
-    {subject:"droit", q:"La procédure d'appel d'offres ouvert dans les marchés publics garantit :", correct:"La transparence et la libre concurrence entre tous les soumissionnaires éligibles", distractors:["Un contrat attribué sans concurrence","Un marché réservé aux entreprises nationales uniquement","Une attribution directe au moins-disant"]},
-    {subject:"droit", q:"Le statut de fonctionnaire au Burkina Faso est régi par :", correct:"La loi portant statut général de la fonction publique d'État", distractors:["Le code du travail ordinaire","Un contrat individuel négocié avec chaque agent","Les conventions collectives de branche"]},
-    {subject:"droit", q:"La déconférence budgétaire permet :", correct:"De négocier entre le ministère des finances et les ministères sectoriels les enveloppes budgétaires", distractors:["D'exécuter les dépenses avant autorisation parlementaire","D'auditer les comptes de l'exercice précédent","De voter les recettes fiscales en urgence"]},
+    {q:"Le principe d'égalité devant le service public implique que :", correct:"Tous les usagers dans une même situation sont traités de façon identique", distractors:["Tous les agents perçoivent le même salaire","Les services publics sont gratuits pour tous","Les fonctionnaires ne peuvent être sanctionnés"]},
+    {q:"La tutelle administrative exercée sur les collectivités territoriales consiste à :", correct:"Contrôler la légalité de leurs actes sans se substituer à elles", distractors:["Gérer directement les affaires locales à leur place","Nommer les maires et présidents de région","Financer intégralement leurs budgets"]},
+    {q:"En droit administratif burkinabè, le décret est signé par :", correct:"Le Président du Faso seul ou en Conseil des ministres", distractors:["Le ministre compétent uniquement","Le Parlement après délibération","Le Président de l'Assemblée nationale"]},
+    {q:"La responsabilité pénale d'un fonctionnaire est engagée lorsqu'il :", correct:"Commet une faute personnelle constitutive d'une infraction pénale", distractors:["Prend du retard dans l'exécution d'un dossier","Effectue un acte délégué par son supérieur","Applique une directive ministérielle"]},
+    {q:"Le principe de non-rétroactivité des lois signifie que :", correct:"Une loi ne peut en principe s'appliquer qu'aux situations nées après son entrée en vigueur", distractors:["Une loi nouvelle peut toujours s'appliquer aux faits antérieurs","Les lois s'appliquent rétroactivement en matière fiscale","Le juge peut appliquer la loi la plus ancienne en cas de doute"]},
+    {q:"L'acte de délégation de pouvoir transfère :", correct:"La compétence elle-même à un subordonné de manière permanente", distractors:["La signature uniquement, sans transfert de compétence","La responsabilité pénale au délégué exclusivement","Le titre hiérarchique de l'autorité délégante"]},
+    {q:"Le principe de l'unité de caisse en finances publiques signifie que :", correct:"Toutes les recettes et dépenses publiques sont centralisées dans un compte unique du Trésor", distractors:["Chaque ministère gère son propre compte bancaire","Les communes disposent de leurs propres caisses autonomes","Le budget est voté en plusieurs parties distinctes"]},
+    {q:"La procédure d'appel d'offres ouvert dans les marchés publics garantit :", correct:"La transparence et la libre concurrence entre tous les soumissionnaires éligibles", distractors:["Un contrat attribué sans concurrence","Un marché réservé aux entreprises nationales uniquement","Une attribution directe au moins-disant"]},
+    {q:"Le statut de fonctionnaire au Burkina Faso est régi par :", correct:"La loi portant statut général de la fonction publique d'État", distractors:["Le code du travail ordinaire","Un contrat individuel négocié avec chaque agent","Les conventions collectives de branche"]},
+    {q:"La déconférence budgétaire permet :", correct:"De négocier entre le ministère des finances et les ministères sectoriels les enveloppes budgétaires", distractors:["D'exécuter les dépenses avant autorisation parlementaire","D'auditer les comptes de l'exercice précédent","De voter les recettes fiscales en urgence"]},
 ];
 
 // ════════════════════════════════════════════════
-//  QUESTIONS — LICENCE (55 questions)
+//  QUESTIONS — LICENCE (53 questions)
+//  Anglais : 3 questions seulement
 // ════════════════════════════════════════════════
 const rawQuestions_LICENCE = [
     // ÉCONOMIE — 12
-    {subject:"eco", q:"Le PIB (Produit Intérieur Brut) mesure :", correct:"La valeur totale des biens et services produits sur un territoire donné pendant une période", distractors:["Le revenu des ménages après impôts","Le total des exportations d'un pays","Le capital accumulé par les entreprises"]},
-    {subject:"eco", q:"L'élasticité-prix de la demande est définie comme :", correct:"Le rapport entre la variation relative de la quantité demandée et la variation relative du prix", distractors:["Le rapport entre le prix et la quantité offerte","La variation absolue de la demande suite à un choc de revenu","Le taux de croissance du marché"]},
-    {subject:"eco", q:"Un bien dit 'Giffen' est caractérisé par :", correct:"Une demande qui augmente lorsque son prix augmente (paradoxe lié aux biens inférieurs)", distractors:["Une offre élastique au prix","Un prix fixé par l'État","Une forte substituabilité avec d'autres biens"]},
-    {subject:"eco", q:"L'économie de marché repose sur :", correct:"La libre confrontation de l'offre et de la demande pour déterminer les prix", distractors:["La planification centrale de la production","La redistribution équitable des richesses","L'intervention directe de l'État dans chaque secteur"]},
-    {subject:"eco", q:"La théorie quantitative de la monnaie s'exprime par l'équation :", correct:"\\(MV = PQ\\)", distractors:["\\(M = P + Q\\)","\\(M/V = P/Q\\)","\\(PV = MQ\\)"]},
-    {subject:"eco", q:"Le taux de chômage est calculé comme :", correct:"Le rapport entre le nombre de chômeurs et la population active totale", distractors:["Le nombre d'emplois perdus sur une année","Le rapport entre inactifs et actifs","Le pourcentage de la population sans revenu"]},
-    {subject:"eco", q:"Un marché oligopolistique est caractérisé par :", correct:"Un petit nombre de vendeurs face à un grand nombre d'acheteurs", distractors:["Un seul vendeur face à de nombreux acheteurs","Un grand nombre de vendeurs et d'acheteurs","Deux vendeurs et deux acheteurs uniquement"]},
-    {subject:"eco", q:"Le multiplicateur keynésien indique que :", correct:"Une variation de l'investissement entraîne une variation amplifiée du revenu national", distractors:["L'épargne détermine directement la consommation","Les prix s'ajustent instantanément à l'équilibre","L'État ne doit pas intervenir en cas de récession"]},
-    {subject:"eco", q:"Le déficit budgétaire correspond à :", correct:"Un excès des dépenses publiques sur les recettes de l'État", distractors:["Une dette extérieure trop élevée","Un excédent de la balance commerciale","Un taux d'inflation supérieur à 5%"]},
-    {subject:"eco", q:"La courbe de Laffer illustre :", correct:"L'existence d'un taux d'imposition optimal au-delà duquel les recettes fiscales diminuent", distractors:["La relation entre inflation et chômage","La croissance du PIB en fonction du commerce","L'effet du taux d'intérêt sur l'investissement"]},
-    {subject:"eco", q:"Le FMI (Fonds Monétaire International) a pour mission principale de :", correct:"Assurer la stabilité du système monétaire international et aider les pays en difficulté de balance des paiements", distractors:["Financer les projets d'infrastructure dans les pays pauvres","Réguler le commerce mondial des marchandises","Créer une monnaie commune mondiale"]},
-    {subject:"eco", q:"L'indice de Gini mesure :", correct:"Le degré d'inégalité dans la distribution des revenus (0 = égalité parfaite, 1 = inégalité maximale)", distractors:["Le taux de croissance économique","L'efficacité des politiques fiscales","Le niveau général des prix"]},
+    {q:"Le PIB (Produit Intérieur Brut) mesure :", correct:"La valeur totale des biens et services produits sur un territoire donné pendant une période", distractors:["Le revenu des ménages après impôts","Le total des exportations d'un pays","Le capital accumulé par les entreprises"]},
+    {q:"L'élasticité-prix de la demande est définie comme :", correct:"Le rapport entre la variation relative de la quantité demandée et la variation relative du prix", distractors:["Le rapport entre le prix et la quantité offerte","La variation absolue de la demande suite à un choc de revenu","Le taux de croissance du marché"]},
+    {q:"Un bien dit 'Giffen' est caractérisé par :", correct:"Une demande qui augmente lorsque son prix augmente (paradoxe lié aux biens inférieurs)", distractors:["Une offre élastique au prix","Un prix fixé par l'État","Une forte substituabilité avec d'autres biens"]},
+    {q:"L'économie de marché repose sur :", correct:"La libre confrontation de l'offre et de la demande pour déterminer les prix", distractors:["La planification centrale de la production","La redistribution équitable des richesses","L'intervention directe de l'État dans chaque secteur"]},
+    {q:"La théorie quantitative de la monnaie s'exprime par l'équation :", correct:"\\(MV = PQ\\)", distractors:["\\(M = P + Q\\)","\\(M/V = P/Q\\)","\\(PV = MQ\\)"]},
+    {q:"Le taux de chômage est calculé comme :", correct:"Le rapport entre le nombre de chômeurs et la population active totale", distractors:["Le nombre d'emplois perdus sur une année","Le rapport entre inactifs et actifs","Le pourcentage de la population sans revenu"]},
+    {q:"Un marché oligopolistique est caractérisé par :", correct:"Un petit nombre de vendeurs face à un grand nombre d'acheteurs", distractors:["Un seul vendeur face à de nombreux acheteurs","Un grand nombre de vendeurs et d'acheteurs","Deux vendeurs et deux acheteurs uniquement"]},
+    {q:"Le multiplicateur keynésien indique que :", correct:"Une variation de l'investissement entraîne une variation amplifiée du revenu national", distractors:["L'épargne détermine directement la consommation","Les prix s'ajustent instantanément à l'équilibre","L'État ne doit pas intervenir en cas de récession"]},
+    {q:"Le déficit budgétaire correspond à :", correct:"Un excès des dépenses publiques sur les recettes de l'État", distractors:["Une dette extérieure trop élevée","Un excédent de la balance commerciale","Un taux d'inflation supérieur à 5%"]},
+    {q:"La courbe de Laffer illustre :", correct:"L'existence d'un taux d'imposition optimal au-delà duquel les recettes fiscales diminuent", distractors:["La relation entre inflation et chômage","La croissance du PIB en fonction du commerce","L'effet du taux d'intérêt sur l'investissement"]},
+    {q:"Le FMI a pour mission principale de :", correct:"Assurer la stabilité du système monétaire international et aider les pays en difficulté de balance des paiements", distractors:["Financer les projets d'infrastructure dans les pays pauvres","Réguler le commerce mondial des marchandises","Créer une monnaie commune mondiale"]},
+    {q:"L'indice de Gini mesure :", correct:"Le degré d'inégalité dans la distribution des revenus (0 = égalité parfaite, 1 = inégalité maximale)", distractors:["Le taux de croissance économique","L'efficacité des politiques fiscales","Le niveau général des prix"]},
     // DROIT — 12
-    {subject:"droit", q:"La hiérarchie des normes juridiques (pyramide de Kelsen) place au sommet :", correct:"La Constitution", distractors:["Les lois ordinaires","Les traités internationaux","Les règlements et décrets"]},
-    {subject:"droit", q:"En droit des contrats, la lésion désigne :", correct:"Un déséquilibre grave entre les prestations réciproques des parties au moment de la conclusion du contrat", distractors:["Un vice de consentement par violence","L'absence totale d'objet dans le contrat","Un défaut de capacité juridique d'une partie"]},
-    {subject:"droit", q:"La prescription acquisitive (ou usucapion) permet de :", correct:"Acquérir la propriété d'un bien par une possession prolongée, paisible et non équivoque", distractors:["Perdre un droit par le non-exercice","Transférer une créance à un tiers","Annuler un contrat pour vice caché"]},
-    {subject:"droit", q:"Le principe du contradictoire en procédure civile signifie que :", correct:"Chaque partie doit pouvoir prendre connaissance des arguments adverses et y répondre", distractors:["Le juge décide seul sans entendre les parties","Seul l'avocat peut présenter des arguments","La procédure est toujours publique"]},
-    {subject:"droit", q:"La responsabilité délictuelle (article 1240 du Code civil français) est engagée si :", correct:"Il y a une faute, un dommage et un lien de causalité entre les deux", distractors:["Il existe un contrat entre les parties","La victime a expressément consenti au dommage","Le dommage est purement moral sans conséquence financière"]},
-    {subject:"droit", q:"En droit commercial, le fonds de commerce comprend :", correct:"Des éléments corporels (matériel, stocks) et incorporels (clientèle, enseigne, baux)", distractors:["Uniquement les immeubles appartenant à l'entreprise","Seulement les créances et dettes de l'entreprise","Les parts sociales et actions de la société"]},
-    {subject:"droit", q:"Un acte administratif unilatéral est :", correct:"Un acte pris par l'administration sans le consentement du destinataire, mais qui crée des droits ou obligations", distractors:["Un contrat signé entre l'État et un particulier","Une convention collective de branche","Un jugement rendu par le tribunal administratif"]},
-    {subject:"droit", q:"La souveraineté nationale appartient, selon la théorie de Rousseau, à :", correct:"La nation tout entière représentée collectivement", distractors:["Le peuple directement (souveraineté populaire)","Le monarque par droit divin","Le parlement seul"]},
-    {subject:"droit", q:"L'OHADA (Organisation pour l'Harmonisation en Afrique du Droit des Affaires) a pour but de :", correct:"Unifier le droit des affaires dans les États membres afin de sécuriser les investissements", distractors:["Créer une monnaie commune africaine","Harmoniser les constitutions africaines","Réguler le commerce international de l'Afrique avec l'Europe"]},
-    {subject:"droit", q:"Le recours pour excès de pouvoir (REP) vise à :", correct:"Annuler un acte administratif illégal devant le juge administratif", distractors:["Obtenir une indemnisation pour préjudice subi","Contraindre l'administration à agir","Engager la responsabilité pénale d'un fonctionnaire"]},
-    {subject:"droit", q:"La distinction entre droit public et droit privé repose sur :", correct:"La qualité des parties impliquées et l'intérêt général versus les intérêts particuliers", distractors:["Le montant des litiges concernés","Le tribunal compétent uniquement","L'ancienneté des textes juridiques"]},
-    {subject:"droit", q:"En droit pénal, le principe de légalité des délits et des peines (nullum crimen sine lege) signifie que :", correct:"Nul ne peut être condamné pour un acte qui n'était pas prévu par la loi au moment où il a été commis", distractors:["Le juge peut créer des infractions selon les circonstances","La peine est toujours proportionnelle au dommage subi","Le ministère public décide seul des poursuites"]},
+    {q:"La hiérarchie des normes juridiques (pyramide de Kelsen) place au sommet :", correct:"La Constitution", distractors:["Les lois ordinaires","Les traités internationaux","Les règlements et décrets"]},
+    {q:"En droit des contrats, la lésion désigne :", correct:"Un déséquilibre grave entre les prestations réciproques des parties au moment de la conclusion du contrat", distractors:["Un vice de consentement par violence","L'absence totale d'objet dans le contrat","Un défaut de capacité juridique d'une partie"]},
+    {q:"La prescription acquisitive (usucapion) permet de :", correct:"Acquérir la propriété d'un bien par une possession prolongée, paisible et non équivoque", distractors:["Perdre un droit par le non-exercice","Transférer une créance à un tiers","Annuler un contrat pour vice caché"]},
+    {q:"Le principe du contradictoire en procédure civile signifie que :", correct:"Chaque partie doit pouvoir prendre connaissance des arguments adverses et y répondre", distractors:["Le juge décide seul sans entendre les parties","Seul l'avocat peut présenter des arguments","La procédure est toujours publique"]},
+    {q:"La responsabilité délictuelle est engagée si :", correct:"Il y a une faute, un dommage et un lien de causalité entre les deux", distractors:["Il existe un contrat entre les parties","La victime a expressément consenti au dommage","Le dommage est purement moral sans conséquence financière"]},
+    {q:"En droit commercial, le fonds de commerce comprend :", correct:"Des éléments corporels (matériel, stocks) et incorporels (clientèle, enseigne, baux)", distractors:["Uniquement les immeubles appartenant à l'entreprise","Seulement les créances et dettes de l'entreprise","Les parts sociales et actions de la société"]},
+    {q:"Un acte administratif unilatéral est :", correct:"Un acte pris par l'administration sans le consentement du destinataire, mais qui crée des droits ou obligations", distractors:["Un contrat signé entre l'État et un particulier","Une convention collective de branche","Un jugement rendu par le tribunal administratif"]},
+    {q:"L'OHADA a pour but de :", correct:"Unifier le droit des affaires dans les États membres afin de sécuriser les investissements", distractors:["Créer une monnaie commune africaine","Harmoniser les constitutions africaines","Réguler le commerce international de l'Afrique avec l'Europe"]},
+    {q:"Le recours pour excès de pouvoir (REP) vise à :", correct:"Annuler un acte administratif illégal devant le juge administratif", distractors:["Obtenir une indemnisation pour préjudice subi","Contraindre l'administration à agir","Engager la responsabilité pénale d'un fonctionnaire"]},
+    {q:"La distinction entre droit public et droit privé repose sur :", correct:"La qualité des parties impliquées et l'intérêt général versus les intérêts particuliers", distractors:["Le montant des litiges concernés","Le tribunal compétent uniquement","L'ancienneté des textes juridiques"]},
+    {q:"Le principe nullum crimen sine lege signifie que :", correct:"Nul ne peut être condamné pour un acte qui n'était pas prévu par la loi au moment où il a été commis", distractors:["Le juge peut créer des infractions selon les circonstances","La peine est toujours proportionnelle au dommage subi","Le ministère public décide seul des poursuites"]},
     // GESTION — 10
-    {subject:"gestion", q:"La méthode ABC (Activity-Based Costing) consiste à :", correct:"Imputer les coûts indirects aux produits via des activités et inducteurs de coûts", distractors:["Classer les stocks en trois catégories selon leur valeur","Amortir les immobilisations sur trois exercices","Calculer le bénéfice avant charges financières"]},
-    {subject:"gestion", q:"Le besoin en fonds de roulement (BFR) est calculé par :", correct:"BFR = Stocks + Créances clients − Dettes fournisseurs", distractors:["BFR = Capitaux propres − Dettes long terme","BFR = Total actif − Total passif","BFR = Résultat net − Dividendes versés"]},
-    {subject:"gestion", q:"L'effet de levier financier mesure :", correct:"L'impact de l'endettement sur la rentabilité des capitaux propres", distractors:["La capacité de l'entreprise à rembourser ses dettes","L'évolution du chiffre d'affaires sur plusieurs exercices","Le ratio entre charges fixes et charges variables"]},
-    {subject:"gestion", q:"La valeur actuelle nette (VAN) d'un investissement est positive si :", correct:"La somme actualisée des flux de trésorerie futurs est supérieure au coût initial de l'investissement", distractors:["Le taux d'actualisation est nul","Les charges variables sont inférieures aux charges fixes","Le délai de récupération est inférieur à 1 an"]},
-    {subject:"gestion", q:"En comptabilité générale, le compte de résultat présente :", correct:"Les produits et charges de l'exercice permettant de dégager le résultat net", distractors:["La situation patrimoniale à une date donnée","Les flux de trésorerie de l'exercice","La répartition des bénéfices entre actionnaires"]},
-    {subject:"gestion", q:"Le seuil de rentabilité (point mort) est atteint lorsque :", correct:"Le chiffre d'affaires couvre exactement l'ensemble des charges fixes et variables", distractors:["La marge brute est supérieure à 50%","Le résultat net est égal aux capitaux propres","Les charges variables sont nulles"]},
-    {subject:"gestion", q:"Un tableau de bord de gestion est principalement utilisé pour :", correct:"Piloter la performance d'une organisation en suivant des indicateurs clés", distractors:["Présenter les états financiers aux actionnaires","Calculer les impôts et taxes dues","Réaliser l'audit externe annuel"]},
-    {subject:"gestion", q:"La chaîne de valeur de Porter analyse :", correct:"Les activités internes créatrices de valeur pour le client et sources d'avantage concurrentiel", distractors:["La structure financière de l'entreprise","Le positionnement des produits sur le marché","La distribution géographique des clients"]},
-    {subject:"gestion", q:"Le taux de rentabilité interne (TRI) d'un projet est :", correct:"Le taux d'actualisation pour lequel la VAN est égale à zéro", distractors:["Le taux d'intérêt appliqué par la banque","Le rapport résultat net / chiffre d'affaires","Le taux d'amortissement des immobilisations"]},
-    {subject:"gestion", q:"La gestion prévisionnelle des emplois et compétences (GPEC) vise à :", correct:"Anticiper les besoins en ressources humaines et adapter les compétences aux évolutions de l'organisation", distractors:["Recruter rapidement en cas de besoin urgent","Calculer les charges salariales futures","Négocier les salaires avec les syndicats"]},
+    {q:"La méthode ABC (Activity-Based Costing) consiste à :", correct:"Imputer les coûts indirects aux produits via des activités et inducteurs de coûts", distractors:["Classer les stocks en trois catégories selon leur valeur","Amortir les immobilisations sur trois exercices","Calculer le bénéfice avant charges financières"]},
+    {q:"Le besoin en fonds de roulement (BFR) est calculé par :", correct:"BFR = Stocks + Créances clients − Dettes fournisseurs", distractors:["BFR = Capitaux propres − Dettes long terme","BFR = Total actif − Total passif","BFR = Résultat net − Dividendes versés"]},
+    {q:"L'effet de levier financier mesure :", correct:"L'impact de l'endettement sur la rentabilité des capitaux propres", distractors:["La capacité de l'entreprise à rembourser ses dettes","L'évolution du chiffre d'affaires sur plusieurs exercices","Le ratio entre charges fixes et charges variables"]},
+    {q:"La valeur actuelle nette (VAN) d'un investissement est positive si :", correct:"La somme actualisée des flux de trésorerie futurs est supérieure au coût initial de l'investissement", distractors:["Le taux d'actualisation est nul","Les charges variables sont inférieures aux charges fixes","Le délai de récupération est inférieur à 1 an"]},
+    {q:"En comptabilité générale, le compte de résultat présente :", correct:"Les produits et charges de l'exercice permettant de dégager le résultat net", distractors:["La situation patrimoniale à une date donnée","Les flux de trésorerie de l'exercice","La répartition des bénéfices entre actionnaires"]},
+    {q:"Le seuil de rentabilité (point mort) est atteint lorsque :", correct:"Le chiffre d'affaires couvre exactement l'ensemble des charges fixes et variables", distractors:["La marge brute est supérieure à 50%","Le résultat net est égal aux capitaux propres","Les charges variables sont nulles"]},
+    {q:"La chaîne de valeur de Porter analyse :", correct:"Les activités internes créatrices de valeur pour le client et sources d'avantage concurrentiel", distractors:["La structure financière de l'entreprise","Le positionnement des produits sur le marché","La distribution géographique des clients"]},
+    {q:"Le taux de rentabilité interne (TRI) d'un projet est :", correct:"Le taux d'actualisation pour lequel la VAN est égale à zéro", distractors:["Le taux d'intérêt appliqué par la banque","Le rapport résultat net / chiffre d'affaires","Le taux d'amortissement des immobilisations"]},
+    {q:"La gestion prévisionnelle des emplois et compétences (GPEC) vise à :", correct:"Anticiper les besoins en ressources humaines et adapter les compétences aux évolutions de l'organisation", distractors:["Recruter rapidement en cas de besoin urgent","Calculer les charges salariales futures","Négocier les salaires avec les syndicats"]},
+    {q:"Un tableau de bord de gestion est principalement utilisé pour :", correct:"Piloter la performance d'une organisation en suivant des indicateurs clés", distractors:["Présenter les états financiers aux actionnaires","Calculer les impôts et taxes dues","Réaliser l'audit externe annuel"]},
     // INFORMATIQUE — 8
-    {subject:"info", q:"La complexité de l'algorithme de tri par insertion dans le pire cas est :", correct:"\\(O(n^2)\\)", distractors:["\\(O(n \\log n)\\)","\\(O(n)\\)","\\(O(\\log n)\\)"]},
-    {subject:"info", q:"En SQL, la clause JOIN permet de :", correct:"Combiner des lignes de deux tables ou plus sur la base d'une colonne commune", distractors:["Filtrer les lignes selon une condition","Regrouper les résultats par une colonne","Trier les résultats par ordre croissant ou décroissant"]},
-    {subject:"info", q:"Le modèle OSI comporte combien de couches ?", correct:"7 couches", distractors:["4 couches","5 couches","9 couches"]},
-    {subject:"info", q:"Une adresse IP en IPv4 est codée sur :", correct:"32 bits (4 octets)", distractors:["16 bits","64 bits","128 bits"]},
-    {subject:"info", q:"Le paradigme de programmation orientée objet repose sur les concepts de :", correct:"Encapsulation, héritage, polymorphisme et abstraction", distractors:["Séquence, boucle, condition et fonction","Tableaux, pointeurs, structures et unions","Variables globales, fonctions, macros et modules"]},
-    {subject:"info", q:"Une base de données relationnelle respecte la forme normale de Boyce-Codd (BCNF) si :", correct:"Pour toute dépendance fonctionnelle X → Y, X est une super-clé de la relation", distractors:["Chaque colonne contient des valeurs atomiques","Il n'existe aucune dépendance fonctionnelle","Les clés étrangères référencent toujours des clés primaires"]},
-    {subject:"info", q:"Le protocole HTTPS diffère de HTTP par :", correct:"L'ajout d'une couche de chiffrement SSL/TLS sécurisant les échanges", distractors:["Une vitesse de transfert beaucoup plus élevée","L'absence d'en-têtes de requête","L'utilisation du port 80 au lieu du port 443"]},
-    {subject:"info", q:"Dans le paradigme MVC (Modèle-Vue-Contrôleur), le Contrôleur a pour rôle de :", correct:"Traiter les requêtes utilisateur, interagir avec le modèle et choisir la vue à afficher", distractors:["Stocker les données de l'application","Afficher l'interface graphique","Gérer uniquement les connexions à la base de données"]},
+    {q:"La complexité de l'algorithme de tri par insertion dans le pire cas est :", correct:"\\(O(n^2)\\)", distractors:["\\(O(n \\log n)\\)","\\(O(n)\\)","\\(O(\\log n)\\)"]},
+    {q:"En SQL, la clause JOIN permet de :", correct:"Combiner des lignes de deux tables ou plus sur la base d'une colonne commune", distractors:["Filtrer les lignes selon une condition","Regrouper les résultats par une colonne","Trier les résultats par ordre croissant ou décroissant"]},
+    {q:"Le modèle OSI comporte combien de couches ?", correct:"7 couches", distractors:["4 couches","5 couches","9 couches"]},
+    {q:"Une adresse IP en IPv4 est codée sur :", correct:"32 bits (4 octets)", distractors:["16 bits","64 bits","128 bits"]},
+    {q:"Le paradigme de programmation orientée objet repose sur :", correct:"Encapsulation, héritage, polymorphisme et abstraction", distractors:["Séquence, boucle, condition et fonction","Tableaux, pointeurs, structures et unions","Variables globales, fonctions, macros et modules"]},
+    {q:"Le protocole HTTPS diffère de HTTP par :", correct:"L'ajout d'une couche de chiffrement SSL/TLS sécurisant les échanges", distractors:["Une vitesse de transfert beaucoup plus élevée","L'absence d'en-têtes de requête","L'utilisation du port 80 au lieu du port 443"]},
+    {q:"Dans le paradigme MVC, le Contrôleur a pour rôle de :", correct:"Traiter les requêtes utilisateur, interagir avec le modèle et choisir la vue à afficher", distractors:["Stocker les données de l'application","Afficher l'interface graphique","Gérer uniquement les connexions à la base de données"]},
+    {q:"Une base de données respecte la BCNF si :", correct:"Pour toute dépendance fonctionnelle X → Y, X est une super-clé de la relation", distractors:["Chaque colonne contient des valeurs atomiques","Il n'existe aucune dépendance fonctionnelle","Les clés étrangères référencent toujours des clés primaires"]},
     // STATISTIQUES — 8
-    {subject:"stats", q:"L'espérance mathématique d'une variable aléatoire discrète \\(X\\) est :", correct:"\\(E(X) = \\sum_{i} x_i \\cdot P(X = x_i)\\)", distractors:["\\(E(X) = \\dfrac{\\sum x_i}{n}\\)","\\(E(X) = \\sqrt{\\text{Var}(X)}\\)","\\(E(X) = \\max(x_i) - \\min(x_i)\\)"]},
-    {subject:"stats", q:"La loi normale centrée réduite \\(\\mathcal{N}(0,1)\\) a pour paramètres :", correct:"Moyenne \\(\\mu = 0\\) et écart-type \\(\\sigma = 1\\)", distractors:["Moyenne \\(\\mu = 1\\) et variance \\(\\sigma^2 = 0\\)","Moyenne \\(\\mu = 0\\) et variance \\(\\sigma^2 = 0{,}5\\)","Médiane 0 et étendue 1"]},
-    {subject:"stats", q:"La variance d'une série de données mesure :", correct:"La dispersion des valeurs autour de la moyenne", distractors:["La valeur centrale de la distribution","Le nombre de modalités de la variable","La fréquence cumulée de la série"]},
-    {subject:"stats", q:"Le test du chi-deux (\\(\\chi^2\\)) est utilisé pour :", correct:"Tester l'indépendance entre deux variables qualitatives", distractors:["Comparer deux moyennes continues","Mesurer la corrélation entre variables quantitatives","Estimer un intervalle de confiance pour la proportion"]},
-    {subject:"stats", q:"Si \\(P(A) = 0{,}4\\) et \\(P(B) = 0{,}3\\) et \\(A\\) et \\(B\\) sont indépendants, alors \\(P(A \\cap B) = \\)", correct:"\\(0{,}12\\)", distractors:["\\(0{,}7\\)","\\(0{,}1\\)","\\(0{,}58\\)"]},
-    {subject:"stats", q:"Un intervalle de confiance à 95% pour une moyenne signifie que :", correct:"Si l'on répète l'expérience un grand nombre de fois, 95% des intervalles construits contiendront la vraie moyenne", distractors:["La probabilité que la vraie moyenne soit dans l'intervalle est de 95%","L'erreur de mesure est inférieure à 5%","L'échantillon représente 95% de la population"]},
-    {subject:"stats", q:"La médiane d'une série statistique est :", correct:"La valeur qui partage la distribution en deux parties égales (50% des données de chaque côté)", distractors:["La valeur la plus fréquente","La moyenne arithmétique de toutes les valeurs","La différence entre le maximum et le minimum"]},
-    {subject:"stats", q:"Le coefficient de corrélation de Pearson \\(r\\) est compris entre :", correct:"\\(-1\\) et \\(+1\\)", distractors:["\\(0\\) et \\(+1\\)","\\(-\\infty\\) et \\(+\\infty\\)","\\(0\\) et \\(100\\)"]},
-    // ANGLAIS ACADÉMIQUE — 5
-    {subject:"anglais", q:"'To corroborate' means:", correct:"To confirm or give support to a statement or theory", distractors:["To contradict an established theory","To summarize a research paper","To translate from one language to another"]},
-    {subject:"anglais", q:"In an academic text, 'Nevertheless' is used to:", correct:"Introduce a contrasting idea despite what was just stated", distractors:["Add an example to support an argument","Conclude the paragraph","Introduce the main topic"]},
-    {subject:"anglais", q:"Choose the correct passive form: 'The report ___ by the committee last week.'", correct:"was reviewed", distractors:["reviewed","has been reviewed","is reviewing"]},
-    {subject:"anglais", q:"'Empirical evidence' refers to:", correct:"Evidence based on observation and experimentation", distractors:["Theoretical assumptions without testing","Evidence cited from historical texts","Expert opinions and consensus"]},
-    {subject:"anglais", q:"Which sentence is grammatically correct?", correct:"Neither the manager nor the employees were informed.", distractors:["Neither the manager nor the employees was informed.","Neither the manager nor the employees are informed yesterday.","Neither the manager or the employees were informed."]},
+    {q:"L'espérance mathématique d'une variable aléatoire discrète \\(X\\) est :", correct:"\\(E(X) = \\sum_{i} x_i \\cdot P(X = x_i)\\)", distractors:["\\(E(X) = \\dfrac{\\sum x_i}{n}\\)","\\(E(X) = \\sqrt{\\text{Var}(X)}\\)","\\(E(X) = \\max(x_i) - \\min(x_i)\\)"]},
+    {q:"La loi normale centrée réduite \\(\\mathcal{N}(0,1)\\) a pour paramètres :", correct:"Moyenne \\(\\mu = 0\\) et écart-type \\(\\sigma = 1\\)", distractors:["Moyenne \\(\\mu = 1\\) et variance \\(\\sigma^2 = 0\\)","Moyenne \\(\\mu = 0\\) et variance \\(\\sigma^2 = 0{,}5\\)","Médiane 0 et étendue 1"]},
+    {q:"La variance d'une série de données mesure :", correct:"La dispersion des valeurs autour de la moyenne", distractors:["La valeur centrale de la distribution","Le nombre de modalités de la variable","La fréquence cumulée de la série"]},
+    {q:"Le test du chi-deux \\(\\chi^2\\) est utilisé pour :", correct:"Tester l'indépendance entre deux variables qualitatives", distractors:["Comparer deux moyennes continues","Mesurer la corrélation entre variables quantitatives","Estimer un intervalle de confiance pour la proportion"]},
+    {q:"Si \\(P(A) = 0{,}4\\) et \\(P(B) = 0{,}3\\) et \\(A\\), \\(B\\) sont indépendants, alors \\(P(A \\cap B) =\\)", correct:"\\(0{,}12\\)", distractors:["\\(0{,}7\\)","\\(0{,}1\\)","\\(0{,}58\\)"]},
+    {q:"Un intervalle de confiance à 95% pour une moyenne signifie que :", correct:"Si l'on répète l'expérience un grand nombre de fois, 95% des intervalles construits contiendront la vraie moyenne", distractors:["La probabilité que la vraie moyenne soit dans l'intervalle est de 95%","L'erreur de mesure est inférieure à 5%","L'échantillon représente 95% de la population"]},
+    {q:"La médiane d'une série statistique est :", correct:"La valeur qui partage la distribution en deux parties égales (50% des données de chaque côté)", distractors:["La valeur la plus fréquente","La moyenne arithmétique de toutes les valeurs","La différence entre le maximum et le minimum"]},
+    {q:"Le coefficient de corrélation de Pearson \\(r\\) est compris entre :", correct:"\\(-1\\) et \\(+1\\)", distractors:["\\(0\\) et \\(+1\\)","\\(-\\infty\\) et \\(+\\infty\\)","\\(0\\) et \\(100\\)"]},
+    // ANGLAIS ACADÉMIQUE — 3 questions seulement
+    {q:"'To corroborate' means:", correct:"To confirm or give support to a statement or theory", distractors:["To contradict an established theory","To summarize a research paper","To translate from one language to another"]},
+    {q:"In an academic text, 'Nevertheless' is used to:", correct:"Introduce a contrasting idea despite what was just stated", distractors:["Add an example to support an argument","Conclude the paragraph","Introduce the main topic"]},
+    {q:"Choose the correct passive form: 'The report ___ by the committee last week.'", correct:"was reviewed", distractors:["reviewed","has been reviewed","is reviewing"]},
 ];
 
 // ════════════════════════════════════════════════
-//  BADGE CONFIG (union des 3 niveaux)
+//  BANQUE DE QUESTIONS PAR NIVEAU
 // ════════════════════════════════════════════════
-const BADGE_CONFIG = {
-    math:    { label:"📐 Mathématiques",         cls:"badge-math" },
-    physique:{ label:"⚡ Physique",               cls:"badge-physique" },
-    chimie:  { label:"🧪 Chimie",                cls:"badge-chimie" },
-    svt:     { label:"🌿 SVT",                   cls:"badge-svt" },
-    philo:   { label:"🧠 Philosophie",            cls:"badge-philo" },
-    histoire:{ label:"📜 Histoire & Géo",         cls:"badge-histoire" },
-    francais:{ label:"🗣️ Français & Culture",    cls:"badge-francais" },
-    droit:   { label:"⚖️ Droit",                 cls:"badge-droit" },
-    anglais: { label:"🇬🇧 Anglais",              cls:"badge-histoire" },
-    eco:     { label:"📈 Économie",               cls:"badge-eco" },
-    gestion: { label:"💼 Gestion",               cls:"badge-gestion" },
-    info:    { label:"💻 Informatique",           cls:"badge-info" },
-    stats:   { label:"📊 Statistiques",          cls:"badge-stats" },
-};
-
 const ALL_QUESTIONS = { BEPC: rawQuestions_BEPC, BAC: rawQuestions_BAC, LICENCE: rawQuestions_LICENCE };
 
 // ════════════════════════════════════════════════
@@ -736,19 +694,17 @@ function shuffleArray(arr) {
 }
 function buildShuffledQuestions(rawList) {
     return rawList.map(item => {
-        let answers = [item.correct, ...item.distractors];
-        let shuffled = shuffleArray([...answers]);
-        return { subject: item.subject, question: item.q, answers: shuffled, correct: shuffled.indexOf(item.correct) };
+        const answers = shuffleArray([item.correct, ...item.distractors]);
+        return { question: item.q, answers, correct: answers.indexOf(item.correct) };
     });
 }
 function typesetElement(el) {
     if (window.MathJax && window.MathJax.typesetPromise)
-        window.MathJax.typesetPromise([el]).catch(e => console.warn("MathJax:", e));
+        window.MathJax.typesetPromise([el]).catch(e => console.warn('MathJax:', e));
 }
 
 function startQuizForLevel(niveau) {
-    const raw = ALL_QUESTIONS[niveau];
-    QUIZ         = shuffleArray(buildShuffledQuestions(raw));
+    QUIZ         = shuffleArray(buildShuffledQuestions(ALL_QUESTIONS[niveau]));
     TOTAL_QS     = QUIZ.length;
     userAnswers  = new Array(TOTAL_QS).fill(null);
     currentIndex = 0;
@@ -763,10 +719,9 @@ function startQuizForLevel(niveau) {
     document.getElementById('nextBtn').disabled =
     document.getElementById('finalSubmitBtn').disabled = false;
 
-    // Update level indicator in quiz header
     const cfg = LEVEL_CONFIG[niveau];
     document.getElementById('levelIndicatorArea').innerHTML =
-        `<div class="level-indicator" style="background:${cfg.color}22;color:${cfg.color};border:1.5px solid ${cfg.color}44;">${cfg.emoji} QCM_${niveau} — ${cfg.totalLabel}</div>`;
+        `<div class="level-indicator" style="background:${cfg.color}18;color:${cfg.color};border:1.5px solid ${cfg.color}44;">${cfg.emoji} QCM_${niveau} &nbsp;·&nbsp; ${cfg.totalLabel}</div>`;
 
     renderCurrentQuestion();
 }
@@ -775,14 +730,10 @@ function initQuiz() {
     document.getElementById('prevBtn').addEventListener('click', goPrev);
     document.getElementById('nextBtn').addEventListener('click', goNext);
     document.getElementById('finalSubmitBtn').addEventListener('click', showFinalResult);
-    document.getElementById('restartQuizBtn').addEventListener('click', restartQuiz);
-    document.getElementById('changeLevelBtn').addEventListener('click', () => { ouvrirLevelSelector(); });
+    document.getElementById('restartQuizBtn').addEventListener('click', () => startQuizForLevel(niveauChoisi));
+    document.getElementById('changeLevelBtn').addEventListener('click', ouvrirLevelSelector);
     document.getElementById('showCorrigeBtn').addEventListener('click', toggleCorrige);
     document.getElementById('btnPdf').addEventListener('click', telechargerPDF);
-    // Show level overlay on start — level-modal has a close button only after first choice
-    document.getElementById('levelOverlay').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    // Allow closing the overlay only when a level has been chosen (ESC key)
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
             if (niveauChoisi && document.getElementById('levelOverlay').style.display !== 'none') {
@@ -792,6 +743,8 @@ function initQuiz() {
             annulerChangement();
         }
     });
+    document.getElementById('levelOverlay').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
 }
 
 function countAnswered() { return userAnswers.filter(a => a !== null).length; }
@@ -804,13 +757,11 @@ function renderCurrentQuestion() {
     if (quizSubmitted) return;
     const q = QUIZ[currentIndex], selectedIdx = userAnswers[currentIndex];
     const letters = ['A','B','C','D'];
-    const bc = BADGE_CONFIG[q.subject] || { label: q.subject, cls:"badge-math" };
-    document.getElementById('subjectBadge').innerHTML = `<span class="subject-badge ${bc.cls}">${bc.label}</span>`;
     const qEl = document.getElementById('questionText');
     qEl.innerHTML = q.question;
     let html = '';
     q.answers.forEach((ans, idx) => {
-        html += `<div class="answer-option ${selectedIdx===idx?'selected':''}" data-ans-index="${idx}">
+        html += `<div class="answer-option ${selectedIdx === idx ? 'selected' : ''}" data-ans-index="${idx}">
                     <span class="answer-prefix">${letters[idx]}</span>
                     <span class="answer-text">${ans}</span>
                  </div>`;
@@ -840,22 +791,22 @@ function goNext() {
 
 function computeScore() {
     let c = 0;
-    for (let i = 0; i < TOTAL_QS; i++) if (userAnswers[i] !== null && QUIZ[i].correct === userAnswers[i]) c++;
+    for (let i = 0; i < TOTAL_QS; i++)
+        if (userAnswers[i] !== null && QUIZ[i].correct === userAnswers[i]) c++;
     return c;
 }
 
 function buildCorrigeHTML() {
     let html = '<h4 style="margin-bottom:.5rem">📖 Corrigé complet</h4>';
     for (let i = 0; i < TOTAL_QS; i++) {
-        const q = QUIZ[i], bc = BADGE_CONFIG[q.subject] || { label: q.subject, cls:"badge-math" };
+        const q = QUIZ[i];
         const correct = q.answers[q.correct];
-        const given   = userAnswers[i] !== null ? q.answers[userAnswers[i]] : "Non répondue";
+        const given   = userAnswers[i] !== null ? q.answers[userAnswers[i]] : 'Non répondue';
         const ok      = userAnswers[i] !== null && q.correct === userAnswers[i];
         html += `<div class="corrige-item">
-                    <span class="subject-badge ${bc.cls}" style="font-size:.65rem">${bc.label}</span>
                     <div><strong>${i+1}. ${q.question}</strong></div>
                     <div>📌 Bonne réponse : <strong>${correct}</strong></div>
-                    <div>${ok?'✅':'❌'} Votre réponse : ${given}</div>
+                    <div>${ok ? '✅' : '❌'} Votre réponse : ${given}</div>
                  </div>`;
     }
     return html;
@@ -890,12 +841,8 @@ function toggleCorrige() {
     if (hidden) typesetElement(cd);
 }
 
-function restartQuiz() {
-    startQuizForLevel(niveauChoisi);
-}
-
 // ════════════════════════════════════════════════
-//  PDF GENERATOR
+//  PDF GENERATOR — sans badge de matière
 // ════════════════════════════════════════════════
 async function telechargerPDF() {
     const btn = document.getElementById('btnPdf');
@@ -905,18 +852,19 @@ async function telechargerPDF() {
     const pct     = Math.round(score / TOTAL_QS * 100);
     const dateStr = new Date().toLocaleDateString('fr-FR', { day:'2-digit', month:'long', year:'numeric' });
     const letters = ['A','B','C','D'];
-    const COLORS = { math:'#1d4ed8', physique:'#9d174d', chimie:'#065f46', svt:'#3f6212', philo:'#5b21b6', histoire:'#9a3412', francais:'#075985', droit:'#854d0e', anglais:'#9a3412', eco:'#065f46', gestion:'#5b21b6', info:'#075985', stats:'#1d4ed8' };
-    const BG     = { math:'#dbeafe', physique:'#fce7f3', chimie:'#d1fae5', svt:'#ecfccb', philo:'#ede9fe', histoire:'#ffedd5', francais:'#e0f2fe', droit:'#fef9c3', anglais:'#ffedd5', eco:'#d1fae5', gestion:'#ede9fe', info:'#e0f2fe', stats:'#dbeafe' };
+
     function latexToText(str) {
-        return str.replace(/\\\(|\\\)/g,'').replace(/\\\[|\\\]/g,'')
+        return (str || '').replace(/\\\(|\\\)/g,'').replace(/\\\[|\\\]/g,'')
             .replace(/\\displaystyle/g,'').replace(/\\dfrac\{([^}]+)\}\{([^}]+)\}/g,'($1)/($2)')
             .replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g,'($1)/($2)').replace(/\\lim_\{([^}]+)\}/g,'lim($1)')
             .replace(/\\int_\{([^}]+)\}\^\{([^}]+)\}/g,'∫[$1→$2]').replace(/\\int/g,'∫')
             .replace(/\\ln/g,'ln').replace(/\\sin/g,'sin').replace(/\\cos/g,'cos').replace(/\\tan/g,'tan')
             .replace(/\\sqrt\{([^}]+)\}/g,'√($1)').replace(/\\infty/g,'∞').replace(/\\to/g,'→')
-            .replace(/\\pi/g,'π').replace(/\\mathbb\{R\}/g,'ℝ').replace(/\\vec\{([^}]+)\}/g,'$1⃗')
-            .replace(/\^2/g,'²').replace(/\^3/g,'³').replace(/\{|\}/g,'').replace(/\s+/g,' ').trim();
+            .replace(/\\pi/g,'π').replace(/\\mathbb\{([^}]+)\}/g,'$1').replace(/\\vec\{([^}]+)\}/g,'$1⃗')
+            .replace(/\\mathcal\{([^}]+)\}/g,'$1').replace(/\^2/g,'²').replace(/\^3/g,'³')
+            .replace(/\{|\}/g,'').replace(/\s+/g,' ').trim();
     }
+
     const wrap = document.createElement('div');
     wrap.style.cssText = 'position:fixed;left:-9999px;top:0;width:794px;background:#fff;padding:40px;font-family:Segoe UI,sans-serif;font-size:13px;color:#1a2c3e;z-index:-1';
     let rows = '';
@@ -925,9 +873,6 @@ async function telechargerPDF() {
         const given   = userAnswers[i] !== null ? latexToText(q.answers[userAnswers[i]]) : 'Non répondue';
         const ok      = userAnswers[i] !== null && q.correct === userAnswers[i];
         const qText   = latexToText(q.question);
-        const label   = BADGE_CONFIG[q.subject]?.label || q.subject;
-        const color   = COLORS[q.subject] || '#333';
-        const bg      = BG[q.subject]    || '#eee';
         let choicesHTML = '<div style="margin:4px 0 2px;display:flex;flex-wrap:wrap;gap:4px;">';
         q.answers.forEach((ans, idx) => {
             const isCorrect = idx === q.correct, isChosen = idx === userAnswers[i];
@@ -938,8 +883,8 @@ async function telechargerPDF() {
             choicesHTML += `<span style="${style}">${letters[idx]}. ${ansText}</span>`;
         });
         choicesHTML += '</div>';
-        rows += `<div style="margin-bottom:14px;padding:12px 14px;border-radius:10px;border-left:4px solid ${color};background:${ok?'#f0fff4':'#fff8f8'};page-break-inside:avoid;">
-            <div style="margin-bottom:6px;"><span style="background:${bg};color:${color};font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;text-transform:uppercase;">${label}</span><span style="margin-left:8px;font-size:11px;color:#888;">Q.${i+1}</span><span style="float:right;font-size:16px;">${ok?'✅':'❌'}</span></div>
+        rows += `<div style="margin-bottom:14px;padding:12px 14px;border-radius:10px;border-left:4px solid ${ok?'#2b7a3e':'#c0392b'};background:${ok?'#f0fff4':'#fff8f8'};page-break-inside:avoid;">
+            <div style="margin-bottom:4px;"><span style="font-size:11px;color:#888;font-weight:600;">Q.${i+1}</span><span style="float:right;font-size:16px;">${ok?'✅':'❌'}</span></div>
             <div style="font-weight:600;margin-bottom:6px;font-size:12.5px;line-height:1.4;">${qText}</div>
             ${choicesHTML}
             <div style="margin-top:6px;font-size:11px;"><span style="color:#2b7a3e;font-weight:700;">📌 ${correct}</span>${!ok?`<span style="color:#c0392b;margin-left:10px;">Votre réponse : ${given}</span>`:''}</div>
@@ -964,9 +909,9 @@ async function telechargerPDF() {
     document.body.appendChild(wrap);
     try {
         const { jsPDF } = window.jspdf;
-        const pdf    = new jsPDF({ unit:'px', format:'a4', hotfixes:['px_scaling'] });
-        const pageW  = pdf.internal.pageSize.getWidth();
-        const pageH  = pdf.internal.pageSize.getHeight();
+        const pdf   = new jsPDF({ unit:'px', format:'a4', hotfixes:['px_scaling'] });
+        const pageW = pdf.internal.pageSize.getWidth();
+        const pageH = pdf.internal.pageSize.getHeight();
         const canvas = await html2canvas(wrap, { scale:2, useCORS:true, backgroundColor:'#ffffff', width:794, windowWidth:794 });
         const imgData = canvas.toDataURL('image/jpeg', 0.92);
         const imgW = pageW, imgH = (canvas.height * pageW) / canvas.width;
