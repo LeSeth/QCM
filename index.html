@@ -190,9 +190,9 @@
                 <div class="level-icon">⭐</div>
                 <div class="level-info">
                     <strong>EOA / EOS</strong>
-                    <span>15 sessions thématiques × 60 questions</span>
+                    <span>5 sessions × 60 questions (CG + Loi FAN)</span>
                 </div>
-                <span class="level-badge-pill">15 × 60 q.</span>
+                <span class="level-badge-pill">5 × 60 q.</span>
             </div>
         </div>
     </div>
@@ -361,7 +361,9 @@ let paiementValide  = false;
 let niveauChoisi    = null;
 let niveauEnAttente = null;
 
+// ============================================================
 // VISITOR COUNTER
+// ============================================================
 async function incrementerVisiteurs() {
     const el = document.getElementById('visitorCount');
     try {
@@ -380,12 +382,14 @@ async function incrementerVisiteurs() {
 }
 incrementerVisiteurs();
 
+// ============================================================
 // LEVEL CONFIG
+// ============================================================
 const LEVEL_CONFIG = {
     BEPC:    { label:'📗 BEPC',    emoji:'📗', color:'#10b981', totalLabel:'48 questions' },
     BAC:     { label:'📘 BAC',     emoji:'📘', color:'#3b82f6', totalLabel:'62 questions' },
     LICENCE: { label:'📙 Licence', emoji:'📙', color:'#8b5cf6', totalLabel:'53 questions' },
-    EOA:     { label:'⭐ EOA/EOS',  emoji:'⭐', color:'#eab308', totalLabel:'15 sessions × 60 questions' },
+    EOA:     { label:'⭐ EOA/EOS',  emoji:'⭐', color:'#eab308', totalLabel:'5 sessions × 60 questions' },
 };
 
 function choisirNiveau(niveau) {
@@ -453,7 +457,9 @@ function ouvrirLevelSelector() {
     document.body.style.overflow = 'hidden';
 }
 
+// ============================================================
 // ORANGE MONEY
+// ============================================================
 document.getElementById('ussdDisplay').textContent = USSD_CODE;
 function formatPhone(input) {
     let raw = input.value.replace(/\D/g, '');
@@ -499,136 +505,149 @@ async function lancerPaiement() {
 }
 
 // ============================================================
-// EOA/EOS — QUESTIONS & SESSIONS (version simplifiée pour la démo)
+// QUESTIONS EOA/EOS — 5 SESSIONS × 60 QUESTIONS
 // ============================================================
 
-// CULTURE GENERALE (pour EOA/EOS)
-const CULTURE_POOL = [
-    {q:"Quelle est la date de suspension des exportations de betail par le Burkina Faso ?",opts:["Le 8 mai 2026","Le 15 avril 2026","Le 1er juin 2026","Le 25 mars 2026"],ans:0,exp:"Suspendu le 8 mai 2026."},
-    {q:"Quelle est la nouvelle appellation de Faso Mebo ?",opts:["Office National Faso Mebo","Programme Faso Mebo","Agence Faso Mebo","Direction Faso Mebo"],ans:2,exp:"Faso Mebo a ete rebaptise Agence Faso Mebo."},
-    {q:"Que signifie l'acronyme BCLCC ?",opts:["Brigade Centrale de Lutte Contre la Corruption","Brigade Centrale de Lutte Contre la Cybercriminalite","Bureau Central de Liaison et de Communication Civile","Brigade de Controle et de Lutte Contre la Criminalite"],ans:1,exp:"Brigade Centrale de Lutte Contre la Cybercriminalite."},
-    {q:"Quelle est la date de la Semaine de la Culture (SNC) 2026 ?",opts:["Du 25 avril au 02 mai","Du 1er au 8 mars","Du 15 au 22 fevrier","Du 10 au 17 mai"],ans:0,exp:"Du 25 avril au 02 mai 2026."},
-    {q:"Qui etait le meilleur gardien de la CAN 2025 ?",opts:["Edouard Mendy","Yassine Bounou","Andre Onana","Ronwen Williams"],ans:1,exp:"Yassine Bounou, gardien marocain."},
-    {q:"Le musee national du Burkina Faso a ete cree le :",opts:["13 novembre 1963","5 aout 1960","11 decembre 1958","20 janvier 1970"],ans:0,exp:"Cree le 13 novembre 1963."},
-    {q:"Dans quelle ville a ete signee la charte de l'ONU ?",opts:["New York","Geneve","San Francisco","Washington"],ans:2,exp:"Signee a San Francisco en 1945."},
-    {q:"Qui est l'actuel Directeur General de l'Agence Nationale de Renseignement du Burkina Faso ?",opts:["Mahamadou Sana","Oumarou Yabre","Celestin Simpore","Karamoko Jean Marie Traore"],ans:1,exp:"Oumarou YABRE, DG de l'ANR."},
-    {q:"Qui a recu le Prix Felix Houphouet-Boigny UNESCO pour la recherche de la paix en 2022 ?",opts:["Emmanuel Macron","Angela Merkel","Olaf Scholz","Ursula von der Leyen"],ans:1,exp:"Angela Merkel en 2022."},
-    {q:"Quel est le premier pays independant d'Afrique noire ?",opts:["Le Senegal","La Cote d'Ivoire","Le Ghana","Le Nigeria"],ans:2,exp:"Le Ghana, independant en 1957."},
-    {q:"Qui a remporte le Kunde 2026 ?",opts:["Miss Tanya","Floby","Smarty","Alif Naaba"],ans:0,exp:"Miss Tanya."},
-    {q:"Comment s'appelle la nouvelle chaine de television de la Confederation des Etats du Sahel (AES) ?",opts:["Sahel TV","AES TV","Confederation TV","Tele Sahel"],ans:1,exp:"AES TV."},
-    {q:"Quand Mamadi Doumbouya a-t-il ete investi president de la Republique de Guinee ?",opts:["17 janvier 2026","5 decembre 2025","1er mars 2026","22 fevrier 2026"],ans:0,exp:"Investi le 17 janvier 2026."},
-    {q:"Quand a eu lieu la CAN Maroc 2025 ?",opts:["Du 21 decembre 2025 au 18 janvier 2026","Du 10 janvier au 5 fevrier 2026","Du 1er au 28 fevrier 2026","Du 15 novembre au 15 decembre 2025"],ans:0,exp:"21 decembre 2025 au 18 janvier 2026."},
-    {q:"Quand fut la dissolution des partis politiques au Burkina Faso ?",opts:["29 janvier 2026","15 fevrier 2026","8 mars 2026","1er janvier 2026"],ans:0,exp:"29 janvier 2026."},
-    {q:"Quel est le taux d'accroissement demographique de la population du Burkina Faso entre 2006 et 2019 ?",opts:["1,87%","2,94%","3,50%","2,10%"],ans:1,exp:"2,94% entre 2006 et 2019."},
-    {q:"Quelle province abrite le manganese de Tambao ?",opts:["Le Seno","L'Oudalan","Le Soum","Le Yagha"],ans:1,exp:"Province de l'Oudalan."},
-    {q:"Qui est le laureat du Prix Renaudot 2020 ?",opts:["Marie-Helene Lafon","Annie Ernaux","Herve Le Tellier","Maria Pourchet"],ans:0,exp:"Marie-Helene Lafon."},
-    {q:"Quel est le plus long fleuve du Burkina Faso ?",opts:["Le Nakanbe","Le Mouhoun","La Comoe","Le Sourou"],ans:1,exp:"Le Mouhoun, environ 680 km."},
-    {q:"Quel est le plus petit pays du monde ?",opts:["Monaco","Le Vatican","Saint-Marin","Le Liechtenstein"],ans:1,exp:"Le Vatican."},
-    {q:"La peur de la mort fait aimer le travail est une citation de :",opts:["Jules Renard","Victor Hugo","Voltaire","Albert Camus"],ans:0,exp:"Citation de Jules Renard."},
-    {q:"Qui est la premiere romanciere burkinabe ?",opts:["Sophie Heidi Kam","Monique Ilboudo","Angele Bassole","Adama Drabo"],ans:1,exp:"Monique Ilboudo."},
-    {q:"A quelle date s'est deroulee l'exposition du Premier ministre sur la situation de la Nation ?",opts:["30 janvier 2026","8 mars 2026","15 fevrier 2026","1er avril 2026"],ans:0,exp:"30 janvier 2026."},
-    {q:"Quelle est la date de suspension des activites de la societe de transport Aorema et Freres (STAF) ?",opts:["16 fevrier 2026","2 janvier 2026","10 mars 2026","25 avril 2026"],ans:0,exp:"16 fevrier 2026."},
-    {q:"Quel est le theme national du 8 mars 2026 ?",opts:["Crise securitaire : strategies pour l'entrepreneuriat agricole des femmes","Batir une paix durable : contribution des femmes et des filles","La resilience des femmes face aux defis securitaires","L'autonomisation economique des femmes en milieu rural"],ans:1,exp:"Batir une paix durable au Burkina Faso."},
-    {q:"Quelle est la plus ancienne ville du monde toujours habitee ?",opts:["Damas","Jericho","Athenes","Byblos"],ans:1,exp:"Jericho."},
-    {q:"Quelle est la date de la journee mondiale du donneur de sang ?",opts:["14 juin","1er decembre","7 avril","12 aout"],ans:0,exp:"14 juin."},
-    {q:"Le budget de l'Etat pour l'exercice 2024 est de :",opts:["2850 milliards F CFA","3694,6 milliards F CFA","4200 milliards F CFA","3100 milliards F CFA"],ans:1,exp:"3694,6 milliards F CFA."},
-    {q:"Wikipedia a fete ses 25 ans d'existence le :",opts:["01 janvier 2026","15 janvier 2026","10 avril 2025","05 mai 2024"],ans:1,exp:"15 janvier 2026."},
-    {q:"Qui est le premier homme a aller sur la Lune ?",opts:["Buzz Aldrin","Youri Gagarine","Neil Armstrong","John Glenn"],ans:2,exp:"Neil Armstrong, en 1969."},
-    {q:"Qui est le premier homme a aller dans l'espace ?",opts:["Neil Armstrong","Youri Gagarine","Buzz Aldrin","Alan Shepard"],ans:1,exp:"Youri Gagarine, en 1961."},
-    {q:"Le controle de la constitutionnalite des lois est assure par :",opts:["Le Conseil d'Etat","Le Conseil constitutionnel","La Cour de cassation","L'Assemblee nationale"],ans:1,exp:"Le Conseil constitutionnel."},
-    {q:"L'animal figurant sur le drapeau russe est une aigle :",opts:["Monocephale","Bicephale","Tricephale","Sans tete"],ans:1,exp:"Une aigle bicephale."},
-    {q:"Quel est le pays le plus vaste d'Afrique ?",opts:["Le Soudan","La RDC","L'Algerie","La Libye"],ans:2,exp:"L'Algerie."},
-    {q:"Quel est l'animal le plus lourd du monde ?",opts:["L'elephant d'Afrique","La baleine bleue","Le rhinoceros blanc","Le cachalot"],ans:1,exp:"La baleine bleue."},
-    {q:"Qui est le dessinateur du drapeau du Burkina Faso ?",opts:["Ferdinand Dabire","Thomas Sankara","Joseph Ki-Zerbo","Frederic Guirma"],ans:0,exp:"Ferdinand Dabire."},
-    {q:"Etienne Lantier est un personnage de quel roman ?",opts:["Germinal (Emile Zola)","Les Miserables (Victor Hugo)","Le Pere Goriot (Balzac)","Bel-Ami (Maupassant)"],ans:0,exp:"Germinal, d'Emile Zola."},
-    {q:"Quelle est la date du dechiffrement des hieroglyphes egyptiens ?",opts:["14 septembre 1822","1799","4 juillet 1801","1830"],ans:0,exp:"14 septembre 1822 par Champollion."},
-    {q:"En quelle annee le Maroc est-il passe sous protectorat francais ?",opts:["1830","1912","1956","1881"],ans:1,exp:"1912 (traite de Fes)."},
-    {q:"Qui est le seizieme president des USA ?",opts:["George Washington","Thomas Jefferson","Abraham Lincoln","Theodore Roosevelt"],ans:2,exp:"Abraham Lincoln."}
+// ----- CULTURE GENERALE (PDF QCM (1)) -----
+const CULTURE_QUESTIONS = [
+    {q:"Quelle est la date de suspension des exportations de bétail par le Burkina ?", opts:["Le 8 mai 2026","Le 15 avril 2026","Le 1er juin 2026","Le 25 mars 2026"], ans:0, exp:"Suspendu le 8 mai 2026."},
+    {q:"Quelle est la nouvelle appellation de Faso Mêbo ?", opts:["Office National Faso Mebo","Programme Faso Mebo","Agence Faso Mebo","Direction Faso Mebo"], ans:2, exp:"Faso Mebo a été rebaptisé Agence Faso Mebo."},
+    {q:"Quelle est la date du décès du ministre de la Défense malien, le général Sadio Camara ?", opts:["Le 25 avril 2026 à Kati","Le 12 mars 2026 à Bamako","Le 1er mai 2026 à Kati","Le 8 février 2026 à Bamako"], ans:0, exp:"Décédé le 25 avril 2026 à Kati."},
+    {q:"Que signifie BCLCC ?", opts:["Brigade Centrale de Lutte Contre la Corruption","Brigade Centrale de Lutte Contre la Cybercriminalité","Bureau Central de Liaison et de Communication Civile","Brigade de Contrôle et de Lutte Contre la Criminalité"], ans:1, exp:"Brigade Centrale de Lutte Contre la Cybercriminalité."},
+    {q:"Quelle est la date de la Semaine de la Culture (SNC) 2026 ?", opts:["Du 25 avril au 02 mai","Du 1er au 8 mars","Du 15 au 22 février","Du 10 au 17 mai"], ans:0, exp:"Du 25 avril au 02 mai 2026."},
+    {q:"Qui était le meilleur gardien de la CAN 2025 ?", opts:["Edouard Mendy (sénégalais)","Yassine Bounou (marocain)","André Onana (camerounais)","Ronwen Williams (sud-africain)"], ans:1, exp:"Yassine Bounou, gardien marocain."},
+    {q:"Le musée national du Burkina Faso a été créé le :", opts:["13 novembre 1963","5 août 1960","11 décembre 1958","20 janvier 1970"], ans:0, exp:"Créé le 13 novembre 1963."},
+    {q:"Dans quelle ville a été signée la charte de l'ONU ?", opts:["New York","Genève","San Francisco","Washington"], ans:2, exp:"Signée à San Francisco en 1945."},
+    {q:"Quel Marocain a été le premier buteur de la CAN 2025 ?", opts:["Achraf Hakimi","Brahim Diaz","Youssef En-Nesyri","Hakim Ziyech"], ans:1, exp:"Brahim Diaz, premier buteur marocain."},
+    {q:"Qui est l'actuel Directeur Général de l'Agence Nationale de Renseignement du Burkina Faso ?", opts:["Mahamadou Sana","Oumarou Yabre","Célestin Simporé","Karamoko Jean Marie Traoré"], ans:1, exp:"Oumarou YABRE, DG de l'ANR."},
+    {q:"Qui a reçu le Prix Félix Houphouët-Boigny UNESCO pour la recherche de la paix en 2022 ?", opts:["Emmanuel Macron","Angela Merkel","Olaf Scholz","Ursula von der Leyen"], ans:1, exp:"Angela Merkel en 2022."},
+    {q:"Quel est le premier pays indépendant d'Afrique noire ?", opts:["Le Sénégal","La Côte d'Ivoire","Le Ghana","Le Nigeria"], ans:2, exp:"Le Ghana, indépendant en 1957."},
+    {q:"Qui a remporté le Kundé 2026 ?", opts:["Miss Tanya","Floby","Smarty","Alif Naaba"], ans:0, exp:"Miss Tanya."},
+    {q:"Comment s'appelle la nouvelle chaîne de télévision de la Confédération des Etats du Sahel (AES) ?", opts:["Sahel TV","AES TV","Confédération TV","Télé Sahel"], ans:1, exp:"AES TV."},
+    {q:"Quand Mamadi Doumbouya a-t-il été investi président de la République de Guinée ?", opts:["17 janvier 2026","5 décembre 2025","1er mars 2026","22 février 2026"], ans:0, exp:"Investi le 17 janvier 2026."},
+    {q:"Quand a eu lieu la CAN Maroc 2025 ?", opts:["Du 21 décembre 2025 au 18 janvier 2026","Du 10 janvier au 5 février 2026","Du 1er au 28 février 2026","Du 15 novembre au 15 décembre 2025"], ans:0, exp:"21 décembre 2025 au 18 janvier 2026."},
+    {q:"Quand fut la dissolution des partis politiques au Burkina Faso ?", opts:["29 janvier 2026","15 février 2026","8 mars 2026","1er janvier 2026"], ans:0, exp:"29 janvier 2026."},
+    {q:"Quel est le taux d'accroissement démographique de la population du Burkina Faso entre 2006 et 2019 ?", opts:["1,87%","2,94%","3,50%","2,10%"], ans:1, exp:"2,94% entre 2006 et 2019."},
+    {q:"Quelle est la date du décès du président iranien Ebrahim Raïssi ?", opts:["19 mai 2024","3 mars 2024","12 juillet 2024","30 octobre 2024"], ans:0, exp:"Décédé le 19 mai 2024."},
+    {q:"Quelle province abrite le manganèse de Tambao ?", opts:["Le Séno","L'Oudalan","Le Soum","Le Yagha"], ans:1, exp:"Province de l'Oudalan."},
+    {q:"Qui est le lauréat du Prix Renaudot 2020 ?", opts:["Marie-Hélène Lafon","Annie Ernaux","Hervé Le Tellier","Maria Pourchet"], ans:0, exp:"Marie-Hélène Lafon."},
+    {q:"Quel est le plus long fleuve du Burkina Faso ?", opts:["Le Nakanbé","Le Mouhoun","La Comoé","Le Sourou"], ans:1, exp:"Le Mouhoun, environ 680 km."},
+    {q:"Quel est le plus petit pays du monde ?", opts:["Monaco","Le Vatican","Saint-Marin","Le Liechtenstein"], ans:1, exp:"Le Vatican."},
+    {q:"Combien y a-t-il eu de prix spéciaux à la SNC 2024 ?", opts:["30","45","52","38"], ans:1, exp:"45 prix spéciaux."},
+    {q:"La peur de la mort fait aimer le travail est une citation de :", opts:["Jules Renard","Victor Hugo","Voltaire","Albert Camus"], ans:0, exp:"Citation de Jules Renard."},
+    {q:"Qui est la première romancière burkinabè ?", opts:["Sophie Heidi Kam","Monique Ilboudo","Angèle Bassolé","Adama Drabo"], ans:1, exp:"Monique Ilboudo."},
+    {q:"A quelle date s'est déroulée l'exposition du Premier ministre Jean Emmanuel Ouédraogo sur la situation de la Nation ?", opts:["30 janvier 2026","8 mars 2026","15 février 2026","1er avril 2026"], ans:0, exp:"30 janvier 2026."},
+    {q:"Quelle est la date de suspension des activités de la société de transport Aorema et Frères (STAF) ?", opts:["16 février 2026","2 janvier 2026","10 mars 2026","25 avril 2026"], ans:0, exp:"16 février 2026."},
+    {q:"Quelle est la date de la visite de travail et d'amitié du président nigérien, le Général Abdourahamane Tiani, en Algérie ?", opts:["15 février 2026","10 mars 2025","29 janvier 2026","8 mai 2026"], ans:0, exp:"15 février 2026."},
+    {q:"Quel est le thème national du 8 mars 2026 ?", opts:["Crise sécuritaire et humanitaire au Burkina Faso : stratégies pour l'entrepreneuriat agricole des femmes","Bâtir une paix durable au Burkina Faso : quelle contribution des femmes et des filles à la promotion du vivre-ensemble","La résilience des femmes face aux défis sécuritaires","L'autonomisation économique des femmes en milieu rural"], ans:1, exp:"Bâtir une paix durable au Burkina Faso."},
+    {q:"Qui est la première dramaturge burkinabè ?", opts:["Monique Ilboudo","Sophie Heidi Kam","Angèle Bassolé","Hadja Fatimata Sanon"], ans:1, exp:"Sophie Heidi Kam."},
+    {q:"Quelle est la plus ancienne ville du monde toujours habitée ?", opts:["Damas","Jéricho","Athènes","Byblos"], ans:1, exp:"Jéricho."},
+    {q:"Quelle est la date de la journée mondiale du donneur de sang ?", opts:["14 juin","1er décembre","7 avril","12 août"], ans:0, exp:"14 juin."},
+    {q:"Le budget de l'Etat pour l'exercice 2024 est de :", opts:["2 850 milliards F CFA","3 694,6 milliards F CFA","4 200 milliards F CFA","3 100 milliards F CFA"], ans:1, exp:"3 694,6 milliards F CFA."},
+    {q:"Wikipedia a fêté ses 25 ans d'existence le :", opts:["01 janvier 2026","15 janvier 2026","10 avril 2025","05 mai 2024"], ans:1, exp:"15 janvier 2026."},
+    {q:"Qui est le réalisateur du film Duga, les charognards ?", opts:["Abdoulaye Dao","Gaston Kaboré","Idrissa Ouédraogo","Apolline Traoré"], ans:0, exp:"Abdoulaye Dao."},
+    {q:"Qui est le premier homme à aller sur la Lune ?", opts:["Buzz Aldrin","Youri Gagarine","Neil Armstrong","John Glenn"], ans:2, exp:"Neil Armstrong, en 1969."},
+    {q:"Qui est le premier homme à aller dans l'espace ?", opts:["Neil Armstrong","Youri Gagarine","Buzz Aldrin","Alan Shepard"], ans:1, exp:"Youri Gagarine, en 1961."},
+    {q:"Quel est le nom à l'état civil de Ladji Yoro ?", opts:["Soumaila Ganamé","Amadou Traoré","Sékou Diabaté","Issa Coulibaly"], ans:0, exp:"Soumaila Ganamé."},
+    {q:"Le contrôle de la constitutionnalité des lois est assuré par :", opts:["Le Conseil d'Etat","Le Conseil constitutionnel","La Cour de cassation","L'Assemblée nationale"], ans:1, exp:"Le Conseil constitutionnel."},
+    {q:"L'animal figurant sur le drapeau russe est une aigle :", opts:["monocéphale","bicéphale","tricéphale","sans tête"], ans:1, exp:"Une aigle bicéphale."},
+    {q:"Quel est le pays le plus vaste d'Afrique ?", opts:["Le Soudan","La RDC","L'Algérie","La Libye"], ans:2, exp:"L'Algérie."},
+    {q:"Quelle est la première femme africaine du Prix Nobel de littérature ?", opts:["Wole Soyinka","Naguib Mahfouz","Nadine Gordimer","Doris Lessing"], ans:2, exp:"Nadine Gordimer (sud-africaine)."},
+    {q:"Quel est l'animal le plus lourd du monde ?", opts:["L'éléphant d'Afrique","La baleine bleue","Le rhinocéros blanc","Le cachalot"], ans:1, exp:"La baleine bleue."},
+    {q:"Qui est le dessinateur du drapeau du Burkina Faso ?", opts:["Ferdinand DABIRE","Thomas Sankara","Joseph Ki-Zerbo","Frédéric Guirma"], ans:0, exp:"Ferdinand DABIRE."},
+    {q:"Quand furent créés les 26ème, 27ème et 28ème Bataillons d'Intervention Rapide (BIR) ?", opts:["2 janvier 2025","12 mars 2024","30 juin 2025","8 février 2025"], ans:0, exp:"2 janvier 2025."},
+    {q:"Quelle est la date de la visite du président ghanéen John Dramani Mahama au Burkina Faso ?", opts:["10 mars 2025","5 janvier 2026","20 avril 2025","15 décembre 2024"], ans:0, exp:"10 mars 2025."},
+    {q:"Etienne Lantier est un personnage de quel roman ?", opts:["Germinal (Emile Zola)","Les Misérables (Victor Hugo)","Le Père Goriot (Balzac)","Bel-Ami (Maupassant)"], ans:0, exp:"Germinal, d'Emile Zola."},
+    {q:"Quelle est la date du déchiffrement des hiéroglyphes égyptiens ?", opts:["14 septembre 1822","1799","4 juillet 1801","1830"], ans:0, exp:"14 septembre 1822 par Champollion."},
+    {q:"En quelle année le Maroc est-il passé sous protectorat français ?", opts:["1830","1912","1956","1881"], ans:1, exp:"1912 (traité de Fès)."},
+    {q:"Qui est le seizième président des USA ?", opts:["George Washington","Thomas Jefferson","Abraham Lincoln","Theodore Roosevelt"], ans:2, exp:"Abraham Lincoln."},
+    {q:"De quand date la constitution des Etats-Unis d'Amérique ?", opts:["4 juillet 1776","4 mars 1789","17 septembre 1787","1er janvier 1791"], ans:1, exp:"Entrée en vigueur le 4 mars 1789."},
+    {q:"Que signifie CDR ?", opts:["Comités de Défense de la Révolution","Conseil de Défense Régional","Comité de Développement Rural","Centre de Documentation Révolutionnaire"], ans:0, exp:"Comités de Défense de la Révolution."},
+    {q:"Quand fut survenu l'incendie au dépôt SONABHY de Bingo ?", opts:["8 février 2025","16 février 2026","2 janvier 2025","29 janvier 2026"], ans:0, exp:"8 février 2025."},
+    {q:"Quelle région du Burkina Faso compte le plus de carrières de calcaire dolomitique ?", opts:["Les Hauts Bassins","Le Centre-Ouest","La Boucle du Mouhoun","Le Sud-Ouest"], ans:0, exp:"Les Hauts Bassins."},
+    {q:"Quel pays d'Afrique a été le plus touché par le coronavirus ?", opts:["L'Egypte","Le Nigeria","L'Afrique du Sud","Le Maroc"], ans:2, exp:"L'Afrique du Sud."},
+    {q:"Parmi ces pays, lequel n'appartient pas à l'OTAN ?", opts:["La France","La Turquie","L'Allemagne","L'Ukraine"], ans:3, exp:"L'Ukraine."},
+    {q:"Quelle est la date du coup d'Etat qui a renversé Jean Baptiste Ouédraogo ?", opts:["Nuit du 4 au 5 août 1983","3 janvier 1966","15 octobre 1987","7 novembre 1982"], ans:0, exp:"Nuit du 4 au 5 août 1983."},
+    {q:"Quelle est la date de création de la CAN ?", opts:["1957","1963","1965","1970"], ans:0, exp:"1957."},
+    {q:"Quel est le premier pays producteur de coton en 2021-2022 ?", opts:["L'Inde","La Chine","Les Etats-Unis","Le Brésil"], ans:1, exp:"La Chine."}
 ];
 
-// SPÉCIALITÉS EOA/EOS (version simplifiée avec 5 questions chacune pour la démo)
-const SPEC_A = [
-    {q:"Quelle couche du modele OSI est responsable du routage des paquets entre reseaux ?",opts:["Couche liaison de donnees","Couche reseau","Couche transport","Couche session"],ans:1,exp:"Couche 3 : adressage IP et routage."},
-    {q:"Combien de couches comporte le modele OSI ?",opts:["4","5","7","8"],ans:2,exp:"7 couches."},
-    {q:"Quel protocole attribue automatiquement une adresse IP a un hote du reseau ?",opts:["DNS","FTP","DHCP","SMTP"],ans:2,exp:"DHCP distribue IP, masque, passerelle, DNS."},
-    {q:"Quelle est la difference principale entre TCP et UDP ?",opts:["TCP est plus rapide qu'UDP","UDP garantit la livraison, TCP non","TCP est fiable avec accuses de reception, UDP est sans connexion","TCP utilise des ports, UDP non"],ans:2,exp:"TCP fiable/connecte, UDP sans connexion."},
-    {q:"Quelle adresse IPv4 appartient a la plage des adresses privees ?",opts:["8.8.8.8","172.20.5.1","200.10.5.1","1.1.1.1"],ans:1,exp:"172.16.0.0/12 est privee."},
-    {q:"Quelle technologie divise logiquement un reseau physique en plusieurs segments isoles ?",opts:["NAT","VLAN","VPN","STP"],ans:1,exp:"VLAN cree des domaines de broadcast distincts."},
-    {q:"Quel protocole empeche les boucles de commutation dans un reseau Ethernet ?",opts:["HSRP","STP (Spanning Tree Protocol)","LACP","VRRP"],ans:1,exp:"STP bloque des ports pour eliminer les boucles."},
-    {q:"Quel protocole chiffre les tunnels VPN site-a-site au niveau reseau ?",opts:["Telnet","SSL/TLS","IPSec","SSH"],ans:2,exp:"IPSec opere en couche 3 pour les VPN."},
-    {q:"Quel equipement reseau opere en couche 2 et utilise les adresses MAC pour commuter ?",opts:["Routeur","Hub","Commutateur (switch)","Pare-feu"],ans:2,exp:"Le switch utilise une table CAM (MAC/port)."},
-    {q:"Quel protocole resout les adresses IP en adresses MAC sur un reseau local ?",opts:["RARP","DNS","ARP","ICMP"],ans:2,exp:"ARP : requete broadcast IP vers MAC."},
-    {q:"Quel outil permet de verifier la connectivite IP entre deux hotes ?",opts:["traceroute","nslookup","ping","netstat"],ans:2,exp:"Ping mesure le RTT via ICMP."},
-    {q:"Quel protocole de couche application resout les noms de domaine en adresses IP ?",opts:["HTTP","SNMP","DNS","LDAP"],ans:2,exp:"DNS traduit noms de domaine en IP."},
-    {q:"Quel protocole permet la gestion et la supervision des equipements reseau ?",opts:["FTP","SNMP","SMTP","POP3"],ans:1,exp:"SNMP collecte infos et envoie alertes."},
-    {q:"Quel protocole assure la redondance de la passerelle par defaut avec une IP virtuelle ?",opts:["STP","LACP","VRRP / HSRP","OSPF"],ans:2,exp:"VRRP/HSRP partagent une IP virtuelle."},
-    {q:"Qu'est-ce que le NAT (Network Address Translation) ?",opts:["Un protocole de chiffrement reseau","Une technique qui traduit des adresses IP privees en adresses publiques","Un protocole de routage dynamique","Un mecanisme d'attribution automatique d'adresses"],ans:1,exp:"Traduit IP privees en IP publiques."},
-    {q:"Quel protocole securise les echanges Web en chiffrant les donnees entre navigateur et serveur ?",opts:["HTTP","FTP","HTTPS (TLS/SSL)","Telnet"],ans:2,exp:"HTTPS utilise TLS pour chiffrer HTTP."},
-    {q:"Qu'est-ce qu'une attaque de type Man-in-the-Middle (MitM) ?",opts:["Une attaque par deni de service","Un attaquant qui intercepte et modifie les communications","Un virus qui se replique dans le reseau","Une tentative d'acces par force brute"],ans:1,exp:"L'attaquant s'interpose dans la communication."},
-    {q:"Quel type de firewall maintient une table des connexions actives ?",opts:["Firewall a filtrage de paquets statique","Firewall proxy","Firewall a inspection d'etat (stateful)","Firewall applicatif (WAF)"],ans:2,exp:"Stateful verifie chaque session active."},
-    {q:"Quel protocole permet l'acces distant securise a un serveur en ligne de commande ?",opts:["Telnet","FTP","SSH","SNMP"],ans:2,exp:"SSH chiffre toute la session."},
-    {q:"Quelle est la fonction principale d'un serveur proxy dans un reseau d'entreprise ?",opts:["Attribuer des adresses IP","Chiffrer les connexions VPN","Agir comme intermediaire entre les clients et Internet","Resoudre les noms de domaine"],ans:2,exp:"Proxy : intermediaire, filtrage et cache."}
+// ----- LOI N°039-2024/ALT PORTANT STATUT GENERAL DES FAN (PDF loi) -----
+const LOI_QUESTIONS = [
+    {q:"La loi n°039-2024/ALT portant statut général des personnels des Forces armées nationales a été adoptée le :", opts:["29 novembre 2024","14 octobre 2022","03 décembre 2024","25 mai 2024"], ans:0, exp:"Adoptée le 29 novembre 2024 par l'ALT."},
+    {q:"Qui a signé le décret promulguant la loi n°039-2024/ALT portant statut général des FAN ?", opts:["Jean Emmanuel Ouédraogo","Capitaine Ibrahim Traoré","Célestin Simporé","Karamoko Jean Marie Traoré"], ans:1, exp:"Décret signé par le Capitaine Ibrahim Traoré le 03 décembre 2024."},
+    {q:"Selon l'article 2, qui sont les personnels des Forces armées nationales ?", opts:["Uniquement les militaires de carrière","Les militaires de carrière, les militaires sous contrat et les personnels de réserve en activité","Uniquement les officiers et sous-officiers","Les civils et militaires confondus sans distinction"], ans:1, exp:"Inclut carrière, contractuels et réservistes en activité."},
+    {q:"Selon l'article 4, les Forces armées nationales du Burkina Faso sont composées de :", opts:["Armée de terre et Gendarmerie nationale uniquement","Armée de terre, Armée de l'air, Gendarmerie nationale et forces de réserve","Armée de terre, Marine et Armée de l'air","Gendarmerie nationale et Police nationale"], ans:1, exp:"Armée de terre, de l'air, Gendarmerie et réserve."},
+    {q:"Selon l'article 6, l'âge minimum requis pour le recrutement est :", opts:["16 ans au 31 décembre de l'année du recrutement","18 ans au moins au 31 décembre de l'année du recrutement","20 ans au moins au 1er janvier de l'année du recrutement","21 ans révolus"], ans:1, exp:"18 ans au moins au 31 décembre de l'année."},
+    {q:"Selon l'article 6, quelle situation matrimoniale est exigée pour le recrutement dans les FAN ?", opts:["Marié avec enfants","Veuf ou divorcé","Célibataire","Peu importe la situation matrimoniale"], ans:2, exp:"Le candidat doit être célibataire."},
+    {q:"Selon l'article 7, le recrutement dans les Forces armées nationales s'effectue :", opts:["Uniquement par concours direct","Sur concours ou à titre exceptionnel","Uniquement par nomination présidentielle","Par tirage au sort"], ans:1, exp:"Sur concours ou à titre exceptionnel."},
+    {q:"Selon l'article 13, la durée de l'engagement initial pour un militaire du rang est de :", opts:["6 mois","12 mois","24 mois","5 ans"], ans:1, exp:"Douze mois."},
+    {q:"Selon l'article 13, la durée minimale d'engagement à servir pour un élève officier après sa formation est de :", opts:["5 ans","7 ans","10 ans","15 ans"], ans:2, exp:"Au moins dix ans."},
+    {q:"Selon l'article 23, la hiérarchie générale des Forces armées nationales est établie en combien de catégories ?", opts:["Deux catégories","Trois catégories","Quatre catégories","Cinq catégories"], ans:1, exp:"Trois : militaires du rang, sous-officiers, officiers."},
+    {q:"Parmi les grades suivants, lequel appartient à la catégorie des officiers subalternes selon l'article 24 ?", opts:["Adjudant-chef","Sergent-chef","Lieutenant","Colonel"], ans:2, exp:"Lieutenant est un officier subalterne."},
+    {q:"Selon l'article 24, quel est le grade le plus élevé de la catégorie des officiers généraux ?", opts:["Général de brigade","Général de division","Général de corps d'armée","Général d'armée"], ans:3, exp:"Général d'armée."},
+    {q:"Selon l'article 25, le grade d'aspirant est :", opts:["Un grade de combat exclusivement","Un grade d'école et de la réserve","Un grade administratif supprimé","Réservé aux officiers généraux"], ans:1, exp:"Grade d'école et de la réserve."},
+    {q:"Selon l'article 43, la nomination des officiers à titre définitif est prononcée par :", opts:["Arrêté du ministre chargé des armées","Décret du Président du Faso, Chef suprême des FAN","Ordre du Chef d'Etat-major général des armées","Décision du Conseil constitutionnel"], ans:1, exp:"Par décret du Président du Faso."},
+    {q:"Selon l'article 60, dans quel délai la situation d'un militaire en instance disciplinaire doit-elle être réglée ?", opts:["Trois mois","Six mois","Un an","Deux ans"], ans:1, exp:"Six mois."},
+    {q:"Selon l'article 85, un officier issu du rang doit être titulaire de quel diplôme au minimum ?", opts:["Le BEPC","Le Baccalauréat et le Certificat interarmes","Une licence universitaire","Un Master 2"], ans:1, exp:"Bac et Certificat interarmes, 10 ans de service."},
+    {q:"Selon l'article 103, quelle est la durée totale du congé de maternité accordé au personnel féminin des FAN ?", opts:["Dix semaines","Douze semaines","Quatorze semaines","Seize semaines"], ans:2, exp:"Quatorze semaines."},
+    {q:"Selon l'article 106, après le congé de maternité, la mère a droit à des permissions d'allaitement d'une durée totale de :", opts:["Une heure par jour pendant dix mois","Une heure trente par jour pendant quinze mois","Deux heures par jour pendant douze mois","Trente minutes par jour pendant six mois"], ans:1, exp:"1h30 par jour pendant quinze mois."},
+    {q:"Selon l'article 107, quelle est la durée maximale du congé d'adoption avec solde pour un enfant de moins de trois ans ?", opts:["Deux semaines","Quatre semaines","Six semaines","Huit semaines"], ans:2, exp:"Six semaines maximum."},
+    {q:"Selon l'article 132, parmi les motifs suivants, lequel permet d'obtenir une mise en disponibilité sur demande ?", opts:["Préparer un concours administratif civil","Elever un enfant de moins de cinq ans","Effectuer un stage syndical","Participer à une compétition sportive internationale"], ans:1, exp:"Elever un enfant de moins de cinq ans."},
+    {q:"Selon l'article 9, le concours direct s'effectue parmi quels candidats ?", opts:["Uniquement les militaires en activité","Les jeunes gens civils, les bacheliers des prytanées ou les anciens enfants de troupe","Uniquement les fonctionnaires civils","Uniquement les diplômés universitaires"], ans:1, exp:"Jeunes civils, bacheliers des prytanées, anciens enfants de troupe."},
+    {q:"Selon l'article 10, le recrutement par concours professionnel permet :", opts:["Le recrutement direct de civils sans condition","Une passerelle pour les militaires de catégorie inférieure vers la catégorie supérieure","Le recrutement exclusif d'officiers généraux","La radiation automatique des sous-officiers"], ans:1, exp:"Passerelle entre catégories inférieure et supérieure."},
+    {q:"Selon l'article 17, qui est punissable en cas de fraude au recrutement ?", opts:["Uniquement le candidat fautif","Les auteurs ou complices de fraude, ainsi que les agents de l'Etat complices d'irrégularités","Personne, la fraude n'étant pas sanctionnée","Uniquement les officiers superviseurs du concours"], ans:1, exp:"Auteurs, complices et agents de l'Etat complices."},
+    {q:"Selon l'article 19, un militaire recruté jugé inapte pendant sa formation initiale est :", opts:["Maintenu en formation jusqu'à la fin du cycle","D'office renvoyé du centre d'instruction et rayé des effectifs","Promu directement au grade supérieur","Transféré automatiquement dans une autre arme"], ans:1, exp:"Renvoi d'office et radiation des effectifs des FAN."},
+    {q:"Selon l'article 20, quelle est la durée du service actif légal ?", opts:["6 mois","12 mois","18 mois","24 mois"], ans:1, exp:"12 mois."},
+    {q:"Selon l'article 24, les sous-officiers subalternes sont :", opts:["Sergent et Sergent-chef","Adjudant et Adjudant-chef","Lieutenant et Capitaine","Commandant et Colonel"], ans:0, exp:"Sergent et Sergent-chef."},
+    {q:"Selon l'article 24, les officiers supérieurs sont :", opts:["Commandant, Lieutenant-colonel, Colonel, Colonel-major","Capitaine, Commandant, Lieutenant-colonel","Sous-lieutenant, Lieutenant, Capitaine","Général de brigade, Général de division"], ans:0, exp:"Commandant, Lieutenant-colonel, Colonel, Colonel-major."},
+    {q:"Selon l'article 28, les limites d'âge sont fixées conformément à l'annexe 1. Pour le grade de Colonel, la limite d'âge est :", opts:["58 ans","59 ans","60 ans","61 ans"], ans:2, exp:"61 ans pour Colonel."},
+    {q:"Selon l'article 28, pour le grade de Capitaine, la limite d'âge est :", opts:["58 ans","59 ans","60 ans","61 ans"], ans:1, exp:"59 ans pour Capitaine."},
+    {q:"Selon l'article 28, pour le grade de Sergent-chef, la limite d'âge est :", opts:["52 ans","53 ans","54 ans","55 ans"], ans:2, exp:"54 ans pour Sergent-chef."},
+    {q:"Selon l'article 44, la promotion au grade de Caporal est prononcée par :", opts:["Décret du Président du Faso","Arrêté du ministre chargé des armées","Ordre du Commandant du groupement central des armées","Décision du Chef d'Etat-major général"], ans:2, exp:"Par ordre du Commandant du groupement central des armées."},
+    {q:"Selon l'article 55, l'avancement à titre exceptionnel consacre :", opts:["Les faits d'éclat ou les services exceptionnels rendus à la Nation","L'ancienneté dans le grade","La réussite à un concours","La formation continue"], ans:0, exp:"Faits d'éclat ou services exceptionnels."},
+    {q:"Selon l'article 56, l'avancement à titre posthume :", opts:["Nomme ou promeut au grade supérieur le militaire décédé en opération","Est accordé à tout militaire ayant 20 ans de service","Est automatique après 5 ans de service","Ne concerne que les officiers généraux"], ans:0, exp:"Nomme ou promeut au grade supérieur le militaire décédé en opération."},
+    {q:"Selon l'article 94, quelles sont les positions du militaire ?", opts:["En activité, en détachement, en non activité, en hors cadres","En activité, en réserve, en retraite","En activité, en disponibilité, en congé","En activité, en détachement, en réserve"], ans:0, exp:"En activité, en détachement, en non activité, en hors cadres."},
+    {q:"Selon l'article 95, l'activité est la position du militaire qui occupe un emploi de son grade :", opts:["Dans les armées uniquement","Dans les armées, les formations rattachées, ou une formation organique militaire","Dans l'administration publique uniquement","Dans le secteur privé"], ans:1, exp:"Dans les armées, formations rattachées ou formation organique militaire."},
+    {q:"Selon l'article 98, la permission réglementaire est une absence autorisée pour une durée :", opts:["Inférieure ou égale à 15 jours","Inférieure ou égale à 30 jours","Inférieure ou égale à 45 jours","Inférieure ou égale à 60 jours"], ans:1, exp:"30 jours maximum."},
+    {q:"Selon l'article 103, le congé de maternité commence :", opts:["Au plus tôt 4 semaines et au plus tard 2 semaines avant l'accouchement","Au plus tôt 6 semaines et au plus tard 4 semaines avant l'accouchement","Au plus tôt 8 semaines et au plus tard 6 semaines avant l'accouchement","Au jour de l'accouchement"], ans:1, exp:"Au plus tôt 6 semaines et au plus tard 4 semaines avant."},
+    {q:"Selon l'article 120, le détachement est la position du militaire de carrière :", opts:["Placé hors de son corps d'origine pour occuper un emploi public ou privé d'intérêt public","En congé sans solde","En formation à l'étranger","En mission opérationnelle"], ans:0, exp:"Placé hors de son corps d'origine pour occuper un emploi public ou privé d'intérêt public."},
+    {q:"Selon l'article 126, la non-activité est la position temporaire du militaire :", opts:["Qui est en congé de maladie","Privé d'emploi et n'appartenant plus à l'un des cadres constitutifs de l'armée","Qui est en détachement","Qui est en formation"], ans:1, exp:"Privé d'emploi et n'appartenant plus à l'un des cadres constitutifs de l'armée."},
+    {q:"Selon l'article 127, le congé de longue durée pour maladie est accordé pour :", opts:["Tuberculose, maladie mentale, affection cancéreuse, sida-maladie","Grippe, rhume, fièvre","Blessure légère","Fatigue passagère"], ans:0, exp:"Tuberculose, maladie mentale, affection cancéreuse, sida-maladie."},
+    {q:"Selon l'article 131, la disponibilité est accordée après :", opts:["5 ans de service","10 ans de service (hors formation militaire) dont 4 en qualité de militaire de carrière","15 ans de service","20 ans de service"], ans:1, exp:"10 ans de service (hors formation militaire) dont 4 en qualité de militaire de carrière."},
+    {q:"Selon l'article 137, la discipline dans les FAN fait l'objet :", opts:["D'un décret du Président du Faso portant Règlement de discipline générale","D'une loi ordinaire","D'un arrêté ministériel","D'une circulaire"], ans:0, exp:"Décret du Président du Faso portant Règlement de discipline générale."},
+    {q:"Selon l'article 139, les sanctions disciplinaires de premier degré communes sont :", opts:["Avertissement, réprimande, consigne, arrêts simples, salle de police, arrêts de rigueur, blâme, prison régimentaire","Radiation, rétrogradation, cassation","Amende, suspension, révocation","Avertissement, blâme, exclusion"], ans:0, exp:"Avertissement, réprimande, consigne, arrêts simples, salle de police, arrêts de rigueur, blâme, prison régimentaire."},
+    {q:"Selon l'article 140, quelles sont les sanctions disciplinaires du deuxième degré ?", opts:["Avertissement et réprimande","Renvoi de 1ère à 2ème classe, rétrogradation, retrait d'emploi, cassation, résiliation, radiation, mise à la retraite d'office","Consigne et arrêts simples","Salle de police et prison régimentaire"], ans:1, exp:"Renvoi, rétrogradation, retrait d'emploi, cassation, résiliation, radiation, mise à la retraite d'office."},
+    {q:"Selon l'article 150, tout militaire condamné à une peine criminelle est :", opts:["Dans un premier temps privé de son grade et dans un second temps radié","Uniquement radié","Uniquement privé de son grade","Suspendu de ses fonctions"], ans:0, exp:"Dans un premier temps privé de son grade et dans un second temps radié."},
+    {q:"Selon l'article 162, la réforme est :", opts:["La radiation des cadres","L'état du militaire en situation d'inaptitude partielle ou totale en service","La mise à la retraite anticipée","La suspension de contrat"], ans:1, exp:"État du militaire en situation d'inaptitude partielle ou totale en service."},
+    {q:"Selon l'article 166, le militaire jouit :", opts:["De droits restreints","Des droits et libertés reconnus aux citoyens","De droits supérieurs aux citoyens","D'aucun droit politique"], ans:1, exp:"Des droits et libertés reconnus aux citoyens."},
+    {q:"Selon l'article 167, les opinions et croyances sont :", opts:["Interdites en service","Libres mais ne peuvent être exprimées qu'en dehors du service","Totalement libres en toutes circonstances","Réservées aux officiers"], ans:1, exp:"Libres mais ne peuvent être exprimées qu'en dehors du service."},
+    {q:"Selon l'article 169, le mariage entre personnels militaires de catégories différentes est :", opts:["Autorisé","Interdit","Soumis à autorisation","Soumis à enquête"], ans:1, exp:"Interdit."},
+    {q:"Selon l'article 170, le mariage du militaire est soumis à autorisation préalable :", opts:["Toujours du Président du Faso","Du ministre, du Chef d'EMG, des Chefs d'EM d'armée ou des Commandants de Région selon le grade","Du maire de la commune","Du chef de la famille"], ans:1, exp:"Autorisation selon le grade."},
+    {q:"Selon l'article 189, le militaire peut être appelé à servir :", opts:["Uniquement en temps de paix","En tout temps et en tout lieu","Uniquement sur le territoire national","Uniquement pendant la journée"], ans:1, exp:"En tout temps et en tout lieu."},
+    {q:"Selon l'article 190, le militaire obéit aux ordres de ses supérieurs :", opts:["Sans aucune exception","Mais ne peut accomplir des actes contraires aux lois, aux coutumes de la guerre et aux conventions internationales","Uniquement s'il est d'accord","Jamais en dehors du service"], ans:1, exp:"Ne peut accomplir des actes contraires aux lois, aux coutumes de la guerre et aux conventions internationales."},
+    {q:"Selon l'article 195, l'exercice du droit de grève est :", opts:["Autorisé","Incompatible avec l'état militaire","Réservé aux sous-officiers","Autorisé en dehors du service"], ans:1, exp:"Incompatible avec l'état militaire."},
+    {q:"Selon l'article 198, le militaire en activité ne peut exercer :", opts:["Une activité privée lucrative de quelque nature que ce soit","Une activité sportive","Une activité associative","Une activité culturelle"], ans:0, exp:"Ne peut exercer une activité privée lucrative."},
+    {q:"Selon l'article 219, l'état militaire cesse si le militaire est :", opts:["En permission","Radié des cadres ou rayé des contrôles","En formation","En congé de maladie"], ans:1, exp:"Radié des cadres ou rayé des contrôles."},
+    {q:"Selon l'article 228, la retraite est :", opts:["Une suspension temporaire","Une cessation définitive de service du militaire rendu à la vie civile","Un congé prolongé","Une mise en disponibilité"], ans:1, exp:"Cessation définitive de service du militaire rendu à la vie civile."},
+    {q:"Selon l'article 229, l'admission à la retraite intervient d'office :", opts:["À la demande du militaire","Dès l'atteinte de la limite d'âge du grade","Après 20 ans de service","Après un avis médical"], ans:1, exp:"Dès l'atteinte de la limite d'âge du grade."},
+    {q:"Selon l'article 245, la présente loi abroge :", opts:["La loi n°037-2016/AN, la loi n°038-2016/AN, la loi n°029-2005/AN","La Constitution","La Charte de la Transition","Le code pénal"], ans:0, exp:"Abroge les lois n°037-2016/AN, 038-2016/AN et 029-2005/AN."},
+    {q:"Selon l'annexe 1, pour le grade de Général d'armée, la limite d'âge est :", opts:["60 ans","61 ans","62 ans","63 ans"], ans:3, exp:"63 ans pour Général d'armée."},
+    {q:"Selon l'annexe 1, pour le grade de Sous-lieutenant, la limite d'âge est :", opts:["56 ans","57 ans","58 ans","59 ans"], ans:2, exp:"58 ans pour Sous-lieutenant."},
+    {q:"Selon l'annexe 1, pour le grade d'Adjudant-chef major, la limite d'âge est :", opts:["55 ans","56 ans","57 ans","58 ans"], ans:2, exp:"57 ans pour Adjudant-chef major."},
+    {q:"Selon l'annexe 1, pour le grade de Caporal-chef, la limite d'âge est :", opts:["50 ans","51 ans","52 ans","53 ans"], ans:2, exp:"52 ans pour Caporal-chef."}
 ];
-
-const SPEC_B = [
-    {q:"Combien de bits compose une adresse IPv6 ?",opts:["32 bits","64 bits","128 bits","256 bits"],ans:2,exp:"128 bits."},
-    {q:"Quel protocole de routage a etat de lien est utilise au sein d'un systeme autonome ?",opts:["RIP","BGP","OSPF","EIGRP"],ans:2,exp:"OSPF, link-state, Dijkstra."},
-    {q:"Quel protocole assure le routage entre systemes autonomes sur Internet ?",opts:["OSPF","IS-IS","RIP","BGP"],ans:3,exp:"BGP est l'EGP standard."},
-    {q:"Dans OSPF, quel role joue le DR (Designated Router) sur un reseau multi-acces broadcast ?",opts:["Il chiffre les LSA","Il centralise la diffusion des LSA","Il recalcule la table de routage","Il assure la redondance de la passerelle"],ans:1,exp:"Le DR limite les adjacences LSA."},
-    {q:"Quel attribut BGP liste les numeros d'AS traverses et previent les boucles inter-domaines ?",opts:["MED","WEIGHT","LOCAL_PREF","AS_PATH"],ans:3,exp:"AS_PATH evite les boucles entre AS."},
-    {q:"Dans BGP, que permet l'attribut MED (Multi-Exit Discriminator) ?",opts:["Definir la preference de sortie locale","Indiquer a un voisin eBGP le point d'entree prefere","Fixer la distance administrative des routes iBGP","Filtrer les routes recues"],ans:1,exp:"MED suggere le point d'entree prefere."},
-    {q:"Quelle affirmation decrit correctement le fonctionnement de MPLS ?",opts:["MPLS fonctionne uniquement sur fibre optique","MPLS remplace entierement IP","MPLS insere un label 32 bits entre les couches 2 et 3","MPLS est un protocole de couche application"],ans:2,exp:"Shim header MPLS de 32 bits entre L2 et L3."},
-    {q:"Dans MPLS, que realise l'operation PHP (Penultimate Hop Popping) ?",opts:["Le routeur de sortie ajoute un label","Le premier routeur compresse la pile","L'avant-dernier routeur retire le label","Le routeur coeur swape le label"],ans:2,exp:"PHP : l'avant-dernier LSR depile le label."},
-    {q:"Quel mecanisme RSTP (802.1w) reduit la convergence a moins d'une seconde ?",opts:["Augmentation de la priorite du Root Bridge","Suppression du Listening, negociation Proposal/Agreement","Remplacement de BPDU par des trames hello","Activation du mode PortFast"],ans:1,exp:"Proposal/Agreement accelere la convergence."},
-    {q:"Quel champ cle le standard 802.1Q insere-t-il dans la trame Ethernet pour identifier le VLAN ?",opts:["Un champ CoS de 32 bits","Un tag de 4 octets dont 12 bits de VLAN ID","Un champ LACP de 8 octets","Un champ de priorite STP de 16 bits"],ans:1,exp:"Tag 4 octets : TPID, PCP, DEI, VLAN ID."}
-];
-
-const SPEC_C = [
-    {q:"Quelle methode d'acces au canal est utilisee par le Wi-Fi (802.11) ?",opts:["CSMA/CD","Token Ring","CSMA/CA","TDMA"],ans:2,exp:"CSMA/CA, car CD est difficile en radio."},
-    {q:"Quelle bande Wi-Fi offre generalement le debit le plus eleve mais la portee la plus faible ?",opts:["2,4 GHz","5 GHz","900 MHz","868 MHz"],ans:1,exp:"5 GHz : plus de debit, moins de portee."},
-    {q:"Que signifie l'acronyme OFDM utilise en telecommunications ?",opts:["Optical Fiber Data Multiplexing","Orthogonal Frequency Division Multiplexing","Open Frequency Distribution Mode","Optimized Frame Delay Management"],ans:1,exp:"Modulation multiporteuse 4G/5G/Wi-Fi."},
-    {q:"Quelle generation mobile introduit le network slicing ?",opts:["3G","4G LTE","5G NR","2G GSM"],ans:2,exp:"5G NR introduit le network slicing."},
-    {q:"Quel est le role de gNB (gNodeB) dans l'architecture 5G NR ?",opts:["C'est le composant du coeur 5G SA","C'est le controleur centralise du plan radio","C'est la station de base 5G NR remplacant l'eNB","C'est la fonction de virtualisation du spectre"],ans:2,exp:"gNB = station de base 5G NR."},
-    {q:"Dans l'architecture 5G SA, quel composant gere les politiques QoS et la facturation ?",opts:["AMF","UPF","SMF","PCF"],ans:3,exp:"PCF gere QoS et facturation."},
-    {q:"Que designe le concept de network slicing introduit par la 5G ?",opts:["Segmentation physique du spectre","Decoupage temporel des ressources","Separation materielle des equipements","Reseaux virtuels logiques isoles avec QoS dediee"],ans:3,exp:"Reseaux virtuels isoles sur infrastructure partagee."},
-    {q:"Quelle latence cible definit le cas d'usage URLLC de la 5G ?",opts:["50 ms","10 ms","1 ms avec fiabilite 99,999%","100 ms"],ans:2,exp:"URLLC : 1 ms, fiabilite 99,999%."},
-    {q:"Que designe le spatial multiplexing dans les systemes MIMO 4G/5G ?",opts:["Utilisation de plusieurs frequences orthogonales","Amplification du signal via reflecteurs","Transmission de flux distincts sur plusieurs antennes","Etalement de spectre CDMA"],ans:2,exp:"Plusieurs flux simultanes sur plusieurs antennes."},
-    {q:"Quel protocole de synchronisation temporelle atteint une precision a la nanoseconde ?",opts:["NTP v4","SNTP","GPS seul","PTP IEEE 1588"],ans:3,exp:"PTP atteint la nanoseconde, requis pour le fronthaul 5G."}
-];
-
-// On ajoute les autres spécialités avec des données minimales
-const SPEC_D = SPEC_A.slice(0,10);
-const SPEC_E = SPEC_B.slice(0,10);
-const SPEC_F = SPEC_C.slice(0,10);
-const SPEC_G = SPEC_A.slice(0,10);
-const SPEC_H = SPEC_B.slice(0,10);
 
 // ============================================================
-// SESSIONS EOA/EOS
+// SESSIONS EOA/EOS — 5 SESSIONS
 // ============================================================
 const EOA_SESSIONS = [
-    { label:'QCM 1', specName:'Réseaux fondamentaux & Sécurité', spec:SPEC_A },
-    { label:'QCM 2', specName:'Routage avancé, MPLS & IPv6', spec:SPEC_B },
-    { label:'QCM 3', specName:'5G, Radio, Wi-Fi & Telecom', spec:SPEC_C },
-    { label:'QCM 4', specName:'Fibre optique & Bilan Friis', spec:SPEC_D },
-    { label:'QCM 5', specName:'SDN, NFV, Cloud & Sécurité', spec:SPEC_E },
-    { label:'QCM 6', specName:'Systèmes & Architecture', spec:SPEC_F },
-    { label:'QCM 7', specName:'Transmission numérique & Signal', spec:SPEC_G },
-    { label:'QCM 8', specName:'Adressage IP & Sous-réseaux', spec:SPEC_H },
-    { label:'QCM 9', specName:'Réseaux (variante)', spec:SPEC_A },
-    { label:'QCM 10', specName:'Routage avancé (variante)', spec:SPEC_B },
-    { label:'QCM 11', specName:'5G & Telecom (variante)', spec:SPEC_C },
-    { label:'QCM 12', specName:'Fibre optique (variante)', spec:SPEC_D },
-    { label:'QCM 13', specName:'Cloud & Sécurité (variante)', spec:SPEC_E },
-    { label:'QCM 14', specName:'Systèmes (variante)', spec:SPEC_F },
-    { label:'QCM 15', specName:'Signal & Transmission (variante)', spec:SPEC_G }
+    { label:'Session 1', specName:'CG + Loi FAN (partie 1)' },
+    { label:'Session 2', specName:'CG + Loi FAN (partie 2)' },
+    { label:'Session 3', specName:'CG + Loi FAN (partie 3)' },
+    { label:'Session 4', specName:'CG + Loi FAN (partie 4)' },
+    { label:'Session 5', specName:'CG + Loi FAN (partie 5)' }
 ];
-
-// ============================================================
-// QUIZ ENGINE
-// ============================================================
-let QUIZ = [], TOTAL_QS = 0, userAnswers = [], currentIndex = 0, quizSubmitted = false;
-let currentEOASessionIdx = 0;
 
 function shuffleArray(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
@@ -639,23 +658,53 @@ function shuffleArray(arr) {
 }
 
 function shuffleOptions(q) {
-    const correct = q.opts[q.ans];
-    const idxArr = [0,1,2,3];
+    // Créer un tableau d'index [0,1,2,3] et le mélanger
+    const idxArr = [0, 1, 2, 3];
     shuffleArray(idxArr);
+    // Construire les nouvelles options dans l'ordre mélangé
     const newOpts = idxArr.map(i => q.opts[i]);
-    const newAns = newOpts.indexOf(correct);
-    return { q: q.q, opts: newOpts, ans: newAns, exp: q.exp, tag: q.tag || 'sp' };
+    // Trouver le nouvel index de la bonne réponse
+    const newAns = newOpts.indexOf(q.opts[q.ans]);
+    return {
+        q: q.q,
+        opts: newOpts,
+        ans: newAns,
+        exp: q.exp,
+        tag: q.tag || 'cg'
+    };
 }
 
-function buildEOASession(idx) {
-    const cgPool = shuffleArray(CULTURE_POOL.slice());
-    const spSource = EOA_SESSIONS[idx].spec.slice();
-    const spPool = shuffleArray(spSource);
-    const spCount = Math.min(40, spPool.length);
-    const cg = cgPool.slice(0,20).map(q => shuffleOptions({ q:q.q, opts:q.opts, ans:q.ans, exp:q.exp, tag:'cg' }));
-    const sp = spPool.slice(0,spCount).map(q => shuffleOptions({ q:q.q, opts:q.opts, ans:q.ans, exp:q.exp, tag:'sp' }));
-    return cg.concat(sp);
+function buildEOASession(sessionIdx) {
+    // 30 questions de culture générale (mélangées)
+    const cgPool = shuffleArray(CULTURE_QUESTIONS.slice());
+    const cgSelected = cgPool.slice(0, 30).map(q => shuffleOptions({ 
+        q: q.q, 
+        opts: q.opts.slice(), 
+        ans: q.ans, 
+        exp: q.exp, 
+        tag: 'cg' 
+    }));
+    
+    // 30 questions sur la loi (mélangées)
+    const loiPool = shuffleArray(LOI_QUESTIONS.slice());
+    const loiSelected = loiPool.slice(0, 30).map(q => shuffleOptions({ 
+        q: q.q, 
+        opts: q.opts.slice(), 
+        ans: q.ans, 
+        exp: q.exp, 
+        tag: 'loi' 
+    }));
+    
+    // Mélanger le tout
+    const all = cgSelected.concat(loiSelected);
+    return shuffleArray(all);
 }
+
+// ============================================================
+// QUIZ ENGINE
+// ============================================================
+let QUIZ = [], TOTAL_QS = 0, userAnswers = [], currentIndex = 0, quizSubmitted = false;
+let currentEOASessionIdx = 0;
 
 function buildEOASessionButtons() {
     const container = document.getElementById('eoaSessionButtons');
@@ -699,7 +748,8 @@ function startEOAQuiz(sessionIdx) {
     document.getElementById('finalSubmitBtn').disabled = false;
     document.getElementById('levelIndicatorArea').innerHTML =
         `<div class="level-indicator" style="background:#fefce8;color:#854d0e;border:1.5px solid #eab30844;">
-            ⭐ ${session.label} &nbsp;·&nbsp; ${session.specName} &nbsp;·&nbsp; ${TOTAL_QS} questions
+            ⭐ ${session.label} — ${session.specName} — ${TOTAL_QS} questions
+            <span style="font-size:10px;margin-left:8px;color:#b45309;">📌 Éliminatoire < 18/60</span>
          </div>`;
     document.querySelectorAll('#eoaSessionButtons button').forEach((btn, i) => {
         btn.style.borderColor = i === sessionIdx ? '#eab308' : '#e2e8f0';
@@ -778,7 +828,7 @@ function renderCurrentQuestion() {
     const selectedIdx = userAnswers[currentIndex];
     const letters = ['A','B','C','D'];
     const qEl = document.getElementById('questionText');
-    qEl.innerHTML = q.question || q.q || 'Question';
+    qEl.innerHTML = q.q || q.question || 'Question';
     let html = '';
     const options = q.opts || q.answers || [];
     options.forEach((ans, idx) => {
@@ -807,7 +857,6 @@ function goPrev() {
 
 function goNext() {
     if (quizSubmitted) return;
-    // Vérifier le paiement pour tous les niveaux
     if (!paiementValide && currentIndex < TOTAL_QS - 1) {
         ouvrirPaywall();
         return;
@@ -837,7 +886,7 @@ function buildCorrigeHTML() {
         const correct = opts[correctIdx] || '';
         const given   = userAnswers[i] !== null ? opts[userAnswers[i]] : 'Non répondue';
         const ok      = userAnswers[i] !== null && correctIdx === userAnswers[i];
-        const tag     = q.tag === 'cg' ? '🏛️ CG' : '📡 SP';
+        const tag     = q.tag === 'cg' ? '🏛️ CG' : q.tag === 'loi' ? '📜 Loi FAN' : '📡';
         const qText   = q.q || q.question || '';
         html += `<div class="corrige-item">
                     <div><strong>${i+1}. ${qText}</strong> <span style="font-size:10px;color:#888;font-weight:600;">${tag}</span></div>
@@ -851,13 +900,30 @@ function buildCorrigeHTML() {
 function showFinalResult() {
     if (quizSubmitted) return;
     if (countAnswered() < TOTAL_QS) { alert(`Répondez à toutes les questions (${countAnswered()}/${TOTAL_QS})`); return; }
-    const score = computeScore(), pct = Math.round(score / TOTAL_QS * 100);
+    const score = computeScore();
+    const pct = Math.round(score / TOTAL_QS * 100);
+    const seuilReussi = score >= 18;
+    
     document.getElementById('finalScoreSpan').innerText = `${score} / ${TOTAL_QS} (${pct}%)`;
-    document.getElementById('feedbackMsg').innerText =
-        pct >= 80 ? '🏅 Excellent ! Vous avez le profil d\'un admis au concours !'
-        : pct >= 60 ? '👍 Très bien ! Continuez à vous entraîner avec Faso Concours.'
-        : pct >= 40 ? '📚 Bonne base. L\'application vous aidera à progresser.'
-        : '💪 Ne lâchez pas ! Entraînez-vous chaque jour avec Faso Concours !';
+    
+    if (seuilReussi) {
+        document.getElementById('feedbackMsg').innerHTML = `
+            <span style="color:#2b7a3e;font-size:1.2rem;">✅ ADMIS (${score}/60)</span><br>
+            ${pct >= 80 ? '🏅 Excellent ! Vous maîtrisez parfaitement le sujet !' : 
+              pct >= 60 ? '👍 Très bien ! Continuez à vous entraîner.' :
+              '📚 Bonne base. Revoyez les points faibles.'}
+        `;
+        document.getElementById('resultPanel').style.borderLeftColor = '#2b7a3e';
+        document.querySelector('.result-panel').style.background = '#eef6e9';
+    } else {
+        document.getElementById('feedbackMsg').innerHTML = `
+            <span style="color:#c0392b;font-size:1.2rem;">❌ ÉCHEC (${score}/60) — Seuil minimum : 18/60</span><br>
+            💪 Ne lâchez pas ! Entraînez-vous avec Faso Concours.
+        `;
+        document.getElementById('resultPanel').style.borderLeftColor = '#c0392b';
+        document.querySelector('.result-panel').style.background = '#fef0f0';
+    }
+    
     const cd = document.getElementById('corrigeDetails');
     cd.innerHTML = buildCorrigeHTML();
     document.getElementById('resultPanel').classList.add('show');
@@ -911,7 +977,7 @@ async function telechargerPDF() {
         const given   = userAnswers[i] !== null ? latexToText(opts[userAnswers[i]] || '') : 'Non répondue';
         const ok      = userAnswers[i] !== null && correctIdx === userAnswers[i];
         const qText   = latexToText(q.q || q.question || '');
-        const tag     = q.tag === 'cg' ? '🏛️ CG' : '📡 SP';
+        const tag     = q.tag === 'cg' ? '🏛️ CG' : q.tag === 'loi' ? '📜 Loi FAN' : '📡';
         let choicesHTML = '<div style="margin:4px 0 2px;display:flex;flex-wrap:wrap;gap:4px;">';
         opts.forEach((ans, idx) => {
             const isCorrect = idx === correctIdx, isChosen = idx === userAnswers[i];
@@ -929,16 +995,17 @@ async function telechargerPDF() {
             <div style="margin-top:6px;font-size:11px;"><span style="color:#2b7a3e;font-weight:700;">📌 ${correct}</span>${!ok?`<span style="color:#c0392b;margin-left:10px;">Votre réponse : ${given}</span>`:''}</div>
         </div>`;
     });
+    const seuilReussi = score >= 18;
     wrap.innerHTML = `
         <div style="text-align:center;margin-bottom:24px;border-bottom:3px solid #1c6e8f;padding-bottom:16px;">
             <div style="font-size:22px;font-weight:900;color:#0b2b3b;">📋 Faso Concours</div>
             <div style="font-size:14px;color:#4b6a7f;margin-top:4px;">Corrigé complet — ${niveauChoisi === 'EOA' ? `EOA/EOS — ${EOA_SESSIONS[currentEOASessionIdx].label}` : `QCM_${niveauChoisi}`} — Concours blanc 2026</div>
             <div style="font-size:12px;color:#888;margin-top:2px;">Généré le ${dateStr}</div>
         </div>
-        <div style="text-align:center;background:linear-gradient(135deg,#eef6e9,#d1fae5);border-radius:12px;padding:16px;margin-bottom:24px;">
-            <div style="font-size:32px;font-weight:900;color:#1f5e3a;">${score} / ${TOTAL_QS}</div>
-            <div style="font-size:14px;color:#2b7a3e;font-weight:600;">${pct}% de réussite</div>
-            <div style="font-size:13px;color:#4b6a7f;margin-top:4px;">${pct>=80?'🏅 Excellent !':pct>=60?'👍 Très bien !':pct>=40?'📚 Bonne base !':'💪 Continuez !'}</div>
+        <div style="text-align:center;background:${seuilReussi ? 'linear-gradient(135deg,#eef6e9,#d1fae5)' : 'linear-gradient(135deg,#fef0f0,#fce4e4)'};border-radius:12px;padding:16px;margin-bottom:24px;">
+            <div style="font-size:32px;font-weight:900;color:${seuilReussi ? '#1f5e3a' : '#c0392b'};">${score} / ${TOTAL_QS}</div>
+            <div style="font-size:14px;font-weight:600;color:${seuilReussi ? '#2b7a3e' : '#c0392b'};">${pct}% de réussite — ${seuilReussi ? '✅ ADMIS' : '❌ ÉCHEC (seuil < 18/60)'}</div>
+            <div style="font-size:13px;color:#4b6a7f;margin-top:4px;">${seuilReussi ? (pct>=80?'🏅 Excellent !':pct>=60?'👍 Très bien !':'📚 Bonne base !') : '💪 Continuez à vous entraîner avec Faso Concours !'}</div>
         </div>
         <div style="margin-bottom:16px;font-size:14px;font-weight:700;color:#0b2b3b;">Détail des réponses :</div>
         ${rows}
@@ -979,7 +1046,6 @@ const rawQuestions_BEPC = [
     {q:"Quel est le domaine de définition de f(x) = 1/(x - 3) ?", correct:"R \\ {3}", distractors:["R","x > 3","x < 3"]},
     {q:"La capitale du Burkina Faso est :", correct:"Ouagadougou", distractors:["Bobo-Dioulasso","Koudougou","Banfora"]},
     {q:"La Haute-Volta a obtenu son indépendance en :", correct:"1960", distractors:["1958","1962","1945"]},
-    {q:"Le continent africain est bordé à l'ouest par :", correct:"L'océan Atlantique", distractors:["L'océan Pacifique","L'océan Indien","La mer Méditerranée"]},
     {q:"L'ONU a été créée en :", correct:"1945", distractors:["1948","1920","1956"]},
     {q:"Quel pays a colonisé le Burkina Faso ?", correct:"La France", distractors:["La Grande-Bretagne","L'Allemagne","La Belgique"]},
     {q:"La photosynthèse se réalise dans :", correct:"Les chloroplastes des cellules végétales", distractors:["Les mitochondries","Le noyau cellulaire","Les vacuoles"]},
