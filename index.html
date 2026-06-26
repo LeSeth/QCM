@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Faso Concours - EOA/EOS</title>
+    <title>Faso Concours - QCM 2026</title>
     <script>
     window.MathJax = {
         tex: { inlineMath: [['\\(','\\)'], ['$','$']], displayMath: [['\\[','\\]'],['$$','$$']] },
@@ -33,12 +33,14 @@
 
         /* LEVEL SELECTOR OVERLAY */
         #levelOverlay{display:flex;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,20,35,.92);z-index:500;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1rem;}
-        .level-modal{background:white;border-radius:2rem;box-shadow:0 30px 60px rgba(0,0,0,.5);padding:2.5rem 2rem;max-width:480px;width:100%;text-align:center;animation:popIn .35s ease;}
+        .level-modal{background:white;border-radius:2rem;box-shadow:0 30px 60px rgba(0,0,0,.5);padding:2.5rem 2rem;max-width:520px;width:100%;text-align:center;animation:popIn .35s ease;max-height:90vh;overflow-y:auto;}
         .level-modal h2{font-size:1.6rem;font-weight:800;color:#0f2f40;margin-bottom:.4rem}
         .level-modal p{color:#4b6a7f;font-size:.95rem;margin-bottom:1.8rem}
-        .level-cards{display:flex;flex-direction:column;gap:1rem;}
-        .level-card{border:2.5px solid #e2e8f0;border-radius:1.3rem;padding:1.1rem 1.4rem;cursor:pointer;transition:all .22s ease;display:flex;align-items:center;gap:1rem;text-align:left;}
+        .level-cards{display:flex;flex-direction:column;gap:.85rem;}
+        .level-card{border:2.5px solid #e2e8f0;border-radius:1.3rem;padding:1rem 1.3rem;cursor:pointer;transition:all .22s ease;display:flex;align-items:center;gap:1rem;text-align:left;}
         .level-card:hover{transform:translateX(6px);}
+        .level-card.cg{border-color:#ef4444;background:#fef2f2;}
+        .level-card.cg:hover{background:#fee2e2;border-color:#dc2626;}
         .level-card.bepc{border-color:#10b981;background:#f0fdf4;}
         .level-card.bepc:hover{background:#d1fae5;border-color:#059669;}
         .level-card.bac{border-color:#3b82f6;background:#eff6ff;}
@@ -47,14 +49,19 @@
         .level-card.licence:hover{background:#ede9fe;border-color:#7c3aed;}
         .level-card.eoa{border-color:#eab308;background:#fefce8;}
         .level-card.eoa:hover{background:#fef08a;border-color:#ca8a04;}
-        .level-icon{font-size:2.2rem;flex-shrink:0;}
-        .level-info strong{display:block;font-size:1.05rem;font-weight:700;color:#0f2f40;}
-        .level-info span{font-size:.82rem;color:#4b6a7f;}
+        .level-icon{font-size:2rem;flex-shrink:0;}
+        .level-info strong{display:block;font-size:1rem;font-weight:700;color:#0f2f40;}
+        .level-info span{font-size:.8rem;color:#4b6a7f;}
         .level-badge-pill{margin-left:auto;font-size:.72rem;font-weight:700;padding:.25rem .7rem;border-radius:20px;white-space:nowrap;flex-shrink:0;}
+        .cg .level-badge-pill{background:#fee2e2;color:#991b1b;}
         .bepc .level-badge-pill{background:#d1fae5;color:#065f46;}
         .bac .level-badge-pill{background:#dbeafe;color:#1d4ed8;}
         .licence .level-badge-pill{background:#ede9fe;color:#5b21b6;}
         .eoa .level-badge-pill{background:#fef08a;color:#854d0e;}
+
+        /* SESSIONS COUNTER BADGE */
+        .sessions-badge{background:linear-gradient(135deg,#1c6e8f,#0f5877);color:white;border-radius:1rem;padding:.6rem 1rem;font-size:.82rem;font-weight:600;margin-bottom:1.2rem;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+        .sessions-badge .badge-count{font-size:1.2rem;font-weight:900;color:#f4c542;}
 
         /* PAYWALL */
         #paywallOverlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(5,20,35,.82);z-index:300;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);overflow-y:auto;padding:1rem;}
@@ -121,11 +128,16 @@
         .btn-pdf:disabled{opacity:.6;cursor:not-allowed;transform:none}
         .level-indicator{display:inline-flex;align-items:center;gap:.5rem;padding:.3rem .9rem;border-radius:20px;font-size:.78rem;font-weight:700;margin-bottom:.8rem;}
 
+        /* SESSIONS REMAINING CHIP */
+        .sessions-remaining{display:inline-flex;align-items:center;gap:.4rem;background:linear-gradient(135deg,#1c6e8f,#124c5e);color:white;padding:.3rem .9rem;border-radius:20px;font-size:.75rem;font-weight:700;margin-bottom:.8rem;margin-left:.5rem;}
+        .sessions-remaining .sr-count{color:#f4c542;font-size:.95rem;}
+
         /* LEVEL SWITCHER BAR */
         .level-switcher{background:white;border-radius:1.5rem;box-shadow:0 8px 24px -6px rgba(0,0,0,.15);padding:.7rem 1rem;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;}
         .level-switcher-label{font-size:.78rem;font-weight:700;color:#4b6a7f;white-space:nowrap;margin-right:.3rem;}
-        .level-switch-btn{flex:1;min-width:80px;border:2.5px solid #e2e8f0;background:#f8fafd;border-radius:1rem;padding:.55rem .8rem;cursor:pointer;font-family:inherit;font-size:.82rem;font-weight:700;color:#4b6a7f;transition:all .2s ease;display:flex;align-items:center;justify-content:center;gap:.4rem;white-space:nowrap;}
+        .level-switch-btn{flex:1;min-width:70px;border:2.5px solid #e2e8f0;background:#f8fafd;border-radius:1rem;padding:.5rem .6rem;cursor:pointer;font-family:inherit;font-size:.78rem;font-weight:700;color:#4b6a7f;transition:all .2s ease;display:flex;align-items:center;justify-content:center;gap:.3rem;white-space:nowrap;}
         .level-switch-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.12);}
+        .level-switch-btn.active-cg{border-color:#ef4444;background:linear-gradient(135deg,#fee2e2,#fecaca);color:#991b1b;box-shadow:0 4px 14px rgba(239,68,68,.25);transform:translateY(-2px);}
         .level-switch-btn.active-bepc{border-color:#10b981;background:linear-gradient(135deg,#d1fae5,#a7f3d0);color:#065f46;box-shadow:0 4px 14px rgba(16,185,129,.25);transform:translateY(-2px);}
         .level-switch-btn.active-bac{border-color:#3b82f6;background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1d4ed8;box-shadow:0 4px 14px rgba(59,130,246,.25);transform:translateY(-2px);}
         .level-switch-btn.active-licence{border-color:#8b5cf6;background:linear-gradient(135deg,#ede9fe,#ddd6fe);color:#5b21b6;box-shadow:0 4px 14px rgba(139,92,246,.25);transform:translateY(-2px);}
@@ -150,7 +162,7 @@
         .visitor-counter .vc-dot{width:8px;height:8px;background:#4ade80;border-radius:50%;flex-shrink:0;animation:pulse-dot 1.5s ease-in-out infinite}
         @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
         .visitor-counter .vc-num{font-size:1.05rem;font-weight:900;color:#f4c542;letter-spacing:.5px}
-        @media(max-width:680px){.hero h1{font-size:1.4rem}.btn-download-large{font-size:1rem;padding:12px 20px}.question-text{font-size:1rem}.promo-card{flex-direction:column;text-align:center}.ussd-box{flex-direction:column;align-items:flex-start}.paywall-modal{padding:1.5rem 1rem}.level-modal{padding:1.5rem 1rem}}
+        @media(max-width:680px){.hero h1{font-size:1.4rem}.btn-download-large{font-size:1rem;padding:12px 20px}.question-text{font-size:1rem}.promo-card{flex-direction:column;text-align:center}.ussd-box{flex-direction:column;align-items:flex-start}.paywall-modal{padding:1.5rem 1rem}.level-modal{padding:1.5rem 1rem}.level-switch-btn{font-size:.7rem;padding:.45rem .4rem;}}
     </style>
 </head>
 <body>
@@ -160,8 +172,19 @@
     <div class="level-modal">
         <div style="font-size:2.5rem;margin-bottom:.5rem">🎓</div>
         <h2>Choisissez votre niveau</h2>
-        <p>Sélectionnez votre niveau d'études pour accéder aux questions adaptées.</p>
+        <p>Sélectionnez votre niveau pour accéder aux questions adaptées.</p>
+        <div id="sessionsBadgeModal" style="display:none;" class="sessions-badge">
+            🎟️ Compositions restantes : <span class="badge-count" id="sessionsCountModal">0</span>
+        </div>
         <div class="level-cards">
+            <div class="level-card cg" onclick="choisirNiveau('CG')">
+                <div class="level-icon">🏛️</div>
+                <div class="level-info">
+                    <strong>Culture Générale</strong>
+                    <span>Actualité nationale, internationale & culture</span>
+                </div>
+                <span class="level-badge-pill">60 questions</span>
+            </div>
             <div class="level-card bepc" onclick="choisirNiveau('BEPC')">
                 <div class="level-icon">📗</div>
                 <div class="level-info">
@@ -216,11 +239,11 @@
     <div class="paywall-modal">
         <div class="lock-icon">🔒</div>
         <h2>Accès au QCM complet</h2>
-        <p style="color:#4b6a7f;font-size:.9rem;margin-top:.2rem" id="paywallSubtitle">Un seul paiement pour continuer le QCM</p>
+        <p style="color:#4b6a7f;font-size:.9rem;margin-top:.2rem" id="paywallSubtitle">Un seul paiement pour composer 2 fois</p>
         <div class="price-badge">100 FCFA</div>
-        <div class="price-sub">Paiement unique · Accès immédiat</div>
+        <div class="price-sub">Paiement unique · <strong>2 compositions</strong> tous niveaux confondus</div>
         <ul class="features-list" id="paywallFeatures">
-            <li>Toutes les questions — corrigé complet</li>
+            <li>2 compositions dans n'importe quel niveau</li>
             <li>Corrigé complet téléchargeable en PDF</li>
             <li>Score et analyse de vos résultats</li>
         </ul>
@@ -246,7 +269,7 @@
             <div id="payErrorMsg" class="error-msg"></div>
             <div id="paySuccessMsg" class="success-msg"></div>
             <button class="btn-pay" id="btnPay" onclick="lancerPaiement()">
-                🔓 Payer 100 FCFA et continuer le QCM
+                🔓 Payer 100 FCFA → 2 compositions
             </button>
         </div>
     </div>
@@ -263,11 +286,13 @@
 
     <!-- LEVEL SWITCHER BAR -->
     <div class="level-switcher" id="levelSwitcherBar" style="display:none;">
-        <span class="level-switcher-label">🎓 Niveau :</span>
+        <span class="level-switcher-label">🎓</span>
+        <button class="level-switch-btn" id="switchCG"      onclick="demanderChangementNiveau('CG')">🏛️ CG</button>
         <button class="level-switch-btn" id="switchBEPC"    onclick="demanderChangementNiveau('BEPC')">📗 BEPC</button>
         <button class="level-switch-btn" id="switchBAC"     onclick="demanderChangementNiveau('BAC')">📘 BAC</button>
         <button class="level-switch-btn" id="switchLICENCE" onclick="demanderChangementNiveau('LICENCE')">📙 Licence</button>
-        <button class="level-switch-btn" id="switchEOA"     onclick="demanderChangementNiveau('EOA')">⭐ EOA/EOS</button>
+        <button class="level-switch-btn" id="switchEOA"     onclick="demanderChangementNiveau('EOA')">⭐ EOA</button>
+        <span id="sessionsChip" style="display:none;" class="sessions-remaining">🎟️ <span class="sr-count" id="sessionsChipCount">0</span> compo</span>
     </div>
 
     <div class="hero">
@@ -357,7 +382,35 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
 const EDGE_FUNCTION     = `${SUPABASE_URL}/functions/v1/create-payment`;
 const MONTANT           = 100;
 const USSD_CODE         = `*144*4*6*${MONTANT}#`;
-let paiementValide  = false;
+
+// ============================================================
+// SESSIONS RESTANTES — 100F = 2 compositions cross-niveau
+// ============================================================
+let sessionsRestantes = 0; // 0 = pas encore payé ou épuisé
+
+function updateSessionsUI() {
+    const chip = document.getElementById('sessionsChip');
+    const chipCount = document.getElementById('sessionsChipCount');
+    const badgeModal = document.getElementById('sessionsBadgeModal');
+    const countModal = document.getElementById('sessionsCountModal');
+    if (sessionsRestantes > 0) {
+        chip.style.display = 'inline-flex';
+        chipCount.textContent = sessionsRestantes;
+        badgeModal.style.display = 'flex';
+        countModal.textContent = sessionsRestantes;
+    } else {
+        chip.style.display = 'none';
+        badgeModal.style.display = 'none';
+    }
+}
+
+function consommerUneSession() {
+    if (sessionsRestantes > 0) {
+        sessionsRestantes--;
+        updateSessionsUI();
+    }
+}
+
 let niveauChoisi    = null;
 let niveauEnAttente = null;
 
@@ -386,10 +439,11 @@ incrementerVisiteurs();
 // LEVEL CONFIG
 // ============================================================
 const LEVEL_CONFIG = {
+    CG:      { label:'🏛️ Culture Générale', emoji:'🏛️', color:'#ef4444', totalLabel:'60 questions' },
     BEPC:    { label:'📗 BEPC',    emoji:'📗', color:'#10b981', totalLabel:'48 questions' },
     BAC:     { label:'📘 BAC',     emoji:'📘', color:'#3b82f6', totalLabel:'62 questions' },
     LICENCE: { label:'📙 Licence', emoji:'📙', color:'#8b5cf6', totalLabel:'53 questions' },
-    EOA:     { label:'⭐ EOA/EOS',  emoji:'⭐', color:'#eab308', totalLabel:'5 sessions × 60 questions' },
+    EOA:     { label:'⭐ EOA/EOS', emoji:'⭐', color:'#eab308', totalLabel:'5 sessions × 60 questions' },
 };
 
 function choisirNiveau(niveau) {
@@ -403,20 +457,14 @@ function appliquerNiveau(niveau) {
     const cfg = LEVEL_CONFIG[niveau];
     document.getElementById('heroTitle').textContent = `📋 QCM_${niveau} — Concours blanc 2026`;
     document.getElementById('heroSub').textContent = cfg.totalLabel;
-    document.getElementById('paywallSubtitle').textContent = `Un seul paiement pour continuer le QCM ${niveau}`;
-    document.getElementById('paywallFeatures').innerHTML = `
-        <li>${cfg.totalLabel} adaptées au niveau ${niveau}</li>
-        <li>Corrigé complet téléchargeable en PDF</li>
-        <li>Score et analyse de vos résultats</li>`;
-    paiementValide = false;
+    document.getElementById('paywallSubtitle').textContent = `100 FCFA = 2 compositions dans tous les niveaux`;
     const bar = document.getElementById('levelSwitcherBar');
     bar.style.display = 'flex';
-    ['BEPC','BAC','LICENCE','EOA'].forEach(n => {
+    ['CG','BEPC','BAC','LICENCE','EOA'].forEach(n => {
         const el = document.getElementById('switch' + n);
-        if (el) {
-            el.className = 'level-switch-btn' + (n === niveau ? ` active-${n.toLowerCase()}` : '');
-        }
+        if (el) el.className = 'level-switch-btn' + (n === niveau ? ` active-${n.toLowerCase()}` : '');
     });
+    updateSessionsUI();
     if (niveau === 'EOA') {
         document.getElementById('eoaSessionSelector').style.display = 'block';
         buildEOASessionButtons();
@@ -453,6 +501,7 @@ function annulerChangement() {
     niveauEnAttente = null;
 }
 function ouvrirLevelSelector() {
+    updateSessionsUI();
     document.getElementById('levelOverlay').style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
@@ -486,29 +535,99 @@ async function lancerPaiement() {
     try {
         const res  = await fetch(EDGE_FUNCTION, {
             method:'POST', headers:{'Content-Type':'application/json'},
-            body: JSON.stringify({ operator:'ORANGE', phone, amount:MONTANT, orderId, description:`Accès QCM Faso Concours ${niveauChoisi}`, senderCountry:'BFA', otp }),
+            body: JSON.stringify({ operator:'ORANGE', phone, amount:MONTANT, orderId, description:`Accès QCM Faso Concours`, senderCountry:'BFA', otp }),
         });
         const data = await res.json();
         if (data && data.success === true) {
-            showPaySuccess('Paiement accepté ! Reprise du QCM…');
-            paiementValide = true;
-            setTimeout(() => { fermerPaywall(); currentIndex = 0; renderCurrentQuestion(); }, 1600);
+            sessionsRestantes = 2; // 100F = 2 compositions
+            updateSessionsUI();
+            showPaySuccess('Paiement accepté ! Vous avez 2 compositions disponibles.');
+            setTimeout(() => {
+                fermerPaywall();
+                currentIndex = 1; // aller à la Q2
+                renderCurrentQuestion();
+            }, 1800);
         } else {
             showPayError(data?.error || data?.message || 'Paiement refusé. Vérifiez votre solde et le code OTP.');
-            btn.disabled = false; btn.innerHTML = '🔓 Payer 100 FCFA et continuer le QCM';
+            btn.disabled = false; btn.innerHTML = '🔓 Payer 100 FCFA → 2 compositions';
         }
     } catch (err) {
         const isNet = err.message && (err.message.includes('Failed to fetch') || err.message.includes('NetworkError'));
         showPayError(isNet ? 'Erreur réseau. Vérifiez votre connexion.' : 'Erreur : ' + err.message);
-        btn.disabled = false; btn.innerHTML = '🔓 Payer 100 FCFA et continuer le QCM';
+        btn.disabled = false; btn.innerHTML = '🔓 Payer 100 FCFA → 2 compositions';
     }
 }
 
 // ============================================================
-// QUESTIONS EOA/EOS — 5 SESSIONS × 60 QUESTIONS
+// QUESTIONS CULTURE GÉNÉRALE (60 questions)
 // ============================================================
+const rawQuestions_CG = [
+    {q:"Quelle est la date de suspension des exportations de bétail par le Burkina Faso ?", correct:"Le 8 mai 2026", distractors:["Le 15 avril 2026","Le 1er juin 2026","Le 25 mars 2026"]},
+    {q:"Quelle est la nouvelle appellation de Faso Mêbo ?", correct:"Agence Faso Mebo", distractors:["Office National Faso Mebo","Programme Faso Mebo","Direction Faso Mebo"]},
+    {q:"Quelle est la date du décès du ministre de la Défense malien, le général Sadio Camara ?", correct:"Le 25 avril 2026 à Kati", distractors:["Le 12 mars 2026 à Bamako","Le 1er mai 2026 à Kati","Le 8 février 2026 à Bamako"]},
+    {q:"Que signifie BCLCC ?", correct:"Brigade Centrale de Lutte Contre la Cybercriminalité", distractors:["Brigade Centrale de Lutte Contre la Corruption","Bureau Central de Liaison et de Communication Civile","Brigade de Contrôle et de Lutte Contre la Criminalité"]},
+    {q:"Quelle est la date de la Semaine Nationale de la Culture (SNC) 2026 ?", correct:"Du 25 avril au 02 mai", distractors:["Du 1er au 8 mars","Du 15 au 22 février","Du 10 au 17 mai"]},
+    {q:"Qui était le meilleur gardien de la CAN 2025 ?", correct:"Yassine Bounou (marocain)", distractors:["Edouard Mendy (sénégalais)","André Onana (camerounais)","Ronwen Williams (sud-africain)"]},
+    {q:"Le musée national du Burkina Faso a été créé le :", correct:"13 novembre 1963", distractors:["5 août 1960","11 décembre 1958","20 janvier 1970"]},
+    {q:"Dans quelle ville a été signée la charte de l'ONU ?", correct:"San Francisco", distractors:["New York","Genève","Washington"]},
+    {q:"Quel Marocain a été le premier buteur de la CAN 2025 ?", correct:"Brahim Diaz", distractors:["Achraf Hakimi","Youssef En-Nesyri","Hakim Ziyech"]},
+    {q:"Qui est l'actuel Directeur Général de l'Agence Nationale de Renseignement du Burkina Faso ?", correct:"Oumarou YABRE", distractors:["Mahamadou Sana","Célestin Simporé","Karamoko Jean Marie Traoré"]},
+    {q:"Qui a reçu le Prix Félix Houphouët-Boigny UNESCO pour la recherche de la paix en 2022 ?", correct:"Angela Merkel", distractors:["Emmanuel Macron","Olaf Scholz","Ursula von der Leyen"]},
+    {q:"Quel est le premier pays indépendant d'Afrique noire ?", correct:"Le Ghana", distractors:["Le Sénégal","La Côte d'Ivoire","Le Nigeria"]},
+    {q:"Qui a remporté le Kundé 2026 ?", correct:"Miss Tanya", distractors:["Floby","Smarty","Alif Naaba"]},
+    {q:"Comment s'appelle la nouvelle chaîne de télévision de la Confédération des Etats du Sahel (AES) ?", correct:"AES TV", distractors:["Sahel TV","Confédération TV","Télé Sahel"]},
+    {q:"Quand Mamadi Doumbouya a-t-il été investi président de la République de Guinée ?", correct:"17 janvier 2026", distractors:["5 décembre 2025","1er mars 2026","22 février 2026"]},
+    {q:"Quand a eu lieu la CAN Maroc 2025 ?", correct:"Du 21 décembre 2025 au 18 janvier 2026", distractors:["Du 10 janvier au 5 février 2026","Du 1er au 28 février 2026","Du 15 novembre au 15 décembre 2025"]},
+    {q:"Quand fut la dissolution des partis politiques au Burkina Faso ?", correct:"29 janvier 2026", distractors:["15 février 2026","8 mars 2026","1er janvier 2026"]},
+    {q:"Quel est le taux d'accroissement démographique de la population du Burkina Faso entre 2006 et 2019 ?", correct:"2,94%", distractors:["1,87%","3,50%","2,10%"]},
+    {q:"Quelle est la date du décès du président iranien Ebrahim Raïssi ?", correct:"19 mai 2024", distractors:["3 mars 2024","12 juillet 2024","30 octobre 2024"]},
+    {q:"Quelle province abrite le manganèse de Tambao ?", correct:"L'Oudalan", distractors:["Le Séno","Le Soum","Le Yagha"]},
+    {q:"Qui est le lauréat du Prix Renaudot 2020 ?", correct:"Marie-Hélène Lafon", distractors:["Annie Ernaux","Hervé Le Tellier","Maria Pourchet"]},
+    {q:"Quel est le plus long fleuve du Burkina Faso ?", correct:"Le Mouhoun", distractors:["Le Nakanbé","La Comoé","Le Sourou"]},
+    {q:"Quel est le plus petit pays du monde ?", correct:"Le Vatican", distractors:["Monaco","Saint-Marin","Le Liechtenstein"]},
+    {q:"Combien y a-t-il eu de prix spéciaux à la SNC 2024 ?", correct:"45", distractors:["30","52","38"]},
+    {q:"« La peur de la mort fait aimer le travail » est une citation de :", correct:"Jules Renard", distractors:["Victor Hugo","Voltaire","Albert Camus"]},
+    {q:"Qui est la première romancière burkinabè ?", correct:"Monique Ilboudo", distractors:["Sophie Heidi Kam","Angèle Bassolé","Adama Drabo"]},
+    {q:"À quelle date s'est déroulée l'exposition du Premier ministre Jean Emmanuel Ouédraogo sur la situation de la Nation ?", correct:"30 janvier 2026", distractors:["8 mars 2026","15 février 2026","1er avril 2026"]},
+    {q:"Quelle est la date de suspension des activités de la société de transport Aorema et Frères (STAF) ?", correct:"16 février 2026", distractors:["2 janvier 2026","10 mars 2026","25 avril 2026"]},
+    {q:"Quelle est la date de la visite de travail et d'amitié du président nigérien Abdourahamane Tiani en Algérie ?", correct:"15 février 2026", distractors:["10 mars 2025","29 janvier 2026","8 mai 2026"]},
+    {q:"Quel est le thème national du 8 mars 2026 ?", correct:"Bâtir une paix durable au Burkina Faso : quelle contribution des femmes et des filles à la promotion du vivre-ensemble", distractors:["Crise sécuritaire et humanitaire au Burkina Faso : stratégies pour l'entrepreneuriat agricole des femmes","La résilience des femmes face aux défis sécuritaires","L'autonomisation économique des femmes en milieu rural"]},
+    {q:"Qui est la première dramaturge burkinabè ?", correct:"Sophie Heidi Kam", distractors:["Monique Ilboudo","Angèle Bassolé","Hadja Fatimata Sanon"]},
+    {q:"Quelle est la plus ancienne ville du monde toujours habitée ?", correct:"Jéricho", distractors:["Damas","Athènes","Byblos"]},
+    {q:"Quelle est la date de la journée mondiale du donneur de sang ?", correct:"14 juin", distractors:["1er décembre","7 avril","12 août"]},
+    {q:"Le budget de l'État pour l'exercice 2024 est de :", correct:"3 694,6 milliards F CFA", distractors:["2 850 milliards F CFA","4 200 milliards F CFA","3 100 milliards F CFA"]},
+    {q:"Wikipédia a fêté ses 25 ans d'existence le :", correct:"15 janvier 2026", distractors:["01 janvier 2026","10 avril 2025","05 mai 2024"]},
+    {q:"Qui est le réalisateur du film « Duga, les charognards » ?", correct:"Abdoulaye Dao", distractors:["Gaston Kaboré","Idrissa Ouédraogo","Apolline Traoré"]},
+    {q:"Qui est le premier homme à aller sur la Lune ?", correct:"Neil Armstrong", distractors:["Buzz Aldrin","Youri Gagarine","John Glenn"]},
+    {q:"Qui est le premier homme à aller dans l'espace ?", correct:"Youri Gagarine", distractors:["Neil Armstrong","Buzz Aldrin","Alan Shepard"]},
+    {q:"Quel est le nom à l'état civil de Ladji Yoro ?", correct:"Soumaila Ganamé", distractors:["Amadou Traoré","Sékou Diabaté","Issa Coulibaly"]},
+    {q:"Le contrôle de la constitutionnalité des lois est assuré par :", correct:"Le Conseil constitutionnel", distractors:["Le Conseil d'Etat","La Cour de cassation","L'Assemblée nationale"]},
+    {q:"L'animal figurant sur le drapeau russe est une aigle :", correct:"bicéphale", distractors:["monocéphale","tricéphale","sans tête"]},
+    {q:"Quel est le pays le plus vaste d'Afrique ?", correct:"L'Algérie", distractors:["Le Soudan","La RDC","La Libye"]},
+    {q:"Quelle est la première femme africaine du Prix Nobel de littérature ?", correct:"Nadine Gordimer", distractors:["Wole Soyinka","Naguib Mahfouz","Doris Lessing"]},
+    {q:"Quel est l'animal le plus lourd du monde ?", correct:"La baleine bleue", distractors:["L'éléphant d'Afrique","Le rhinocéros blanc","Le cachalot"]},
+    {q:"Qui est le dessinateur du drapeau du Burkina Faso ?", correct:"Ferdinand DABIRE", distractors:["Thomas Sankara","Joseph Ki-Zerbo","Frédéric Guirma"]},
+    {q:"Quand furent créés les 26ème, 27ème et 28ème Bataillons d'Intervention Rapide (BIR) ?", correct:"2 janvier 2025", distractors:["12 mars 2024","30 juin 2025","8 février 2025"]},
+    {q:"Quelle est la date de la visite du président ghanéen John Dramani Mahama au Burkina Faso ?", correct:"10 mars 2025", distractors:["5 janvier 2026","20 avril 2025","15 décembre 2024"]},
+    {q:"Etienne Lantier est un personnage de quel roman ?", correct:"Germinal (Emile Zola)", distractors:["Les Misérables (Victor Hugo)","Le Père Goriot (Balzac)","Bel-Ami (Maupassant)"]},
+    {q:"Quelle est la date du déchiffrement des hiéroglyphes égyptiens ?", correct:"14 septembre 1822", distractors:["1799","4 juillet 1801","1830"]},
+    {q:"En quelle année le Maroc est-il passé sous protectorat français ?", correct:"1912", distractors:["1830","1956","1881"]},
+    {q:"Qui est le seizième président des États-Unis d'Amérique ?", correct:"Abraham Lincoln", distractors:["George Washington","Thomas Jefferson","Theodore Roosevelt"]},
+    {q:"De quand date la constitution des États-Unis d'Amérique (entrée en vigueur) ?", correct:"4 mars 1789", distractors:["4 juillet 1776","17 septembre 1787","1er janvier 1791"]},
+    {q:"Que signifie CDR ?", correct:"Comités de Défense de la Révolution", distractors:["Conseil de Défense Régional","Comité de Développement Rural","Centre de Documentation Révolutionnaire"]},
+    {q:"Quand survint l'incendie au dépôt SONABHY de Bingo ?", correct:"8 février 2025", distractors:["16 février 2026","2 janvier 2025","29 janvier 2026"]},
+    {q:"Quelle région du Burkina Faso compte le plus de carrières de calcaire dolomitique ?", correct:"Les Hauts Bassins", distractors:["Le Centre-Ouest","La Boucle du Mouhoun","Le Sud-Ouest"]},
+    {q:"Quel pays d'Afrique a été le plus touché par le coronavirus ?", correct:"L'Afrique du Sud", distractors:["L'Egypte","Le Nigeria","Le Maroc"]},
+    {q:"Parmi ces pays, lequel n'appartient pas à l'OTAN ?", correct:"L'Ukraine", distractors:["La France","La Turquie","L'Allemagne"]},
+    {q:"Quelle est la date du coup d'État qui a renversé Jean Baptiste Ouédraogo ?", correct:"Nuit du 4 au 5 août 1983", distractors:["3 janvier 1966","15 octobre 1987","7 novembre 1982"]},
+    {q:"Quelle est la date de création de la CAN ?", correct:"1957", distractors:["1963","1965","1970"]},
+    {q:"Quel est le premier pays producteur de coton en 2021-2022 ?", correct:"La Chine", distractors:["L'Inde","Les Etats-Unis","Le Brésil"]},
+    {q:"Quel est le nombre de Centres Régionaux de Promotion Agro-pastorale (CRPA) au Burkina Faso ?", correct:"12 CRPA", distractors:["13 CRPA","11 CRPA","10 CRPA"]}
+];
 
-// ----- CULTURE GENERALE (PDF QCM (1)) -----
+// ============================================================
+// QUESTIONS EOA/EOS — CULTURE GENERALE & LOI FAN
+// ============================================================
 const CULTURE_QUESTIONS = [
     {q:"Quelle est la date de suspension des exportations de bétail par le Burkina ?", opts:["Le 8 mai 2026","Le 15 avril 2026","Le 1er juin 2026","Le 25 mars 2026"], ans:0, exp:"Suspendu le 8 mai 2026."},
     {q:"Quelle est la nouvelle appellation de Faso Mêbo ?", opts:["Office National Faso Mebo","Programme Faso Mebo","Agence Faso Mebo","Direction Faso Mebo"], ans:2, exp:"Faso Mebo a été rebaptisé Agence Faso Mebo."},
@@ -572,7 +691,6 @@ const CULTURE_QUESTIONS = [
     {q:"Quel est le premier pays producteur de coton en 2021-2022 ?", opts:["L'Inde","La Chine","Les Etats-Unis","Le Brésil"], ans:1, exp:"La Chine."}
 ];
 
-// ----- LOI N°039-2024/ALT PORTANT STATUT GENERAL DES FAN (PDF loi) -----
 const LOI_QUESTIONS = [
     {q:"La loi n°039-2024/ALT portant statut général des personnels des Forces armées nationales a été adoptée le :", opts:["29 novembre 2024","14 octobre 2022","03 décembre 2024","25 mai 2024"], ans:0, exp:"Adoptée le 29 novembre 2024 par l'ALT."},
     {q:"Qui a signé le décret promulguant la loi n°039-2024/ALT portant statut général des FAN ?", opts:["Jean Emmanuel Ouédraogo","Capitaine Ibrahim Traoré","Célestin Simporé","Karamoko Jean Marie Traoré"], ans:1, exp:"Décret signé par le Capitaine Ibrahim Traoré le 03 décembre 2024."},
@@ -601,7 +719,7 @@ const LOI_QUESTIONS = [
     {q:"Selon l'article 20, quelle est la durée du service actif légal ?", opts:["6 mois","12 mois","18 mois","24 mois"], ans:1, exp:"12 mois."},
     {q:"Selon l'article 24, les sous-officiers subalternes sont :", opts:["Sergent et Sergent-chef","Adjudant et Adjudant-chef","Lieutenant et Capitaine","Commandant et Colonel"], ans:0, exp:"Sergent et Sergent-chef."},
     {q:"Selon l'article 24, les officiers supérieurs sont :", opts:["Commandant, Lieutenant-colonel, Colonel, Colonel-major","Capitaine, Commandant, Lieutenant-colonel","Sous-lieutenant, Lieutenant, Capitaine","Général de brigade, Général de division"], ans:0, exp:"Commandant, Lieutenant-colonel, Colonel, Colonel-major."},
-    {q:"Selon l'article 28, les limites d'âge sont fixées conformément à l'annexe 1. Pour le grade de Colonel, la limite d'âge est :", opts:["58 ans","59 ans","60 ans","61 ans"], ans:2, exp:"61 ans pour Colonel."},
+    {q:"Selon l'article 28, pour le grade de Colonel, la limite d'âge est :", opts:["58 ans","59 ans","60 ans","61 ans"], ans:2, exp:"61 ans pour Colonel."},
     {q:"Selon l'article 28, pour le grade de Capitaine, la limite d'âge est :", opts:["58 ans","59 ans","60 ans","61 ans"], ans:1, exp:"59 ans pour Capitaine."},
     {q:"Selon l'article 28, pour le grade de Sergent-chef, la limite d'âge est :", opts:["52 ans","53 ans","54 ans","55 ans"], ans:2, exp:"54 ans pour Sergent-chef."},
     {q:"Selon l'article 44, la promotion au grade de Caporal est prononcée par :", opts:["Décret du Président du Faso","Arrêté du ministre chargé des armées","Ordre du Commandant du groupement central des armées","Décision du Chef d'Etat-major général"], ans:2, exp:"Par ordre du Commandant du groupement central des armées."},
@@ -639,7 +757,7 @@ const LOI_QUESTIONS = [
 ];
 
 // ============================================================
-// SESSIONS EOA/EOS — 5 SESSIONS
+// SESSIONS EOA/EOS
 // ============================================================
 const EOA_SESSIONS = [
     { label:'Session 1', specName:'CG + Loi FAN (partie 1)' },
@@ -658,46 +776,19 @@ function shuffleArray(arr) {
 }
 
 function shuffleOptions(q) {
-    // Créer un tableau d'index [0,1,2,3] et le mélanger
     const idxArr = [0, 1, 2, 3];
     shuffleArray(idxArr);
-    // Construire les nouvelles options dans l'ordre mélangé
     const newOpts = idxArr.map(i => q.opts[i]);
-    // Trouver le nouvel index de la bonne réponse
     const newAns = newOpts.indexOf(q.opts[q.ans]);
-    return {
-        q: q.q,
-        opts: newOpts,
-        ans: newAns,
-        exp: q.exp,
-        tag: q.tag || 'cg'
-    };
+    return { q: q.q, opts: newOpts, ans: newAns, exp: q.exp, tag: q.tag || 'cg' };
 }
 
 function buildEOASession(sessionIdx) {
-    // 30 questions de culture générale (mélangées)
     const cgPool = shuffleArray(CULTURE_QUESTIONS.slice());
-    const cgSelected = cgPool.slice(0, 30).map(q => shuffleOptions({ 
-        q: q.q, 
-        opts: q.opts.slice(), 
-        ans: q.ans, 
-        exp: q.exp, 
-        tag: 'cg' 
-    }));
-    
-    // 30 questions sur la loi (mélangées)
+    const cgSelected = cgPool.slice(0, 30).map(q => shuffleOptions({ q:q.q, opts:q.opts.slice(), ans:q.ans, exp:q.exp, tag:'cg' }));
     const loiPool = shuffleArray(LOI_QUESTIONS.slice());
-    const loiSelected = loiPool.slice(0, 30).map(q => shuffleOptions({ 
-        q: q.q, 
-        opts: q.opts.slice(), 
-        ans: q.ans, 
-        exp: q.exp, 
-        tag: 'loi' 
-    }));
-    
-    // Mélanger le tout
-    const all = cgSelected.concat(loiSelected);
-    return shuffleArray(all);
+    const loiSelected = loiPool.slice(0, 30).map(q => shuffleOptions({ q:q.q, opts:q.opts.slice(), ans:q.ans, exp:q.exp, tag:'loi' }));
+    return shuffleArray(cgSelected.concat(loiSelected));
 }
 
 // ============================================================
@@ -705,21 +796,18 @@ function buildEOASession(sessionIdx) {
 // ============================================================
 let QUIZ = [], TOTAL_QS = 0, userAnswers = [], currentIndex = 0, quizSubmitted = false;
 let currentEOASessionIdx = 0;
+// Compteur interne pour savoir combien de fois on a "débloqué" une session dans la composition actuelle
+let compositionConsommee = false; // true dès qu'on est passé à la Q2 dans cette composition
 
 function buildEOASessionButtons() {
     const container = document.getElementById('eoaSessionButtons');
     container.innerHTML = '';
     EOA_SESSIONS.forEach((s, i) => {
         const btn = document.createElement('button');
-        btn.style.cssText = `
-            padding:6px 14px; border:2px solid ${i === currentEOASessionIdx ? '#eab308' : '#e2e8f0'};
-            border-radius:30px; background:${i === currentEOASessionIdx ? '#fefce8' : '#f8fafd'};
-            font-family:inherit; font-size:.75rem; font-weight:600; color:#1a2c3e;
-            cursor:pointer; transition:all .2s;
-        `;
+        btn.style.cssText = `padding:6px 14px;border:2px solid ${i===currentEOASessionIdx?'#eab308':'#e2e8f0'};border-radius:30px;background:${i===currentEOASessionIdx?'#fefce8':'#f8fafd'};font-family:inherit;font-size:.75rem;font-weight:600;color:#1a2c3e;cursor:pointer;transition:all .2s;`;
         btn.textContent = `${i+1}. ${s.label}`;
-        btn.onmouseover = () => { btn.style.transform = 'scale(1.04)'; };
-        btn.onmouseout  = () => { btn.style.transform = 'scale(1)'; };
+        btn.onmouseover = () => btn.style.transform='scale(1.04)';
+        btn.onmouseout  = () => btn.style.transform='scale(1)';
         btn.onclick = () => {
             if (countAnswered() > 0 && !quizSubmitted) {
                 if (!confirm(`Vous avez répondu à ${countAnswered()} questions. Changer de session réinitialisera le quiz. Continuer ?`)) return;
@@ -738,7 +826,7 @@ function startEOAQuiz(sessionIdx) {
     userAnswers = new Array(TOTAL_QS).fill(null);
     currentIndex = 0;
     quizSubmitted = false;
-    paiementValide = false;
+    compositionConsommee = false;
     document.getElementById('resultPanel').classList.remove('show');
     document.getElementById('corrigeDetails').style.display = 'none';
     document.getElementById('showCorrigeBtn').textContent = '📖 Afficher le corrigé';
@@ -747,13 +835,16 @@ function startEOAQuiz(sessionIdx) {
     document.getElementById('nextBtn').disabled = false;
     document.getElementById('finalSubmitBtn').disabled = false;
     document.getElementById('levelIndicatorArea').innerHTML =
-        `<div class="level-indicator" style="background:#fefce8;color:#854d0e;border:1.5px solid #eab30844;">
-            ⭐ ${session.label} — ${session.specName} — ${TOTAL_QS} questions
-            <span style="font-size:10px;margin-left:8px;color:#b45309;">📌 Éliminatoire < 18/60</span>
+        `<div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;">
+         <div class="level-indicator" style="background:#fefce8;color:#854d0e;border:1.5px solid #eab30844;">
+             ⭐ ${session.label} — ${session.specName} — ${TOTAL_QS} questions
+             <span style="font-size:10px;margin-left:8px;color:#b45309;">📌 Éliminatoire < 18/60</span>
+         </div>
+         ${sessionsRestantes>0?`<span class="sessions-remaining">🎟️ <span class="sr-count">${sessionsRestantes}</span> compo restante${sessionsRestantes>1?'s':''}</span>`:''}
          </div>`;
     document.querySelectorAll('#eoaSessionButtons button').forEach((btn, i) => {
-        btn.style.borderColor = i === sessionIdx ? '#eab308' : '#e2e8f0';
-        btn.style.background   = i === sessionIdx ? '#fefce8' : '#f8fafd';
+        btn.style.borderColor = i===sessionIdx ? '#eab308' : '#e2e8f0';
+        btn.style.background   = i===sessionIdx ? '#fefce8' : '#f8fafd';
     });
     renderCurrentQuestion();
 }
@@ -771,14 +862,18 @@ function typesetElement(el) {
 }
 
 function startQuizForLevel(niveau) {
-    document.getElementById('eoaSessionSelector').style.display = 'none';
-    const raw = niveau === 'BEPC' ? rawQuestions_BEPC : niveau === 'BAC' ? rawQuestions_BAC : rawQuestions_LICENCE;
+    let raw;
+    if (niveau === 'CG') raw = rawQuestions_CG;
+    else if (niveau === 'BEPC') raw = rawQuestions_BEPC;
+    else if (niveau === 'BAC') raw = rawQuestions_BAC;
+    else raw = rawQuestions_LICENCE;
+
     QUIZ = shuffleArray(buildShuffledQuestions(raw));
     TOTAL_QS = QUIZ.length;
     userAnswers = new Array(TOTAL_QS).fill(null);
     currentIndex = 0;
     quizSubmitted = false;
-    paiementValide = false;
+    compositionConsommee = false;
     document.getElementById('resultPanel').classList.remove('show');
     document.getElementById('corrigeDetails').style.display = 'none';
     document.getElementById('showCorrigeBtn').textContent = '📖 Afficher le corrigé';
@@ -788,7 +883,10 @@ function startQuizForLevel(niveau) {
     document.getElementById('finalSubmitBtn').disabled = false;
     const cfg = LEVEL_CONFIG[niveau];
     document.getElementById('levelIndicatorArea').innerHTML =
-        `<div class="level-indicator" style="background:${cfg.color}18;color:${cfg.color};border:1.5px solid ${cfg.color}44;">${cfg.emoji} QCM_${niveau} &nbsp;·&nbsp; ${cfg.totalLabel}</div>`;
+        `<div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;">
+         <div class="level-indicator" style="background:${cfg.color}18;color:${cfg.color};border:1.5px solid ${cfg.color}44;">${cfg.emoji} QCM_${niveau} &nbsp;·&nbsp; ${cfg.totalLabel}</div>
+         ${sessionsRestantes>0?`<span class="sessions-remaining">🎟️ <span class="sr-count">${sessionsRestantes}</span> compo restante${sessionsRestantes>1?'s':''}</span>`:''}
+         </div>`;
     renderCurrentQuestion();
 }
 
@@ -797,8 +895,13 @@ function initQuiz() {
     document.getElementById('nextBtn').addEventListener('click', goNext);
     document.getElementById('finalSubmitBtn').addEventListener('click', showFinalResult);
     document.getElementById('restartQuizBtn').addEventListener('click', () => {
-        if (niveauChoisi === 'EOA') startEOAQuiz(currentEOASessionIdx);
-        else startQuizForLevel(niveauChoisi);
+        if (sessionsRestantes > 0) {
+            compositionConsommee = false;
+            if (niveauChoisi === 'EOA') startEOAQuiz(currentEOASessionIdx);
+            else startQuizForLevel(niveauChoisi);
+        } else {
+            ouvrirPaywall();
+        }
     });
     document.getElementById('changeLevelBtn').addEventListener('click', ouvrirLevelSelector);
     document.getElementById('showCorrigeBtn').addEventListener('click', toggleCorrige);
@@ -817,6 +920,7 @@ function initQuiz() {
 }
 
 function countAnswered() { return userAnswers.filter(a => a !== null).length; }
+
 function updateProgress() {
     document.getElementById('liveScore').innerText = `✅ ${countAnswered()} / ${TOTAL_QS} répondues`;
     document.getElementById('qCounter').innerText  = `Question ${currentIndex + 1} / ${TOTAL_QS}`;
@@ -857,9 +961,37 @@ function goPrev() {
 
 function goNext() {
     if (quizSubmitted) return;
-    if (!paiementValide && currentIndex < TOTAL_QS - 1) {
-        ouvrirPaywall();
-        return;
+    // Si on essaie d'aller à la Q2 (passer la Q1 gratuite)
+    if (currentIndex === 0 && !compositionConsommee) {
+        // Vérifier si l'utilisateur a des sessions disponibles
+        if (sessionsRestantes <= 0) {
+            ouvrirPaywall();
+            return;
+        }
+        // Consommer une session
+        consommerUneSession();
+        compositionConsommee = true;
+        // Mettre à jour l'indicateur de sessions
+        updateSessionsUI();
+        // Regénérer l'indicateur du niveau pour mettre à jour le chip
+        if (niveauChoisi === 'EOA') {
+            const session = EOA_SESSIONS[currentEOASessionIdx];
+            document.getElementById('levelIndicatorArea').innerHTML =
+                `<div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;">
+                 <div class="level-indicator" style="background:#fefce8;color:#854d0e;border:1.5px solid #eab30844;">
+                     ⭐ ${session.label} — ${session.specName} — ${TOTAL_QS} questions
+                     <span style="font-size:10px;margin-left:8px;color:#b45309;">📌 Éliminatoire < 18/60</span>
+                 </div>
+                 ${sessionsRestantes>0?`<span class="sessions-remaining">🎟️ <span class="sr-count">${sessionsRestantes}</span> compo restante${sessionsRestantes>1?'s':''}</span>`:''}
+                 </div>`;
+        } else {
+            const cfg = LEVEL_CONFIG[niveauChoisi];
+            document.getElementById('levelIndicatorArea').innerHTML =
+                `<div style="display:flex;align-items:center;flex-wrap:wrap;gap:6px;">
+                 <div class="level-indicator" style="background:${cfg.color}18;color:${cfg.color};border:1.5px solid ${cfg.color}44;">${cfg.emoji} QCM_${niveauChoisi} &nbsp;·&nbsp; ${cfg.totalLabel}</div>
+                 ${sessionsRestantes>0?`<span class="sessions-remaining">🎟️ <span class="sr-count">${sessionsRestantes}</span> compo restante${sessionsRestantes>1?'s':''}</span>`:''}
+                 </div>`;
+        }
     }
     if (currentIndex < TOTAL_QS - 1) { currentIndex++; renderCurrentQuestion(); }
 }
@@ -886,7 +1018,7 @@ function buildCorrigeHTML() {
         const correct = opts[correctIdx] || '';
         const given   = userAnswers[i] !== null ? opts[userAnswers[i]] : 'Non répondue';
         const ok      = userAnswers[i] !== null && correctIdx === userAnswers[i];
-        const tag     = q.tag === 'cg' ? '🏛️ CG' : q.tag === 'loi' ? '📜 Loi FAN' : '📡';
+        const tag     = q.tag === 'cg' ? '🏛️ CG' : q.tag === 'loi' ? '📜 Loi FAN' : '📚';
         const qText   = q.q || q.question || '';
         html += `<div class="corrige-item">
                     <div><strong>${i+1}. ${qText}</strong> <span style="font-size:10px;color:#888;font-weight:600;">${tag}</span></div>
@@ -902,28 +1034,26 @@ function showFinalResult() {
     if (countAnswered() < TOTAL_QS) { alert(`Répondez à toutes les questions (${countAnswered()}/${TOTAL_QS})`); return; }
     const score = computeScore();
     const pct = Math.round(score / TOTAL_QS * 100);
-    const seuilReussi = score >= 18;
-    
+    const seuilReussi = niveauChoisi === 'EOA' ? score >= 18 : score >= Math.round(TOTAL_QS * 0.5);
+
     document.getElementById('finalScoreSpan').innerText = `${score} / ${TOTAL_QS} (${pct}%)`;
-    
+
     if (seuilReussi) {
         document.getElementById('feedbackMsg').innerHTML = `
-            <span style="color:#2b7a3e;font-size:1.2rem;">✅ ADMIS (${score}/60)</span><br>
-            ${pct >= 80 ? '🏅 Excellent ! Vous maîtrisez parfaitement le sujet !' : 
-              pct >= 60 ? '👍 Très bien ! Continuez à vous entraîner.' :
-              '📚 Bonne base. Revoyez les points faibles.'}
+            <span style="color:#2b7a3e;font-size:1.2rem;">✅ ${niveauChoisi==='EOA'?`ADMIS (${score}/60)`:'Réussi !'}</span><br>
+            ${pct>=80?'🏅 Excellent ! Vous maîtrisez parfaitement le sujet !':pct>=60?'👍 Très bien ! Continuez à vous entraîner.':'📚 Bonne base. Revoyez les points faibles.'}
         `;
         document.getElementById('resultPanel').style.borderLeftColor = '#2b7a3e';
         document.querySelector('.result-panel').style.background = '#eef6e9';
     } else {
         document.getElementById('feedbackMsg').innerHTML = `
-            <span style="color:#c0392b;font-size:1.2rem;">❌ ÉCHEC (${score}/60) — Seuil minimum : 18/60</span><br>
+            <span style="color:#c0392b;font-size:1.2rem;">❌ ${niveauChoisi==='EOA'?`ÉCHEC (${score}/60) — Seuil minimum : 18/60`:`Score insuffisant (${score}/${TOTAL_QS})`}</span><br>
             💪 Ne lâchez pas ! Entraînez-vous avec Faso Concours.
         `;
         document.getElementById('resultPanel').style.borderLeftColor = '#c0392b';
         document.querySelector('.result-panel').style.background = '#fef0f0';
     }
-    
+
     const cd = document.getElementById('corrigeDetails');
     cd.innerHTML = buildCorrigeHTML();
     document.getElementById('resultPanel').classList.add('show');
@@ -933,6 +1063,12 @@ function showFinalResult() {
     document.getElementById('nextBtn').disabled = true;
     document.getElementById('finalSubmitBtn').disabled = true;
     typesetElement(cd);
+
+    // Afficher le nombre de sessions restantes dans le panneau résultat
+    if (sessionsRestantes > 0) {
+        document.getElementById('feedbackMsg').innerHTML +=
+            `<br><span style="font-size:.85rem;color:#1c6e8f;font-weight:600;">🎟️ Il vous reste ${sessionsRestantes} composition${sessionsRestantes>1?'s':''} disponible${sessionsRestantes>1?'s':''}.</span>`;
+    }
 }
 
 function toggleCorrige() {
@@ -977,7 +1113,7 @@ async function telechargerPDF() {
         const given   = userAnswers[i] !== null ? latexToText(opts[userAnswers[i]] || '') : 'Non répondue';
         const ok      = userAnswers[i] !== null && correctIdx === userAnswers[i];
         const qText   = latexToText(q.q || q.question || '');
-        const tag     = q.tag === 'cg' ? '🏛️ CG' : q.tag === 'loi' ? '📜 Loi FAN' : '📡';
+        const tag     = q.tag === 'cg' ? '🏛️ CG' : q.tag === 'loi' ? '📜 Loi FAN' : '📚';
         let choicesHTML = '<div style="margin:4px 0 2px;display:flex;flex-wrap:wrap;gap:4px;">';
         opts.forEach((ans, idx) => {
             const isCorrect = idx === correctIdx, isChosen = idx === userAnswers[i];
@@ -995,17 +1131,18 @@ async function telechargerPDF() {
             <div style="margin-top:6px;font-size:11px;"><span style="color:#2b7a3e;font-weight:700;">📌 ${correct}</span>${!ok?`<span style="color:#c0392b;margin-left:10px;">Votre réponse : ${given}</span>`:''}</div>
         </div>`;
     });
-    const seuilReussi = score >= 18;
+    const seuilReussi = niveauChoisi === 'EOA' ? score >= 18 : score >= Math.round(TOTAL_QS * 0.5);
+    const niveauLabel = niveauChoisi === 'EOA' ? `EOA/EOS — ${EOA_SESSIONS[currentEOASessionIdx].label}` : `QCM_${niveauChoisi}`;
     wrap.innerHTML = `
         <div style="text-align:center;margin-bottom:24px;border-bottom:3px solid #1c6e8f;padding-bottom:16px;">
             <div style="font-size:22px;font-weight:900;color:#0b2b3b;">📋 Faso Concours</div>
-            <div style="font-size:14px;color:#4b6a7f;margin-top:4px;">Corrigé complet — ${niveauChoisi === 'EOA' ? `EOA/EOS — ${EOA_SESSIONS[currentEOASessionIdx].label}` : `QCM_${niveauChoisi}`} — Concours blanc 2026</div>
+            <div style="font-size:14px;color:#4b6a7f;margin-top:4px;">Corrigé complet — ${niveauLabel} — Concours blanc 2026</div>
             <div style="font-size:12px;color:#888;margin-top:2px;">Généré le ${dateStr}</div>
         </div>
-        <div style="text-align:center;background:${seuilReussi ? 'linear-gradient(135deg,#eef6e9,#d1fae5)' : 'linear-gradient(135deg,#fef0f0,#fce4e4)'};border-radius:12px;padding:16px;margin-bottom:24px;">
-            <div style="font-size:32px;font-weight:900;color:${seuilReussi ? '#1f5e3a' : '#c0392b'};">${score} / ${TOTAL_QS}</div>
-            <div style="font-size:14px;font-weight:600;color:${seuilReussi ? '#2b7a3e' : '#c0392b'};">${pct}% de réussite — ${seuilReussi ? '✅ ADMIS' : '❌ ÉCHEC (seuil < 18/60)'}</div>
-            <div style="font-size:13px;color:#4b6a7f;margin-top:4px;">${seuilReussi ? (pct>=80?'🏅 Excellent !':pct>=60?'👍 Très bien !':'📚 Bonne base !') : '💪 Continuez à vous entraîner avec Faso Concours !'}</div>
+        <div style="text-align:center;background:${seuilReussi?'linear-gradient(135deg,#eef6e9,#d1fae5)':'linear-gradient(135deg,#fef0f0,#fce4e4)'};border-radius:12px;padding:16px;margin-bottom:24px;">
+            <div style="font-size:32px;font-weight:900;color:${seuilReussi?'#1f5e3a':'#c0392b'};">${score} / ${TOTAL_QS}</div>
+            <div style="font-size:14px;font-weight:600;color:${seuilReussi?'#2b7a3e':'#c0392b'};">${pct}% de réussite — ${seuilReussi?'✅ Réussi':'❌ Insuffisant'}</div>
+            <div style="font-size:13px;color:#4b6a7f;margin-top:4px;">${seuilReussi?(pct>=80?'🏅 Excellent !':pct>=60?'👍 Très bien !':'📚 Bonne base !'):'💪 Continuez à vous entraîner avec Faso Concours !'}</div>
         </div>
         <div style="margin-bottom:16px;font-size:14px;font-weight:700;color:#0b2b3b;">Détail des réponses :</div>
         ${rows}
@@ -1035,7 +1172,7 @@ async function telechargerPDF() {
 }
 
 // ============================================================
-// RAW QUESTIONS POUR BEPC, BAC, LICENCE
+// BANK DE QUESTIONS — BEPC, BAC, LICENCE
 // ============================================================
 const rawQuestions_BEPC = [
     {q:"Calculer : 12 + 8 × 3 - 4", correct:"32", distractors:["56","28","40"]},
@@ -1065,16 +1202,16 @@ const rawQuestions_BEPC = [
 ];
 
 const rawQuestions_BAC = rawQuestions_BEPC.slice(0,20).concat([
-    {q:"Quel est le résultat de lim_{x→0} sin(3x)/x ?", correct:"3", distractors:["1","0","1/3"]},
-    {q:"Calculer : ∫₀² (x²+1) dx", correct:"14/3", distractors:["8/3","10/3","4"]},
-    {q:"La dérivée de f(x)=e^(x²) est :", correct:"2x e^(x²)", distractors:["e^(x²)","x² e^(x²-1)","2 e^(x²)"]},
-    {q:"Résoudre : e^(2x-1)=e^5", correct:"x=3", distractors:["x=2","x=5","x=4"]},
-    {q:"lim_{x→+∞} (5x³-2x)/(x³+7) =", correct:"5", distractors:["0","+∞","-2"]},
-    {q:"Calculer : ∫ cos(2x) dx", correct:"sin(2x)/2 + C", distractors:["-sin(2x)/2 + C","sin(2x)+C","-cos(2x)/2 + C"]},
-    {q:"La dérivée de f(x)=ln(x²+4x) est :", correct:"(2x+4)/(x²+4x)", distractors:["1/(x²+4x)","2x/(x²+4x)","(x+4)/(x²+4x)"]},
-    {q:"Résoudre dans R : ln(3x+1)=ln(x+5)", correct:"x=2", distractors:["x=3","x=1","x=4"]},
-    {q:"lim_{x→0} (e^x-1-x)/x² =", correct:"1/2", distractors:["0","1","2"]},
-    {q:"Un objet de 3 kg glisse sans frottement depuis h=5m. Sa vitesse en bas est :", correct:"5√2 m/s", distractors:["10 m/s","√50 m/s","50 m/s"]}
+    {q:"Quel est le résultat de \\(\\lim_{x \\to 0} \\dfrac{\\sin(3x)}{x}\\) ?", correct:"3", distractors:["1","0","1/3"]},
+    {q:"Calculer : \\(\\int_0^2 (x^2+1)\\, dx\\)", correct:"14/3", distractors:["8/3","10/3","4"]},
+    {q:"La dérivée de \\(f(x)=e^{x^2}\\) est :", correct:"\\(2x e^{x^2}\\)", distractors:["\\(e^{x^2}\\)","\\(x^2 e^{x^2-1}\\)","\\(2 e^{x^2}\\)"]},
+    {q:"Résoudre : \\(e^{2x-1}=e^5\\)", correct:"x=3", distractors:["x=2","x=5","x=4"]},
+    {q:"\\(\\lim_{x \\to +\\infty} \\dfrac{5x^3-2x}{x^3+7} =\\)", correct:"5", distractors:["0","+∞","-2"]},
+    {q:"Calculer : \\(\\int \\cos(2x)\\, dx\\)", correct:"\\(\\dfrac{\\sin(2x)}{2} + C\\)", distractors:["\\(-\\dfrac{\\sin(2x)}{2} + C\\)","\\(\\sin(2x)+C\\)","\\(-\\dfrac{\\cos(2x)}{2} + C\\)"]},
+    {q:"La dérivée de \\(f(x)=\\ln(x^2+4x)\\) est :", correct:"\\(\\dfrac{2x+4}{x^2+4x}\\)", distractors:["\\(\\dfrac{1}{x^2+4x}\\)","\\(\\dfrac{2x}{x^2+4x}\\)","\\(\\dfrac{x+4}{x^2+4x}\\)"]},
+    {q:"Résoudre dans \\(\\mathbb{R}\\) : \\(\\ln(3x+1)=\\ln(x+5)\\)", correct:"x=2", distractors:["x=3","x=1","x=4"]},
+    {q:"\\(\\lim_{x \\to 0} \\dfrac{e^x-1-x}{x^2} =\\)", correct:"1/2", distractors:["0","1","2"]},
+    {q:"Un objet de 3 kg glisse sans frottement depuis h=5m. Sa vitesse en bas est :", correct:"\\(5\\sqrt{2}\\) m/s", distractors:["10 m/s","\\(\\sqrt{50}\\) m/s","50 m/s"]}
 ]);
 
 const rawQuestions_LICENCE = rawQuestions_BAC.slice(0,15).concat([
